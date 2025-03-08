@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>标签: NFS | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="凡凡小站">
+<meta property="og:url" content="https://meimolihan.github.io/hexo/tags/NFS/index.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://file.meimolihan.eu.org/mobufan/mobufan-007.gif">
+<meta property="article:author" content="墨不凡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://file.meimolihan.eu.org/mobufan/mobufan-007.gif"><link rel="shortcut icon" href="/hexo/img/favicon.png"><link rel="canonical" href="https://meimolihan.github.io/hexo/tags/NFS/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/hexo/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/hexo/',
+  algolia: undefined,
+  localSearch: {"path":"/hexo/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '标签: NFS',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'tag'
+}</script><link rel="stylesheet" href="/css/custom.css"><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>  const home = 'https://music.meimolihan.eu.org/';
+  const songs = [
+      '执子之手-宝石Gem', 
+      '这些年在忙什么-田园', 
+      '平凡日子里的挣扎-小璐', 
+      '无爱情歌-王娜', 
+      '人间疾苦-马健涛', 
+      '大风吹倒梧桐树-侯泽润、田园', 
+      '跳楼机-en', 
+      '一路生花-温奕心', 
+      '碎银几两-轩东', 
+      '此生无憾-金钰儿', 
+      '搀扶-马健涛', 
+      '敬往事一杯-侯泽润', 
+      '人间一路-青木时光', 
+      '别怕我伤心-张信哲', 
+      '大东北我的家乡-何玉', 
+      '陪我过个冬-燃', 
+      '我期待的不是雪-张妙格', 
+      '苦命的人-刘阳阳', 
+      '爱情恰恰-十二大美女', 
+      '不要慌，太阳下山有月光-张含韵', 
+      '往事只能回味-周虹', 
+      '花妖-刀郎', 
+      '一身傲骨不低头-侯泽润', 
+      '罗刹海市-刀郎', 
+      '怀念战友-刀郎', 
+      '西海情歌-刀郎', 
+      '我的春风何时来-李贺', 
+      '爱我还是他-刘大拿', 
+      '爱你十分泪七分-裘海正',
+      '大不了-花姐',
+      '白鸽乌鸦相爱的戏码-艾辰',
+      '爱意藏风里-何雨溪',
+      '忠孝东路走九遍-动力火车',
+      '这一路风太大-原来是夏夏',
+      '天高任鸟飞-侯泽润',
+      '月光凉.落满窗-泡芙芙Scarlett',
+      '败-侯泽润',
+      '一万个理由-郑源', 
+      '一亿个伤心-蒙面哥', 
+      '一无所有的年纪-侯泽润', 
+      '万有引力-汪苏泷', 
+      '人间半途-刘阳阳', 
+      '人间烟火-程响', 
+      '伤心剖半-邓典', 
+      '伤心太平洋-任贤齐', 
+      '你别慌余生还长-任夏', 
+      '假如我不再善良-郑畅业', 
+      '冲动的惩罚-刀郎', 
+      '凡夫俗子-范茹', 
+      '别说我的眼泪你无所谓-东来东往', 
+      '可能-程响', 
+      '听-张杰', 
+      '喀什噶尔胡杨-刀郎', 
+      '因为爱所以爱-谢霆锋', 
+      '土坡上的狗尾草-卢润泽', 
+      '多想做个哑巴-侯泽润', 
+      '失恋阵线联盟-草蜢', 
+      '妈妈我想回家-曾抖抖', 
+      '小模样-张冬玲', 
+      '年少的你啊-浩然H.R', 
+      '归途的光-诺爷Plus', 
+      '心态才是你风水-艺凌', 
+      '我也不想活得太累-郑畅业', 
+      '我真怕自己哪天倒下-张良', 
+      '手心里的温柔-刀郎', 
+      '换个方向风景会更好看-杨一琪', 
+      '放手也是一种成全-郑畅业', 
+      '星星点灯-大波浪', 
+      '星河万里-Rom邢锐', 
+      '有点甜-汪苏泷.BY2', 
+      '望故乡-刘阳阳', 
+      '海边探戈-王鹤棣', 
+      '火力全开-王力宏', 
+      '生活没有说明书-洛什么洛', 
+      '破碎的梦-陈柏曦', 
+      '秋风经过-任夏', 
+      '第51次原谅-刘艺雯', 
+      '老人与海-汪苏泷.王心凌', 
+      '胡广生-任素汐', 
+      '苹果香-狼戈', 
+      '西楼儿女-岳云鹏', 
+      '谁明浪子心-王杰', 
+      '路灯下点烟时没有打火机-王永清', 
+      '过了河就拆桥-成学迅', 
+      '野狼disco-宝石Gem', 
+      '除了生死都是擦伤-侯泽润', 
+  ];
+  let audios = [];
+  // 遍历歌曲列表
+  songs.forEach((item) => {
+      const songInfo = item.split('-');
+      audios.push({
+          name: songInfo[0],
+          artist: songInfo[1],
+          url: home + item + '/song.mp3',
+          cover: home + item + '/cover.jpg',
+          lrc: home + item + '/lyric.lrc'
+      });
+  });
+
+  const ap = new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      lrcType: 3,
+      audio: audios
+  });
+ap.init();</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://file.meimolihan.eu.org/mobufan/mobufan-007.gif" onerror="this.onerror=null;this.src='/hexo/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/hexo/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/hexo/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/hexo/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/hexo/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/hexo/"><span class="site-name">凡凡小站</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/hexo/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/hexo/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">NFS</h1></div></header><main class="layout" id="content-inner"><div id="tag"><div class="article-sort-title">标签 - NFS</div><div class="article-sort"><div class="article-sort-item year">2025</div><div class="article-sort-item"><a class="article-sort-item-img" href="/hexo/2025/01/29/CentOS%E9%85%8D%E7%BD%AENFS%E6%9C%8D%E5%8A%A1/index/" title="CentOS 配置 NFS 服务"><img src="https://file.meimolihan.eu.org/img/centos-03.jpg" alt="CentOS 配置 NFS 服务" onerror="this.onerror=null;this.src='/hexo/img/404.jpg'"></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-01-29T01:42:36.000Z" title="发表于 2025-01-29 09:42:36">2025-01-29</time></div><a class="article-sort-item-title" href="/hexo/2025/01/29/CentOS%E9%85%8D%E7%BD%AENFS%E6%9C%8D%E5%8A%A1/index/" title="CentOS 配置 NFS 服务">CentOS 配置 NFS 服务</a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://file.meimolihan.eu.org/mobufan/mobufan-007.gif" onerror="this.onerror=null;this.src='/hexo/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">墨不凡</div><div class="author-info-description"></div><div class="site-data"><a href="/hexo/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/hexo/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/hexo/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/meimolihan"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到，凡凡小站</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/hexo/2025/02/05/%E4%B8%8B%E8%BD%BD%E7%A5%9E%E5%99%A8IDM/index/" title="下载神器IDM"><img src="https://file.meimolihan.eu.org/img/idm-01.jpg" onerror="this.onerror=null;this.src='/hexo/img/404.jpg'" alt="下载神器IDM"/></a><div class="content"><a class="title" href="/hexo/2025/02/05/%E4%B8%8B%E8%BD%BD%E7%A5%9E%E5%99%A8IDM/index/" title="下载神器IDM">下载神器IDM</a><time datetime="2025-02-05T05:04:13.000Z" title="发表于 2025-02-05 13:04:13">2025-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/hexo/2025/01/29/Alpine%E9%85%8D%E7%BD%AENFS%E6%9C%8D%E5%8A%A1/index/" title="Alpine 配置 NFS 服务"><img src="https://file.meimolihan.eu.org/img/alpine-02.jpg" onerror="this.onerror=null;this.src='/hexo/img/404.jpg'" alt="Alpine 配置 NFS 服务"/></a><div class="content"><a class="title" href="/hexo/2025/01/29/Alpine%E9%85%8D%E7%BD%AENFS%E6%9C%8D%E5%8A%A1/index/" title="Alpine 配置 NFS 服务">Alpine 配置 NFS 服务</a><time datetime="2025-01-29T01:50:47.000Z" title="发表于 2025-01-29 09:50:47">2025-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/hexo/2025/01/29/CentOS%E9%85%8D%E7%BD%AENFS%E6%9C%8D%E5%8A%A1/index/" title="CentOS 配置 NFS 服务"><img src="https://file.meimolihan.eu.org/img/centos-03.jpg" onerror="this.onerror=null;this.src='/hexo/img/404.jpg'" alt="CentOS 配置 NFS 服务"/></a><div class="content"><a class="title" href="/hexo/2025/01/29/CentOS%E9%85%8D%E7%BD%AENFS%E6%9C%8D%E5%8A%A1/index/" title="CentOS 配置 NFS 服务">CentOS 配置 NFS 服务</a><time datetime="2025-01-29T01:42:36.000Z" title="发表于 2025-01-29 09:42:36">2025-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/hexo/2025/01/29/Alpine%E9%85%8D%E7%BD%AEsamba%E6%9C%8D%E5%8A%A1/index/" title="Alpine 配置 samba 服务"><img src="https://file.meimolihan.eu.org/img/samba-02.jpg" onerror="this.onerror=null;this.src='/hexo/img/404.jpg'" alt="Alpine 配置 samba 服务"/></a><div class="content"><a class="title" href="/hexo/2025/01/29/Alpine%E9%85%8D%E7%BD%AEsamba%E6%9C%8D%E5%8A%A1/index/" title="Alpine 配置 samba 服务">Alpine 配置 samba 服务</a><time datetime="2025-01-28T22:17:51.000Z" title="发表于 2025-01-29 06:17:51">2025-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/hexo/2025/01/29/CentOS%E9%85%8D%E7%BD%AEsamba%E6%9C%8D%E5%8A%A1/index/" title="CentOS 配置 samba 服务"><img src="https://file.meimolihan.eu.org/img/samba-02.jpg" onerror="this.onerror=null;this.src='/hexo/img/404.jpg'" alt="CentOS 配置 samba 服务"/></a><div class="content"><a class="title" href="/hexo/2025/01/29/CentOS%E9%85%8D%E7%BD%AEsamba%E6%9C%8D%E5%8A%A1/index/" title="CentOS 配置 samba 服务">CentOS 配置 samba 服务</a><time datetime="2025-01-28T22:09:16.000Z" title="发表于 2025-01-29 06:09:16">2025-01-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/hexo/categories/docker/"><span class="card-category-list-name">docker</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/hexo/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/hexo/categories/windows/"><span class="card-category-list-name">windows</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/hexo/tags/chrome/" style="font-size: 1.1em; color: #999">chrome</a> <a href="/hexo/tags/samba/" style="font-size: 1.3em; color: #99a1ac">samba</a> <a href="/hexo/tags/ssh/" style="font-size: 1.3em; color: #99a1ac">ssh</a> <a href="/hexo/tags/Alpine/" style="font-size: 1.3em; color: #99a1ac">Alpine</a> <a href="/hexo/tags/caddy/" style="font-size: 1.5em; color: #99a9bf">caddy</a> <a href="/hexo/tags/alpine/" style="font-size: 1.1em; color: #999">alpine</a> <a href="/hexo/tags/nfs/" style="font-size: 1.1em; color: #999">nfs</a> <a href="/hexo/tags/centos/" style="font-size: 1.1em; color: #999">centos</a> <a href="/hexo/tags/Centos/" style="font-size: 1.3em; color: #99a1ac">Centos</a> <a href="/hexo/tags/NFS/" style="font-size: 1.1em; color: #999">NFS</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/hexo/archives/2025/02/">
+            <span class="card-archive-list-date">
+              二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/hexo/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">10</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">11</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-03-08T17:50:33.434Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/hexo/js/utils.js"></script><script src="/hexo/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/hexo/404.html') : window.location.href = '/hexo/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/hexo/js/search/local-search.js"></script></div></div></body></html>
