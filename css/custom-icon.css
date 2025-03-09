@@ -1,0 +1,53 @@
+/* H1 标题图标 */
+#article-container h1:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f06c"; /* H1 图标代号 */
+  margin-right: 5px; /* 图标与标题之间的间距 */
+  font-weight: 900; /* 确保图标显示清晰 */
+  color: #FF5733; /* 橙色 */
+}
+
+/* H2 标题图标 */
+#article-container h2:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f06d"; /* H2 图标代号 */
+  margin-right: 5px;
+  font-weight: 900;
+  color: #33FF57; /* 绿色 */
+}
+
+/* H3 标题图标 */
+#article-container h3:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f18c"; /* H3 图标代号 */
+  margin-right: 5px;
+  font-weight: 900;
+  color: #5733FF; /* 蓝色 */
+}
+
+/* H4 标题图标 */
+#article-container h4:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f070"; /* H4 图标代号 */
+  margin-right: 5px;
+  font-weight: 900;
+  color: #FF33E2; /* 粉色 */
+}
+
+/* H5 标题图标 */
+#article-container h5:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f071"; /* H5 图标代号 */
+  margin-right: 5px;
+  font-weight: 900;
+  color: #FFFF33; /* 黄色 */
+}
+
+/* H6 标题图标 */
+#article-container h6:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f072"; /* H6 图标代号 */
+  margin-right: 5px;
+  font-weight: 900;
+  color: #33FFFF; /* 青色 */
+} 
