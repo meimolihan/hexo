@@ -49,6 +49,7 @@
 .aplayer .aplayer-list ol li.aplayer-list-light{
     background: #ffdffa!important;
 }
+
 /*aplayer黑暗模式*/
 [data-theme=dark]
 .aplayer{
@@ -86,3 +87,4 @@
 .aplayer .aplayer-list ol li .aplayer-list-author{
     color: #d4d4d4;
 }
+
