@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Hexo 博客插入图片与视频的方法</title>
+      <link href="/2025/03/09/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+      <url>/2025/03/09/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Hexo-博客插入图片与视频的方法"><a href="#Hexo-博客插入图片与视频的方法" class="headerlink" title="Hexo 博客插入图片与视频的方法"></a>Hexo 博客插入图片与视频的方法</h1><h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>在博客中插入视频和图片能让人通俗易懂，生动形象。</p><h1 id="图片插入"><a href="#图片插入" class="headerlink" title="图片插入"></a>图片插入</h1><p>Hexo 有多种图片插入方式，可以将图片存放在本地引用或者将图片放在 CDN 上引用。</p><h2 id="本地引用–绝对路径"><a href="#本地引用–绝对路径" class="headerlink" title="本地引用–绝对路径"></a>本地引用–绝对路径</h2><p>当 Hexo 项目中只用到少量图片时，可以将图片统一放在 source&#x2F;images 文件夹中，通过 markdown 语法访问它们。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">markdown</span><br><span class="line">source/images/image.jpg</span><br><span class="line"></span><br><span class="line">![(可以写关于图片的描述)](/images/image.jpg)</span><br></pre></td></tr></table></figure><p>图片既可以在首页内容中访问到，也可以在文章正文中访问到。</p><h2 id="本地引用–相对路径"><a href="#本地引用–相对路径" class="headerlink" title="本地引用–相对路径"></a>本地引用–相对路径</h2><p>图片除了可以放在统一的 images 文件夹中，还可以放在文章自己的目录中。文章的目录可以通过配置_config.yml 来生成。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yaml</span><br><span class="line"># _config.yml</span><br><span class="line"></span><br><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure><p>将<code>_config.yml</code> 文件中的配置项 post_asset_folder 设为 true 后，执行命令 <code>hexo new post_name</code>，在 source&#x2F;_posts 中会生成文章 <code>post_name.md</code> 和同名文件夹 <code>post_name</code>。将图片资源放在 <code>post_name</code> 中，文章就可以使用相对路径引用图片资源了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">markdown</span><br><span class="line">_posts/post_name/image.jpg</span><br><span class="line"></span><br><span class="line">![](image.jpg)</span><br></pre></td></tr></table></figure><p>上述是 markdown 的引用方式，图片只能在文章中显示，但无法在首页中正常显示。</p><p>如果希望图片在文章和首页中同时显示，可以使用标签插件语法。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">markdown</span><br><span class="line">_posts/post_name/image.jpg</span><br><span class="line"></span><br><span class="line">&#123;% asset_img image.jpg This is an image %&#125;</span><br></pre></td></tr></table></figure><h1 id="CDN-引用"><a href="#CDN-引用" class="headerlink" title="CDN 引用"></a>CDN 引用</h1><p>除了在本地存储图片，还可以将图片上传到一些免费的 CDN 服务中。</p><h1 id="视频插入"><a href="#视频插入" class="headerlink" title="视频插入"></a>视频插入</h1><p>插入视频与图片不同，这里以 B 站的视频为例</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line">&lt;iframe src=&quot;（视频网址）&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot; width=&quot;100%&quot;  height=&quot;580&quot; quality=&quot;high&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure><p>这样直接插入的代码手机端不能自适应，效果不完美。最好采用下面的方法：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line">&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;</span><br><span class="line">  &lt;iframe src=&quot;//player.bilibili.com/player.html?aid=xxx&amp;cid=yyy&amp;page=1&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot; style=&quot;position: absolute; width: 100%; height: 100%; left: 0; top: 0;&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 默认分类 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>VSCode 编辑 Markdown 文件常用快捷键</title>
       <link href="/2025/03/07/VSCode%20%E7%BC%96%E8%BE%91%20Markdown%20%E6%96%87%E4%BB%B6%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/index/"/>
       <url>/2025/03/07/VSCode%20%E7%BC%96%E8%BE%91%20Markdown%20%E6%96%87%E4%BB%B6%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/index/</url>
