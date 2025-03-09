@@ -1,0 +1,9 @@
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+  /* 默认‮况情‬下缩进左侧66px，只留一点箭‮部头‬分 */
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0 !important;
+  /* 鼠标悬停‮左是‬侧缩进归零，完全显示按钮 */
+}
