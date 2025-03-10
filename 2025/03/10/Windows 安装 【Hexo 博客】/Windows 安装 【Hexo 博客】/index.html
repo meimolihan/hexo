@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Windows 安装 【Hexo 博客】 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Windows 安装 Hexo一 、下载安装基础运行程序安装 Git：【Git下载地址】安装 Node.js：【Node.js下载地址】 1 、全局‮换切‬淘宝镜像命令：1npm config set registry http:&#x2F;&#x2F;registry.npm.taobao.org&#x2F;   查看镜像‮本版‬命令：  1npm get registry   切回官方镜像 一：  1npm config">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows 安装 【Hexo 博客】">
+<meta property="og:url" content="https://www.meimolihan.eu.org/2025/03/10/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/index.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Windows 安装 Hexo一 、下载安装基础运行程序安装 Git：【Git下载地址】安装 Node.js：【Node.js下载地址】 1 、全局‮换切‬淘宝镜像命令：1npm config set registry http:&#x2F;&#x2F;registry.npm.taobao.org&#x2F;   查看镜像‮本版‬命令：  1npm get registry   切回官方镜像 一：  1npm config">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?4601">
+<meta property="article:published_time" content="2025-03-09T21:37:51.000Z">
+<meta property="article:modified_time" content="2025-03-10T08:21:06.397Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?4601"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Windows 安装 【Hexo 博客】",
+  "url": "https://www.meimolihan.eu.org/2025/03/10/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/",
+  "image": "https://api.mobufan.eu.org:666/pc?4601",
+  "datePublished": "2025-03-09T21:37:51.000Z",
+  "dateModified": "2025-03-10T08:21:06.397Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://www.meimolihan.eu.org/2025/03/10/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Windows 安装 【Hexo 博客】',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-aplayer.css"><link rel="stylesheet" href="/css/aplayer-fixed.css"><link rel="stylesheet" href="/css/code-unfold.css"><link rel="stylesheet" href="/css/beautify.css"><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/hatsune-02.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">118</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">41</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?4601);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Windows 安装 【Hexo 博客】</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Windows 安装 【Hexo 博客】</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-09T21:37:51.000Z" title="发表于 2025-03-10 05:37:51">2025-03-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-10T08:21:06.397Z" title="更新于 2025-03-10 16:21:06">2025-03-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/windows/">windows</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">475</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-03-10 16:21:06&quot;}" hidden></div><h1 id="Windows-安装-Hexo"><a href="#Windows-安装-Hexo" class="headerlink" title="Windows 安装 Hexo"></a>Windows 安装 Hexo</h1><h2 id="一-、下载安装基础运行程序"><a href="#一-、下载安装基础运行程序" class="headerlink" title="一 、下载安装基础运行程序"></a>一 、下载安装基础运行程序</h2><p>安装 Git：【<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Git下载地址</a>】<br>安装 Node.js：【<a target="_blank" rel="noopener" href="https://git-scm.com/">Node.js下载地址</a>】</p>
+<h3 id="1-、全局‮换切‬淘宝镜像命令："><a href="#1-、全局‮换切‬淘宝镜像命令：" class="headerlink" title="1 、全局‮换切‬淘宝镜像命令："></a>1 、全局‮换切‬淘宝镜像命令：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看镜像‮本版‬命令：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm get registry</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>切回官方镜像 一：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://www.npmjs.org</span><br></pre></td></tr></table></figure>
+<ul>
+<li>切回官方镜像 二：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmmirror.com/</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-、安装-Hexo"><a href="#二-、安装-Hexo" class="headerlink" title="二 、安装 Hexo"></a>二 、安装 Hexo</h2><h3 id="1-、全局安装-Hexo"><a href="#1-、全局安装-Hexo" class="headerlink" title="1 、全局安装 Hexo"></a>1 、全局安装 Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>或局部安装</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-、hexo-升级"><a href="#2-、hexo-升级" class="headerlink" title="2 、hexo 升级"></a>2 、hexo 升级</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update hexo -g</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-、hexo-命令"><a href="#二-、hexo-命令" class="headerlink" title="二 、hexo 命令"></a>二 、hexo 命令</h2><h3 id="1-、初始化网站"><a href="#1-、初始化网站" class="headerlink" title="1 、初始化网站"></a>1 、初始化网站</h3><p>初始化博客根文件夹 [blog]（将生成一个名为 “blog” 的文件夹作为工作目录并初始化生成 hexo 博客文件）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装所有指定的依赖包"><a href="#安装所有指定的依赖包" class="headerlink" title="安装所有指定的依赖包"></a>安装所有指定的依赖包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> .\blog\ &amp; npm install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>npm 会根据项目的 package.json 文件内容，安装所有指定的依赖包。</li>
+</ul>
+<h3 id="2-、hexo-常用命令"><a href="#2-、hexo-常用命令" class="headerlink" title="2 、hexo 常用命令"></a>2 、hexo 常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hexo clean <span class="comment"># 清除生成的缓存</span></span><br><span class="line">hexo g     <span class="comment"># 生成html</span></span><br><span class="line">hexo d     <span class="comment"># 部署到远程</span></span><br><span class="line">hexo s     <span class="comment"># 本地运行，地址：http://localhost:4000/</span></span><br><span class="line">hexo g -d  <span class="comment"># 生成并部署‮远到‬程</span></span><br><span class="line">hexo server -p 5000 <span class="comment">#更改端口</span></span><br><span class="line">hexo server -i 192.168.1.1 <span class="comment">#自定义 IP</span></span><br><span class="line">hexo clean <span class="comment">#清除缓存，若是网页正‮情常‬况下可以忽‮这略‬条命令</span></span><br><span class="line">hexo server <span class="comment">#Hexo会监‮文视‬件变动‮自并‬动更新，无‮重须‬启服务器</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-、发布文章"><a href="#3-、发布文章" class="headerlink" title="3 、发布文章"></a>3 、发布文章</h3><h4 id="3-1-、文章模板"><a href="#3-1-、文章模板" class="headerlink" title="3.1 、文章模板"></a>3.1 、文章模板</h4><p>在<code>\scaffolds\post.md</code>文件中，可以修改文章的默认模板，比如：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">description: &#123;&#123; description &#125;&#125; # 文章的摘要内容</span><br><span class="line">top<span class="emphasis">_img: &#123;&#123; top_</span>img &#125;&#125;</span><br><span class="line">sticky: &#123;&#123; sticky &#125;&#125; # 文章置顶，数值越大越靠前</span><br><span class="line">categories: &#123;&#123; categories &#125;&#125;</span><br><span class="line"><span class="bullet">  -</span> 默认分类</span><br><span class="line">tags: &#123;&#123; tags &#125;&#125;</span><br><span class="line"><span class="bullet">  -</span> 标签</span><br><span class="line"><span class="section">cover: &#123;&#123; cover &#125;&#125; # 文章封面</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-、发布博客"><a href="#3-2-、发布博客" class="headerlink" title="3.2 、发布博客"></a>3.2 、发布博客</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post <span class="string">&quot;新‮博建‬客的文章名&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-、测试网站"><a href="#4-、测试网站" class="headerlink" title="4 、测试网站"></a>4 、测试网站</h3><ul>
+<li>本地测试</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean; hexo g; hexo s</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上传 GitHub</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean; hexo g; hexo d</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.meimolihan.eu.org">墨不凡</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.meimolihan.eu.org/2025/03/10/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/">https://www.meimolihan.eu.org/2025/03/10/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/Windows%20%E5%AE%89%E8%A3%85%20%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.meimolihan.eu.org" target="_blank">凡凡小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/blog/">blog</a><a class="post-meta__tags" href="/tags/hexo/">hexo</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?4601" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/09/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/" title="Hexo 博客插入图片与视频的方法"><img class="cover" src="https://api.mobufan.eu.org:666/pc?231" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Hexo 博客插入图片与视频的方法</div></div><div class="info-2"><div class="info-item-1">Hexo 博客插入图片与视频的方法引言在博客中插入视频和图片能让人通俗易懂，生动形象。 图片插入Hexo 有多种图片插入方式，可以将图片存放在本地引用或者将图片放在 CDN 上引用。 本地引用–绝对路径当 Hexo 项目中只用到少量图片时，可以将图片统一放在 source&#x2F;images 文件夹中，通过 markdown 语法访问它们。 1source/images/image.jpg  图片既可以在首页内容中访问到，也可以在文章正文中访问到。 本地引用–相对路径图片除了可以放在统一的 images 文件夹中，还可以放在文章自己的目录中。文章的目录可以通过配置_config.yml 来生成。 12# _config.ymlpost_asset_folder: true  将_config.yml 文件中的配置项 post_asset_folder 设为 true 后，执行命令 hexo new post_name，在 source&#x2F;_posts 中会生成文章 post_name.md 和同名文件夹 post_name。将图片资源放在 post_name...</div></div></div></a><a class="pagination-related" href="/2025/03/10/%E6%B7%BB%E5%8A%A0%20GitHub%20%E7%9A%84%20RSA%20%E5%85%AC%E9%92%A5%E5%88%B0%20known_hosts/%E6%B7%BB%E5%8A%A0%20GitHub%20%E7%9A%84%20RSA%20%E5%85%AC%E9%92%A5%E5%88%B0%20known_hosts/" title="添加 GitHub 的 RSA 公钥到 known_hosts"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3280" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">添加 GitHub 的 RSA 公钥到 known_hosts</div></div><div class="info-2"><div class="info-item-1">添加 GitHub 的 RSA 公钥到 known_hosts提交项目，总是提示确认1234The authenticity of host &#x27;github.com (20.205.243.166)&#x27; can&#x27;t be established.ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.This key is not known by any other names.Are you sure you want to continue connecting (yes/no/[fingerprint])? yes   当你在使用 Git 与 GitHub 进行交互时，出现 The authenticity of host &#39;[github.com](https://github.com/)&#39; can&#39;t be established 提示，是因为 SSH 客户端无法验证 GitHub...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/09/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/Hexo%20%E5%8D%9A%E5%AE%A2%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E7%9A%84%E6%96%B9%E6%B3%95/" title="Hexo 博客插入图片与视频的方法"><img class="cover" src="https://api.mobufan.eu.org:666/pc?231" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-09</div><div class="info-item-2">Hexo 博客插入图片与视频的方法</div></div><div class="info-2"><div class="info-item-1">Hexo 博客插入图片与视频的方法引言在博客中插入视频和图片能让人通俗易懂，生动形象。 图片插入Hexo 有多种图片插入方式，可以将图片存放在本地引用或者将图片放在 CDN 上引用。 本地引用–绝对路径当 Hexo 项目中只用到少量图片时，可以将图片统一放在 source&#x2F;images 文件夹中，通过 markdown 语法访问它们。 1source/images/image.jpg  图片既可以在首页内容中访问到，也可以在文章正文中访问到。 本地引用–相对路径图片除了可以放在统一的 images 文件夹中，还可以放在文章自己的目录中。文章的目录可以通过配置_config.yml 来生成。 12# _config.ymlpost_asset_folder: true  将_config.yml 文件中的配置项 post_asset_folder 设为 true 后，执行命令 hexo new post_name，在 source&#x2F;_posts 中会生成文章 post_name.md 和同名文件夹 post_name。将图片资源放在 post_name...</div></div></div></a><a class="pagination-related" href="/2025/03/10/%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91Butterfly%20%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91Butterfly%20%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/" title="【Hexo 博客】Butterfly 主题美化"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8468" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-10</div><div class="info-item-2">【Hexo 博客】Butterfly 主题美化</div></div><div class="info-2"><div class="info-item-1">【Hexo 博客】Butterfly 主题美化一 、配置 _config.butterfly.yml 文件1 、动态彩带 打开主题配置文件 _config.butterfly.yml 修改以下配置：  123canvas_fluttering_ribbon:  enable: true  mobile: false # false 手机端不显示 true  2 、 鼠标点击的效果 打开主题配置文件 _config.butterfly.yml 修改以下配置：  12345# 鼠标点击的烟花特效fireworks:  enable: false  zIndex: 9999  mobile: false  3 、 页‮加面‬载动画 打开主题配置文件 _config.butterfly.yml 修改以下配置：  12345# 加载动画preloader:  enable: true  source: 1 #可选值1=fullpage或2=progress bar，可查看https://codebyzach.github.io/pace/  pace_css_url:   4 、...</div></div></div></a><a class="pagination-related" href="/2025/02/13/Hugo%20Stack%20%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/index/" title="Hugo Stack 主题美化"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8310" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-13</div><div class="info-item-2">Hugo Stack 主题美化</div></div><div class="info-2"><div class="info-item-1">Hugo Stack 主题美化全局配置页面基本配色 在 /assets/scss/custom.scss 中加入以下代码：  123456789101112131415161718192021222324// ---------------页面基本配色---------------:root &#123;  // 全局顶部边距  --main-top-padding: 30px;  // 全局卡片圆角  --card-border-radius: 25px;  // 标签云卡片圆角  --tag-border-radius: 8px;  // 卡片间距  --section-separation: 40px;  // 全局字体大小  --article-font-size: 1.8rem;  // 行内代码背景色  --code-background-color: #f8f8f8;  // 行内代码前景色  --code-text-color: #e96900;  // 暗色模式下样式  &amp;[data-scheme=&quot;dark&quot;] &#123;   ...</div></div></div></a><a class="pagination-related" href="/2025/02/12/Hugo%20%E6%96%87%E7%AB%A0%E7%BC%96%E8%BE%91/index/" title="Hugo 文章编辑"><img class="cover" src="https://api.mobufan.eu.org:666/pc?572" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-12</div><div class="info-item-2">Hugo 文章编辑</div></div><div class="info-2"><div class="info-item-1">hugo 文章编辑新建文章命令1hugo new &quot;post/hugo 文章编辑/index.md&quot;   [!NOTE]新建名为《hugo 文章编辑》的文章文章路径：.\content\post\hugo 文章编辑\index.md  新建文章.bat 执行此批处理后，终端输入文章标题，自动创建文章并用记事本打开可以编辑文章内容。我的项目路径：电脑桌面GitHub\hugo-main(自行修改)  12345678910111213141516171819202122232425262728293031323334353637383940414243@echo off:: 设置工作目录（确保路径正确）set &quot;hugoDir=%USERPROFILE%\Desktop\GitHub\hugo-main&quot;:: 检查目录是否存在if not exist &quot;%hugoDir%&quot; (    echo 目标目录 %hugoDir% 不存在，请检查路径是否正确。    pause    exit):: 提示用户输入文件名set...</div></div></div></a><a class="pagination-related" href="/2025/03/10/%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91%20%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE/%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91%20%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE/" title="【Hexo 博客】 基础设置"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1383" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-10</div><div class="info-item-2">【Hexo 博客】 基础设置</div></div><div class="info-2"><div class="info-item-1">【Hexo 博客】 基础设置一 、设‮导置‬航菜单1.1  打开主题配置文件 _config.butterfly.yml 修改以下配置：123456789101112menu:  # Home: / || fas fa-home  # List||fas fa-list:  #   Music: /music/ || fas fa-music  #   Movie: /movies/ || fas fa-video  主页: / || fas fa-home  标签: /tags/ || fa fa-tags  分类: /categories/ || fa fa-archive  归档: /archives/ || fa fa-folder-open  友链: /link/ || fa fa-link  关于: /about/ || fas fa-heart   留言板: /comment/ || fa fa-paper-plane  1.2  创建 page 模板 修改 \scaffolds\page.md  12345---title: &#123;&#123; title...</div></div></div></a><a class="pagination-related" href="/2025/03/10/%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91%E5%AE%89%E8%A3%85%20Butterfly%20%E4%B8%BB%E9%A2%98/%E3%80%90Hexo%20%E5%8D%9A%E5%AE%A2%E3%80%91%20Butterfly%20%E4%B8%BB%E9%A2%98/" title="【Hexo 博客】安装 Butterfly 主题"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4599" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-10</div><div class="info-item-2">【Hexo 博客】安装 Butterfly 主题</div></div><div class="info-2"><div class="info-item-1">Hexo 安装 Butterfly 主题1 、 在Blog‮目根‬录下执行克隆命令：1git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly   2 、安装pug和stylus渲染器1npm install hexo-renderer-pug hexo-renderer-stylus --save   3 、修改Blog根‮录目‬下的_config.yml开启butterfly主题1theme: butterfly  4 、修改 Butterfly 主题配置文件 修改 \themes\butterfly\_config.yml 为：_config.butterfly.yml    并剪切到博客根目录   </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows-%E5%AE%89%E8%A3%85-Hexo"><span class="toc-text">Windows 安装 Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E3%80%81%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-text">一 、下载安装基础运行程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E3%80%81%E5%85%A8%E5%B1%80%E2%80%AE%E6%8D%A2%E5%88%87%E2%80%AC%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-text">1 、全局‮换切‬淘宝镜像命令：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E3%80%81%E5%AE%89%E8%A3%85-Hexo"><span class="toc-text">二 、安装 Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E3%80%81%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85-Hexo"><span class="toc-text">1 、全局安装 Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E3%80%81hexo-%E5%8D%87%E7%BA%A7"><span class="toc-text">2 、hexo 升级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E3%80%81hexo-%E5%91%BD%E4%BB%A4"><span class="toc-text">二 、hexo 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E7%BD%91%E7%AB%99"><span class="toc-text">1 、初始化网站</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%89%80%E6%9C%89%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="toc-text">安装所有指定的依赖包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E3%80%81hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">2 、hexo 常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E3%80%81%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0"><span class="toc-text">3 、发布文章</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E3%80%81%E6%96%87%E7%AB%A0%E6%A8%A1%E6%9D%BF"><span class="toc-text">3.1 、文章模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E3%80%81%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2"><span class="toc-text">3.2 、发布博客</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E3%80%81%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99"><span class="toc-text">4 、测试网站</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
