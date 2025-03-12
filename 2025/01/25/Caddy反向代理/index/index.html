@@ -1,0 +1,383 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Caddy 反向代理 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="caddy 反向代理      下面将以【example.com】域名为例    一 、caddy 主配置文件模板caddy 创建主配置文件123456789101112touch &#x2F;usr&#x2F;local&#x2F;caddy&#x2F;Caddyfile &amp;&amp; chmod u+x &#x2F;usr&#x2F;local&#x2F;caddy&#x2F;Caddyfile &amp;&amp; cat &gt; &#x2F;usr&#x2F;local&#x2F;ca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caddy 反向代理">
+<meta property="og:url" content="https://www.meimolihan.eu.org/2025/01/25/Caddy%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/index/index.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="caddy 反向代理      下面将以【example.com】域名为例    一 、caddy 主配置文件模板caddy 创建主配置文件123456789101112touch &#x2F;usr&#x2F;local&#x2F;caddy&#x2F;Caddyfile &amp;&amp; chmod u+x &#x2F;usr&#x2F;local&#x2F;caddy&#x2F;Caddyfile &amp;&amp; cat &gt; &#x2F;usr&#x2F;local&#x2F;ca">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?3033">
+<meta property="article:published_time" content="2025-01-24T22:22:52.000Z">
+<meta property="article:modified_time" content="2025-03-09T01:55:40.278Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="caddy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?3033"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Caddy 反向代理",
+  "url": "https://www.meimolihan.eu.org/2025/01/25/Caddy%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/index/",
+  "image": "https://api.mobufan.eu.org:666/pc?3033",
+  "datePublished": "2025-01-24T22:22:52.000Z",
+  "dateModified": "2025-03-09T01:55:40.278Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://www.meimolihan.eu.org/2025/01/25/Caddy%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/index/index.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Caddy 反向代理',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/页脚透明.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/波浪效果.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/文章目录.css"><link rel="stylesheet" href="/css/黑夜霓虹灯.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/hatsune-02.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">121</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?3033);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Caddy 反向代理</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Caddy 反向代理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-24T22:22:52.000Z" title="发表于 2025-01-25 06:22:52">2025-01-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-09T01:55:40.278Z" title="更新于 2025-03-09 09:55:40">2025-03-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">275</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-03-09 09:55:40&quot;}" hidden></div><h1 id="caddy-反向代理"><a href="#caddy-反向代理" class="headerlink" title=" caddy 反向代理"></a><center> caddy 反向代理</h1><div style="background: #FFD700; padding: 12px;">
+    <p style="font-size:22px;color:#8B0000;"><strong> 下面将以【example.com】域名为例 </strong></p>
+</div>
+
+<h2 id="一-、caddy-主配置文件模板"><a href="#一-、caddy-主配置文件模板" class="headerlink" title="一 、caddy 主配置文件模板"></a>一 、caddy 主配置文件模板</h2><h3 id="caddy-创建主配置文件"><a href="#caddy-创建主配置文件" class="headerlink" title="caddy 创建主配置文件"></a>caddy 创建主配置文件</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">touch</span> /usr/local/caddy/Caddyfile &amp;&amp; chmod u+x /usr/local/caddy/Caddyfile &amp;&amp; cat &gt; /usr/local/caddy/Caddyfile &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"># 指定http端口为86</span></span><br><span class="line">    <span class="attribute">http_port</span> <span class="number">86</span></span><br><span class="line">    order webdav before file_server</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## 引用其它目录的配置文件</span></span><br><span class="line">import /usr/local/caddy/conf.d/<span class="regexp">*.conf</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cd /usr/local/caddy &amp;&amp; ./caddy fmt --overwrite &amp;&amp; ./caddy reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-、caddy-子配置文件模板"><a href="#二-、caddy-子配置文件模板" class="headerlink" title="二  、caddy 子配置文件模板"></a>二  、caddy 子配置文件模板</h2><p><strong>xunlei 地址：<a target="_blank" rel="noopener" href="https://xunlei.example.com:666/">https://xunlei.example.com:666</a></strong></p>
+<h3 id="创建-xunlei-反向代理"><a href="#创建-xunlei-反向代理" class="headerlink" title="创建 xunlei 反向代理"></a>创建 xunlei 反向代理</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mkdir</span> -pm <span class="number">755</span> /usr/local/caddy/conf.d &amp;&amp; touch /usr/local/caddy/conf.d/xunlei.conf &amp;&amp; chmod u+x /usr/local/caddy/conf.d/xunlei.conf &amp;&amp; cat &gt; /usr/local/caddy/conf.d/xunlei.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment">## xunlei 下载</span></span><br><span class="line">https://xunlei.example.com:666 &#123;</span><br><span class="line">    <span class="attribute">encode</span> gzip</span><br><span class="line">    tls ssl/full_chain.pem ssl/private.key</span><br><span class="line">    reverse_proxy http://10.10.10.88:2345 &#123;</span><br><span class="line">        <span class="attribute">header_up</span> Host &#123;http.reverse_proxy.upstream.hostport&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">## 错误处理</span></span><br><span class="line">    <span class="section">handle_errors</span> &#123;</span><br><span class="line">        <span class="comment">## 将所有错误重定向到50x.html页面</span></span><br><span class="line">        <span class="attribute">rewrite</span> * /50x.html</span><br><span class="line">        <span class="comment"># 指定错误页面的根目录</span></span><br><span class="line">        root * /var/www/html</span><br><span class="line">        <span class="comment"># 启用文件服务器，用于提供错误页面</span></span><br><span class="line">        file_server</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cd /usr/local/caddy &amp;&amp; ./caddy fmt --overwrite &amp;&amp; ./caddy reload</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.meimolihan.eu.org">墨不凡</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.meimolihan.eu.org/2025/01/25/Caddy%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/index/">https://www.meimolihan.eu.org/2025/01/25/Caddy%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/index/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.meimolihan.eu.org" target="_blank">凡凡小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/caddy/">caddy</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?3033" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/01/25/Caddy%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD/index/" title="Caddy 安装与卸载"><img class="cover" src="https://api.mobufan.eu.org:666/pc?230" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Caddy 安装与卸载</div></div><div class="info-2"><div class="info-item-1"> Caddy 安装与卸载Caddy 官网：https://caddyserver.com/Caddy下载 ：https://caddyserver.com/downloadCaddy官方文档：https://caddy2.dengxiaolong.com/docs/哔哩哔哩教程：https://www.bilibili.com/video/BV1wU4y1u7tf教程文档：https://www.cnblogs.com/wzcsxjl/p/15517168.html apt 安装 caddy1 、安装caddy1sudo apt install caddy -y  2 、查看caddy 版本1caddy version  caddy 卸载1 、停止 Caddy 服务1sudo systemctl stop caddy  2 、移除 Caddy 软件包1sudo apt remove caddy -y  3 、清除配置文件和残留数据（可选，但推荐彻底卸载时执行）1sudo apt purge caddy  4 、自动移除无用的依赖包1sudo apt autoremove  5...</div></div></div></a><a class="pagination-related" href="/2025/01/25/Caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/index/" title="Caddy 搭建 webdav 服务器"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1564" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Caddy 搭建 webdav 服务器</div></div><div class="info-2"><div class="info-item-1"> caddy 搭建 webdav 服务器      下面将以【example.com】域名为例    一 、Ubuntu 安装二进制 Caddy1 、创建Caddy存放目录（包括证书存放目录）1mkdir -p /usr/local/caddy/ssl &amp;&amp; cd /usr/local/caddy  2 、下载Caddy 到【Caddy官网】下载对应平台的二进制文件（我使用的，平台选择Linux amd64），选中带有WebDAV插件的可执行程序，点击下载  3 、将下载好的Caddy程序上传到/usr/local/caddy目录中4 、修改程序名称为caddy1cd /usr/local/caddy &amp;&amp; mv caddy_linux_* caddy  5 、赋予执行权限1chmod u+x /usr/local/caddy/caddy  6 、升级Caddy版本1cd /usr/local/caddy &amp;&amp; ./caddy upgrade  7 、查看当前二进制文件中包含的非标准模块的包名列表。1cd...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/01/25/Caddy%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD/index/" title="Caddy 安装与卸载"><img class="cover" src="https://api.mobufan.eu.org:666/pc?230" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-25</div><div class="info-item-2">Caddy 安装与卸载</div></div><div class="info-2"><div class="info-item-1"> Caddy 安装与卸载Caddy 官网：https://caddyserver.com/Caddy下载 ：https://caddyserver.com/downloadCaddy官方文档：https://caddy2.dengxiaolong.com/docs/哔哩哔哩教程：https://www.bilibili.com/video/BV1wU4y1u7tf教程文档：https://www.cnblogs.com/wzcsxjl/p/15517168.html apt 安装 caddy1 、安装caddy1sudo apt install caddy -y  2 、查看caddy 版本1caddy version  caddy 卸载1 、停止 Caddy 服务1sudo systemctl stop caddy  2 、移除 Caddy 软件包1sudo apt remove caddy -y  3 、清除配置文件和残留数据（可选，但推荐彻底卸载时执行）1sudo apt purge caddy  4 、自动移除无用的依赖包1sudo apt autoremove  5...</div></div></div></a><a class="pagination-related" href="/2025/01/25/Caddy%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/index/" title="Caddy 负载均衡"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6269" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-25</div><div class="info-item-2">Caddy 负载均衡</div></div><div class="info-2"><div class="info-item-1"> caddy 负载均衡      下面将以【example.com】域名为例    mtab 标签页：https://mtab.example.com:666 1234567891011121314## caddy 负载均衡 负载轮询mkdir -pm 755 /usr/local/caddy/conf.d &amp;&amp; touch /usr/local/caddy/conf.d/mtab.conf &amp;&amp; chmod u+x /usr/local/caddy/conf.d/mtab.conf &amp;&amp; cat &gt; /usr/local/caddy/conf.d/mtab.conf &lt;&lt;&#x27;EOF&#x27;https://mtab.example.com:666 &#123;    encode gzip    tls /usr/local/caddy/ssl/full_chain.pem /usr/local/caddy/ssl/private.key    reverse_proxy /*...</div></div></div></a><a class="pagination-related" href="/2025/01/25/Caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/index/" title="Caddy 搭建 webdav 服务器"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1564" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-25</div><div class="info-item-2">Caddy 搭建 webdav 服务器</div></div><div class="info-2"><div class="info-item-1"> caddy 搭建 webdav 服务器      下面将以【example.com】域名为例    一 、Ubuntu 安装二进制 Caddy1 、创建Caddy存放目录（包括证书存放目录）1mkdir -p /usr/local/caddy/ssl &amp;&amp; cd /usr/local/caddy  2 、下载Caddy 到【Caddy官网】下载对应平台的二进制文件（我使用的，平台选择Linux amd64），选中带有WebDAV插件的可执行程序，点击下载  3 、将下载好的Caddy程序上传到/usr/local/caddy目录中4 、修改程序名称为caddy1cd /usr/local/caddy &amp;&amp; mv caddy_linux_* caddy  5 、赋予执行权限1chmod u+x /usr/local/caddy/caddy  6 、升级Caddy版本1cd /usr/local/caddy &amp;&amp; ./caddy upgrade  7 、查看当前二进制文件中包含的非标准模块的包名列表。1cd...</div></div></div></a><a class="pagination-related" href="/2025/01/22/certbot%E9%80%9A%E8%BF%87Cloudflare-api%E9%AA%8C%E8%AF%81,%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/index/" title="Certbot 通过 Cloudflare Api 验证,申请ssl证书"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8033" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-22</div><div class="info-item-2">Certbot 通过 Cloudflare Api 验证,申请ssl证书</div></div><div class="info-2"><div class="info-item-1">  certbot通过Cloudflare-api验证申请ssl证书certbot 官网：https://eff-certbot.readthedocs.io/certbot 中文官网：https://certbot.openssl.ac.cn/Github：https://github.com/certbot/certbotWebsite：https://certbot.eff.org/  通过certbot‮请申‬证书非常方便。但证书有效‮通期‬常不长，以Let’s encrypt的证‮为书‬例，每90天需要续期更新。certbot‮认默‬通过http方式续期认证，好处在‮非于‬常方便，但需要对‮放外‬开80端口。对于‮使不‬用80端口的服务器‮以可‬通过‮名域‬服务商api的DNS认证。这样可以关闭80端口的访问。  以托管到Cloudflare‮域的‬名为例。首先创建api token，在Cloudflare profile下点击api token，创建api token。选择DNS管理模板。允‮编许‬辑DNS...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#caddy-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text"> caddy 反向代理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E3%80%81caddy-%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF"><span class="toc-text">一 、caddy 主配置文件模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#caddy-%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">caddy 创建主配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E3%80%81caddy-%E5%AD%90%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF"><span class="toc-text">二  、caddy 子配置文件模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-xunlei-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">创建 xunlei 反向代理</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"></div><script src="/js/sun_moon.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/canvas-fluttering-ribbon.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '800ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
