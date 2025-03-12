@@ -8,7 +8,7 @@
 /* 首页文章卡片 */
 #recent-posts .recent-post-item {
   border-radius: 20px; /* 添加圆角效果，数值可按需调整 */
-  background: var(--trans-light);
+  /* background: var(--trans-light); */
   backdrop-filter: var(--backdrop-filter);
   border: var(--border-style);
 }
