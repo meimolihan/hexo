@@ -6,13 +6,6 @@
   letter-spacing: 0px; /*字体间距*/
 }
 
-/* 首页文章卡片，文字高度调节 */
-/* #recent-posts .recent-post-item >.recent-post-info {
-  padding: 0 330px;
-  width: 58%;
-  border-radius: 20px;
-} */
-
 /*信息栏高度调整*/
 #page-header.post-bg {
   height: 26rem;
@@ -50,7 +43,7 @@
 
 /* 文章图片圆角 */
 .container img {
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 /*文章页相关推荐圆角**************************************/
