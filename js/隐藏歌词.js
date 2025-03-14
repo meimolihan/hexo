@@ -1,28 +1,18 @@
-document.addEventListener("DOMContentLoaded", function() {
-  // 双重保险：DOM加载完成 + 延迟检测
-  function toggleLyric() {
-    var lrcButton = document.querySelector(".aplayer-icon-lrc");
-    if (lrcButton && !lrcButton.classList.contains('aplayer-icon-lrc-inactivity')) {
+// APlayer 默认关闭歌词
+// 创建一个 MutationObserver 实例，用于监听 DOM 的变化
+var observer = new MutationObserver(function (mutations) {
+  // 查找页面中 class 为 "aplayer-icon-lrc" 的元素
+  var lrcButton = document.querySelector(".aplayer-icon-lrc");
+  // 如果找到了 lrcButton
+  if (lrcButton) {
+    // 延迟1毫秒执行点击操作
+    setTimeout(function () {
       lrcButton.click();
-    } else if (!lrcButton) {
-      setTimeout(toggleLyric, 200); // 每隔200ms重试
-    }
+    }, 1);
+    // 断开 MutationObserver 实例，停止监听 DOM 的变化
+    observer.disconnect();
   }
-  
-  // 首次执行
-  toggleLyric();
-  
-  // 监听播放器创建（适配动态加载场景）
-  var observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.addedNodes.length) {
-        toggleLyric();
-      }
-    });
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
 });
+
+// 开始观察 body 下的所有子节点及其属性变化
+observer.observe(document.body, { childList: true, subtree: true });
