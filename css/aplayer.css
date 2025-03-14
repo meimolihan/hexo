@@ -88,13 +88,22 @@
 }
 
 
-/* 隐藏 aplaye 播放器*/
-.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-  left: -66px !important;
-  /* 默认‮况情‬下缩进左侧66px，只留一点箭‮部头‬分 */
-}
+/* Width 的值可根据喜好调整（屏幕的宽度） */
+@media (max-width: 960px) {
+    /* APlayer 音乐标签伸缩 */
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+      left: -66px !important;
+      /* 默认情况下缩进左侧 66px，只留一点箭头部分 */
+    }
+  
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+      left: 0 !important;
+      /* 鼠标悬停是左侧缩进归零，完全显示按钮 */
+    }
+  }
 
-.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-  left: 0 !important;
-  /* 鼠标悬停‮左是‬侧缩进归零，完全显示按钮 */
-}
+/*强制隐藏歌词-需要歌词释放此项*/
+/* .aplayer-lrc {
+    display: none !important;
+} */
+
