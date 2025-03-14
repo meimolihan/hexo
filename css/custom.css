@@ -299,3 +299,14 @@
   background: #3ecdf1;
   color: #f2f2f2;
 }
+
+
+@import "//at.alicdn.com/t/font_2264842_b004iy0kk2b.css";
+
+svg.icon {
+  width: 1.38em;
+  height: 1.38em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
