@@ -1,88 +1,98 @@
-/* 文章页H1-H6图标样式效果 */
-/* 控制风车转动速度 */
-h1::before,
-h2::before,
-h3::before,
-h4::before,
-h5::before,
-h6::before {
+/* 导入字体库 */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+/* 风车基础样式 */
+#content-inner.layout h1::before,
+#content-inner.layout h2::before,
+#content-inner.layout h3::before,
+#content-inner.layout h4::before,
+#content-inner.layout h5::before,
+#content-inner.layout h6::before {
+  content: "\f863";                    /* 风车图标 */
+  font-family: 'Font Awesome 5 Free';  /* 字体库 */
+  font-weight: 900;                    /* 图标粗细 */
+  display: inline-block;               /* 关键：确保动画生效 */
+  width: 1.2em;                        /* 图标容器宽度 */
+  text-align: center;                  /* 图标居中 */
+  transition: all 0.3s ease;           /* 过渡动画 */
   -webkit-animation: ccc 4s linear infinite;
   animation: ccc 4s linear infinite;
 }
-/* 控制风车转动方向 -1turn 为逆时针转动，1turn 为顺时针转动，相同数字部分记得统一修改 */
-@-webkit-keyframes ccc {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(-1turn);
-    transform: rotate(-1turn);
-  }
-}
-@keyframes ccc {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(-1turn);
-    transform: rotate(-1turn);
-  }
-}
-/* 设置风车颜色 */
-#content-inner.layout h1::before {
-  color: #ef50a8;
-  margin-left: -1.55rem;
-  font-size: 1.3rem;
-  margin-top: -0.23rem;
-}
-#content-inner.layout h2::before {
-  color: #fb7061;
-  margin-left: -1.35rem;
-  font-size: 1.1rem;
-  margin-top: -0.12rem;
-}
-#content-inner.layout h3::before {
-  color: #ffbf00;
-  margin-left: -1.22rem;
-  font-size: 0.95rem;
-  margin-top: -0.09rem;
-}
-#content-inner.layout h4::before {
-  color: #a9e000;
-  margin-left: -1.05rem;
-  font-size: 0.8rem;
-  margin-top: -0.09rem;
-}
-#content-inner.layout h5::before {
-  color: #57c850;
-  margin-left: -0.9rem;
-  font-size: 0.7rem;
-  margin-top: 0rem;
-}
-#content-inner.layout h6::before {
-  color: #5ec1e0;
-  margin-left: -0.9rem;
-  font-size: 0.66rem;
-  margin-top: 0rem;
-}
-/* s设置风车hover动效 */
+
+/* 标题悬停字体变色及动画效果 */
 #content-inner.layout h1:hover,
 #content-inner.layout h2:hover,
 #content-inner.layout h3:hover,
 #content-inner.layout h4:hover,
 #content-inner.layout h5:hover,
 #content-inner.layout h6:hover {
-  color: var(--theme-color) !important;
+  color: #2196f3 !important;           /* 悬停字体变蓝色 */
+  transform: scale(1.05);              /* 轻微放大 */
+  transition: color 0.3s ease, transform 0.3s ease;         /* 颜色和变换过渡动画 */
 }
+
+/* 风车悬停特效及动画效果 */
 #content-inner.layout h1:hover::before,
 #content-inner.layout h2:hover::before,
 #content-inner.layout h3:hover::before,
 #content-inner.layout h4:hover::before,
 #content-inner.layout h5:hover::before,
 #content-inner.layout h6:hover::before {
-  color: var(--theme-color) !important;
-  -webkit-animation: ccc 6s linear infinite;
-  animation: ccc 6s linear infinite;
+  filter: brightness(1.2);             /* 提高亮度 */
+  transform: scale(1.1) rotate(360deg);/* 轻微放大并旋转 */
+  color: #2196f3 !important;           /* 悬停时风车颜色与字体一致 */
+  transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease; /* 变换、颜色和滤镜过渡动画 */
+  -webkit-animation: ccc 2s linear infinite;  /* 加速旋转 */
+  animation: ccc 2s linear infinite;
+}
+
+/* 旋转动画 */
+@keyframes ccc {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* 标题定位调整 */
+#content-inner.layout h1,
+#content-inner.layout h2,
+#content-inner.layout h3,
+#content-inner.layout h4,
+#content-inner.layout h5,
+#content-inner.layout h6 {
+  padding: 2px 0;                      /* 最小内边距 */
+  margin: 15px 0;                      /* 标准外边距 */
+  display: inline-block;
+  transition: transform 0.3s ease;     /* 添加过渡效果 */
+}
+
+/* 各层级风车颜色与位置 */
+#content-inner.layout h1::before {
+  color: #ef50a8;
+  margin-left: -1.55rem;
+  font-size: 1.3rem;
+}
+#content-inner.layout h2::before {
+  color: #fb7061;
+  margin-left: -1.35rem;
+  font-size: 1.1rem;
+}
+#content-inner.layout h3::before {
+  color: #ffbf00;
+  margin-left: -1.22rem;
+  font-size: 0.95rem;
+}
+#content-inner.layout h4::before {
+  color: #a9e000;
+  margin-left: -1.05rem;
+  font-size: 0.8rem;
+}
+#content-inner.layout h5::before {
+  color: #57c850;
+  margin-left: -0.9rem;
+  font-size: 0.7rem;
+}
+#content-inner.layout h6::before {
+  color: #5ec1e0;
+  margin-left: -0.9rem;
+  font-size: 0.66rem;
 }
