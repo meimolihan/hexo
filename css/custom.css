@@ -288,7 +288,7 @@
     background: #2b2929;
   }
 
-/* 小冰分类分类磁铁黑夜模式适配 */
+/* 小冰分类分类磁贴黑夜模式适配 */
 /* 一般状态 */
 [data-theme="dark"] .magnet_link_context {
   background: #1e1e1e;
@@ -309,4 +309,12 @@ svg.icon {
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+}
+
+/* 夜间模式页脚页头遮罩透明 */
+[data-theme="dark"] #footer::before {
+  background: transparent !important;
+}
+[data-theme="dark"] #page-header::before {
+  background: transparent !important;
 }
