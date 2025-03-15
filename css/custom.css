@@ -318,3 +318,8 @@ svg.icon {
 [data-theme="dark"] #page-header::before {
   background: transparent !important;
 }
+
+#toggle-menu .site-page i {
+  color: blue; /* 更改图标颜色 */
+  font-size: 25px; /* 更改图标大小 */
+}
