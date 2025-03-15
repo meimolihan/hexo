@@ -28,11 +28,11 @@
 }
 
 /* 导航栏菜单鼠标移入字体放大 */
-#nav #site-name:hover, 
+/* #nav #site-name:hover, 
 #nav .menus_item:hover, 
 #nav #search-button:hover{
   font-size:28px;
-}
+} */
 
  /*  导航栏常驻  */
 .nav-fixed #nav{
