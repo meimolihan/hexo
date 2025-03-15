@@ -320,6 +320,6 @@ svg.icon {
 }
 
 #toggle-menu .site-page i {
-  color: blue; /* 更改图标颜色 */
-  font-size: 25px; /* 更改图标大小 */
+  color: rgb(0, 255, 136); /* 更改图标颜色 */
+  font-size: 1.5em; /* 更改图标大小 */
 }
