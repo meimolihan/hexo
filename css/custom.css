@@ -319,7 +319,8 @@ svg.icon {
   background: transparent !important;
 }
 
-#toggle-menu .site-page i {
-  color: rgb(0, 255, 136); /* 更改图标颜色 */
-  font-size: 1.5em; /* 更改图标大小 */
-}
+/* 控制明暗模式切换按钮的颜色和大小 */
+/* #toggle-menu .site-page i {
+  color: rgb(0, 255, 136); 
+  font-size: 1.38em; 
+} */
