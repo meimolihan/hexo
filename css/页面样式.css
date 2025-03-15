@@ -1,1 +1,54 @@
-#recent-posts .recent-post-item{border-radius:20px;backdrop-filter:var(--backdrop-filter);border:var(--border-style)}#aside-content .card-widget{border-radius:18px}#aside-content .card-widget,div#archive,div#page,div#post{background:var(--trans-light);backdrop-filter:var(--backdrop-filter);border:var(--border-style)}div#archive,div#page,div#post{border-radius:20px}[data-theme=dark] #aside-content .card-widget,[data-theme=dark] #recent-posts>.recent-post-item,[data-theme=dark] div#archive,[data-theme=dark] div#page,[data-theme=dark] div#post{background:var(--trans-dark)}.read-mode #aside-content .card-widget,.read-mode div#post{background:rgba(158,204,171,.5)!important}[data-theme=dark] .read-mode #aside-content .card-widget,[data-theme=dark] .read-mode div#post{background:rgba(25,25,25,.9)!important;color:#fff}
+/* 首页文章卡片 */
+#recent-posts .recent-post-item {
+  border-radius: 20px; /* 添加圆角效果，数值可按需调整 */
+  /* background: var(--trans-light); */
+  backdrop-filter: var(--backdrop-filter);
+  border: var(--border-style);
+}
+
+/* 首页侧栏卡片 */
+#aside-content .card-widget {
+  background: var(--trans-light);
+  backdrop-filter: var(--backdrop-filter);
+  border-radius: 18px;
+  border: var(--border-style);
+}
+
+/* 文章页、归档页、普通页面 */
+div#post,
+div#page,
+div#archive {
+  background: var(--trans-light);
+  backdrop-filter: var(--backdrop-filter);
+  border: var(--border-style);
+  border-radius: 20px;
+}
+
+/* 夜间模式遮罩 */
+[data-theme="dark"] #recent-posts > .recent-post-item,
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] div#post,
+[data-theme="dark"] div#archive,
+[data-theme="dark"] div#page {
+  background: var(--trans-dark);
+}
+
+/* 阅读模式 */
+.read-mode #aside-content .card-widget {
+  background: rgba(158, 204, 171, 0.5) !important;
+}
+.read-mode div#post {
+  background: rgba(158, 204, 171, 0.5) !important;
+}
+
+/* 夜间模式下的阅读模式 */
+[data-theme="dark"] .read-mode #aside-content .card-widget {
+  background: rgba(25, 25, 25, 0.9) !important;
+  color: #ffffff;
+}
+[data-theme="dark"] .read-mode div#post {
+  background: rgba(25, 25, 25, 0.9) !important;
+  color: #ffffff;
+}
+
+
