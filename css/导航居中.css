@@ -14,6 +14,7 @@
   left: -125px;
 }
 
+/* 导航栏字体颜色 */
 :root {
   --zhang-color: #ffbde0;
 }
@@ -35,7 +36,7 @@
 } */
 
  /*  导航栏常驻  */
-.nav-fixed #nav{
+/* .nav-fixed #nav{
   transform: translateY(58px)!important;
   -webkit-transform: translateY(58px)!important;
   -moz-transform: translateY(58px)!important;
@@ -49,3 +50,4 @@
   -ms-transition: none!important;
   -o-transition: none!important;
 }
+ */
