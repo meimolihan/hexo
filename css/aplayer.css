@@ -103,7 +103,7 @@
   }
 
 /*强制隐藏歌词-需要歌词释放此项*/
-/* .aplayer-lrc {
+.aplayer-lrc {
     display: none !important;
-} */
+}
 
