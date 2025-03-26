@@ -1,0 +1,46 @@
+/*引用字体*/
+@font-face {
+    font-family: ZhuZiAYuanJWD;
+    src: url(https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/fonts/ZhuZiAWan.woff2);
+    font-display: swap;
+    font-weight: lighter;
+}
+div#menus {
+    font-family: "ZhuZiAYuanJWD";
+}
+/*站点标题-引用字体*/
+#blog-info {
+    font-family: ZhuZiAYuanJWD, sans-serif;
+}
+/*一言网一句话-引用字体*/
+#site-subtitle {
+    font-family: ZhuZiAYuanJWD, sans-serif;
+}
+/*发表时间，更新时间，等-引用字体*/
+#post-meta {
+    font-family: ZhuZiAYuanJWD, sans-serif;
+}
+/*h1到h6标题-引用字体*/
+h1, h2, h3, h4, h5, h6 {
+    font-family: ZhuZiAYuanJWD, sans-serif;
+}
+/*代码框-引用字体*/
+figure.highlight td.code pre,
+figure.highlight td.code pre code {
+    font-family: ZhuZiAYuanJWD, monospace !important;
+}
+/*全局修改为此字体*/
+body {
+    font-family: ZhuZiAYuanJWD, sans-serif;
+}
+/*标题-引用字体*/
+h1#site-title {
+    font-family: ZhuZiAYuanJWD;
+    font-size: 3em !important;
+}
+a.article-title,
+a.blog-slider__title,
+a.categoryBar-list-link,
+h1.post-title {
+    font-family: ZhuZiAYuanJWD;
+}

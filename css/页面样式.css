@@ -1,0 +1,109 @@
+/****************** 定义颜色变量 ******************/
+:root {
+  --trans-light: rgba(255, 255, 255, 0.5);
+  --trans-dark: rgba(25, 25, 25, 0.2);
+  --border-style: 1px solid rgb(169, 169, 169); /* 边框样式 */
+  --backdrop-filter: blur(5px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
+  --mobufan-color: #FFFF00; /* 悬停时边框颜色变为黄色 */
+}
+
+/****************** 边框装饰线 ******************/
+/* 边框装饰线-首页文章卡片 */
+#recent-posts .recent-post-item {
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框样式 */
+}
+#recent-posts .recent-post-item:hover {
+  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
+}
+
+/* 装饰线-首页侧栏卡片 */
+#aside-content .card-widget {
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框样式 */
+}
+#aside-content .card-widget:hover {
+  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
+}
+
+/* 装饰线-下一篇文章 */
+#pagination .pagination-related {
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框样式 */
+}
+#pagination .pagination-related:hover {
+  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
+}
+
+/* 装饰线-相关推荐 */
+.pagination-related {
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框样式 */
+}
+.pagination-related:hover {
+  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
+}
+
+/* 装饰线-文章页、归档页、普通页面 */
+div#post,
+div#page,
+div#archive {
+  /* 背景颜色 */
+  /*background: var(--trans-light);*/
+  /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--backdrop-filter);
+  /* 边框样式 */
+  border: var(--border-style);
+  /* 圆角大小 */
+  /*border-radius: 20px;*/
+}
+
+/****************** 背景透明 ******************/
+/* 导航栏 */
+#page-header.nav-fixed #nav {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+[data-theme="dark"] #page-header.nav-fixed #nav {
+  background: rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: var(--backdrop-filter);
+}
+
+/* 夜间模式遮罩 */
+[data-theme="dark"] #recent-posts .recent-post-item,
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] div#post,
+[data-theme="dark"] div#archive,
+[data-theme="dark"] div#page {
+  background: var(--trans-dark);
+}
+
+/* 日间模式遮罩 */
+[data-theme="light"] #recent-posts .recent-post-item,
+[data-theme="light"] #aside-content .card-widget,
+[data-theme="light"] div#post,
+[data-theme="light"] div#archive,
+[data-theme="light"] div#page {
+  background: var(--trans-light);
+}
+
+/* 阅读模式 */
+.read-mode #aside-content .card-widget {
+  background: rgba(158, 204, 171, 0.5) !important;
+}
+.read-mode div#post {
+  background: rgba(158, 204, 171, 0.5) !important;
+}
+
+/* 夜间模式下的阅读模式 */
+[data-theme="dark"] .read-mode #aside-content .card-widget {
+  background: rgba(25, 25, 25, 0.2) !important;
+  color: #ffffff;
+}
+[data-theme="dark"] .read-mode div#post {
+  background: rgba(25, 25, 25, 0.2) !important;
+  color: #ffffff;
+}
+/************************************/
+
