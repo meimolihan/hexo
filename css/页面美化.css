@@ -161,13 +161,13 @@ div#archive:hover {
 /******************* 右下角按钮美化 *******************/
 #rightside > div > button, #rightside > div > a {
   display: block;
-  margin-bottom: 8px; /*间距*/
-  width: 45px; /*左右边框大小*/
-  height: 45px; /*上下边框大小*/
+  margin-bottom: 5px; /*间距*/
+  width: 42px; /*左右边框大小*/
+  height: 42px; /*上下边框大小*/
   border-radius: 26px; /*圆角大小*/
   background-color: #ffffff; /*背景颜色*/
   color: #0068bb; /*图标颜色*/
   text-align: center;
   font-size: 19px; /*图标大小*/
-  line-height: 43px; /*图标上下调节*/
+  line-height: 42px; /*图标上下调节*/
 }
