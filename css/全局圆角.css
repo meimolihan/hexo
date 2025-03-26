@@ -19,6 +19,11 @@
   border-radius: 20px;
 }
 
+/*分类子页面圆角*/
+#category {
+  border-radius: 20px;
+}
+
 /*文章图片圆角*/
 .container img {
   border-radius: 15px;

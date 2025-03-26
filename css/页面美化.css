@@ -22,7 +22,7 @@
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
   --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
-  --heo-white: rgba(0, 0, 0, 0.88); /* 黑色字体 */
+  --heo-white: #ffffff; /* 白色 */
 }
 
 /* 暗色模式颜色配置 */
@@ -39,14 +39,15 @@
 }
 
 /******************* 背景颜色 ******************/
+/* 分类子页面卡片：#category */
 /* 首页文章卡片：#recent-posts .recent-post-item */
 /* 首页侧栏卡片：#aside-content .card-widget */
 /* 文章页卡片：div#post */
 /* 归档页卡片：div#archive */
 /* 普通页卡片：div#page */
 
-
 /* 夜间模式背景颜色 */
+[data-theme="dark"] #category,
 [data-theme="dark"] #recent-posts .recent-post-item,
 [data-theme="dark"] #aside-content .card-widget,
 [data-theme="dark"] div#post,
@@ -58,6 +59,7 @@
 }
 
 /* 日间模式背景颜色 */
+[data-theme="light"] #category,
 [data-theme="light"] #recent-posts .recent-post-item,
 [data-theme="light"] #aside-content .card-widget,
 [data-theme="light"] div#post,
@@ -173,7 +175,7 @@ div#archive:hover {
 }
 
 /************************ 首页标题增强 ************************/
-/* 设置首页标题字体大小、颜色、行高等 */
+/* 设置（首页标题）字体大小、颜色、行高等 */
 #post-info .post-title {
   color: var(--heo-white); /* 首页标题（文字）颜色 */
   font-weight: normal;
@@ -191,7 +193,7 @@ div#archive:hover {
 [data-theme="dark"] #post-info .post-title {
   color: var(--heo-white); /* 首页标题（文字）颜色 */
 }
-
+/* 设置（首页副标题）字体大小、颜色、行高等 */
 #post-meta .meta-firstline, #post-meta .meta-secondline {
   color: var(--heo-white); /* 首页副标题（文字）颜色 */
   font-weight: normal;
