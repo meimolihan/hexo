@@ -39,6 +39,7 @@
 }
 
 /******************* 背景颜色 ******************/
+/* 标签子页面卡片：#tag */
 /* 分类子页面卡片：#category */
 /* 首页文章卡片：#recent-posts .recent-post-item */
 /* 首页侧栏卡片：#aside-content .card-widget */
@@ -47,6 +48,7 @@
 /* 普通页卡片：div#page */
 
 /* 夜间模式背景颜色 */
+[data-theme="dark"] #tag,
 [data-theme="dark"] #category,
 [data-theme="dark"] #recent-posts .recent-post-item,
 [data-theme="dark"] #aside-content .card-widget,
@@ -59,6 +61,7 @@
 }
 
 /* 日间模式背景颜色 */
+[data-theme="light"] #tag,
 [data-theme="light"] #category,
 [data-theme="light"] #recent-posts .recent-post-item,
 [data-theme="light"] #aside-content .card-widget,
@@ -86,6 +89,8 @@
 /******************* 悬停时边框装饰线颜色 *******************/
 #pagination .pagination-related:hover,
 .pagination-related:hover,
+#tag:hover,
+#category:hover,
 #recent-posts .recent-post-item:hover,
 #aside-content .card-widget:hover,
 div#post:hover,
