@@ -45,9 +45,11 @@
 
 /*导航栏子菜单圆角*/
 .menus_item_child {
-  border-radius: 8px;
+  border-radius: 20px;
+  transition: all 0.3s ease; /* 添加平滑过渡效果 */
 }
+
 .menus_item_child:hover {
-  border-radius: 8px;
+  border-radius: 20px; /* 确保悬停时圆角效果存在 */
 }
 
