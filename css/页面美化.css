@@ -1,22 +1,20 @@
-/****************************** 全局颜色 ****************************/
+/****************************** 定义全局颜色 ****************************/
 :root {
-  --heo-card-bg: #ffffff; /* 卡片背景颜色（白色） */
-  --heo-main: #3498db; /* 主色（蓝色） */
   --heo-lighttext: #6c757d; /* 浅色文字（灰色） */
   --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
   --style-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
   --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
-  --trans-light: rgba(255, 255, 255, 0.75);
-  --trans-dark: rgba(25, 25, 25, 0.2);
+  --trans-light: rgba(255, 255, 255, 0.75); /* 日间模式背景颜色 */
+  --trans-dark: rgba(25, 25, 25, 0.2); /* 夜间模式背景颜色 */
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
   --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
+  --heo-white: #ffffff; /* 白色 */
 }
 
 /* 明亮模式颜色配置 */
 [data-theme="light"] {
   --heo-lighttext: #007dd0; /* 文章TOC字体颜色 */
-  --heo-card-bg: var(--heo-none);
   --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
   --style-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
   --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
@@ -24,12 +22,12 @@
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
   --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
+  --heo-white: #ffffff; /* 白色 */
 }
 
 /* 暗色模式颜色配置 */
 [data-theme="dark"] {
   --heo-lighttext: #007dd0; /* 文章TOC字体颜色 */
-  --heo-card-bg: var(--heo-none);
   --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
   --style-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
   --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
@@ -37,9 +35,10 @@
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
   --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
+  --heo-white: #ffffff; /* 白色 */
 }
 
-/****************** 背景颜色 ******************/
+/******************* 背景颜色 ******************/
 /* 首页文章卡片：#recent-posts .recent-post-item */
 /* 首页侧栏卡片：#aside-content .card-widget */
 /* 文章页卡片：div#post */
@@ -47,49 +46,33 @@
 /* 普通页卡片：div#page */
 
 
-/* 夜间模式遮罩 */
+/* 夜间模式背景颜色 */
 [data-theme="dark"] #recent-posts .recent-post-item,
 [data-theme="dark"] #aside-content .card-widget,
 [data-theme="dark"] div#post,
 [data-theme="dark"] div#archive,
 [data-theme="dark"] div#page {
-  background: var(--trans-dark);
+  background: var(--trans-dark); /* 夜间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--border-style); /* 边框装饰线颜色 */
 }
 
-/* 日间模式遮罩 */
+/* 日间模式背景颜色 */
 [data-theme="light"] #recent-posts .recent-post-item,
 [data-theme="light"] #aside-content .card-widget,
 [data-theme="light"] div#post,
 [data-theme="light"] div#archive,
 [data-theme="light"] div#page {
-  background: var(--trans-light); /* 背景颜色 */
+  background: var(--trans-light); /* 日间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--border-style); /* 边框装饰线颜色 */
 }
 
-div#post:hover,
-div#page:hover,
-div#archive:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
-}
-
 /****************** 边框装饰线颜色 ******************/
-
-#recent-posts .recent-post-item:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
-}
-#aside-content .card-widget:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
-}
 /* 装饰线-下一篇文章 */
 #pagination .pagination-related {
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--border-style); /* 边框样式 */
-}
-#pagination .pagination-related:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
 }
 
 /* 装饰线-相关推荐 */
@@ -97,11 +80,19 @@ div#archive:hover {
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--border-style); /* 边框样式 */
 }
-.pagination-related:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
+
+/******************* 悬停时边框装饰线颜色 *******************/
+#pagination .pagination-related:hover,
+.pagination-related:hover,
+#recent-posts .recent-post-item:hover,
+#aside-content .card-widget:hover,
+div#post:hover,
+div#page:hover,
+div#archive:hover {
+  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
 }
 
-/******************* 导航栏背景颜色 *******************/
+/******************* 导航栏 背景颜色 *******************/
 #page-header.nav-fixed #nav {
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
@@ -110,6 +101,21 @@ div#archive:hover {
 [data-theme="dark"] #page-header.nav-fixed #nav {
   background: rgba(0, 0, 0, 0.3) !important;
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+}
+/****** 导航栏（子菜单）背景颜色 ******/
+.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
+  background-color: rgba(0, 0, 0, 0.5); /* 默认背景色 */
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
+  background-color: #9afffcb8; /* 鼠标悬停时的背景色 */
+}
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
+  background-color: rgba(0, 0, 0, 0.2); /* 默认背景色 */
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
+  background-color: #003e3c; /* 鼠标悬停时的背景色 */
 }
 
 /******************* 标签外挂背景颜色 *******************/
@@ -126,23 +132,7 @@ div#archive:hover {
   background-color: rgb(0 37 36 / 88%); /* 鼠标悬停时的背景色 */
 }
 
-/******************* 导航栏子菜单背景颜色 *******************/
-.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
-  background-color: rgba(0, 0, 0, 0.5); /* 默认背景色 */
-  transition: background-color 0.3s ease; /* 添加过渡效果 */
-}
-.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
-  background-color: #23faf3; /* 鼠标悬停时的背景色 */
-}
-[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
-  background-color: rgba(0, 0, 0, 0.2); /* 默认背景色 */
-  transition: background-color 0.3s ease; /* 添加过渡效果 */
-}
-[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
-  background-color: #23faf3; /* 鼠标悬停时的背景色 */
-}
-
-/* 阅读模式 */
+/*********************** 阅读模式 ************************/
 .read-mode #aside-content .card-widget {
   background: rgba(158, 204, 171, 0.5) !important;
 }
@@ -160,69 +150,12 @@ div#archive:hover {
   color: #ffffff;
 }
 
-/******************* 文章TOC目录文字颜色 *******************/
+/******************* 文章TOC目录（鼠标悬停）文字颜色 *******************/
 #post .post-copyright .post-copyright-info a:hover {
   color: var(--heo-lighttext);
 }
 #post .post-copyright .post-copyright-title:hover {
   color: var(--heo-lighttext);
-}
-
-#post .post-copyright:after {
-  position: absolute;
-  right: 22px;
-  top: -77px;
-  content: '\f25e';
-  font-size: 180px;
-  color: var(--heo-fontcolor);
-  opacity: 0.4;
-  filter: blur(7px);
-}
-
-@media screen and (max-width: 768px) {
-  #post .post-copyright {
-    padding: 1rem 1.3rem;
-  }
-}
-
-.post-copyright__author {
-  display: flex;
-  align-items: center;
-}
-
-.post-copyright__original {
-  background: var(--heo-fontcolor);
-  color: var(--heo-card-bg);
-  padding: 0.2rem 0.5rem;
-  font-size: 0.7rem;
-  border-radius: 8px;
-  margin-right: 0.5rem;
-  font-weight: bold;
-  line-height: 1.5;
-  white-space: nowrap;
-}
-
-.post-copyright__original:hover {
-  background: var(--heo-main);
-  color: var(--heo-white);
-}
-
-@media screen and (max-width: 768px) {
-  #post .post-copyright {
-    box-shadow: var(--heo-shadow-border);
-  }
-
-  .post-copyright .post-meta-original {
-    display: none;
-  }
-
-  .post-copyright__original {
-    display: none;
-  }
-
-  #post .post-copyright:after {
-    display: none;
-  }
 }
 
 /******************* 右下角按钮美化 *******************/
