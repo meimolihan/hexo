@@ -1,31 +1,4 @@
-/*文章页信息栏美化*/
-#post-info .post-title {
-  font-weight: 600; /*字体粗细*/
-  font-size: 2.5em; /*字体大小*/
-  line-height: 2.2; /*元素高度*/
-  letter-spacing: 9px; /*字体间距*/
-}
-
-/*信息栏高度调整*/
-#page-header.post-bg {
-  height: 26rem;
-}
-
-/*Web端信息栏适配*/
-@media screen and (min-width: 421px){
-  #page-header #post-info {
-    bottom: 8rem;
-}
-}
-
-/*Wap端信息栏适配*/
-@media screen and (max-width: 420px){
-  #page-header #post-info {
-    bottom: 2rem;
-}
-}
-
-/*圆角******************************************/
+/********************全局圆角***********************/
 /*首页文章卡片圆角*/
 #recent-posts .recent-post-item {
   border-radius: 20px; /* 添加圆角效果，数值可按需调整 */
@@ -41,6 +14,11 @@
   border-radius: 20px;
 }
 
+/*（友链+归档+分类+便签）圆角*/
+#page {
+  border-radius: 20px;
+}
+
 /*文章图片圆角*/
 .container img {
   border-radius: 15px;
@@ -51,17 +29,16 @@
   border-radius: 15px;
 }
 
-/*文章页相关推荐圆角**************************************/
-/*文章相关推荐卡片美化*/
+/*文章相关推荐卡片圆角*/
 .relatedPosts > .relatedPosts-list > div {
   border-radius: 20px;
 }
-
 #aside-content #card-toc .toc-content .toc-link.active {
   background: #669cbe;
   border-radius: 5px;
 }
-/*文章上下篇圆角*/
+
+/*文章上下篇卡片圆角*/
 #pagination.pagination-post{
     border-radius: 20px;
 }

@@ -7,6 +7,33 @@
   --mobufan-color: #FFFF00; /* 悬停时边框颜色变为黄色 */
 }
 
+/****************** 文章页信息栏美化 ******************/
+#post-info .post-title {
+  font-weight: 600; /*字体粗细*/
+  font-size: 2.5em; /*字体大小*/
+  line-height: 2.2; /*元素高度*/
+  letter-spacing: 9px; /*字体间距*/
+}
+
+/*信息栏高度调整*/
+#page-header.post-bg {
+  height: 26rem;
+}
+
+/*Web端信息栏适配*/
+@media screen and (min-width: 421px){
+  #page-header #post-info {
+    bottom: 8rem;
+  }
+}
+
+/*Wap端信息栏适配*/
+@media screen and (max-width: 420px){
+  #page-header #post-info {
+    bottom: 2rem;
+  }
+}
+
 /****************** 边框装饰线 ******************/
 /* 边框装饰线-首页文章卡片 */
 #recent-posts .recent-post-item {
@@ -57,7 +84,11 @@ div#archive {
   /* 圆角大小 */
   /*border-radius: 20px;*/
 }
-
+div#post:hover,
+div#page:hover,
+div#archive:hover {
+  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
+}
 /****************** 背景透明 ******************/
 /* 导航栏 */
 #page-header.nav-fixed #nav {
@@ -68,6 +99,22 @@ div#archive {
 [data-theme="dark"] #page-header.nav-fixed #nav {
   background: rgba(0, 0, 0, 0.3) !important;
   backdrop-filter: var(--backdrop-filter);
+}
+
+/* 导航栏子菜单背景透明*/
+.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
+  background-color: rgba(0, 0, 0, 0.5); /* 默认背景色 */
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
+  background-color: #23faf3; /* 鼠标悬停时的背景色 */
+}
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
+  background-color: rgba(0, 0, 0, 0.2); /* 默认背景色 */
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
+  background-color: #23faf3; /* 鼠标悬停时的背景色 */
 }
 
 /* 夜间模式遮罩 */

@@ -1,0 +1,54 @@
+/********************** 滚动条整体样式 ********************/
+::-webkit-scrollbar {
+    width: 8px; /* 滚动条宽度 */
+    height: 8px; /* 滚动条高度 */
+}
+
+/* 滚动条轨道样式 */
+::-webkit-scrollbar-track {
+    background-color: rgba(73, 177, 245, 0.2); /* 轨道背景色，半透明 */
+    border-radius: 2em; /* 轨道圆角 */
+}
+
+/* 滚动条滑样式块 */
+::-webkit-scrollbar-thumb {
+    background-color: var(--theme-color, #49b1f5); /* 滑块背景色，使用主题变量，若未定义则使用默认值 #49b1f5 */
+    background-image: -webkit-linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.3) 25%, /* 条纹效果，黑色半透明，增强对比度 */
+            transparent 25%, /* 透明部分 */
+            transparent 50%, /* 透明部分 */
+            rgba(0, 0, 0, 0.3) 50%, /* 条纹效果，黑色半透明，增强对比度 */
+            rgba(0, 0, 0, 0.3) 75%, /* 条纹效果，黑色半透明，增强对比度 */
+            transparent 75%, /* 透明部分 */
+            transparent
+    ); /* 滑块上的条纹效果 */
+    border-radius: 2em; /* 滑块圆角 */
+}
+
+/* 滚动条角落样式 */
+::-webkit-scrollbar-corner {
+    background-color: transparent; /* 角落背景色，透明 */
+}
+
+/* 针对 Mozilla 浏览器的选中文本样式 */
+::-moz-selection {
+    color: #fff; /* 选中文字颜色 */
+    background-color: var(--theme-color, #49b1f5) !important; /* 选中背景色，使用主题变量，若未定义则使用默认值 #49b1f5 */
+}
+
+/* 代码框底部滚动条的特殊样式 */
+#article-container figure.highlight > ::-webkit-scrollbar-thumb {
+    background-color: #49b1f5 !important; /* 滑块背景色，深灰色 */
+    background-image: -webkit-linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.2) 25%, /* 条纹效果，黑色低透明度，增强对比度 */
+            transparent 25%, /* 透明部分 */
+            transparent 50%, /* 透明部分 */
+            rgba(0, 0, 0, 0.2) 50%, /* 条纹效果，黑色低透明度，增强对比度 */
+            rgba(0, 0, 0, 0.2) 75%, /* 条纹效果，黑色低透明度，增强对比度 */
+            transparent 75%, /* 透明部分 */
+            transparent
+    ) !important; /* 滑块上的条纹效果 */
+    border-radius: 2em !important; /* 滑块圆角 */
+}
