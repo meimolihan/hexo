@@ -1,13 +1,11 @@
  /* 标题增强 */
  :root {
-     --theme-color: #a60000;
-     --white: #be0000;
+     --white: #90b69c;
  }
 
 /* 设置首页标题字体大小、颜色、行高等 */
 #post-info .post-title {
-    margin-bottom: 8px;
-    color: var(--white);
+    color: var(--white); /* 首页（标题文字）颜色 */
     font-weight: normal;
     font-size: 2.0em; /* 首页（标题文字）大小 */
     line-height: 1.5; /* 首页（标题与副标题）间距大小 */
@@ -19,6 +17,21 @@
     -webkit-line-clamp: 3;
     overflow: hidden;
     text-overflow: ellipsis;
-  }  
+  }
+
+ #post-meta .meta-firstline, #post-meta .meta-secondline {
+     color: var(--white); /* 首页（标题文字）颜色 */
+     font-weight: normal;
+     font-size: 2.0em; /* 首页（标题文字）大小 */
+     line-height: 1.5; /* 首页（标题与副标题）间距大小 */
+     letter-spacing: 0px; /* 首页标题（字符）间距大小 */
+     word-spacing: 0px; /* 首页标题（单词）间距 */
+     /* 以下属性配合实现多行文本溢出显示省略号 */
+     display: -webkit-box;
+     -webkit-box-orient: vertical;
+     -webkit-line-clamp: 3;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
   
   
