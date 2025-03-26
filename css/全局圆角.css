@@ -43,10 +43,11 @@
     border-radius: 20px;
 }
 
-.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
+/*导航栏子菜单圆角*/
+.menus_item_child {
   border-radius: 8px;
 }
-.menus_item_child {
+.menus_item_child:hover {
   border-radius: 8px;
 }
 
