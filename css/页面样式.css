@@ -1,58 +1,88 @@
-/****************** 定义颜色变量 ******************/
+/****************************** 全局颜色 ****************************/
 :root {
-  --trans-light: rgba(255, 255, 255, 0.5);
+  --heo-card-bg: #ffffff; /* 卡片背景颜色（白色） */
+  --heo-main: #3498db; /* 主色（蓝色） */
+  --heo-lighttext: #6c757d; /* 浅色文字（灰色） */
+  --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
+  --style-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
+  --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  --trans-light: rgba(255, 255, 255, 0.75);
   --trans-dark: rgba(25, 25, 25, 0.2);
-  --border-style: 1px solid rgb(169, 169, 169); /* 边框样式 */
-  --backdrop-filter: blur(5px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
-  --mobufan-color: #FFFF00; /* 悬停时边框颜色变为黄色 */
+  --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
+  --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
+  --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
 }
 
-/****************** 文章页信息栏美化 ******************/
-#post-info .post-title {
-  font-weight: 600; /*字体粗细*/
-  font-size: 2.5em; /*字体大小*/
-  line-height: 2.2; /*元素高度*/
-  letter-spacing: 9px; /*字体间距*/
+/* 明亮模式颜色配置 */
+[data-theme="light"] {
+  --heo-lighttext: #007dd0; /* 文章TOC字体颜色 */
+  --heo-card-bg: var(--heo-none);
+  --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
+  --style-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
+  --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  --trans-dark: rgba(25, 25, 25, 0.2);
+  --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
+  --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
+  --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
 }
 
-/*信息栏高度调整*/
-#page-header.post-bg {
-  height: 26rem;
+/* 暗色模式颜色配置 */
+[data-theme="dark"] {
+  --heo-lighttext: #007dd0; /* 文章TOC字体颜色 */
+  --heo-card-bg: var(--heo-none);
+  --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
+  --style-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
+  --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  --trans-dark: rgba(25, 25, 25, 0.2);
+  --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
+  --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
+  --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
 }
 
-/*Web端信息栏适配*/
-@media screen and (min-width: 421px){
-  #page-header #post-info {
-    bottom: 8rem;
-  }
-}
+/****************** 背景颜色 ******************/
+/* 首页文章卡片：#recent-posts .recent-post-item */
+/* 首页侧栏卡片：#aside-content .card-widget */
+/* 文章页卡片：div#post */
+/* 归档页卡片：div#archive */
+/* 普通页卡片：div#page */
 
-/*Wap端信息栏适配*/
-@media screen and (max-width: 420px){
-  #page-header #post-info {
-    bottom: 2rem;
-  }
-}
 
-/****************** 边框装饰线 ******************/
-/* 边框装饰线-首页文章卡片 */
-#recent-posts .recent-post-item {
+/* 夜间模式遮罩 */
+[data-theme="dark"] #recent-posts .recent-post-item,
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] div#post,
+[data-theme="dark"] div#archive,
+[data-theme="dark"] div#page {
+  background: var(--trans-dark);
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--border-style); /* 边框样式 */
+  border: var(--border-style); /* 边框装饰线颜色 */
 }
+
+/* 日间模式遮罩 */
+[data-theme="light"] #recent-posts .recent-post-item,
+[data-theme="light"] #aside-content .card-widget,
+[data-theme="light"] div#post,
+[data-theme="light"] div#archive,
+[data-theme="light"] div#page {
+  background: var(--trans-light); /* 背景颜色 */
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框装饰线颜色 */
+}
+
+div#post:hover,
+div#page:hover,
+div#archive:hover {
+  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
+}
+
+/****************** 边框装饰线颜色 ******************/
+
 #recent-posts .recent-post-item:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
-}
-
-/* 装饰线-首页侧栏卡片 */
-#aside-content .card-widget {
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--border-style); /* 边框样式 */
+  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
 }
 #aside-content .card-widget:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
+  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
 }
-
 /* 装饰线-下一篇文章 */
 #pagination .pagination-related {
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
@@ -71,37 +101,32 @@
   border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
 }
 
-/* 装饰线-文章页、归档页、普通页面 */
-div#post,
-div#page,
-div#archive {
-  /* 背景颜色 */
-  /*background: var(--trans-light);*/
-  /* 磨砂效果（模糊+饱和度） */
-  backdrop-filter: var(--backdrop-filter);
-  /* 边框样式 */
-  border: var(--border-style);
-  /* 圆角大小 */
-  /*border-radius: 20px;*/
-}
-div#post:hover,
-div#page:hover,
-div#archive:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框颜色变为黄色 */
-}
-/****************** 背景透明 ******************/
-/* 导航栏 */
+/******************* 导航栏背景颜色 *******************/
 #page-header.nav-fixed #nav {
   background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: var(--backdrop-filter);
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
 }
 
 [data-theme="dark"] #page-header.nav-fixed #nav {
   background: rgba(0, 0, 0, 0.3) !important;
-  backdrop-filter: var(--backdrop-filter);
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
 }
 
-/* 导航栏子菜单背景透明*/
+/******************* 标签外挂背景颜色 *******************/
+#post .content {
+  background-color: rgb(117 174 156 / 50%); /* 默认背景色 */
+}
+[data-theme="dark"] #post .content {
+  background-color: rgb(0 0 0); /* 默认背景色 */
+}
+#post .content:hover {
+  background-color: rgb(40 103 153 / 50%); /* 鼠标悬停时的背景色 */
+}
+[data-theme="dark"] #post .content:hover {
+  background-color: rgb(0 37 36 / 88%); /* 鼠标悬停时的背景色 */
+}
+
+/******************* 导航栏子菜单背景颜色 *******************/
 .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
   background-color: rgba(0, 0, 0, 0.5); /* 默认背景色 */
   transition: background-color 0.3s ease; /* 添加过渡效果 */
@@ -115,24 +140,6 @@ div#archive:hover {
 }
 [data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
   background-color: #23faf3; /* 鼠标悬停时的背景色 */
-}
-
-/* 夜间模式遮罩 */
-[data-theme="dark"] #recent-posts .recent-post-item,
-[data-theme="dark"] #aside-content .card-widget,
-[data-theme="dark"] div#post,
-[data-theme="dark"] div#archive,
-[data-theme="dark"] div#page {
-  background: var(--trans-dark);
-}
-
-/* 日间模式遮罩 */
-[data-theme="light"] #recent-posts .recent-post-item,
-[data-theme="light"] #aside-content .card-widget,
-[data-theme="light"] div#post,
-[data-theme="light"] div#archive,
-[data-theme="light"] div#page {
-  background: var(--trans-light);
 }
 
 /* 阅读模式 */
@@ -152,5 +159,82 @@ div#archive:hover {
   background: rgba(25, 25, 25, 0.2) !important;
   color: #ffffff;
 }
-/************************************/
 
+/******************* 文章TOC目录文字颜色 *******************/
+#post .post-copyright .post-copyright-info a:hover {
+  color: var(--heo-lighttext);
+}
+#post .post-copyright .post-copyright-title:hover {
+  color: var(--heo-lighttext);
+}
+
+#post .post-copyright:after {
+  position: absolute;
+  right: 22px;
+  top: -77px;
+  content: '\f25e';
+  font-size: 180px;
+  color: var(--heo-fontcolor);
+  opacity: 0.4;
+  filter: blur(7px);
+}
+
+@media screen and (max-width: 768px) {
+  #post .post-copyright {
+    padding: 1rem 1.3rem;
+  }
+}
+
+.post-copyright__author {
+  display: flex;
+  align-items: center;
+}
+
+.post-copyright__original {
+  background: var(--heo-fontcolor);
+  color: var(--heo-card-bg);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  border-radius: 8px;
+  margin-right: 0.5rem;
+  font-weight: bold;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.post-copyright__original:hover {
+  background: var(--heo-main);
+  color: var(--heo-white);
+}
+
+@media screen and (max-width: 768px) {
+  #post .post-copyright {
+    box-shadow: var(--heo-shadow-border);
+  }
+
+  .post-copyright .post-meta-original {
+    display: none;
+  }
+
+  .post-copyright__original {
+    display: none;
+  }
+
+  #post .post-copyright:after {
+    display: none;
+  }
+}
+
+/******************* 右下角按钮美化 *******************/
+#rightside > div > button, #rightside > div > a {
+  display: block;
+  margin-bottom: 8px; /*间距*/
+  width: 45px; /*左右边框大小*/
+  height: 45px; /*上下边框大小*/
+  border-radius: 26px; /*圆角大小*/
+  background-color: #ffffff; /*背景颜色*/
+  color: #0068bb; /*图标颜色*/
+  text-align: center;
+  font-size: 19px; /*图标大小*/
+  line-height: 43px; /*图标上下调节*/
+}

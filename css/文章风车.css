@@ -82,7 +82,7 @@
 #content-inner.layout h5:hover,
 #content-inner.layout h6:hover {
   color: #2196f3 !important;
-  transform: scale(1.05);
+  transform: scale(0.95);
   transition: color 0.3s ease, transform 0.3s ease;
 }
 

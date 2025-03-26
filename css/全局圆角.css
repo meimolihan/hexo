@@ -7,7 +7,7 @@
 /*文章页目录卡片圆角*/
 #aside-content .card-widget {
   border-radius: 20px;
-  }
+}
 
 /*文章正文圆角*/
 #post {
@@ -34,7 +34,6 @@
   border-radius: 20px;
 }
 #aside-content #card-toc .toc-content .toc-link.active {
-  background: #669cbe;
   border-radius: 5px;
 }
 
@@ -45,11 +44,12 @@
 
 /*导航栏子菜单圆角*/
 .menus_item_child {
-  border-radius: 20px;
+  border-radius: 10px !important;
   transition: all 0.3s ease; /* 添加平滑过渡效果 */
 }
 
 .menus_item_child:hover {
-  border-radius: 20px !important; /* 确保悬停时圆角效果存在 */
+  border-radius: 10px !important; /* 确保悬停时圆角效果存在 */
+  transition: all 0.3s ease; /* 添加平滑过渡效果 */
 }
 
