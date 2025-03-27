@@ -210,13 +210,13 @@ div#archive:hover {
 
 /****** 手机端菜单栏背景 ******/
 [data-theme="light"] .menus_item_child,
-[data-theme="light"] .site-data,
 [data-theme="light"] div#sidebar-menus {
   background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--border-style); /* 边框装饰线颜色 */
   border-radius: 15px; /* 圆角 */
 }
+[data-theme="light"] .site-data,
 [data-theme="light"] .menus_items {
   background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
@@ -224,13 +224,13 @@ div#archive:hover {
 }
 
 [data-theme="dark"] .menus_item_child,
-[data-theme="dark"] .site-data,
 [data-theme="dark"] div#sidebar-menus {
   background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--border-style); /* 边框装饰线颜色 */
   border-radius: 15px; /* 圆角 */
 }
+[data-theme="dark"] .site-data,
 [data-theme="dark"] .menus_items {
   background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
