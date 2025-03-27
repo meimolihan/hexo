@@ -1,7 +1,11 @@
 /* 日间模式生效 */
 [data-theme="light"] #site-name,
-[data-theme="light"] #site-title,
-[data-theme="light"] #site-subtitle,
+[data-theme="light"] #site-title {
+  animation: light_15px_dark 10s linear infinite;
+}
+[data-theme="light"] #site-subtitle {
+  animation: light_10px_dark 10s linear infinite;
+}
 [data-theme="light"] #post-info {
   animation: light_15px_light 10s linear infinite;
 }
@@ -15,7 +19,6 @@
   animation: light_10px_dark 10s linear infinite;
 }
 [data-theme="dark"] #post-info {
-  /*animation: light_5px_dark 10s linear infinite;*/   /* 左右摆动效果*/
   animation: light_15px_light 10s linear infinite;
 }
 
