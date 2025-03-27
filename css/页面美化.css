@@ -216,30 +216,36 @@ div#archive:hover {
   border: var(--border-style); /* 边框装饰线颜色 */
   border-radius: 15px; /* 圆角 */
 }
-[data-theme="light"] .site-data,
-[data-theme="light"] .menus_items {
-  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border-radius: 15px !important; /* 圆角 */
-}
 
 [data-theme="dark"] .menus_item_child,
-[data-theme="dark"] div#sidebar-menus {
-  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--border-style); /* 边框装饰线颜色 */
-  border-radius: 15px; /* 圆角 */
-}
-[data-theme="dark"] .site-data,
 [data-theme="dark"] .menus_items {
   background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border-radius: 15px !important; /* 圆角 */
 }
 
+[data-theme="dark"] div#sidebar-menus {
+  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框装饰线颜色 */
+  border-radius: 15px; /* 圆角 */
+}
+[data-theme="dark"] .menus_items {
+  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border-radius: 15px !important; /* 圆角 */
+}
+
+[data-theme="light"] .site-data {
+  background: var(--mobufan-touming) !important; /* 日间模式背景颜色 */
+}
+[data-theme="dark"] .site-data {
+  background: var(--mobufan-touming) !important; /* 日间模式背景颜色 */
+}
+
 
 .site-data {
-  font-size: 19px; /* 图标大小 */
+  font-size: 16px; /* 图标大小 */
   line-height: 40px; /* 图标上下调节 */
   color: var(--heo-white); /* 调整（导航栏文字）颜色 */
 }
