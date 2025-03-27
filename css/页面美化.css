@@ -126,7 +126,7 @@ div#archive:hover {
 
 /****** 子菜单横向展示 ******/
 #nav .menus_items .menus_item:hover .menus_item_child {
-  display: flex !important;
+  display: flex;
 }
 /* 这里的2是代表导航栏的第2个元素，即有子菜单的元素，可以按自己需求修改 */
 .menus_items .menus_item:nth-child(2) .menus_item_child {
@@ -138,7 +138,7 @@ div#archive:hover {
   background-color: transparent!important;
 }
 
-/****** 调整导航栏内容 ******/
+/****** 调整导航栏（图标和文字）大小和颜色 ******/
 .site-page svg {
   width: 1.35em; /* 调整（导航栏图标）的宽度 */
   height: 1.35em; /* 调整（导航栏图标）的高度 */
@@ -155,10 +155,12 @@ div#archive:hover {
 /****** 导航栏菜单鼠标移入字体放大 ******/
 .site-name:hover {
   font-size: 30px; /*导航栏（站点标题）文字图标*/
+  background: var(--heo-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
   transition: transform 0.3s ease; /* 平滑过渡效果 */
 }
 .menus_item:hover {
   font-size: 20px; /*导航栏（主菜单）文字图标*/
+  background: var(--heo-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
   transition: transform 0.3s ease; /* 平滑过渡效果 */
 }
 
@@ -174,21 +176,35 @@ div#archive:hover {
 
 /****** 导航栏（子菜单）背景颜色 ******/
 [data-theme="light"] .site-page.child.faa-parent.animated-hover {
-  background-color: var(--backdrop-filter)!important; /* 日间模式，默认（子菜单）背景色 */
+  background-color: var(--heo-shadow-border)!important; /* 日间模式，默认（子菜单）背景色 */
+  backdrop-filter: var(--backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
   transition: background-color 0.3s ease !important; /* 日间模式，添加（子菜单）过渡效果 */
 }
 [data-theme="dark"] .site-page.child.faa-parent.animated-hover {
-  background-color: var(--backdrop-filter)!important; /* 夜间模式，默认（子菜单）背景色 */
+  background-color: var(--heo-shadow-border)!important; /* 夜间模式，默认（子菜单）背景色 */
+  backdrop-filter: var(--backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
   transition: background-color 0.3s ease !important; /* 夜间模式，添加（子菜单）过渡效果 */
 }
 
 /****** 鼠标悬停背景颜色 ******/
 /*[data-theme="light"] .site-page.child.faa-parent.animated-hover:hover {*/
 /*  background: var(--heo-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
+/*  backdrop-filter: var(--backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
 /*  background-color: #323838c9 !important; !* 日间模式，鼠标悬停时（子菜单）背景色 *!*/
 /*}*/
 /*[data-theme="dark"] .site-page.child.faa-parent.animated-hover:hover {*/
 /*  background: var(--heo-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
+/*  backdrop-filter: var(--backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
+/*  background-color: #323838c9 !important; !* 夜间模式，鼠标悬停时（子菜单）背景色 *!*/
+/*}*/
+/*[data-theme="light"] .menus_item:hover {*/
+/*  background: var(--heo-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
+/*  backdrop-filter: var(--backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
+/*  background-color: #323838c9 !important; !* 日间模式，鼠标悬停时（子菜单）背景色 *!*/
+/*}*/
+/*[data-theme="dark"] .menus_item:hover {*/
+/*  background: var(--heo-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
+/*  backdrop-filter: var(--backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
 /*  background-color: #323838c9 !important; !* 夜间模式，鼠标悬停时（子菜单）背景色 *!*/
 /*}*/
 
@@ -219,6 +235,13 @@ div#archive:hover {
   background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border-radius: 15px !important; /* 圆角 */
+}
+
+
+.site-data {
+  font-size: 19px; /* 图标大小 */
+  line-height: 40px; /* 图标上下调节 */
+  color: var(--heo-white); /* 调整（导航栏文字）颜色 */
 }
 
 /************************ 标签外挂背景颜色 ************************/
@@ -353,4 +376,11 @@ div#archive:hover {
   border-radius: 15px; /* 内容中活性目录，设置圆角边框 */
 }
 /*************************************************************/
-
+/* 全局超链接颜色 */
+#article-container a {
+  color: #007eff !important; /* 默认颜色 */
+}
+#article-container a:hover {
+  color: #00ff00 !important; /* 悬停颜色 */
+  text-decoration: underline !important;
+}
