@@ -411,8 +411,18 @@ div#archive:hover {
 }
 /* 首页文章标题居中显示 */
 .article-title {
-  text-align: center;
-  letter-spacing: 0px; /* 首页标题（字符）间距大小 */
-  word-spacing: 0px; /* 首页标题（单词）间距 */
+  text-align: center; /* 首页文章标题居中显示 */
+  letter-spacing: 0px; /* 首页文章标题（字符）间距大小 */
+  word-spacing: 0px; /* 首页文章标题（单词）间距 */
+}
+.article-title:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+/* 便签卡片内容-鼠标悬停时放大效果 */
+.tag-cloud-list a:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+  background-color: transparent;
 }
 /*************************************************************/
