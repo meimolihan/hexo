@@ -2,17 +2,18 @@
 :root {
   --heo-lighttext: #6c757d; /* 浅色文字（灰色） */
   --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
-  --style-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
+  --style-border: 1px solid #e0e0e0; /* 边框样式（白色实线） */
   --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
   --trans-light: rgba(255, 255, 255, 0.75); /* 日间模式背景颜色 */
   --trans-dark: rgba(25, 25, 25, 0.2); /* 夜间模式背景颜色 */
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
   --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
-  --heo-white: #ffffff; /* 白色 */
+  --heo-white: #ffffff; /* 白色字体 */
+  --mobufan-touming: rgba(25, 25, 25, 0); /* 透明背景颜色 */
 }
 
-/* 明亮模式颜色配置 */
+/****** 明亮模式颜色配置 ******/
 [data-theme="light"] {
   --heo-lighttext: #007dd0; /* 文章TOC字体颜色 */
   --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
@@ -22,10 +23,11 @@
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
   --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
-  --heo-white: #ffffff; /* 白色 */
+  --heo-white: #ffffff; /* 白色字体 */
+  --mobufan-touming: rgba(25, 25, 25, 0); /* 透明背景颜色 */
 }
 
-/* 暗色模式颜色配置 */
+/****** 暗色模式颜色配置 ******/
 [data-theme="dark"] {
   --heo-lighttext: #007dd0; /* 文章TOC字体颜色 */
   --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
@@ -35,10 +37,16 @@
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
   --mobufan-color: #ffb800; /* 悬停时边框颜色变为黄色 */
-  --heo-white: #ffffff; /* 白色 */
+  --heo-white: #ffffff; /* 白色字体 */
+  --mobufan-touming: rgba(25, 25, 25, 0); /* 透明背景颜色 */
 }
 
-/******************* 背景颜色 ******************/
+/************************ 背景颜色+边框装饰线+磨砂效果 ************************/
+/* 文章分页：#pagination .extend.next, #pagination .page-number, */
+/* 相关推荐：.pagination-related */
+/* 下一篇文章：#pagination .pagination-related */
+/* 代码框：.highlight */
+/* 搜索框：.search-dialog */
 /* 标签子页面卡片：#tag */
 /* 分类子页面卡片：#category */
 /* 首页文章卡片：#recent-posts .recent-post-item */
@@ -47,7 +55,13 @@
 /* 归档页卡片：div#archive */
 /* 普通页卡片：div#page */
 
-/* 夜间模式背景颜色 */
+/****** 夜间模式背景颜色 ******/
+[data-theme="dark"] #pagination .page-number,
+[data-theme="dark"] #pagination .extend.next,
+[data-theme="dark"] .pagination-related,
+[data-theme="dark"] #pagination .pagination-related,
+[data-theme="dark"] .highlight,
+[data-theme="dark"] .search-dialog,
 [data-theme="dark"] #tag,
 [data-theme="dark"] #category,
 [data-theme="dark"] #recent-posts .recent-post-item,
@@ -60,7 +74,13 @@
   border: var(--border-style); /* 边框装饰线颜色 */
 }
 
-/* 日间模式背景颜色 */
+/****** 日间模式背景颜色 ******/
+[data-theme="light"] #pagination .page-number,
+[data-theme="light"] #pagination .extend.next,
+[data-theme="light"] .pagination-related,
+[data-theme="light"] #pagination .pagination-related,
+[data-theme="light"] .highlight,
+[data-theme="light"] .search-dialog,
 [data-theme="light"] #tag,
 [data-theme="light"] #category,
 [data-theme="light"] #recent-posts .recent-post-item,
@@ -73,22 +93,13 @@
   border: var(--border-style); /* 边框装饰线颜色 */
 }
 
-/****************** 边框装饰线颜色 ******************/
-/* 装饰线-下一篇文章 */
-#pagination .pagination-related {
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--border-style); /* 边框样式 */
-}
-
-/* 装饰线-相关推荐 */
-.pagination-related {
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--border-style); /* 边框样式 */
-}
-
-/******************* 悬停时边框装饰线颜色 *******************/
-#pagination .pagination-related:hover,
+/****** 悬停时边框装饰线（颜色+动画） ******/
+#pagination .page-number:hover,
+#pagination .extend.next:hover,
 .pagination-related:hover,
+#pagination .pagination-related:hover,
+.highlight:hover,
+.search-dialog:hover,
 #tag:hover,
 #category:hover,
 #recent-posts .recent-post-item:hover,
@@ -99,39 +110,44 @@ div#archive:hover {
   border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
 }
 
-/******************* 导航栏 背景颜色 *******************/
+/************************ 导航栏背景颜色 ************************/
+/****** 导航栏（主菜单）背景颜色 ******/
 #page-header.nav-fixed #nav {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.3); /* 日间模式导航栏（主菜单）背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
 }
-
 [data-theme="dark"] #page-header.nav-fixed #nav {
-  background: rgba(0, 0, 0, 0.3) !important;
+  background: rgba(0, 0, 0, 0.3); /* 夜间模式导航栏（主菜单）背景颜色 */
   backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
 }
+
 /****** 导航栏（子菜单）背景颜色 ******/
-.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
-  background-color: rgba(0, 0, 0, 0.5); /* 默认背景色 */
-  transition: background-color 0.3s ease; /* 添加过渡效果 */
+.site-page.child.faa-parent.animated-hover {
+  background-color: rgba(0, 0, 0, 0.5); /* 日间模式，默认（子菜单）背景色 */
+  transition: background-color 0.3s ease; /* 日间模式，添加（子菜单）过渡效果 */
 }
-.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
-  background-color: #9afffcb8; /* 鼠标悬停时的背景色 */
-}
-[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn {
-  background-color: rgba(0, 0, 0, 0.2); /* 默认背景色 */
-  transition: background-color 0.3s ease; /* 添加过渡效果 */
-}
-[data-theme="dark"] .site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
-  background-color: #003e3c; /* 鼠标悬停时的背景色 */
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover {
+  background-color: rgba(0, 0, 0, 0.2); /* 夜间模式，默认（子菜单）背景色 */
+  transition: background-color 0.3s ease; /* 夜间模式，添加（子菜单）过渡效果 */
 }
 
-/******************* 标签外挂背景颜色 *******************/
+/****** 鼠标悬停背景颜色 ******/
+.site-page.child.faa-parent.animated-hover:hover {
+  background-color: #003e3c; /* 日间模式，鼠标悬停时（子菜单）背景色 */
+}
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover:hover {
+  background-color: #003e3c; /* 夜间模式，鼠标悬停时（子菜单）背景色 */
+}
+
+/************************ 标签外挂背景颜色 ************************/
 #post .content {
   background-color: rgb(117 174 156 / 50%); /* 默认背景色 */
 }
 [data-theme="dark"] #post .content {
   background-color: rgb(0 0 0); /* 默认背景色 */
 }
+
+/* 鼠标悬停背景颜色 */
 #post .content:hover {
   background-color: rgb(40 103 153 / 50%); /* 鼠标悬停时的背景色 */
 }
@@ -139,33 +155,20 @@ div#archive:hover {
   background-color: rgb(0 37 36 / 88%); /* 鼠标悬停时的背景色 */
 }
 
-/*********************** 阅读模式 ************************/
-.read-mode #aside-content .card-widget {
-  background: rgba(158, 204, 171, 0.5) !important;
-}
+/************************ 阅读模式 ************************/
+.read-mode #aside-content .card-widget,
 .read-mode div#post {
   background: rgba(158, 204, 171, 0.5) !important;
 }
 
 /* 夜间模式下的阅读模式 */
-[data-theme="dark"] .read-mode #aside-content .card-widget {
-  background: rgba(25, 25, 25, 0.2) !important;
-  color: #ffffff;
-}
+[data-theme="dark"] .read-mode #aside-content .card-widget,
 [data-theme="dark"] .read-mode div#post {
   background: rgba(25, 25, 25, 0.2) !important;
   color: #ffffff;
 }
 
-/******************* 文章TOC目录（鼠标悬停）文字颜色 *******************/
-#post .post-copyright .post-copyright-info a:hover {
-  color: var(--heo-lighttext);
-}
-#post .post-copyright .post-copyright-title:hover {
-  color: var(--heo-lighttext);
-}
-
-/******************* 右下角按钮美化 *******************/
+/*************************** 右下角按钮美化 ************************/
 #rightside > div > button, #rightside > div > a {
   display: block;
   margin-bottom: 5px; /*间距*/
@@ -179,7 +182,7 @@ div#archive:hover {
   line-height: 42px; /*图标上下调节*/
 }
 
-/************************ 首页标题增强 ************************/
+/************************ 首页标题美化 ************************/
 /* 设置（首页标题）字体大小、颜色、行高等 */
 #post-info .post-title {
   color: var(--heo-white); /* 首页标题（文字）颜色 */
@@ -209,3 +212,113 @@ div#archive:hover {
 [data-theme="dark"] #post-meta .meta-firstline, #post-meta .meta-secondline {
   color: var(--heo-white); /* 首页副标题（文字）颜色 */
 }
+
+/*************************** 导航栏美化 ****************************/
+/******* 一级菜单居中 *******/
+#nav .menus_items {
+  position: absolute !important;
+  width: fit-content !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/****** 子菜单横向展示 ******/
+#nav .menus_items .menus_item:hover .menus_item_child {
+  display: flex !important;
+}
+/* 这里的2是代表导航栏的第2个元素，即有子菜单的元素，可以按自己需求修改 */
+.menus_items .menus_item:nth-child(2) .menus_item_child {
+  left: -125px;
+}
+
+/****** 去除导航栏选项中底下的蓝条 ******/
+#nav *::after{
+  background-color: transparent!important;
+}
+
+/****** 调整导航栏内容 ******/
+.site-page svg {
+  width: 1.35em; /* 调整（导航栏图标）的宽度 */
+  height: 1.35em; /* 调整（导航栏图标）的高度 */
+}
+.site-page span {
+  font-size: 1.25em; /* 调整（导航栏文字）大小 */
+  color: var(--heo-white); /* 调整（导航栏文字）颜色 */
+}
+.site-name {
+  font-size: 1.35em; /* 调整（站点标题文字）大小 */
+  color: var(--heo-white); /* 调整（站点标题文字）颜色 */
+}
+
+/****** 导航栏菜单鼠标移入字体放大 ******/
+.site-name:hover {
+  font-size: 30px; /*导航栏（站点标题）文字图标*/
+  transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+.menus_item:hover {
+  font-size: 20px; /*导航栏（主菜单）文字图标*/
+  transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/******************** 文章toc目录美化 ********************/
+/* 侧边栏内容区域中的目录卡片内容样式 */
+#aside-content #card-toc .toc-content {
+  margin: 8px 0px; /* 设置内边距和外边距 */
+}
+/* 目录卡片内容 目录样式 */
+#aside-content #card-toc .toc-content .toc-link {
+  line-height: 1.2; /* 设置行高 */
+  padding: 3px; /* 设置内边距 */
+  border-left: 0px solid #88000000; /* 设置左边框 */
+  border-radius: 19px; /* 设置圆角边框 */
+  font-size: 15px; /* 设置字体大小 */
+}
+
+/****** 非活性目录样式 ******/
+[data-theme="light"] #aside-content #card-toc .toc-content .toc-link {
+  color: var(--heo-fontcolor); /* 日间模式（目录卡片内容）文字颜色 */
+}
+[data-theme="dark"] #aside-content #card-toc .toc-content .toc-link {
+  color: var(--heo-white); /* 夜间模式（目录卡片内容）文字颜色 */
+}
+
+#aside-content #card-toc:hover .toc-content .toc-link:not(.active) span {
+  filter: blur(0px); /* 悬停时 移除模糊效果 */
+  opacity: 1; /* 悬停时 设置完全不透明 */
+}
+#aside-content #card-toc .toc-content .toc-link:not(.active) span {
+  opacity: 0.6; /* 目录卡片内容设置(半透明) */
+  filter: blur(0.9px); /* 目录卡片内容设置(轻微模糊)效果 */
+  transition: 0.3s; /* 目录卡片内容设置(过渡效果) */
+}
+
+/****** 活性目录状态样式 ******/
+/* 鼠标悬停样式 */
+#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover {
+  line-height: 2.2; /* 设置行高 */
+  border-radius: 5px; /* 悬停时 圆角边框 */
+  background-color: var(--mobufan-color); /* 悬停时 背景颜色 */
+  color: var(--heo-lighttext); /*  悬停时 文字颜色 */
+  font-weight: bold; /* 设置字体加粗 */
+  font-size: 22px; /* 悬停时 字体大小 */
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out; /* 悬停时 过渡效果 */
+}
+
+/* 浏览到该目录时的样式*/
+#aside-content #card-toc .toc-content .toc-link.active {
+  line-height: 2.8; /* 设置行高 */
+  border-radius: 5px; /* 设置圆角边框 */
+  color: var(--heo-lighttext); /*  浏览到该目录时 文字颜色 */
+  background-color: var(--mobufan-touming); /* 浏览到该目录时 边框背景颜色 */
+  font-weight: bold; /* 设置字体加粗 */
+  font-size: 22px; /* 设置字体大小 */
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out; /* 浏览到该目录时 过渡效果 */
+}
+
+#aside-content #card-toc .toc-content .toc-item.active .toc-link {
+  opacity: 1; /* 内容中活性目录，设置不透明度 */
+  border-radius: 15px; /* 内容中活性目录，设置圆角边框 */
+}
+
+/*************************************************************/
+
