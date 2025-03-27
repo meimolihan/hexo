@@ -301,7 +301,7 @@ div#archive:hover {
   color: var(--heo-lighttext); /*  悬停时 文字颜色 */
   font-weight: bold; /* 设置字体加粗 */
   font-size: 22px; /* 悬停时 字体大小 */
-  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out; /* 悬停时 过渡效果 */
+  transition: background-color 0.3s ease; /* 悬停时 过渡效果 */
 }
 
 /* 浏览到该目录时的样式*/
@@ -312,7 +312,7 @@ div#archive:hover {
   background-color: var(--mobufan-touming); /* 浏览到该目录时 边框背景颜色 */
   font-weight: bold; /* 设置字体加粗 */
   font-size: 22px; /* 设置字体大小 */
-  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out; /* 浏览到该目录时 过渡效果 */
+  transition: background-color 0.3s ease; /* 浏览到该目录时 过渡效果 */
 }
 
 #aside-content #card-toc .toc-content .toc-item.active .toc-link {
