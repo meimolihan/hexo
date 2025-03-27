@@ -3,7 +3,7 @@
   --heo-lighttext: #6c757d; /* 浅色文字（灰色） */
   --heo-fontcolor: #212529; /* 默认字体颜色（深灰色） */
   --style-border: 1px solid #e0e0e0; /* 边框样式（白色实线） */
-  --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+  --heo-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
   --trans-light: rgba(255, 255, 255, 0.75); /* 日间模式背景颜色 */
   --trans-dark: rgba(25, 25, 25, 0.2); /* 夜间模式背景颜色 */
   --border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
@@ -98,36 +98,6 @@
   border: var(--border-style); /* 边框装饰线颜色 */
 }
 
-
-/****** 手机端菜单栏背景 ******/
-[data-theme="light"] .menus_item_child,
-[data-theme="light"] .site-data,
-[data-theme="light"] div#sidebar-menus {
-  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--border-style); /* 边框装饰线颜色 */
-  border-radius: 15px; /* 圆角 */
-}
-[data-theme="light"] .menus_items {
-  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border-radius: 15px !important; /* 圆角 */
-}
-
-[data-theme="dark"] .menus_item_child,
-[data-theme="dark"] .site-data,
-[data-theme="dark"] div#sidebar-menus {
-  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--border-style); /* 边框装饰线颜色 */
-  border-radius: 15px; /* 圆角 */
-}
-[data-theme="dark"] .menus_items {
-  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border-radius: 15px !important; /* 圆角 */
-}
-
 /****** 悬停时边框装饰线（颜色） ******/
 #pagination .page-number:hover,
 #pagination .extend.next:hover,
@@ -193,37 +163,66 @@ div#archive:hover {
 }
 
 /****** 导航栏（主菜单）背景颜色 ******/
-#page-header.nav-fixed #nav {
-  /*background: rgba(255, 255, 255, 0.5); !* 日间模式导航栏（主菜单）背景颜色 *!*/
-  background: var(--heo-shadow-border); /* 日间模式导航栏（主菜单）背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+[data-theme="light"] #page-header.nav-fixed #nav {
+  background: var(--heo-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
+  backdrop-filter: var(--backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
 }
 [data-theme="dark"] #page-header.nav-fixed #nav {
-  /*background: rgba(0, 0, 0, 0.3); !* 夜间模式导航栏（主菜单）背景颜色 *!*/
-  background: var(--heo-shadow-border); /* 夜间模式导航栏（主菜单）背景颜色 */
-  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  background: var(--heo-shadow-border) !important; /* 夜间模式导航栏（主菜单）背景颜色 */
+  backdrop-filter: var(--backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
 }
 
 /****** 导航栏（子菜单）背景颜色 ******/
-.site-page.child.faa-parent.animated-hover {
-  background-color: rgba(0, 0, 0, 0.5); /* 日间模式，默认（子菜单）背景色 */
-  transition: background-color 0.3s ease; /* 日间模式，添加（子菜单）过渡效果 */
+[data-theme="light"] .site-page.child.faa-parent.animated-hover {
+  background-color: var(--backdrop-filter)!important; /* 日间模式，默认（子菜单）背景色 */
+  transition: background-color 0.3s ease !important; /* 日间模式，添加（子菜单）过渡效果 */
 }
 [data-theme="dark"] .site-page.child.faa-parent.animated-hover {
-  background-color: rgba(0, 0, 0, 0.2); /* 夜间模式，默认（子菜单）背景色 */
-  transition: background-color 0.3s ease; /* 夜间模式，添加（子菜单）过渡效果 */
+  background-color: var(--backdrop-filter)!important; /* 夜间模式，默认（子菜单）背景色 */
+  transition: background-color 0.3s ease !important; /* 夜间模式，添加（子菜单）过渡效果 */
 }
 
 /****** 鼠标悬停背景颜色 ******/
-.site-page.child.faa-parent.animated-hover:hover {
-  background-color: #003e3c; /* 日间模式，鼠标悬停时（子菜单）背景色 */
+/*[data-theme="light"] .site-page.child.faa-parent.animated-hover:hover {*/
+/*  background: var(--heo-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
+/*  background-color: #323838c9 !important; !* 日间模式，鼠标悬停时（子菜单）背景色 *!*/
+/*}*/
+/*[data-theme="dark"] .site-page.child.faa-parent.animated-hover:hover {*/
+/*  background: var(--heo-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
+/*  background-color: #323838c9 !important; !* 夜间模式，鼠标悬停时（子菜单）背景色 *!*/
+/*}*/
+
+/****** 手机端菜单栏背景 ******/
+[data-theme="light"] .menus_item_child,
+[data-theme="light"] .site-data,
+[data-theme="light"] div#sidebar-menus {
+  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框装饰线颜色 */
+  border-radius: 15px; /* 圆角 */
 }
-[data-theme="dark"] .site-page.child.faa-parent.animated-hover:hover {
-  background-color: #003e3c; /* 夜间模式，鼠标悬停时（子菜单）背景色 */
+[data-theme="light"] .menus_items {
+  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border-radius: 15px !important; /* 圆角 */
+}
+
+[data-theme="dark"] .menus_item_child,
+[data-theme="dark"] .site-data,
+[data-theme="dark"] div#sidebar-menus {
+  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border: var(--border-style); /* 边框装饰线颜色 */
+  border-radius: 15px; /* 圆角 */
+}
+[data-theme="dark"] .menus_items {
+  background: var(--heo-shadow-border) !important; /* 日间模式背景颜色 */
+  backdrop-filter: var(--backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border-radius: 15px !important; /* 圆角 */
 }
 
 /************************ 标签外挂背景颜色 ************************/
-#post .content {
+[data-theme="light"] #post .content {
   background-color: rgb(117 174 156 / 50%); /* 默认背景色 */
 }
 [data-theme="dark"] #post .content {
@@ -231,7 +230,7 @@ div#archive:hover {
 }
 
 /* 鼠标悬停背景颜色 */
-#post .content:hover {
+[data-theme="light"] #post .content:hover {
   background-color: rgb(40 103 153 / 50%); /* 鼠标悬停时的背景色 */
 }
 [data-theme="dark"] #post .content:hover {
@@ -239,8 +238,8 @@ div#archive:hover {
 }
 
 /************************ 阅读模式 ************************/
-.read-mode #aside-content .card-widget,
-.read-mode div#post {
+[data-theme="light"] .read-mode #aside-content .card-widget,
+[data-theme="light"] .read-mode div#post {
   background: rgba(158, 204, 171, 0.5) !important;
 }
 
@@ -354,3 +353,4 @@ div#archive:hover {
   border-radius: 15px; /* 内容中活性目录，设置圆角边框 */
 }
 /*************************************************************/
+
