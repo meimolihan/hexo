@@ -14,7 +14,7 @@
 .aplayer.aplayer-fixed .aplayer-body {
     background: rgba(255, 255, 255, 0.7)!important; /* 背景色设置为半透明白色 */
     backdrop-filter: blur(12px); /* 添加磨砂效果，模糊半径为12px */
-    box-shadow: 0 4px 12px 0 rgb(255 0 0), 0 1px 3px 0 rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    /*box-shadow: 0 4px 12px 0 rgb(255 0 0), 0 1px 3px 0 rgba(0, 0, 0, 0.1); !* 添加阴影效果 *!*/
     position: fixed;
     border-radius: 10px 10px 0 0 !important; /* 设置圆角 */
 }
@@ -70,7 +70,7 @@
     background: rgba(18, 18, 18, 0.9)!important; /* 背景色设置为深灰色 */
     color: #ffffff; /* 文字颜色设置为白色 */
     backdrop-filter: blur(15px); /* 添加磨砂效果，模糊半径为15px */
-    box-shadow: 0 4px 12px 0 rgb(16 255 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+    /*box-shadow: 0 4px 12px 0 rgb(16 255 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); !* 添加阴影效果 *!*/
 }
 
 [data-theme=dark] .aplayer-list,
