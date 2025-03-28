@@ -70,3 +70,7 @@ div#archive {
   border-radius: 10px !important; /* 确保悬停时圆角效果存在 */
 }
 
+/* 搜索框圆角 */
+.search-dialog {
+  border-radius: 20px; /* 设置圆角边框 */
+}

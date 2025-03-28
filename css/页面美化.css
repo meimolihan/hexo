@@ -3,7 +3,8 @@
   --mobufan-lighttext: #6c757d; /* 浅色文字（灰色） */
   --mobufan-fontcolor: #212529; /* 默认字体颜色（深灰色） */
   --mobufan-border: 1px solid #e0e0e0; /* 边框样式（白色实线） */
-  --mobufan-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  --mobufan-shadow-border: 0 4px 12px 0 rgb(47, 255, 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果 */
+  --mobufan-text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* 文字阴影效果 */
   --mobufan-trans-light: rgba(255, 255, 255, 0.75); /* 日间模式背景颜色 */
   --mobufan-dark: rgba(25, 25, 25, 0.2); /* 夜间模式背景颜色 */
   --mobufan-border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
@@ -18,7 +19,8 @@
   --mobufan-lighttext: #007dd0; /* 文章TOC字体颜色 */
   --mobufan-fontcolor: #212529; /* 默认字体颜色（深灰色） */
   --mobufan-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
-  --mobufan-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  --mobufan-shadow-border: 0 4px 12px 0 rgb(255, 0, 153), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框添加阴影效果 */
+  --mobufan-text-shadow: 0 0 5px rgb(255, 0, 153); /* 文字阴影效果 */
   --mobufan-dark: rgba(25, 25, 25, 0.2);
   --mobufan-border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --mobufan-backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
@@ -32,7 +34,8 @@
   --mobufan-lighttext: #007dd0; /* 文章TOC字体颜色 */
   --mobufan-fontcolor: #212529; /* 默认字体颜色（深灰色） */
   --mobufan-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
-  --mobufan-shadow-border: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  --mobufan-shadow-border: 0 4px 12px 0 rgb(47, 255, 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框添加阴影效果 */
+  --mobufan-text-shadow: 0 0 5px rgb(47, 255, 0); /* 文字阴影效果 */
   --mobufan-dark: rgba(25, 25, 25, 0.2);
   --mobufan-border-style: 1.2px solid rgb(169, 169, 169); /* 边框样式 */
   --mobufan-backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
@@ -53,24 +56,8 @@
 /* 归档页卡片：div#archive */
 /* 普通页卡片：div#page */
 
-/****** 夜间模式背景颜色 ******/
-[data-theme="dark"] #pagination .page-number,
-[data-theme="dark"] #pagination .extend.next,
-[data-theme="dark"] .highlight,
-[data-theme="dark"] .search-dialog,
-[data-theme="dark"] #tag,
-[data-theme="dark"] #category,
-[data-theme="dark"] #recent-posts .recent-post-item,
-[data-theme="dark"] #aside-content .card-widget,
-[data-theme="dark"] div#post,
-[data-theme="dark"] div#archive,
-[data-theme="dark"] div#page {
-  background: var(--mobufan-dark) !important; /* 夜间模式背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--mobufan-border-style); /* 边框装饰线颜色 */
-}
-
 /****** 日间模式背景颜色 ******/
+[data-theme="light"] #rightside > div > button, #rightside > div > a,
 [data-theme="light"] #pagination .page-number,
 [data-theme="light"] #pagination .extend.next,
 [data-theme="light"] .highlight,
@@ -83,8 +70,26 @@
 [data-theme="light"] div#archive,
 [data-theme="light"] div#page {
   background: var(--mobufan-trans-light) !important; /* 日间模式背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-  border: var(--mobufan-border-style); /* 边框装饰线颜色 */
+  backdrop-filter: var(--mobufan-backdrop-filter)!important; /* 磨砂效果（模糊+饱和度） */
+  border: var(--mobufan-border-style) !important; /* 边框装饰线颜色 */
+}
+
+/****** 夜间模式背景颜色 ******/
+[data-theme="dark"] #rightside > div > button, #rightside > div > a,
+[data-theme="dark"] #pagination .page-number,
+[data-theme="dark"] #pagination .extend.next,
+[data-theme="dark"] .highlight,
+[data-theme="dark"] .search-dialog,
+[data-theme="dark"] #tag,
+[data-theme="dark"] #category,
+[data-theme="dark"] #recent-posts .recent-post-item,
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] div#post,
+[data-theme="dark"] div#archive,
+[data-theme="dark"] div#page {
+  background: var(--mobufan-dark) !important; /* 夜间模式背景颜色 */
+  backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+  border: var(--mobufan-border-style) !important; /* 边框装饰线颜色 */
 }
 
 /* 相关推荐：.pagination-related */
@@ -99,20 +104,38 @@
 }
 
 /****** 悬停时边框装饰线（颜色） ******/
-#pagination .page-number:hover,
-#pagination .extend.next:hover,
-.pagination-related:hover,
-#pagination .pagination-related:hover,
-.highlight:hover,
-.search-dialog:hover,
-#tag:hover,
-#category:hover,
-#recent-posts .recent-post-item:hover,
-#aside-content .card-widget:hover,
-div#post:hover,
-div#page:hover,
-div#archive:hover {
-  border-color: var(--mobufan-color); /* 悬停时边框装饰线颜色 */
+[data-theme="light"] #pagination .page-number:hover,
+[data-theme="light"] #pagination .extend.next:hover,
+[data-theme="light"] .pagination-related:hover,
+[data-theme="light"] #pagination .pagination-related:hover,
+[data-theme="light"] .highlight:hover,
+[data-theme="light"] .search-dialog:hover,
+[data-theme="light"] #tag:hover,
+[data-theme="light"] #category:hover,
+[data-theme="light"] #recent-posts .recent-post-item:hover,
+[data-theme="light"] #aside-content .card-widget:hover,
+[data-theme="light"] div#post:hover,
+[data-theme="light"] div#page:hover,
+[data-theme="light"] div#archive:hover {
+  /*border-color: var(--mobufan-color); !* 悬停时边框装饰线颜色 *!*/
+  box-shadow: var(--mobufan-shadow-border) !important; /* 添加阴影效果 */
+}
+
+[data-theme="dark"] #pagination .page-number:hover,
+[data-theme="dark"] #pagination .extend.next:hover,
+[data-theme="dark"] .pagination-related:hover,
+[data-theme="dark"] #pagination .pagination-related:hover,
+[data-theme="dark"] .highlight:hover,
+[data-theme="dark"] .search-dialog:hover,
+[data-theme="dark"] #tag:hover,
+[data-theme="dark"] #category:hover,
+[data-theme="dark"] #recent-posts .recent-post-item:hover,
+[data-theme="dark"] #aside-content .card-widget:hover,
+[data-theme="dark"] div#post:hover,
+[data-theme="dark"] div#page:hover,
+[data-theme="dark"] div#archive:hover {
+  /*border-color: var(--mobufan-color); !* 悬停时边框装饰线颜色 *!*/
+  box-shadow: var(--mobufan-shadow-border) !important; /* 添加阴影效果 */
 }
 
 /*************************** 导航栏美化 ****************************/
@@ -167,52 +190,44 @@ div#archive:hover {
 /****** 导航栏（主菜单）背景颜色 ******/
 [data-theme="light"] #page-header.nav-fixed #nav {
   background: var(--mobufan-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
 }
 [data-theme="dark"] #page-header.nav-fixed #nav {
   background: var(--mobufan-shadow-border) !important; /* 夜间模式导航栏（主菜单）背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
 }
 
 /****** 导航栏（子菜单）背景颜色 ******/
 [data-theme="light"] .site-page.child.faa-parent.animated-hover {
   background-color: var(--mobufan-shadow-border)!important; /* 日间模式，默认（子菜单）背景色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
   transition: background-color 0.3s ease !important; /* 日间模式，添加（子菜单）过渡效果 */
 }
 [data-theme="dark"] .site-page.child.faa-parent.animated-hover {
   background-color: var(--mobufan-shadow-border)!important; /* 夜间模式，默认（子菜单）背景色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
   transition: background-color 0.3s ease !important; /* 夜间模式，添加（子菜单）过渡效果 */
 }
 
 /****** 鼠标悬停背景颜色 ******/
-/*[data-theme="light"] .site-page.child.faa-parent.animated-hover:hover {*/
-/*  background: var(--mobufan-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
-/*  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
-/*  background-color: #323838c9 !important; !* 日间模式，鼠标悬停时（子菜单）背景色 *!*/
-/*}*/
-/*[data-theme="dark"] .site-page.child.faa-parent.animated-hover:hover {*/
-/*  background: var(--mobufan-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
-/*  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
-/*  background-color: #323838c9 !important; !* 夜间模式，鼠标悬停时（子菜单）背景色 *!*/
-/*}*/
-/*[data-theme="light"] .menus_item:hover {*/
-/*  background: var(--mobufan-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
-/*  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
-/*  background-color: #323838c9 !important; !* 日间模式，鼠标悬停时（子菜单）背景色 *!*/
-/*}*/
-/*[data-theme="dark"] .menus_item:hover {*/
-/*  background: var(--mobufan-shadow-border) !important; !* 夜间模式导航栏（主菜单）背景颜色 *!*/
-/*  mobufan-backdrop-filter: var(--mobufan-backdrop-filter) !important; !* 磨砂效果（模糊+饱和度） *!*/
-/*  background-color: #323838c9 !important; !* 夜间模式，鼠标悬停时（子菜单）背景色 *!*/
-/*}*/
+[data-theme="light"] a.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
+  background-color: var(--mobufan-touming) !important; /* 日间模式背景颜色 */
+}
+[data-theme="dark"] a.site-page.child.faa-parent.animated-hover.wow.animate__zoomIn:hover {
+  background-color: var(--mobufan-touming) !important; /* 夜间模式背景颜色 */
+}
+[data-theme="light"] div#menus_item:hover {
+  background-color: var(--mobufan-touming) !important; /* 日间模式背景颜色 */
+}
+[data-theme="dark"] div#menus_item:hover {
+  background-color: var(--mobufan-touming) !important; /* 夜间模式背景颜色 */
+}
 
 /****** 手机端菜单栏背景 ******/
 [data-theme="light"] .menus_item_child,
 [data-theme="light"] div#sidebar-menus {
   background: var(--mobufan-shadow-border) !important; /* 日间模式背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--mobufan-border-style); /* 边框装饰线颜色 */
   border-radius: 15px; /* 圆角 */
 }
@@ -220,19 +235,25 @@ div#archive:hover {
 [data-theme="dark"] .menus_item_child,
 [data-theme="dark"] .menus_items {
   background: var(--mobufan-shadow-border) !important; /* 日间模式背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border-radius: 15px !important; /* 圆角 */
 }
 
 [data-theme="dark"] div#sidebar-menus {
   background: var(--mobufan-shadow-border) !important; /* 日间模式背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border: var(--mobufan-border-style); /* 边框装饰线颜色 */
   border-radius: 15px; /* 圆角 */
 }
-[data-theme="dark"] .menus_items {
+
+[data-theme="light"] .menus_items {
   background: var(--mobufan-shadow-border) !important; /* 日间模式背景颜色 */
-  mobufan-backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  border-radius: 15px !important; /* 圆角 */
+}
+[data-theme="dark"] .menus_items {
+  background: var(--mobufan-shadow-border) !important; /* 夜间模式背景颜色 */
+  backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
   border-radius: 15px !important; /* 圆角 */
 }
 
@@ -242,7 +263,6 @@ div#archive:hover {
 [data-theme="dark"] .site-data {
   background: var(--mobufan-touming) !important; /* 日间模式背景颜色 */
 }
-
 .site-data {
   font-size: 16px; /* 图标大小 */
   line-height: 40px; /* 图标上下调节 */
@@ -286,10 +306,15 @@ div#archive:hover {
   height: 42px; /*上下边框大小*/
   border-radius: 26px; /*圆角大小*/
   background-color: #ffffff; /*背景颜色*/
-  color: #0068bb; /*图标颜色*/
   text-align: center;
   font-size: 19px; /*图标大小*/
   line-height: 42px; /*图标上下调节*/
+}
+[data-theme="light"] #rightside > div > button, #rightside > div > a {
+  color: #000000; /*图标颜色*/
+}
+[data-theme="dark"] #rightside > div > button, #rightside > div > a {
+  color: #ffffff; /*图标颜色*/
 }
 
 /************************ 首页标题美化 ************************/
@@ -409,6 +434,13 @@ div#archive:hover {
   transform: scale(1.1);
   transition: transform 0.3s ease;
 }
+/* 便签卡片内容-鼠标悬停时放大效果 */
+.tag-cloud-list a:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+  background-color: transparent;
+}
+/******************** 首页文章标题美化 **********************/
 /* 首页文章标题居中显示 */
 .article-title {
   text-align: center; /* 首页文章标题居中显示 */
@@ -419,10 +451,23 @@ div#archive:hover {
   transform: scale(1.2);
   transition: transform 0.3s ease;
 }
-/* 便签卡片内容-鼠标悬停时放大效果 */
-.tag-cloud-list a:hover {
-  transform: scale(1.2);
-  transition: transform 0.3s ease;
-  background-color: transparent;
+
+/******************** 鼠标悬浮（字体阴影）效果 **********************/
+[data-theme="light"] .tag-cloud-list a:hover,
+[data-theme="light"] .site-data .headline:hover,
+[data-theme="light"] .aside-list-item .title:hover,
+[data-theme="light"] .card-category-list-name:hover,
+[data-theme="light"] .card-tag-cloud a:hover,
+[data-theme="light"] #article-container a:hover,
+[data-theme="light"] .article-title:hover {
+  text-shadow: var(--mobufan-text-shadow) !important; /* 直接定义阴影效果 */
 }
-/*************************************************************/
+[data-theme="dark"] .tag-cloud-list a:hover,
+[data-theme="dark"] .site-data .headline:hover,
+[data-theme="dark"] .aside-list-item .title:hover,
+[data-theme="dark"] .card-category-list-name:hover,
+[data-theme="dark"] .card-tag-cloud a:hover,
+[data-theme="dark"] #article-container a:hover,
+[data-theme="dark"] .article-title:hover {
+  text-shadow: var(--mobufan-text-shadow) !important; /* 直接定义阴影效果 */
+}
