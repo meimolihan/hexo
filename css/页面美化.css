@@ -606,6 +606,28 @@ hr {
   max-height: 800px; /* 限制最大高度 */
   overflow-y: auto; /* 当内容超出最大高度时，添加滚动条 */
 }
-/**************************** 页面美化 **********/
+
+/********** 明暗模式+搜索按钮（大小上下调节） **********/
+.site-page.social-icon.search .faa-tada.icon {
+  height: 30px !important;  /* 高度和宽度 */
+  width: 30px !important;   /* 高度和宽度 */
+  margin-top: 10px !important;    /* 向下移动10px */
+  margin-left: 10px !important;   /* 向右移动10px */
+  /* 或者 */
+  margin-bottom: 10px !important; /* 向上移动10px */
+  margin-right: 10px !important;  /* 向左移动10px */
+}
+.sun_moon.faa-parent.animated-hover .faa-tada {
+  height: 30px !important;  /* 高度和宽度 */
+  width: 30px !important;   /* 高度和宽度 */
+  margin-top: 10px !important;    /* 向下移动10px */
+  margin-left: 10px !important;   /* 向右移动10px */
+  /* 或者 */
+  margin-bottom: 10px !important; /* 向上移动10px */
+  margin-right: 10px !important;  /* 向左移动10px */
+}
+
+/**************************** 页面美化 **********************************/
+
 
 
