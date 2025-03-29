@@ -70,6 +70,12 @@ div#page {
   border: var(--mobufan-border-style) !important; /* 边框装饰线颜色 */
 }
 
+/* 鼠标悬停，网页所有元素背景透明 */
+*:hover {
+  background-color: transparent !important;
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+
 /*************************** 导航栏美化 ****************************/
 /********** 一级菜单居中 **********/
 #nav .menus_items {
@@ -114,17 +120,15 @@ div#page {
   transition: transform 0.3s ease; /* 平滑过渡效果 */
 }
 .menus_item:hover {
-  font-size: 20px; /*导航栏（主菜单）文字图标*/
+  font-size: 25px; /*导航栏（主菜单）文字图标*/
   background: var(--mobufan-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
   transition: transform 0.3s ease; /* 平滑过渡效果 */
 }
-
 /********* 导航栏（主菜单）背景颜色 *********/
 #page-header.nav-fixed #nav {
   background: var(--mobufan-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
   backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
 }
-
 /********* 导航栏（子菜单）背景颜色 *********/
 .menus_item_child,
 .site-page.child.faa-parent.animated-hover {
@@ -132,7 +136,6 @@ div#page {
   backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
   transition: background-color 0.3s ease !important; /* 日间模式，添加（子菜单）过渡效果 */
 }
-
 /********** 鼠标悬停背景颜色 **********/
 div#menus_item:hover,
 .menus_item_child:hover,
@@ -141,7 +144,6 @@ a.site-page.child.faa-parent.animated-hover:hover {
   backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
   transition: background-color 0.3s ease !important; /* 添加（子菜单）过渡效果 */
 }
-
 /********** 手机端菜单栏背景 **********/
 /* 手机端菜单栏最外层：div#sidebar-menus */
 div#sidebar-menus {
@@ -163,12 +165,10 @@ div#sidebar-menus {
   color: var(--mobufan-white); /* 调整（导航栏文字）颜色 */
   background: var(--mobufan-touming) !important; /* 背景颜色 */
 }
-
 /* 手机端菜单栏 鼠标悬停透明背景*/
 #sidebar-menus .menus_items .menus_item a.site-page.faa-parent.animated-hover:hover {
   background-color: var(--mobufan-touming) !important;
 }
-
 /* 导航栏文字加粗和间距调整*/
 #menus>div.menus_items>div>a {
   letter-spacing: .1rem;
