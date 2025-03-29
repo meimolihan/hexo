@@ -71,12 +71,17 @@ div#page {
 }
 
 /* 鼠标悬停，网页所有元素背景透明 */
-*:hover {
-  background-color: transparent !important;
-  transition: background-color 0.3s ease; /* 添加过渡效果 */
-}
 
-/*************************** 导航栏美化 ****************************/
+/**:hover {*/
+/*  background-color: transparent !important;*/
+/*  transition: background-color 0.3s ease; !* 添加过渡效果 *!*/
+/*}*/
+/** {*/
+/*  background-color: transparent !important;*/
+/*  transition: background-color 0.3s ease; !* 添加过渡效果 *!*/
+/*}*/
+
+  /*************************** 导航栏美化 ****************************/
 /********** 一级菜单居中 **********/
 #nav .menus_items {
   position: absolute !important;
@@ -184,20 +189,17 @@ div#sidebar-menus {
 }
 
 /************************ 标签外挂背景颜色 ************************/
-/*#post .content {*/
-/*  background-color: rgba(255, 255, 255, 0); !* 默认背景色 *!*/
-/*}*/
-/*#post .container.post-content .folding-tag .folding-tag {*/
-/*  background-color: rgba(255, 255, 255, 0); !* 默认背景色 *!*/
-/*}*/
+#post .container.post-content .folding-tag, #post .container.post-content .folding-tag .content, summary {
+  background-color: transparent !important;
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
+  border-radius: 10px; /* 圆角 */
+}
+summary:hover, /* 标签外挂 */
+#post .container.post-content .folding-tag:hover {
+  box-shadow: var(--mobufan-shadow-border) !important; /* 添加阴影效果 */
+}
 
-/*!* 鼠标悬停背景颜色 *!*/
-/*[data-theme="light"] #post .content:hover {*/
-/*  background-color: rgb(40 103 153 / 50%); !* 鼠标悬停时的背景色 *!*/
-/*}*/
-/*[data-theme="dark"] #post .content:hover {*/
-/*  background-color: rgb(0 37 36 / 88%); !* 鼠标悬停时的背景色 *!*/
-/*}*/
+/*#post .container.post-content .tip.warning.faa-horizontal.animated-hover,*/
 
 /************************ 阅读模式 ************************/
 /*[data-theme="light"] .read-mode #aside-content .card-widget,*/
