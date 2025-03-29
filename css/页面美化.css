@@ -81,7 +81,14 @@ div#page {
 /*  transition: background-color 0.3s ease; !* 添加过渡效果 *!*/
 /*}*/
 
-  /*************************** 导航栏美化 ****************************/
+/********************** 鼠标悬停，文字颜色 ***************************/
+.aside-list-item .title:hover, /* 侧边栏-最近文章 */
+.card-tag-cloud a:hover {
+  /* 侧边栏-标签云：.card-tag-cloud a */
+  color: var(--mobufan-hangneidaima) !important; /* 鼠标悬停，文字颜色*/
+}
+
+/*************************** 导航栏美化 ****************************/
 /********** 一级菜单居中 **********/
 #nav .menus_items {
   position: absolute !important;
@@ -106,16 +113,33 @@ div#page {
 
 /********* 调整导航栏（图标大小和文字颜色）*********/
 .site-page svg {
-  width: 1.35em; /* 调整（导航栏图标）的宽度 */
-  height: 1.35em; /* 调整（导航栏图标）的高度 */
+  width: 1.5em; /* 调整（导航栏图标）的宽度 */
+  height: 1.5em; /* 调整（导航栏图标）的高度 */
 }
 .site-page span {
-  font-size: 1.25em; /* 调整（导航栏文字）大小 */
+  font-size: 1.5em; /* 调整（导航栏文字）大小 */
   color: var(--mobufan-white); /* 调整（导航栏文字）颜色 */
 }
 .site-name {
-  font-size: 1.35em; /* 调整（站点标题文字）大小 */
+  font-size: 1.8em; /* 调整（站点标题文字）大小 */
   color: var(--mobufan-white); /* 调整（站点标题文字）颜色 */
+}
+
+/* 导航栏文字加粗和间距调整*/
+#menus > div.menus_items > div > a {
+  /* 调整文字大小 */
+  /*font-size: 14px; !* 或其他值，如 16px、1.2rem 等 *!*/
+  letter-spacing: .1rem;
+  font-weight: 600;
+  padding: 0 .1em 0 0.1em;
+  height: 30px;
+  line-height: 30px;
+  /* 重置过渡动画（如果需要） */
+  -webkit-transition: color 0s !important;
+  -moz-transition: color 0s !important;
+  -o-transition: color 0s !important;
+  -ms-transition: color 0s !important;
+  transition: color 0s !important;
 }
 
 /********* 导航栏菜单鼠标移入字体放大 *********/
@@ -129,18 +153,87 @@ div#page {
   background: var(--mobufan-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
   transition: transform 0.3s ease; /* 平滑过渡效果 */
 }
+
 /********* 导航栏（主菜单）背景颜色 *********/
 #page-header.nav-fixed #nav {
   background: var(--mobufan-shadow-border) !important; /* 日间模式导航栏（主菜单）背景颜色 */
   backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
 }
-/********* 导航栏（子菜单）背景颜色 *********/
+
+/******************************* 导航栏（子菜单）背景颜色 ****************************/
 .menus_item_child,
 .site-page.child.faa-parent.animated-hover {
   background-color: var(--mobufan-shadow-border)!important; /* 设置元素的背景颜色 */
   backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
   transition: background-color 0.3s ease !important; /* 日间模式，添加（子菜单）过渡效果 */
 }
+#nav .menus_items .menus_item .menus_item_child li:hover {
+  background-color: transparent !important;
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
+  border: var(--mobufan-border-style) !important; /* 边框装饰线颜色 */
+  box-shadow: var(--mobufan-shadow-border) !important; /* 添加阴影效果 */
+}
+/* 为导航菜单中的子菜单项设置样式 */
+#nav .menus_items .menus_item .menus_item_child li {
+  /* 设置元素的圆角半径为 50px，实现圆形效果 */
+  border-radius: 20px;
+  /* 为所有属性的变化添加过渡动画，持续时间为 0.3 秒 */
+  -webkit-transition: all .3s; /* 兼容 Webkit 内核浏览器（如 Chrome、Safari） */
+  -moz-transition: all .3s;    /* 兼容 Gecko 内核浏览器（如 Firefox） */
+  -o-transition: all .3s;      /* 兼容 Opera 浏览器 */
+  -ms-transition: all .3s;     /* 兼容 IE 浏览器 */
+  transition: all .3s;         /* 标准语法，适用于现代浏览器 */
+  /* 将元素以行内块级元素的方式显示，允许设置宽度和高度 */
+  display: inline-block;
+  /* 设置元素左右外边距为 3px，增加间距 */
+  margin: 0 3px;
+  border: var(--mobufan-border-style) !important; /* 边框装饰线颜色 */
+}
+
+#nav .menus_items .menus_item .menus_item_child li {
+  list-style: none
+}
+
+#nav .menus_items .menus_item .menus_item_child li:hover {
+  background: rgba(66,90,239,0.7);
+}
+
+#nav .menus_items .menus_item .menus_item_child li:first-child {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px
+}
+
+#nav .menus_items .menus_item .menus_item_child li:last-child {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px
+}
+
+#nav .menus_items .menus_item .menus_item_child li a {
+  display: inline-block;
+  padding: .5625rem 1rem;
+  width: 100%;
+  color: #4c4948; !important;
+  text-shadow: none!important
+}
+
+#nav .menus_items .menus_item .menus_item_child li a:hover {
+  /*color: #fff; !important;*/
+  padding: .125rem 1.25rem;
+  -webkit-transform: scale(1)!important;
+  -moz-transform: scale(1)!important;
+  -o-transform: scale(1)!important;
+  -ms-transform: scale(1)!important;
+  transform: scale(1)!important;
+  /*background: #425aef; !important;*/
+  /*-webkit-box-shadow: 0 8px 12px -3px rgba(66,89,239,0.137);*/
+  /*box-shadow: 0 8px 12px -3px rgba(66,89,239,0.137);*/
+  -webkit-transform: scale(1)!important;
+  -moz-transform: scale(1)!important;
+  -o-transform: scale(1)!important;
+  -ms-transform: scale(1)!important;
+  transform: scale(1)!important
+}
+
 /********** 鼠标悬停背景颜色 **********/
 div#menus_item:hover,
 .menus_item_child:hover,
@@ -174,19 +267,6 @@ div#sidebar-menus {
 #sidebar-menus .menus_items .menus_item a.site-page.faa-parent.animated-hover:hover {
   background-color: var(--mobufan-touming) !important;
 }
-/* 导航栏文字加粗和间距调整*/
-#menus>div.menus_items>div>a {
-  letter-spacing: .1rem;
-  font-weight: 500;
-  padding: 0 .1em 0 0.1em;
-  height: 30px;
-  line-height: 30px;
-  -webkit-transition: color 0s!important;
-  -moz-transition: color 0s!important;
-  -o-transition: color 0s!important;
-  -ms-transition: color 0s!important;
-  transition: color 0s!important
-}
 
 /************************ 标签外挂背景颜色 ************************/
 #post .container.post-content .folding-tag, #post .container.post-content .folding-tag .content, summary {
@@ -198,8 +278,6 @@ summary:hover, /* 标签外挂 */
 #post .container.post-content .folding-tag:hover {
   box-shadow: var(--mobufan-shadow-border) !important; /* 添加阴影效果 */
 }
-
-/*#post .container.post-content .tip.warning.faa-horizontal.animated-hover,*/
 
 /************************ 阅读模式 ************************/
 /*[data-theme="light"] .read-mode #aside-content .card-widget,*/
@@ -354,7 +432,8 @@ blockquote:hover, /* 引用标签美化 */
 .pagination-related:hover, /* 相关推荐 */
 #pagination .pagination-related:hover, /* 下一篇文章 */
 .highlight:hover, /* 代码框 */
-.search-dialog:hover, /* 搜索框 */
+.search-dialog:hover, /* 搜索框1 */
+.local-search-box--input:hover, /* 搜索框2 */
 #tag:hover, /* 标签子页面卡片 */
 #category:hover, /* 分类子页面卡片 */
 #recent-posts .recent-post-item:hover, /* 首页文章卡片 */
@@ -366,14 +445,15 @@ div#archive:hover {
 }
 
 /********** 鼠标悬浮（字体阴影）效果 **********/
-.menus_item:hover,
-.site-name:hover,
-.tag-cloud-list a:hover,
-.site-data .headline:hover,
-.aside-list-item .title:hover,
-.card-category-list-name:hover,
-.card-tag-cloud a:hover,
-#article-container a:hover,
+/* 首页文章标题：.article-title */
+.menus_item:hover, /*导航栏（主菜单）文字图标*/
+.site-name:hover, /* 导航栏菜单 */
+.tag-cloud-list a:hover, /* 便签卡片 */
+.site-data .headline:hover, /* 侧边栏-头像卡片 */
+.aside-list-item .title:hover, /* 侧边栏-最近文章 */
+.card-category-list-name:hover, /* 侧边栏-分类 */
+.card-tag-cloud a:hover, /* 侧边栏-标签云 */
+#article-container a:hover, /* 全局超链接 */
 .article-title:hover {
   text-shadow: var(--mobufan-text-shadow) !important; /* 直接定义阴影效果 */
 }
@@ -436,7 +516,7 @@ li.card-archive-list-item,li.card-category-list-item {
 }
 
 #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover,#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover {
-  color: #00e33b; /* 鼠标悬停，文字颜色*/
+  color: var(--mobufan-hangneidaima); /* 鼠标悬停，文字颜色*/
   background-color: var(--mobufan-touming) !important; /* 鼠标悬停，卡片背景颜色*/
   border-radius: 8px;
   border: 1px solid var(--mobufan-shadow-border) !important; /* 添加阴影效果 */ /* 鼠标悬停，边框轮廓颜色*/
@@ -510,4 +590,25 @@ li.card-archive-list-item,li.card-category-list-item {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap
 }
+
+/********** 搜索框美化 **********/
+.local-search-box--input {
+  height: 50px; /* 或者使用其他单位，例如 height: 2.5rem; */
+  font-size: 18px; /* 文字大小 */
+  outline: none; /* 去掉聚焦时的默认边框 */
+  transition: all 0.3s ease; /* 添加过渡效果，使变化更平滑 */
+}
+hr {
+  display: none; /* 隐藏搜索框下面的分割线 */
+}
+.search-dialog {
+  --search-height: 200px!important; /* 初始化高度 */
+  max-height: 800px; /* 限制最大高度 */
+  overflow-y: auto; /* 当内容超出最大高度时，添加滚动条 */
+}
+/**************************** 页面美化 **********/
+
+
+
+
 
