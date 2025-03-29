@@ -601,11 +601,6 @@ li.card-archive-list-item,li.card-category-list-item {
 hr {
   display: none; /* 隐藏搜索框下面的分割线 */
 }
-.search-dialog {
-  --search-height: 200px!important; /* 初始化高度 */
-  max-height: 800px; /* 限制最大高度 */
-  overflow-y: auto; /* 当内容超出最大高度时，添加滚动条 */
-}
 
 /********** 明暗模式+搜索按钮（大小上下调节） **********/
 .site-page.social-icon.search .faa-tada.icon {
