@@ -1,0 +1,205 @@
+/***************************************** 鼠标悬停，网页元素阴影效果  *********************************************/
+:root {
+    --mobufan-shadow-border: 0 4px 12px 0 rgb(47, 255, 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+}
+[data-theme="light"] {
+    --mobufan-shadow-border: 0 4px 12px 0 rgb(174 1 105), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+}
+[data-theme="dark"] {
+    --mobufan-shadow-border: 0 4px 12px 0 rgb(20 109 0 / 90%), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+}
+
+
+/********************** 鼠标悬停时边框阴影效果 **********************/
+/*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
+
+#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover,#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover, /* 分类卡片卡片背景颜色*/
+#post .container.post-content .folding-tag:hover, /* 外挂标签 */
+.aside-list-item:hover, /* 侧边栏最近文章 */
+#changeBgBox:hover, /* 切换背景窗口 */
+.post_cover.left:hover, /* 首页文章封面图片圆角 */
+.post_cover.right:hover, /* 首页文章封面图片圆角 */
+.container img:hover, /* 文章图片圆角 */
+blockquote:hover, /* 引用标签美化 */
+#rightside > div > button:hover, /* 右下角明暗模式，菜单 */
+#to_comment .fas.fa-comments:hover, /* 右下角明暗模式，评论 */
+.icon-V.hidden:hover, /*右下角快捷菜单*/
+#go-down:hover, /*右下角快捷菜单*/
+#go-up:hover, /*右下角快捷菜单*/
+#hide-aside-btn:hover, /*右下角快捷菜单*/
+#rightside-config:hover, /*右下角快捷菜单*/
+.aplayer.aplayer-fixed .aplayer-body:hover, /* 音乐播放器 */
+.tk-submit-action-icon:hover, /* 评论表情：.tk-submit-action-icon */
+.el-button.tk-send.el-button--primary.el-button--small.is-disabled:hover, /* 评论发送 */
+.el-button.tk-preview.el-button--default.el-button--small:hover, /* 评论预览 */
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner:hover, /* 评论输入框：.tk-input.el-textarea */
+.el-input.el-input--small.el-input-group.el-input-group--prepend:hover, /* 评论邮箱+用户名 */
+#pagination .page-number:hover, /* 文章分页2 */
+#pagination .extend.next:hover, /* 文章分页1 */
+.pagination-related:hover, /* 相关推荐 */
+#pagination .pagination-related:hover, /* 下一篇文章 */
+.highlight:hover, /* 代码框 */
+.search-dialog:hover, /* 搜索框1 */
+.local-search-box--input:hover, /* 搜索框2 */
+#tag:hover, /* 标签子页面卡片 */
+#category:hover, /* 分类子页面卡片 */
+#recent-posts .recent-post-item:hover, /* 首页文章卡片 */
+#aside-content .card-widget:hover, /* 首页侧栏卡片 */
+div#post:hover, /* 文章页卡片 */
+div#page:hover, /* 普通页卡片*/  /* 归档页卡片：div#archive */
+div#archive:hover {
+    box-shadow: var(--mobufan-shadow-border) !important; /* 添加阴影效果 */
+}
+
+/********************** 鼠标悬浮（字体颜色+阴影）效果 **********************/
+/* 首页文章标题：.article-title */
+/*.card-category-list-name:hover, !* 侧边栏-分类 *!*/
+.site-page.faa-parent.animated-hover:hover, /* 手机导航菜单（首页，文章，社交，关于） */
+a.site-page.child.faa-parent.animated-hover:hover, /* 手机导航菜单（首页，文章，社交，关于），下级目录 */
+.menus_item:hover, /*导航栏（主菜单）文字图标*/
+.site-name:hover, /* 导航栏菜单 */
+.tag-cloud-list a:hover, /* 便签卡片 */
+.site-data:hover, .headline:hover, /* 侧边栏-头像卡片 */
+.aside-list-item .title:hover, /* 侧边栏-最近文章 */
+.card-tag-cloud a:hover, /* 侧边栏-标签云 */
+#article-container a:hover, /* 全局超链接 */
+.article-title:hover /* 首页文章标题 */
+{
+    color: var(--mobufan-lighttext) !important; /* 鼠标悬停，文字颜色*/
+    /* text-shadow: var(--mobufan-text-shadow) !important; /* 字体阴影效果 */
+}
+
+/********************** 鼠标悬浮（背景默认）颜色 **********************/
+[data-theme="light"] #nav .menus_items .menus_item .menus_item_child li:hover, /* 导航栏（子菜单）背景颜色 */
+[data-theme="light"] #sidebar-menus .menus_items .menus_item a.site-page.faa-parent.animated-hover:hover, /* 手机端菜单栏 鼠标悬停透明背景*/
+[data-theme="light"] .menus_item_child:hover,
+[data-theme="light"] div#menus_item:hover,
+[data-theme="light"] .site-name:hover {
+    background: var(--trans-light) !important;
+    background-color: var(--trans-light)  !important;
+}
+
+[data-theme="dark"] #nav .menus_items .menus_item .menus_item_child li:hover, /* 导航栏（子菜单）背景颜色 */
+[data-theme="dark"] #sidebar-menus .menus_items .menus_item a.site-page.faa-parent.animated-hover:hover, /* 手机端菜单栏 鼠标悬停透明背景*/
+[data-theme="dark"] .menus_item_child:hover,
+[data-theme="dark"] div#menus_item:hover,
+[data-theme="dark"] .site-name:hover {
+    background: var(--trans-dark) !important;
+    background-color: var(--trans-dark)  !important;
+}
+
+/********************** 鼠标悬浮（背景透明）颜色 **********************/
+[data-theme="light"] .site-name:hover, /* 站点标题 */
+[data-theme="light"] #aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
+[data-theme="light"] a.site-page.child.faa-parent.animated-hover:hover, /* 导航栏（子菜单）背景颜色 */
+[data-theme="light"] #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover,#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover /* 分类卡片卡片背景颜色*/
+{
+    /*transition: background-color 0.3s ease; !* 添加过渡效果 *!*/
+    background: var(--mobufan-touming) !important; /* 背景颜色 */
+}
+
+[data-theme="dark"] .site-name:hover, /* 站点标题 */
+[data-theme="dark"] #aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
+[data-theme="dark"] a.site-page.child.faa-parent.animated-hover:hover, /* 导航栏（子菜单）背景颜色 */
+[data-theme="dark"] #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover,#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover /* 分类卡片卡片背景颜色*/
+{
+    /*transition: background-color 0.3s ease; !* 添加过渡效果 *!*/
+    background: var(--mobufan-touming) !important; /* 背景颜色 */
+}
+
+/******************************************** 鼠标悬停时（元素放大）效果 *************************************/
+#rightside > div > a:hover,
+#rightside > div > button:hover, /* 右下角明暗模式，菜单 */
+#to_comment .fas.fa-comments:hover, /* 右下角明暗模式，评论 */
+#pagination .page-number:hover, /* 文章分页按钮1 */
+#pagination .extend.next:hover, /* 文章分页按钮2 */
+.card-tag-cloud a:hover, /* 侧边栏-标签云 */
+.icon-V.hidden:hover, /*右下角快捷菜单*/
+#go-down:hover, /*右下角快捷菜单*/
+#go-up:hover, /*右下角快捷菜单*/
+#hide-aside-btn:hover, /*右下角快捷菜单,下面的#rightside-config也是*/
+#rightside-config:hover {
+    transform: scale(1.1); /* 鼠标悬停时放大效果 */
+    transition: transform 0.3s ease;
+}
+
+/******************** 鼠标悬停，文字颜色 *******************/
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover, /* 分类卡片 */
+#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover, /* 分类卡片 */
+#article-container a:hover, /* 全局超链接颜色颜色 */
+#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /*  toc活性目录文字颜色 */
+.aside-list-item .title:hover, /* 侧边栏-最近文章 */
+.card-tag-cloud a:hover /* 侧边栏-标签云 */
+{
+    color: var(--mobufan-hangneidaima) !important; /* 鼠标悬停，文字颜色*/
+}
+
+/* 鼠标悬停 字体放大 */
+.site-name:hover {
+    font-size: 40px; /* 导航栏（站点标题）文字图标 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/* 便签页面子内容 字体放大 */
+.tag-cloud-list.text-center a:hover {
+    transform: scale(1.2);  /* 放大1.2倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+/* 分类页面子内容 字体放大 */
+.category-list-item:hover {
+    transform: scale(0.98);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/* 导航栏子菜单 元素放大 */
+#nav .menus_items .menus_item .menus_item_child li {
+    margin-left: -2px;    /* 左间距 */
+    margin-right: -2px;  /* 右间距 */
+    transform: scale(0.9);  /* 放大0.9倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+/* 导航栏子菜单 元素放大 */
+#nav .menus_items .menus_item .menus_item_child li:hover {
+    transform: scale(0.8);  /* 放大0.8倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/*!* 侧边栏-最新文章文字放大 *!*/
+/*.aside-list-item .title:hover  {*/
+/*    transform: scale(0.98);  !* 放大0.98倍 *!*/
+/*    transform-origin: center;  !* 从中心点放大 *!*/
+/*    transition: transform 0.3s ease; !* 平滑过渡效果 *!*/
+/*}*/
+
+/*!* 侧边栏-分类卡片文字 *!*/
+/*.card-category-list-name:hover {*/
+/*    transform: scale(0.98);  !* 放大0.98倍 *!*/
+/*    transform-origin: center;  !* 从中心点放大 *!*/
+/*    transition: transform 0.3s ease; !* 平滑过渡效果 *!*/
+/*} */
+
+.card-category-list-link:hover, /* 侧边栏-分类卡片放大 */
+.aside-list-item:hover /* 侧边栏-最新文章卡片放大 */
+{
+    transform: scale(0.9);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner:hover, /* 评论输入框 */
+.site-data:hover, /* 头像下面（文字，标签，分类） */
+.headline:hover, /* 头像下面（文字，标签，分类） */
+.local-search-box--input:hover, /* 搜索输入框 */
+.article-sort-item:hover /* 归档页面内容卡片放大 */
+{
+    transform: scale(0.96);  /* 放大0.96倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+

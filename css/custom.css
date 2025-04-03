@@ -1,0 +1,131 @@
+/* 隐藏脚页内容 */
+#ft {
+    display: none;
+}
+
+/* 隐藏首页分类卡片 */
+#catalog_magnet, .recent-post-item #catalog_magnet {
+    display: none;
+}
+/* 调整FPS高度 */
+#fps {
+    position: fixed;
+    bottom: 68px; /* 距离底部的高度 */
+    left: -5px; /* 往左移动的距离 */
+}
+
+
+/*************************** 右下角按钮美化 ************************/
+#to_comment .fas.fa-comments, /* 右下角明暗模式，评论 */
+#rightside > div > button, /* 右下角明暗模式，菜单 */
+#rightside > div > a {
+    display: block;
+    margin-bottom: 5px; /*间距*/
+    width: 42px; /*左右边框大小*/
+    height: 42px; /*上下边框大小*/
+    border-radius: 26px; /*圆角大小*/
+    /*background-color: #ffffff; !*背景颜色*!*/
+    text-align: center;
+    font-size: 19px; /*图标大小*/
+    line-height: 42px; /*图标上下调节*/
+    /*color: var(--mobufan-hangneidaima); !*图标颜色*!*/
+}
+
+/*********************** 修改分类卡片布局 **************************/
+/* 为 .card-archive-list-item 和 .card-category-list-item 设置宽度和弹性盒子属性 */
+li.card-archive-list-item, li.card-category-list-item {
+    width: 100%; /* 设置宽度为100% */
+    -webkit-box-flex: 1; /* Webkit 内核的弹性盒子属性 */
+    -moz-box-flex: 1; /* Firefox 的弹性盒子属性 */
+    -o-box-flex: 1; /* Opera 的弹性盒子属性 */
+    box-flex: 1; /* 标准的弹性盒子属性 */
+    -webkit-flex: 0 0 48%; /* Webkit 内核的弹性盒子属性，设置弹性大小为48% */
+    -ms-flex: 0 0 48%; /* IE 10 的弹性盒子属性 */
+    flex: 0 0 48%; /* 标准的弹性盒子属性 */
+}
+
+/* 当屏幕宽度大于等于1200px时，点击 .card-archive-list-item 和 .card-category-list-item 的 a 元素时的样式 */
+@media screen and (min-width: 1200px) {
+    #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:active,
+    #aside-content .card-categories ul.card-category-list>.card-category-list-item a:active {
+        -webkit-transform: scale(.97); /* Webkit 内核的缩放效果 */
+        -moz-transform: scale(.97); /* Firefox 的缩放效果 */
+        -o-transform: scale(.97); /* Opera 的缩放效果 */
+        -ms-transform: scale(.97); /* IE 的缩放效果 */
+        transform: scale(.97); /* 标准的缩放效果 */
+    }
+}
+
+/* 为 .card-archive-list-item 和 .card-category-list-item 的 a 元素设置样式 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a,
+#aside-content .card-categories ul.card-category-list>.card-category-list-item a {
+    margin: 4px 0; /* 设置上下边距为4px，左右边距为0 */
+    display: -webkit-box; /* Webkit 内核的弹性盒子布局 */
+    display: -moz-box; /* Firefox 的弹性盒子布局 */
+    display: -webkit-flex; /* Webkit 内核的弹性盒子布局 */
+    display: -ms-flexbox; /* IE 10 的弹性盒子布局 */
+    display: box; /* 标准的弹性盒子布局 */
+    display: flex; /* 标准的弹性盒子布局 */
+    -webkit-box-orient: vertical; /* Webkit 内核的垂直排列 */
+    -moz-box-orient: vertical; /* Firefox 的垂直排列 */
+    -o-box-orient: vertical; /* Opera 的垂直排列 */
+    -webkit-flex-direction: column; /* Webkit 内核的垂直排列 */
+    -ms-flex-direction: column; /* IE 10 的垂直排列 */
+    flex-direction: column; /* 标准的垂直排列 */
+    -ms-flex-line-pack: justify; /* IE 10 的两端对齐 */
+    -webkit-align-content: space-between; /* Webkit 内核的两端对齐 */
+    align-content: space-between; /* 标准的两端对齐 */
+}
+
+/* 为 .card-archive-list 和 .card-category-list 的 a 元素的第一个 span 元素设置样式 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a span:first-child,
+#aside-content .card-categories ul.card-category-list>.card-category-list-item a span:first-child {
+    width: auto; /* 设置宽度为自动 */
+    -webkit-box-flex: inherit; /* Webkit 内核的继承弹性盒子属性 */
+    -moz-box-flex: inherit; /* Firefox 的继承弹性盒子属性 */
+    -o-box-flex: inherit; /* Opera 的继承弹性盒子属性 */
+    box-flex: inherit; /* 标准的继承弹性盒子属性 */
+    -webkit-flex: inherit; /* Webkit 内核的继承弹性属性 */
+    -ms-flex: inherit; /* IE 10 的继承弹性属性 */
+    flex: inherit; /* 标准的继承弹性属性 */
+}
+
+/* 为 .card-archive-list 和 .card-category-list 设置样式 */
+#aside-content .card-archives ul.card-archive-list,
+#aside-content .card-categories ul.card-category-list {
+    display: -webkit-box; /* Webkit 内核的弹性盒子布局 */
+    display: -moz-box; /* Firefox 的弹性盒子布局 */
+    display: -webkit-flex; /* Webkit 内核的弹性盒子布局 */
+    display: -ms-flexbox; /* IE 10 的弹性盒子布局 */
+    display: box; /* 标准的弹性盒子布局 */
+    display: flex; /* 标准的弹性盒子布局 */
+    -webkit-box-orient: horizontal; /* Webkit 内核的水平排列 */
+    -moz-box-orient: horizontal; /* Firefox 的水平排列 */
+    -o-box-orient: horizontal; /* Opera 的水平排列 */
+    -webkit-flex-direction: row; /* Webkit 内核的水平排列 */
+    -ms-flex-direction: row; /* IE 10 的水平排列 */
+    flex-direction: row; /* 标准的水平排列 */
+    -webkit-box-pack: justify; /* Webkit 内核的两端对齐 */
+    -moz-box-pack: justify; /* Firefox 的两端对齐 */
+    -o-box-pack: justify; /* Opera 的两端对齐 */
+    -ms-flex-pack: justify; /* IE 10 的两端对齐 */
+    -webkit-justify-content: space-between; /* Webkit 内核的两端对齐 */
+    justify-content: space-between; /* 标准的两端对齐 */
+    -webkit-box-lines: multiple; /* Webkit 内核的多行排列 */
+    -moz-box-lines: multiple; /* Firefox 的多行排列 */
+    -o-box-lines: multiple; /* Opera 的多行排列 */
+    -webkit-flex-wrap: wrap; /* Webkit 内核的换行排列 */
+    -ms-flex-wrap: wrap; /* IE 10 的换行排列 */
+    flex-wrap: wrap; /* 标准的换行排列 */
+}
+
+/********** 搜索框美化 **********/
+.local-search-box--input {
+    height: 50px; /* 或者使用其他单位，例如 height: 2.5rem; */
+    font-size: 18px; /* 文字大小 */
+    outline: none; /* 去掉聚焦时的默认边框 */
+    transition: all 0.3s ease; /* 添加过渡效果，使变化更平滑 */
+}
+hr {
+    display: none; /* 隐藏搜索框下面的分割线 */
+}

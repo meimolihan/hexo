@@ -1,0 +1,360 @@
+.highlight-tools {
+    background-color: var(--theme-color)!important; /* 设置元素的背景颜色 */
+    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+}
+
+#article-container figure.highlight,#article-container pre {
+    background-color: var(--theme-color)!important; /* 设置元素的背景颜色 */
+    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+}
+
+/* 代码框装饰线*/
+#article-container figure.highlight {
+    border: var(--mobufan-border-style) !important; /* 边框装饰线颜色 */
+}
+
+/* 行内代码美化 */
+#article-container code {
+    padding: 2px 4px; /* 设置内边距，高度为 2px，宽度为 4px */
+    background: rgba(0, 0, 0, 0); /* 背景颜色，透明度为 0.1 */
+    color: var(--mobufan-hangneidaima) !important; /* 文字颜色为白色 */
+}
+
+/* 代码框编号数字与正文距离 */
+#article-container figure.highlight pre {
+    margin: 0; /* 移除外边距 */
+    padding: 6px 16px; /* 内边距，上下 6px，左右 16px */
+    border: none; /* 移除边框 */
+}
+
+/* 代码框长代码，箭头处鼠标悬停颜色 */
+#article-container .code-expand-btn:hover {
+    background: var(--mobufan-hangneidaima) !important; /* 鼠标悬停时背景颜色为绿色 */
+}
+
+/* 设置代码块和预格式化文本的字体 */
+#article-container code, #article-container pre {
+    font-size: 18px; /* 修正字体大小，使用合理的单位 */
+    font-family: consolas, Menlo, "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", sans-serif !important; /* 字体族，确保代码显示清晰 */
+}
+
+/* 代码框的内边距 */
+#article-container pre {
+    padding: 5px 20px; /* 内边距，上下 5px，左右 20px */
+}
+
+/* 代码框内代码的样式 */
+#article-container pre code {
+    padding: 0; /* 移除内边距 */
+    background: transparent; /* 背景透明 */
+    color: #a30000; /* 文字颜色为红色 */
+    text-shadow: none; /* 移除文字阴影 */
+}
+
+/* 代码框的定位 */
+#article-container figure.highlight {
+    position: relative; /* 设置相对定位，方便子元素定位 */
+}
+
+/* 代码框标题栏样式 */
+#article-container figure.highlight .caption,
+#article-container figure.highlight figcaption {
+    padding: 6px 0 2px 14px; /* 内边距，上 6px，下 2px，左 14px */
+    font-size: 14px; /* 修正字体大小，使用合理的单位 */
+    line-height: 1em; /* 行高与字体大小一致 */
+}
+
+/* 代码框标题栏中的链接样式 */
+#article-container figure.highlight .caption a,
+#article-container figure.highlight figcaption a {
+    float: right; /* 链接右对齐 */
+    padding-right: 10px; /* 右侧内边距 */
+    color: #0040ff; /* 链接颜色，使用 CSS 变量 */
+}
+
+/* 代码框标题栏中链接的悬停样式 */
+#article-container figure.highlight .caption a:hover,
+#article-container figure.highlight figcaption a:hover {
+    border-bottom-color: #a30000; /* 悬停时下划线颜色，使用 CSS 变量 */
+}
+
+/* 复制按钮美化 */
+#article-container .highlight-tools {
+    position: relative; /* 定位方式为相对定位 */
+    display: flex; /* 使用弹性布局 */
+    align-items: center; /* 垂直居中对齐 */
+    overflow: hidden; /* 隐藏溢出内容 */
+    min-height: 60px; /* 最小高度为 24px */
+    height: 2.65em; /* 高度为 2.15em */
+    background: #b3b3b3; /* 背景颜色为深红色 */
+    color: var(--mobufan-hangneidaima) !important; /* 文字颜色为黄色 */
+    font-size: 18px; /* 修正字体大小，使用合理的单位 */
+    border-bottom: 2px solid #b0b0b026; /* 底边框，宽度为 1px，样式为实线，颜色为绿色 */
+}
+
+/* 设置复制按钮悬停时的样式 */
+.fas.fa-angle-down.expand:hover,
+#article-container .highlight-tools .copy-button:hover {
+    color: #fde800; /* 使用变量设置文字颜色 */
+}
+
+/* 设置代码工具栏在关闭状态下的样式 */
+#article-container .highlight-tools.closed {
+    border-bottom: 1px solid #a3000000; /* 底部边框设置为透明 */
+    height: calc(2.15em - 1px); /* 计算高度，减去 1px */
+}
+
+/* 设置代码工具栏在关闭状态下，其后所有兄弟元素的样式 */
+#article-container .highlight-tools.closed~* {
+    display: none; /* 隐藏所有兄弟元素 */
+}
+
+/* 设置代码工具栏在关闭状态下，展开按钮的样式 */
+#article-container .highlight-tools.closed .expand {
+    -webkit-transition: all .3s; /* 添加过渡效果（Chrome, Safari） */
+    -moz-transition: all .3s; /* 添加过渡效果（Firefox） */
+    -o-transition: all .3s; /* 添加过渡效果（Opera） */
+    -ms-transition: all .3s; /* 添加过渡效果（IE） */
+    transition: all .3s; /* 添加过渡效果（标准） */
+    -webkit-transform: rotate(-90deg)!important; /* 旋转 -90 度（Chrome, Safari） */
+    -moz-transform: rotate(-90deg)!important; /* 旋转 -90 度（Firefox） */
+    -o-transform: rotate(-90deg)!important; /* 旋转 -90 度（Opera） */
+    -ms-transform: rotate(-90deg)!important; /* 旋转 -90 度（IE） */
+    transform: rotate(-90deg)!important; /* 旋转 -90 度（标准） */
+}
+
+/* 设置代码工具栏中展开按钮的样式 */
+#article-container .highlight-tools .expand {
+    padding: .57em 1.1em; /* 内边距设置 */
+    cursor: pointer; /* 鼠标指针样式 */
+    -webkit-transition: -webkit-transform .3s; /* 添加过渡效果（Chrome, Safari） */
+    -moz-transition: -moz-transform .3s; /* 添加过渡效果（Firefox） */
+    -o-transition: -o-transform .3s; /* 添加过渡效果（Opera） */
+    -ms-transition: -ms-transform .3s; /* 添加过渡效果（IE） */
+    transition: transform .3s; /* 添加过渡效果（标准） */
+}
+
+/* 设置展开按钮旁边的代码语言标签的样式 */
+#article-container .highlight-tools .expand+.code-lang {
+    left: 1.7em; /* 左边距设置 */
+}
+
+/* 设置代码语言标签的样式 */
+/*#article-container .highlight-tools .code-lang {*/
+/*    position: absolute; !* 绝对定位 *!*/
+/*    left: 14px; !* 左边距设置 *!*/
+/*    text-transform: uppercase; !* 文字大写 *!*/
+/*    font-weight: 700; !* 加粗字体 *!*/
+/*    font-size: 1.15em; !* 字体大小设置 *!*/
+/*    -webkit-user-select: none; !* 禁止选中文本（Chrome, Safari） *!*/
+/*    -moz-user-select: none; !* 禁止选中文本（Firefox） *!*/
+/*    -ms-user-select: none; !* 禁止选中文本（IE） *!*/
+/*    user-select: none; !* 禁止选中文本（标准） *!*/
+/*}*/
+
+/* 设置复制通知的样式 */
+/*#article-container .highlight-tools .copy-notice {*/
+/*    position: absolute; !* 绝对定位 *!*/
+/*    right: 2.4em; !* 右边距设置 *!*/
+/*    opacity: 0; !* 设置透明度为 0 *!*/
+/*    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; !* IE 透明度 *!*/
+/*    filter: alpha(opacity=0); !* IE 透明度 *!*/
+/*    -webkit-transition: opacity .4s; !* 添加透明度过渡效果（Chrome, Safari） *!*/
+/*    -moz-transition: opacity .4s; !* 添加透明度过渡效果（Firefox） *!*/
+/*    -o-transition: opacity .4s; !* 添加透明度过渡效果（Opera） *!*/
+/*    -ms-transition: opacity .4s; !* 添加透明度过渡效果（IE） *!*/
+/*    transition: opacity .4s; !* 添加透明度过渡效果（标准） *!*/
+/*}*/
+
+/*!* 设置复制按钮的样式 *!*/
+/*#article-container .highlight-tools .copy-button {*/
+/*    position: absolute; !* 绝对定位 *!*/
+/*    right: 14px; !* 右边距设置 *!*/
+/*    cursor: pointer; !* 鼠标指针样式 *!*/
+/*    -webkit-transition: color .2s; !* 添加颜色过渡效果（Chrome, Safari） *!*/
+/*    -moz-transition: color .2s; !* 添加颜色过渡效果（Firefox） *!*/
+/*    -o-transition: color .2s; !* 添加颜色过渡效果（Opera） *!*/
+/*    -ms-transition: color .2s; !* 添加颜色过渡效果（IE） *!*/
+/*    transition: color .2s; !* 添加颜色过渡效果（标准） *!*/
+/*}*/
+
+/* 设置代码行号区域的样式 */
+#article-container .gutter {
+    -webkit-user-select: none; /* 禁止选中文本（Chrome, Safari） */
+    -moz-user-select: none; /* 禁止选中文本（Firefox） */
+    -ms-user-select: none; /* 禁止选中文本（IE） */
+    user-select: none; /* 禁止选中文本（标准） */
+}
+
+/* 设置 gist 代码块表格的样式 */
+#article-container .gist table {
+    width: auto; /* 宽度自动调整 */
+}
+
+/* 设置 gist 代码块表格单元格的样式 */
+#article-container .gist table td {
+    border: none; /* 边框设置为无 */
+}
+
+/* 设置代码展开按钮的样式 */
+#article-container .code-expand-btn {
+    position: absolute; /* 绝对定位 */
+    bottom: 0; /* 按钮位于底部 */
+    z-index: 10; /* 设置层叠顺序，确保按钮在其他元素之上 */
+    width: 100%; /* 按钮宽度为 100% */
+    -webkit-transition: all .3s; /* 添加过渡效果（Chrome, Safari） */
+    -moz-transition: all .3s; /* 添加过渡效果（Firefox） */
+    -o-transition: all .3s; /* 添加过渡效果（Opera） */
+    -ms-transition: all .3s; /* 添加过渡效果（IE） */
+    transition: all .3s; /* 添加过渡效果（标准） */
+    font-size: 20px; /* 设置字体大小 */
+    background: var(--mobufan-daimazhedie) !important; /* 使用变量设置背景颜色 */
+    text-align: center; /* 文字居中对齐 */
+    font-size: #f6a2a2; /* 使用变量设置字体大小 */
+    cursor: pointer; /* 鼠标指针样式 */
+    -webkit-transform: translateZ(0); /* 添加 3D 转换效果（Chrome, Safari） */
+    -moz-transform: translateZ(0); /* 添加 3D 转换效果（Firefox） */
+    -o-transform: translateZ(0); /* 添加 3D 转换效果（Opera） */
+    -ms-transform: translateZ(0); /* 添加 3D 转换效果（IE） */
+    transform: translateZ(0); /* 添加 3D 转换效果（标准） */
+    display: -webkit-box; /* 使用弹性盒布局（Chrome, Safari） */
+    display: -moz-box; /* 使用弹性盒布局（Firefox） */
+    display: -webkit-flex; /* 使用弹性盒布局（Chrome, Safari） */
+    display: -ms-flexbox; /* 使用弹性盒布局（IE） */
+    display: box; /* 使用弹性盒布局（旧标准） */
+    display: flex; /* 使用弹性盒布局（标准） */
+    -webkit-box-align: center; /* 垂直居中对齐（Chrome, Safari） */
+    -moz-box-align: center; /* 垂直居中对齐（Firefox） */
+    -o-box-align: center; /* 垂直居中对齐（Opera） */
+    -ms-flex-align: center; /* 垂直居中对齐（IE） */
+    -webkit-align-items: center; /* 垂直居中对齐（Chrome, Safari） */
+    align-items: center; /* 垂直居中对齐（标准） */
+    -webkit-box-pack: center; /* 水平居中对齐（Chrome, Safari） */
+    -moz-box-pack: center; /* 水平居中对齐（Firefox） */
+    -o-box-pack: center; /* 水平居中对齐（Opera） */
+    -ms-flex-pack: center; /* 水平居中对齐（IE） */
+    -webkit-justify-content: center; /* 水平居中对齐（Chrome, Safari） */
+    justify-content: center; /* 水平居中对齐（标准） */
+    height: 32px; /* 设置高度 */
+    font-size: 20px; /* 设置字体大小 */
+}
+
+/* 设置代码展开按钮悬停时的样式 */
+#article-container .code-expand-btn:hover i {
+    color: var(--mobufan-hangneidaima) !important; /* 悬停时图标颜色 */
+}
+
+/* 设置代码展开按钮的样式 */
+#article-container .code-expand-btn i {
+    color: var(--mobufan-hangneidaima) !important; /* 使用变量设置文字颜色 */
+    -webkit-animation: 1.2s ease 0s infinite normal none running code-expand-key; /* 添加动画效果 */
+    -moz-animation: 1.2s ease 0s infinite normal none running code-expand-key; /* 添加动画效果（Firefox） */
+    -o-animation: 1.2s ease 0s infinite normal none running code-expand-key; /* 添加动画效果（Opera） */
+    -ms-animation: 1.2s ease 0s infinite normal none running code-expand-key; /* 添加动画效果（IE） */
+    animation: 1.2s ease 0s infinite normal none running code-expand-key; /* 添加动画效果（标准） */
+}
+
+/* 设置代码展开按钮在展开状态下的样式 */
+#article-container .code-expand-btn.expand-done {
+    -webkit-transform: rotate(360deg); /* 旋转 180 度（Chrome, Safari） */
+    -moz-transform: rotate(180deg); /* 旋转 180 度（Firefox） */
+    -o-transform: rotate(180deg); /* 旋转 180 度（Opera） */
+    -ms-transform: rotate(180deg); /* 旋转 180 度（IE） */
+    transform: rotate(360deg); /* 旋转 180 度（标准） */
+    -webkit-transition: all 0s, background .3s; /* 添加过渡效果 */
+    -moz-transition: all 0s, background .3s; /* 添加过渡效果（Firefox） */
+    -o-transition: all 0s, background .3s; /* 添加过渡效果（Opera） */
+    -ms-transition: all 0s, background .3s; /* 添加过渡效果（IE） */
+    transition: all 0s, background .3s; /* 添加过渡效果（标准） */
+}
+
+/* 设置代码展开按钮在展开状态下，其后兄弟元素的样式 */
+#article-container .code-expand-btn.expand-done+pre,
+#article-container .code-expand-btn.expand-done+table {
+    margin-bottom: 1.8em; /* 设置底部外边距 */
+}
+
+/* 设置代码展开按钮在未展开状态下，其后兄弟元素的样式 */
+#article-container .code-expand-btn:not(.expand-done)~pre,
+#article-container .code-expand-btn:not(.expand-done)~table {
+    overflow: hidden; /* 隐藏溢出内容 */
+    height: 330px; /* 设置固定高度 */
+}
+
+/*****************************************************************************************/
+
+/* 定义动画 code-expand-key 的关键帧 */
+@-moz-keyframes code-expand-key {
+    0% {
+        opacity: .6; /* 设置初始透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+    50% {
+        opacity: .1; /* 设置中间透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)"; /* IE 透明度 */
+        filter: alpha(opacity=10); /* IE 透明度 */
+    }
+    100% {
+        opacity: .6; /* 设置最终透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+}
+
+/* 定义动画 code-expand-key 的关键帧（Chrome, Safari） */
+@-webkit-keyframes code-expand-key {
+    0% {
+        opacity: .6; /* 设置初始透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+    50% {
+        opacity: .1; /* 设置中间透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)"; /* IE 透明度 */
+        filter: alpha(opacity=10); /* IE 透明度 */
+    }
+    100% {
+        opacity: .6; /* 设置最终透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+}
+
+/* 定义动画 code-expand-key 的关键帧（Opera） */
+@-o-keyframes code-expand-key {
+    0% {
+        opacity: .6; /* 设置初始透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+    50% {
+        opacity: .1; /* 设置中间透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)"; /* IE 透明度 */
+        filter: alpha(opacity=10); /* IE 透明度 */
+    }
+    100% {
+        opacity: .6; /* 设置最终透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+}
+
+/* 定义动画 code-expand-key 的关键帧（标准） */
+@keyframes code-expand-key {
+    0% {
+        opacity: .6; /* 设置初始透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+    50% {
+        opacity: .1; /* 设置中间透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)"; /* IE 透明度 */
+        filter: alpha(opacity=10); /* IE 透明度 */
+    }
+    100% {
+        opacity: .6; /* 设置最终透明度 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; /* IE 透明度 */
+        filter: alpha(opacity=60); /* IE 透明度 */
+    }
+}
