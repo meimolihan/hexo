@@ -3414,7 +3414,6 @@ function createWinbox() {
 
 
 <h3>2. 随机风景</h3>
-
 <details class="folding-tag" cyan><summary> 查看随机风景背景 </summary>
               <div class='content'>
               <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/landscape)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/landscape)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/gqbz/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/gqbz/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/scenery/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/scenery/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=4k)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=4k)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=qc)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=qc)')"></a></div>
@@ -3422,7 +3421,6 @@ function createWinbox() {
             </details>
 
 <h3>3. 萌宠</h3>
-
 <details class="folding-tag" cyan><summary> 查看萌宠背景 </summary>
               <div class='content'>
               <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/cutepet)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/cutepet)')"></a></div>

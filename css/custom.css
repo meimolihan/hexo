@@ -10,8 +10,13 @@
 /* 调整FPS高度 */
 #fps {
     position: fixed;
-    bottom: 68px; /* 距离底部的高度 */
-    left: -5px; /* 往左移动的距离 */
+    bottom: 0px; /* 距离底部的高度 */
+    left: -2px; /* 往左移动的距离 */
+}
+/* 调整aplayer高度 */
+#aplayer {
+    position: fixed;
+    bottom: 39px; /* 距离底部的高度 */
 }
 
 
