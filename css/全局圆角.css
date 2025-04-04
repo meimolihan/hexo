@@ -120,7 +120,7 @@ div#archive {
 
 /* 手机端菜单栏(首页+文章+社交+关于)背景*/
 .menus_items {
-  backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
+  /*backdrop-filter: var(--mobufan-backdrop-filter); !* 磨砂效果（模糊+饱和度） *!*/
   border-radius: 20px !important; /* 圆角 */
 }
 
@@ -130,10 +130,14 @@ div#archive {
 }
 
 
-/****** 侧边栏最近文章 ******/
+/* 侧边栏最近文章 */
 .aside-list-item {
   border-radius: 15px; /* 设置圆角边框 */
   margin: 3px 0; /* 设置上下边距为4px，左右边距为0 */
+}
+/* 侧边栏最近文章封面 */
+.thumbnail {
+  border-radius: 15px; /* 圆角 */
 }
 
 /* 侧边栏分类卡片 */
