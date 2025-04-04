@@ -9397,6 +9397,16 @@ hr:before {
   transition: all 0.3s ease-in-out;
 }
 
+/* 侧边栏最近文章 */
+.aside-list-item {
+  border-radius: 15px; /* 设置圆角边框 */
+  margin: 3px 0; /* 设置上下边距为4px，左右边距为0 */
+}
+/* 侧边栏最近文章封面 */
+.thumbnail {
+  border-radius: 12px; /* 圆角 */
+}
+
 /********************** 鼠标悬停时边框阴影效果 **********************/
 /*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
 #pagination.pagination-post > div:hover,
