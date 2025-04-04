@@ -6401,7 +6401,7 @@ blockquote.pullquote.right {
   --color-heoblue: rgb(66, 90, 239);
   --btn-bg: var(--theme-color) !important;
   --scrollbar-color: var(--theme-color) !important;
-  --border-style: 1px solid rgba(169, 169, 169, 0.7);
+  --border-style: 1px solid rgba(169, 169, 169, 0.7); /* 边框装饰线 */
   /* 代码框行数背景色 */
   --hlnumber-bg: #282c34;
   /* 代码框顶部背景色 */
@@ -9069,7 +9069,6 @@ figure.highlight pre .deletion {
 }
 
 /* 新年侧边栏 */
-
 #newYear {
   color: white;
   padding: 0 !important;
@@ -9398,6 +9397,50 @@ hr:before {
   transition: all 0.3s ease-in-out;
 }
 
+/********************** 鼠标悬停时边框阴影效果 **********************/
+/*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
+#pagination.pagination-post > div:hover,
+.relatedPosts > .relatedPosts-list > div:hover,
+.relatedPosts-list > div:hover, /* 相关推荐 */
+#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover,#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover, /* 分类卡片卡片背景颜色*/
+#post .container.post-content .folding-tag:hover, /* 外挂标签 */
+.aside-list-item:hover, /* 侧边栏最近文章 */
+#changeBgBox:hover, /* 切换背景窗口 */
+.post_cover.left:hover, /* 首页文章封面图片圆角 */
+.post_cover.right:hover, /* 首页文章封面图片圆角 */
+.container img:hover, /* 文章图片圆角 */
+blockquote:hover, /* 引用标签美化 */
+#rightside > div > button:hover, /* 右下角明暗模式，菜单 */
+#to_comment .fas.fa-comments:hover, /* 右下角明暗模式，评论 */
+.icon-V.hidden:hover, /*右下角快捷菜单*/
+#go-down:hover, /*右下角快捷菜单*/
+#go-up:hover, /*右下角快捷菜单*/
+#hide-aside-btn:hover, /*右下角快捷菜单*/
+#rightside-config:hover, /*右下角快捷菜单*/
+.aplayer.aplayer-fixed .aplayer-body:hover, /* 音乐播放器 */
+.tk-submit-action-icon:hover, /* 评论表情：.tk-submit-action-icon */
+.el-button.tk-send.el-button--primary.el-button--small.is-disabled:hover, /* 评论发送 */
+.el-button.tk-preview.el-button--default.el-button--small:hover, /* 评论预览 */
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner:hover, /* 评论输入框：.tk-input.el-textarea */
+.el-input.el-input--small.el-input-group.el-input-group--prepend:hover, /* 评论邮箱+用户名 */
+#pagination .page-number:hover, /* 文章分页2 */
+#pagination .extend.next:hover, /* 文章分页1 */
+.pagination-related:hover, /* 相关推荐 */
+#pagination .pagination-related:hover, /* 下一篇文章 */
+.highlight:hover, /* 代码框 */
+.search-dialog:hover, /* 搜索框1 */
+.local-search-box--input:hover, /* 搜索框2 */
+#tag:hover, /* 标签子页面卡片 */
+#category:hover, /* 分类子页面卡片 */
+#recent-posts .recent-post-item:hover, /* 首页文章卡片 */
+#aside-content .card-widget:hover, /* 首页侧栏卡片 */
+div#post:hover, /* 文章页卡片 */
+div#page:hover, /* 普通页卡片*/
+div#archive:hover /* 归档页卡片 */
+{
+  box-shadow: 0 0 3px var(--theme-color) !important; /* 添加阴影效果 */
+}
 .search-dialog {
   position: fixed;
   top: 10%;

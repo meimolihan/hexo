@@ -1,12 +1,14 @@
-.highlight-tools {
-    background-color: var(--theme-color)!important; /* 设置元素的背景颜色 */
-    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
-}
+/*[data-theme="light"] .highlight-tools,*/
+/*[data-theme="light"] #article-container figure.highlight,#article-container pre {*/
+/*    background-color: var(--trans-light); !* 设置元素的背景颜色 *!*/
+/*    backdrop-filter: var(--backdrop-filter); !* 磨砂效果（模糊+饱和度） *!*/
+/*}*/
 
-#article-container figure.highlight,#article-container pre {
-    background-color: var(--theme-color)!important; /* 设置元素的背景颜色 */
-    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
-}
+/*[data-theme="dark"] .highlight-tools,*/
+/*[data-theme="dark"] #article-container figure.highlight,#article-container pre {*/
+/*    background-color: var(--trans-light); !* 设置元素的背景颜色 *!*/
+/*    backdrop-filter: var(--backdrop-filter); !* 磨砂效果（模糊+饱和度） *!*/
+/*}*/
 
 /* 代码框装饰线*/
 #article-container figure.highlight {

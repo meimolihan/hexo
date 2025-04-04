@@ -38,6 +38,8 @@
   border-radius: 20px;
 }
 
+
+
 /* 文字代码框圆角 */
 #post .highlight {
   border-radius: 20px;
@@ -128,7 +130,6 @@ div#archive {
 #changeBgBox {
   border-radius: 20px; /* 设置圆角边框 */
 }
-
 
 /* 侧边栏最近文章 */
 .aside-list-item {

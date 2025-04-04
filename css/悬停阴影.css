@@ -1,56 +1,15 @@
 /***************************************** 鼠标悬停，网页元素阴影效果  *********************************************/
 :root {
-    --mobufan-shadow-border: 0 4px 12px 0 rgb(47, 255, 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+    --theme-color: 0 4px 12px 0 rgb(47, 255, 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
 }
 [data-theme="light"] {
-    --mobufan-shadow-border: 0 4px 12px 0 rgb(174 1 105), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+    --theme-color: 0 4px 12px 0 rgb(174 1 105), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
 }
 [data-theme="dark"] {
-    --mobufan-shadow-border: 0 4px 12px 0 rgb(20 109 0 / 90%), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+    --theme-color: 0 4px 12px 0 rgb(20 109 0 / 90%), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
 }
 
 
-/********************** 鼠标悬停时边框阴影效果 **********************/
-/*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
-
-#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
-#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover,#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover, /* 分类卡片卡片背景颜色*/
-#post .container.post-content .folding-tag:hover, /* 外挂标签 */
-.aside-list-item:hover, /* 侧边栏最近文章 */
-#changeBgBox:hover, /* 切换背景窗口 */
-.post_cover.left:hover, /* 首页文章封面图片圆角 */
-.post_cover.right:hover, /* 首页文章封面图片圆角 */
-.container img:hover, /* 文章图片圆角 */
-blockquote:hover, /* 引用标签美化 */
-#rightside > div > button:hover, /* 右下角明暗模式，菜单 */
-#to_comment .fas.fa-comments:hover, /* 右下角明暗模式，评论 */
-.icon-V.hidden:hover, /*右下角快捷菜单*/
-#go-down:hover, /*右下角快捷菜单*/
-#go-up:hover, /*右下角快捷菜单*/
-#hide-aside-btn:hover, /*右下角快捷菜单*/
-#rightside-config:hover, /*右下角快捷菜单*/
-.aplayer.aplayer-fixed .aplayer-body:hover, /* 音乐播放器 */
-.tk-submit-action-icon:hover, /* 评论表情：.tk-submit-action-icon */
-.el-button.tk-send.el-button--primary.el-button--small.is-disabled:hover, /* 评论发送 */
-.el-button.tk-preview.el-button--default.el-button--small:hover, /* 评论预览 */
-#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner:hover, /* 评论输入框：.tk-input.el-textarea */
-.el-input.el-input--small.el-input-group.el-input-group--prepend:hover, /* 评论邮箱+用户名 */
-#pagination .page-number:hover, /* 文章分页2 */
-#pagination .extend.next:hover, /* 文章分页1 */
-.pagination-related:hover, /* 相关推荐 */
-#pagination .pagination-related:hover, /* 下一篇文章 */
-.highlight:hover, /* 代码框 */
-.search-dialog:hover, /* 搜索框1 */
-.local-search-box--input:hover, /* 搜索框2 */
-#tag:hover, /* 标签子页面卡片 */
-#category:hover, /* 分类子页面卡片 */
-#recent-posts .recent-post-item:hover, /* 首页文章卡片 */
-#aside-content .card-widget:hover, /* 首页侧栏卡片 */
-div#post:hover, /* 文章页卡片 */
-div#page:hover, /* 普通页卡片*/  /* 归档页卡片：div#archive */
-div#archive:hover {
-    box-shadow: var(--mobufan-shadow-border) !important; /* 添加阴影效果 */
-}
 
 /********************** 鼠标悬浮（字体颜色+阴影）效果 **********************/
 /* 首页文章标题：.article-title */

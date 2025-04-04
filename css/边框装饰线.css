@@ -1,0 +1,77 @@
+/***************************************** 边框装饰线 ************************************************/
+/****************************** 定义边框装饰线颜色 ****************************/
+:root {
+    --mobufan-border-style: 1.2px solid #e3e8f7; /* 边框装饰线颜色 */
+}
+
+[data-theme="light"] {
+    --mobufan-border-style: 1.2px solid #ff9e00; /* 边框装饰线颜色 */
+}
+[data-theme="dark"] {
+    --mobufan-border-style: 1.2px solid rgba(0, 146, 255, 0.64); /* 边框装饰线颜色 */
+}
+
+[data-theme="light"] .el-button.tk-preview.el-button--default.el-button--small, /* 评论预览圆角 */
+[data-theme="light"] .el-button.tk-send.el-button--primary.el-button--small.is-disabled, /* 评论发送圆角 */
+[data-theme="light"] .tag-cloud-list.text-center, /* 分类子页面内元素*/
+[data-theme="light"] #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a, /* 侧边栏分类卡片 */
+[data-theme="light"] #aside-content .card-categories ul.card-category-list>.card-category-list-item a, /* 侧边栏分类卡片 */
+[data-theme="light"] #pagination .pagination-post, /* 文章上下篇卡片 */
+[data-theme="light"] #post .pagination-related, /* 相关文章卡片 */
+[data-theme="light"] .post_cover.left, .post_cover.right, /* 文章封面图片 */
+[data-theme="light"] .aside-list-item, /* 侧边栏最近文章 */
+[data-theme="light"] #twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner, /* 评论输入框 */
+[data-theme="light"] blockquote, /* 引用标签 */
+[data-theme="light"] div#sidebar-menus, /* 手机端菜单栏最外层 */
+[data-theme="light"] #post .container.post-content .folding-tag, /* 标签外挂 */
+[data-theme="light"] #post .container.post-content .folding-tag .content,  /* 标签外挂 */
+[data-theme="light"] #post .container.post-content .folding-tag summary, /* 标签外挂 */
+[data-theme="light"] #rightside > div > button, /* 右下角明暗模式，评论 */
+[data-theme="light"] #rightside > div > a, /* 右下角明暗模式，评论 */
+[data-theme="light"] #pagination .page-number, /* 文章分页2 */
+[data-theme="light"] #pagination .extend.next, /* 文章分页1 */
+[data-theme="light"] .search-dialog, /* 搜索框 */
+[data-theme="light"] #tag, /* 标签子页面卡片 */
+[data-theme="light"] #category, /* 分类子页面卡片 */
+[data-theme="light"] .category-lists, /* 分类子页面卡片中的内容 */
+[data-theme="light"] #recent-posts .recent-post-item, /* 首页文章卡片 */
+[data-theme="light"] #aside-content .card-widget, /* 首页侧栏卡片 */
+[data-theme="light"] div#post, /* 文章页卡片 */
+[data-theme="light"] div#archive, /* 归档页卡片 */
+[data-theme="light"] div#page /* 普通页卡片 */
+{
+    border: 1.2px solid var(--theme-color) !important; /* 边框装饰线颜色 */
+}
+
+[data-theme="dark"] .el-button.tk-preview.el-button--default.el-button--small, /* 评论预览圆角 */
+[data-theme="dark"] .el-button.tk-send.el-button--primary.el-button--small.is-disabled, /* 评论发送圆角 */
+[data-theme="dark"] .tag-cloud-list.text-center, /* 分类子页面内元素*/
+[data-theme="dark"] #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a, /* 侧边栏分类卡片 */
+[data-theme="dark"] #aside-content .card-categories ul.card-category-list>.card-category-list-item a, /* 侧边栏分类卡片 */
+[data-theme="dark"] #pagination .pagination-post, /* 文章上下篇卡片 */
+[data-theme="dark"] #post .pagination-related, /* 相关文章卡片 */
+[data-theme="dark"] .post_cover.left, .post_cover.right, /* 文章封面图片 */
+[data-theme="dark"] .aside-list-item, /* 侧边栏最近文章 */
+[data-theme="dark"] #twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner, /* 评论输入框*/
+[data-theme="dark"] blockquote, /* 引用标签 */
+[data-theme="dark"] div#sidebar-menus, /* 手机端菜单栏最外层 */
+[data-theme="dark"] #nav .menus_items .menus_item .menus_item_child li, /* 导航栏子菜单背景 */
+[data-theme="dark"] #post .container.post-content .folding-tag, /* 标签外挂 */
+[data-theme="dark"] #post .container.post-content .folding-tag .content,  /* 标签外挂 */
+[data-theme="dark"] #post .container.post-content .folding-tag summary, /* 标签外挂 */
+[data-theme="dark"] #rightside > div > button, /* 右下角明暗模式，评论 */
+[data-theme="dark"] #rightside > div > a, /* 右下角明暗模式，评论 */
+[data-theme="dark"] #pagination .page-number, /* 文章分页2 */
+[data-theme="dark"] #pagination .extend.next, /* 文章分页1 */
+[data-theme="dark"] .search-dialog, /* 搜索框 */
+[data-theme="dark"] #tag, /* 标签子页面卡片 */
+[data-theme="dark"] #category, /* 分类子页面卡片 */
+[data-theme="dark"] .category-lists, /* 分类子页面卡片中的内容 */
+[data-theme="dark"] #recent-posts .recent-post-item, /* 首页文章卡片 */
+[data-theme="dark"] #aside-content .card-widget, /* 首页侧栏卡片 */
+[data-theme="dark"] div#post, /* 文章页卡片 */
+[data-theme="dark"] div#archive, /* 归档页卡片 */
+[data-theme="dark"] div#page /* 普通页卡片 */
+{
+    border: 1.2px solid var(--theme-color) !important; /* 边框装饰线颜色 */
+}

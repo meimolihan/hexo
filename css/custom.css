@@ -129,3 +129,8 @@ li.card-archive-list-item, li.card-category-list-item {
 hr {
     display: none; /* 隐藏搜索框下面的分割线 */
 }
+
+/********* 去除导航栏选项中底下的蓝条 *********/
+#nav *::after{
+    background-color: transparent!important;
+}
