@@ -73,7 +73,7 @@ $.ajax({
   type: 'get',
   url: 'https://apis.map.qq.com/ws/location/v1/ip',
   data: {
-    key: '',  // 这里要写你的KEY!!!
+    key: 'CY5BZ-E2AKL-LGMPD-EJBUN-TYGLK-ZNFCU',  // 这里要写你的KEY!!!
     output: 'jsonp',
   },
   dataType: 'jsonp',
@@ -349,7 +349,7 @@ document.addEventListener("copy", function () {
       data: function () {
         this.$notify({
           title: "哎嘿！复制成功🍬",
-          message: "若要转载最好保留原文链接哦，给你一个大大的赞！",
+          message: "",
           position: 'top-left',
           offset: 50,
           showClose: true,
@@ -1103,7 +1103,7 @@ function changeMouseMode() {
         }
       })
     }, 300);
-  }
+ }
 }
 /* 右键菜单 end */
 
@@ -3275,18 +3275,53 @@ function setLight() {
   }
 }
 // 更换霓虹灯状态
+// function changeLight(flag) {
+//   if (document.getElementById("site-name"))
+//     document.getElementById("site-name").style.animation = flag ? "light_15px 10s linear infinite" : "none";
+//   if (document.getElementById("site-title"))
+//     document.getElementById("site-title").style.animation = flag ? "light_15px 10s linear infinite" : "none";
+//   if (document.getElementById("site-subtitle"))
+//     document.getElementById("site-subtitle").style.animation = flag ? "light_10px 10s linear infinite" : "none";
+//   if (document.getElementById("post-info"))
+//     document.getElementById("post-info").style.animation = flag ? "light_5px 10s linear infinite" : "none";
+//   document.getElementById("menu_shadow").innerText = flag ? `:root{--menu-shadow: 0 0 1px var(--theme-color);}` : `:root{--menu-shadow: none;}`;
+// }
+
+/**
+ * 切换霓虹灯效果
+ * @param {boolean} flag - 是否开启霓虹灯效果
+ */
 function changeLight(flag) {
+  // 应用动画效果到各个元素
   if (document.getElementById("site-name"))
-    document.getElementById("site-name").style.animation = flag ? "light_15px 10s linear infinite" : "none";
+    document.getElementById("site-name").style.animation = flag ? 'light_15px_dark 10s linear infinite' : "none";
   if (document.getElementById("site-title"))
-    document.getElementById("site-title").style.animation = flag ? "light_15px 10s linear infinite" : "none";
+    document.getElementById("site-title").style.animation = flag ? 'light_15px_dark 10s linear infinite' : "none";
   if (document.getElementById("site-subtitle"))
-    document.getElementById("site-subtitle").style.animation = flag ? "light_10px 10s linear infinite" : "none";
+    document.getElementById("site-subtitle").style.animation = flag ? 'light_10px_dark 10s linear infinite' : "none";
   if (document.getElementById("post-info"))
-    document.getElementById("post-info").style.animation = flag ? "light_5px 10s linear infinite" : "none";
+    document.getElementById("post-info").style.animation = flag ? 'light_15px_light 10s linear infinite' : "none";
+
+  // 设置菜单阴影效果
   document.getElementById("menu_shadow").innerText = flag ? `:root{--menu-shadow: 0 0 1px var(--theme-color);}` : `:root{--menu-shadow: none;}`;
 }
 
+// 监听主题变化事件（如果有主题切换功能）
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'data-theme') {
+        // 主题变化时重新应用当前霓虹灯状态
+        const isLightOn = document.getElementById("site-name")?.style.animation !== 'none';
+        if (isLightOn) changeLight(true);
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true
+  });
+});
 
 
 // 解决开启Pjax的问题
