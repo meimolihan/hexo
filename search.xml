@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Fomalhaut 主题修改文档</title>
+      <link href="/posts/3f258189.html"/>
+      <url>/posts/3f258189.html</url>
+      
+        <content type="html"><![CDATA[<div class="btns rounded grid5">            <a class="button" href='https://www.fomal.cc/' title='Fomalhaut 主题'><i class='fab fa-safari'></i>Fomalhaut 主题</a>          </div><h2 id="修改日夜四张壁纸">修改日夜四张壁纸</h2><p>修改： <code>[BlogRoot]/themes/butterfly/source/css/_custom/custom.css</code></p><p>搜索：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">--mobilenight-bg</span></span><br></pre></td></tr></table></figure><h2 id="个人信息卡片背景图">个人信息卡片背景图</h2><p>修改： <code>[BlogRoot]/themes/butterfly/source/css/_custom/custom.css</code></p><p>搜索：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: url</span><br></pre></td></tr></table></figure><h2 id="小冰分类分类磁贴">小冰分类分类磁贴</h2><p>修改： <code>[BlogRoot]/themes/butterfly/source/css/_custom/custom.css</code></p><p>搜索：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magnet_item</span><br></pre></td></tr></table></figure><h2 id="公告栏">公告栏</h2><p>修改： <code>[BlogRoot]/_config.butterfly.yml</code></p><p>搜索：</p><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">card_announcement:</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 默认分类 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> butterfly </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Butterfly 文档</title>
       <link href="/posts/4efae468.html"/>
       <url>/posts/4efae468.html</url>
@@ -3064,11 +3091,11 @@
       
         <tags>
             
+            <tag> github </tag>
+            
             <tag> blog </tag>
             
             <tag> hugo </tag>
-            
-            <tag> github </tag>
             
         </tags>
       
@@ -3140,14 +3167,14 @@
       
       <categories>
           
-          <category> 演示 </category>
+          <category> hexo </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Markdown </tag>
+            <tag> markdown </tag>
             
             <tag> 外挂标签 </tag>
             

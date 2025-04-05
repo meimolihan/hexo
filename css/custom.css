@@ -143,31 +143,57 @@ hr {
 .aside-list-item {
     border-radius: 15px; /* 设置圆角边框 */
     margin: 3px 0; /* 设置上下边距为4px，左右边距为0 */
-    border: 1.2px solid var(--theme-color) !important; /* 边框装饰线颜色 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    /*border: 1.2px solid var(--theme-color) !important; !* 边框装饰线颜色 *!*/
 }
 /* 侧边栏最近文章封面 */
 .thumbnail {
     border-radius: 12px; /* 圆角 */
 }
-
 /* 侧边栏最近文章 */
 .announcement_content {
     border-radius: 15px; /* 设置圆角边框 */
-    margin: 3px 0; /* 设置上下边距为4px，左右边距为0 */
-    border: 1.2px solid var(--theme-color) !important; /* 边框装饰线颜色 */
+    margin: 2px 0; /* 设置上下边距为4px，左右边距为0 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    /*border: 1.2px solid var(--theme-color) !important; !* 边框装饰线颜色 *!*/
 }
 /* 侧边栏分类卡片 */
 #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a,
 #aside-content .card-categories ul.card-category-list>.card-category-list-item a {
     border-radius: 15px; /* 设置圆角边框 */
-    margin: 3px 0; /* 设置上下边距为4px，左右边距为0 */
-    border: 1.2px solid var(--theme-color) !important; /* 边框装饰线颜色 */
+    margin: 2px 0; /* 设置上下边距为4px，左右边距为0 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    /*border: 1.2px solid var(--theme-color) !important; !* 边框装饰线颜色 *!*/
+}
+.aside-list-item:hover {
+    background-color: var(--theme-color) !important;
+    border-radius: 15px; /* 设置圆角边框 */
+}
+
+/* 搜索框 */
+#local-search .search-dialog {
+    border-radius: 15px !important; /* 设置圆角 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+}
+
+.card-category-list-link:hover /* 侧边栏-分类卡片放大 */
+{
+    transform: scale(0.9);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+.aside-list-item:hover /* 侧边栏-最新文章卡片放大 */
+{
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
 }
 
 /********************** 鼠标悬停时边框阴影效果 **********************/
 /*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
 #pagination.pagination-post > div:hover,
 .relatedPosts > .relatedPosts-list > div:hover,
+#local-search .search-dialog:hover, /* 搜索框 */
 .relatedPosts-list > div:hover, /* 相关推荐 */
 #aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
 #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover, /* 分类卡片卡片背景颜色*/
