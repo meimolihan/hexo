@@ -9161,269 +9161,112 @@ figure.highlight pre .deletion {
 }
 
 /* 霓虹灯css实现 light_15px 10s linear infinite */
-/*[data-theme="light"] #site-name,*/
-/*[data-theme="light"] #site-title,*/
-/*[data-theme="light"] #site-subtitle,*/
-/*[data-theme="light"] #post-info {*/
-/*  animation: none !important;*/
-/*}*/
-
-/*@keyframes light_15px {*/
-/*  0% {*/
-/*    text-shadow: #5636ed 0 0 15px;*/
-/*  }*/
-/*  12.5% {*/
-/*    text-shadow: #11ee5e 0 0 15px;*/
-/*  }*/
-/*  25% {*/
-/*    text-shadow: #f14747 0 0 15px;*/
-/*  }*/
-/*  37.5% {*/
-/*    text-shadow: #f1a247 0 0 15px;*/
-/*  }*/
-/*  50% {*/
-/*    text-shadow: #f1ee47 0 0 15px;*/
-/*  }*/
-/*  50% {*/
-/*    text-shadow: #b347f1 0 0 15px;*/
-/*  }*/
-/*  62.5% {*/
-/*    text-shadow: #002afa 0 0 15px;*/
-/*  }*/
-/*  75% {*/
-/*    text-shadow: #ed709b 0 0 15px;*/
-/*  }*/
-/*  87.5% {*/
-/*    text-shadow: #39c5bb 0 0 15px;*/
-/*  }*/
-/*  100% {*/
-/*    text-shadow: #5636ed 0 0 15px;*/
-/*  }*/
-/*}*/
-
-/*@keyframes light_10px {*/
-/*  0% {*/
-/*    text-shadow: #5636ed 0 0 10px;*/
-/*  }*/
-/*  12.5% {*/
-/*    text-shadow: #11ee5e 0 0 10px;*/
-/*  }*/
-/*  25% {*/
-/*    text-shadow: #f14747 0 0 10px;*/
-/*  }*/
-/*  37.5% {*/
-/*    text-shadow: #f1a247 0 0 10px;*/
-/*  }*/
-/*  50% {*/
-/*    text-shadow: #f1ee47 0 0 10px;*/
-/*  }*/
-/*  50% {*/
-/*    text-shadow: #b347f1 0 0 10px;*/
-/*  }*/
-/*  62.5% {*/
-/*    text-shadow: #002afa 0 0 10px;*/
-/*  }*/
-/*  75% {*/
-/*    text-shadow: #ed709b 0 0 10px;*/
-/*  }*/
-/*  87.5% {*/
-/*    text-shadow: #39c5bb 0 0 10px;*/
-/*  }*/
-/*  100% {*/
-/*    text-shadow: #5636ed 0 0 10px;*/
-/*  }*/
-/*}*/
-
-/*@keyframes light_5px {*/
-/*  0% {*/
-/*    text-shadow: #5636ed 0 0 5px;*/
-/*  }*/
-/*  12.5% {*/
-/*    text-shadow: #11ee5e 0 0 5px;*/
-/*  }*/
-/*  25% {*/
-/*    text-shadow: #f14747 0 0 5px;*/
-/*  }*/
-/*  37.5% {*/
-/*    text-shadow: #f1a247 0 0 15px;*/
-/*  }*/
-/*  50% {*/
-/*    text-shadow: #f1ee47 0 0 5px;*/
-/*  }*/
-/*  50% {*/
-/*    text-shadow: #b347f1 0 0 5px;*/
-/*  }*/
-/*  62.5% {*/
-/*    text-shadow: #002afa 0 0 5px;*/
-/*  }*/
-/*  75% {*/
-/*    text-shadow: #ed709b 0 0 5px;*/
-/*  }*/
-/*  87.5% {*/
-/*    text-shadow: #39c5bb 0 0 5px;*/
-/*  }*/
-/*  100% {*/
-/*    text-shadow: #5636ed 0 0 5px;*/
-/*  }*/
-/*}*/
-
-/* 霓虹灯效果的关键帧动画 */
-/* 霓虹灯动画效果 - 日间模式专用 */
-@keyframes light_15px_light {
-  0% {
-    text-shadow: #5636ed 0 0 15px;
-    opacity: 0.8;
-    transform: scale(0.95);
-  }
-  25% {
-    text-shadow: #11ee5e 0 0 15px;
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    text-shadow: #f14747 0 0 15px;
-    opacity: 0.8;
-    transform: scale(0.95);
-  }
-  75% {
-    text-shadow: #f1a247 0 0 15px;
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    text-shadow: #5636ed 0 0 15px;
-    opacity: 0.8;
-    transform: scale(0.95);
-  }
+[data-theme="light"] #site-name,
+[data-theme="light"] #site-title,
+[data-theme="light"] #site-subtitle,
+[data-theme="light"] #post-info {
+  animation: none !important;
 }
 
-/* 霓虹灯动画效果 - 夜间模式专用 */
-@keyframes light_15px_dark {
+@keyframes light_15px {
   0% {
     text-shadow: #5636ed 0 0 15px;
-    opacity: 0.6;
-    transform: rotate(-3deg);
   }
   12.5% {
     text-shadow: #11ee5e 0 0 15px;
-    opacity: 0.8;
-    transform: rotate(0deg);
   }
   25% {
     text-shadow: #f14747 0 0 15px;
-    opacity: 0.6;
-    transform: rotate(3deg);
   }
   37.5% {
     text-shadow: #f1a247 0 0 15px;
-    opacity: 0.8;
-    transform: rotate(0deg);
   }
   50% {
     text-shadow: #f1ee47 0 0 15px;
-    opacity: 0.6;
-    transform: rotate(-3deg);
+  }
+  50% {
+    text-shadow: #b347f1 0 0 15px;
   }
   62.5% {
-    text-shadow: #b347f1 0 0 15px;
-    opacity: 0.8;
-    transform: rotate(0deg);
+    text-shadow: #002afa 0 0 15px;
   }
   75% {
-    text-shadow: #002afa 0 0 15px;
-    opacity: 0.6;
-    transform: rotate(3deg);
+    text-shadow: #ed709b 0 0 15px;
   }
   87.5% {
-    text-shadow: #ed709b 0 0 15px;
-    opacity: 0.8;
-    transform: rotate(0deg);
+    text-shadow: #39c5bb 0 0 15px;
   }
   100% {
     text-shadow: #5636ed 0 0 15px;
-    opacity: 0.6;
-    transform: rotate(-3deg);
   }
 }
 
-@keyframes light_10px_dark {
+@keyframes light_10px {
   0% {
     text-shadow: #5636ed 0 0 10px;
-    opacity: 0.6;
-    transform: rotate(-3deg);
   }
   12.5% {
     text-shadow: #11ee5e 0 0 10px;
-    opacity: 0.8;
-    transform: rotate(0deg);
   }
   25% {
     text-shadow: #f14747 0 0 10px;
-    opacity: 0.6;
-    transform: rotate(3deg);
   }
   37.5% {
     text-shadow: #f1a247 0 0 10px;
-    opacity: 0.8;
-    transform: rotate(0deg);
   }
   50% {
     text-shadow: #f1ee47 0 0 10px;
-    opacity: 0.6;
-    transform: rotate(-3deg);
+  }
+  50% {
+    text-shadow: #b347f1 0 0 10px;
   }
   62.5% {
-    text-shadow: #b347f1 0 0 10px;
-    opacity: 0.8;
-    transform: rotate(0deg);
+    text-shadow: #002afa 0 0 10px;
   }
   75% {
-    text-shadow: #002afa 0 0 10px;
-    opacity: 0.6;
-    transform: rotate(3deg);
+    text-shadow: #ed709b 0 0 10px;
   }
   87.5% {
-    text-shadow: #ed709b 0 0 10px;
-    opacity: 0.8;
-    transform: rotate(0deg);
+    text-shadow: #39c5bb 0 0 10px;
   }
   100% {
     text-shadow: #5636ed 0 0 10px;
-    opacity: 0.6;
-    transform: rotate(-3deg);
   }
 }
 
-/* 默认样式 - 确保元素初始状态没有动画 */
-#site-name,
-#site-title,
-#site-subtitle,
-#post-info {
-  animation: none;
+@keyframes light_5px {
+  0% {
+    text-shadow: #5636ed 0 0 5px;
+  }
+  12.5% {
+    text-shadow: #11ee5e 0 0 5px;
+  }
+  25% {
+    text-shadow: #f14747 0 0 5px;
+  }
+  37.5% {
+    text-shadow: #f1a247 0 0 15px;
+  }
+  50% {
+    text-shadow: #f1ee47 0 0 5px;
+  }
+  50% {
+    text-shadow: #b347f1 0 0 5px;
+  }
+  62.5% {
+    text-shadow: #002afa 0 0 5px;
+  }
+  75% {
+    text-shadow: #ed709b 0 0 5px;
+  }
+  87.5% {
+    text-shadow: #39c5bb 0 0 5px;
+  }
+  100% {
+    text-shadow: #5636ed 0 0 5px;
+  }
 }
 
-/* 菜单阴影样式 */
-:root {
-  --menu-shadow: none;
-}
-
-/* 强制应用指定动画效果，不受主题影响 */
-[data-theme="light"] #site-name,
-[data-theme="light"] #site-title,
-[data-theme="dark"] #site-name,
-[data-theme="dark"] #site-title {
-  animation: light_15px_dark 10s linear infinite !important;
-}
-
-[data-theme="light"] #site-subtitle,
-[data-theme="dark"] #site-subtitle {
-  animation: light_10px_dark 10s linear infinite !important;
-}
-
-[data-theme="light"] #post-info,
-[data-theme="dark"] #post-info {
-  animation: light_15px_light 10s linear infinite !important;
-}
 
 /* 夜间模式菜单栏发光字 0 0 1px var(--theme-color) */
 [data-theme="light"] .menu_word {

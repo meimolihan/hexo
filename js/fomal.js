@@ -2921,7 +2921,7 @@ function clearItem() {
 
 // 设置字体
 if (localStorage.getItem("font") == undefined) {
-  localStorage.setItem("font", "LXGW");
+  localStorage.setItem("font", "YSHST");
 }
 setFont(localStorage.getItem("font"));
 function setFont(n) {
@@ -2968,6 +2968,7 @@ function setColor(c) {
 
 
 // 星空背景开关
+// 默认开为：block，默认关为：none
 if (localStorage.getItem("universe") == undefined) {
   localStorage.setItem("universe", "block");
 }
@@ -2985,7 +2986,7 @@ function setUniverse() {
 }
 
 // 雪花开关
-// 雪花开关(这里就是默认关雪花，如果你想默认开就将none改为block)
+// 默认开为：block，默认关为：none
 if (localStorage.getItem("snow") == undefined) {
   localStorage.setItem("snow", "block");
 }
@@ -3003,7 +3004,7 @@ function setSnow() {
 
 // 帧率监测开关
 if (localStorage.getItem("fpson") == undefined) {
-  localStorage.setItem("fpson", "1");
+  localStorage.setItem("fpson", "1"); // 1默认开，0默认关
 }
 function fpssw() {
   if (document.getElementById("fpson").checked) {
@@ -3042,7 +3043,7 @@ function toggleRightside() {
 
 // 透明度调节滑块
 if (localStorage.getItem("transNum") == undefined) {
-  localStorage.setItem("transNum", 88);
+  localStorage.setItem("transNum", 66); // 默认值
 }
 var curTransNum = localStorage.getItem("transNum");
 var curTransMini = curTransNum * 0.95;
@@ -3062,7 +3063,7 @@ function setTrans() {
 
 // 模糊度调节滑块
 if (localStorage.getItem("blurRad") == undefined) {
-  localStorage.setItem("blurRad", 20);
+  localStorage.setItem("blurRad", 20); //默认值
 }
 var curBlur = localStorage.getItem("blurRad"); // 当前模糊半径
 var miniBlur = curBlur * 0.95;
@@ -3083,7 +3084,7 @@ function setBlurNum() {
 
 // 模糊效果开关
 if (localStorage.getItem("blur") == undefined) {
-  localStorage.setItem("blur", 0);
+  localStorage.setItem("blur", 1); // 1默认开，0默认关
 }
 if (localStorage.getItem("blur") == 0) {
   document.getElementById("settingStyle").innerText = `:root{--backdrop-filter: none}`;
@@ -3275,54 +3276,17 @@ function setLight() {
   }
 }
 // 更换霓虹灯状态
-// function changeLight(flag) {
-//   if (document.getElementById("site-name"))
-//     document.getElementById("site-name").style.animation = flag ? "light_15px 10s linear infinite" : "none";
-//   if (document.getElementById("site-title"))
-//     document.getElementById("site-title").style.animation = flag ? "light_15px 10s linear infinite" : "none";
-//   if (document.getElementById("site-subtitle"))
-//     document.getElementById("site-subtitle").style.animation = flag ? "light_10px 10s linear infinite" : "none";
-//   if (document.getElementById("post-info"))
-//     document.getElementById("post-info").style.animation = flag ? "light_5px 10s linear infinite" : "none";
-//   document.getElementById("menu_shadow").innerText = flag ? `:root{--menu-shadow: 0 0 1px var(--theme-color);}` : `:root{--menu-shadow: none;}`;
-// }
-
-/**
- * 切换霓虹灯效果
- * @param {boolean} flag - 是否开启霓虹灯效果
- */
 function changeLight(flag) {
-  // 应用动画效果到各个元素
   if (document.getElementById("site-name"))
-    document.getElementById("site-name").style.animation = flag ? 'light_15px_dark 10s linear infinite' : "none";
+    document.getElementById("site-name").style.animation = flag ? "light_15px 10s linear infinite" : "none";
   if (document.getElementById("site-title"))
-    document.getElementById("site-title").style.animation = flag ? 'light_15px_dark 10s linear infinite' : "none";
+    document.getElementById("site-title").style.animation = flag ? "light_15px 10s linear infinite" : "none";
   if (document.getElementById("site-subtitle"))
-    document.getElementById("site-subtitle").style.animation = flag ? 'light_10px_dark 10s linear infinite' : "none";
+    document.getElementById("site-subtitle").style.animation = flag ? "light_10px 10s linear infinite" : "none";
   if (document.getElementById("post-info"))
-    document.getElementById("post-info").style.animation = flag ? 'light_15px_light 10s linear infinite' : "none";
-
-  // 设置菜单阴影效果
+    document.getElementById("post-info").style.animation = flag ? "light_5px 10s linear infinite" : "none";
   document.getElementById("menu_shadow").innerText = flag ? `:root{--menu-shadow: 0 0 1px var(--theme-color);}` : `:root{--menu-shadow: none;}`;
 }
-
-// 监听主题变化事件（如果有主题切换功能）
-document.addEventListener('DOMContentLoaded', function() {
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.attributeName === 'data-theme') {
-        // 主题变化时重新应用当前霓虹灯状态
-        const isLightOn = document.getElementById("site-name")?.style.animation !== 'none';
-        if (isLightOn) changeLight(true);
-      }
-    });
-  });
-
-  observer.observe(document.documentElement, {
-    attributes: true
-  });
-});
-
 
 // 解决开启Pjax的问题
 // function whenDOMReady() {
@@ -3409,7 +3373,6 @@ function createWinbox() {
   <div class="content-text" style="font-weight:bold; padding-left:10px"> 帧率监测 (刷新生效) </div><input type="checkbox" id="fpson" onclick="fpssw()">
   <div class="content-text" style="font-weight:bold; padding-left:10px"> 雪花特效 (白天模式) </div><input type="checkbox" id="snowSet" onclick="setSnow()">
 </div>
-
 
 <h2>二、字体设置</h2>
 <!--<div class="note warning modern"><p>非商免字体未经授权只能个人使用。本站为完全非商业、非盈利性质的网站，平时用于个人学习交流，如有侵权请联系站长删除，谢谢！ —— 致版权方</p>
