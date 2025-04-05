@@ -3171,13 +3171,14 @@ let unsplash = "url(https://source.unsplash.com/random/1920x1080/)";
 
 
 // 更换背景(自己的代码)
+// --default-bg: 电脑 日间壁纸，--darkmode-bg: 电脑 夜间壁纸，--mobileday-bg: 手机 日间壁纸，--mobilenight-bg: 手机 夜间壁纸
 if (localStorage.getItem("blogbg") != undefined) {
   setBg(localStorage.getItem("blogbg"));
 } else {
   document.getElementById("defineBg").innerText = `:root{
-    --default-bg: url(https://file.meimolihan.eu.org/wallpaper/pc-018.webp);
-    --darkmode-bg:url(https://file.meimolihan.eu.org/wallpaper/pc-018.webp);
-    --mobileday-bg: url(https://file.meimolihan.eu.org/wallpaper/sj-002.webp);
+    --default-bg: url(https://file.meimolihan.eu.org/wallpaper/pc-019.webp);
+    --darkmode-bg: url(https://file.meimolihan.eu.org/wallpaper/pc-018.webp);
+    --mobileday-bg: url(https://file.meimolihan.eu.org/wallpaper/sj-007.webp);
     --mobilenight-bg: url(https://file.meimolihan.eu.org/wallpaper/sj-006.webp);
   }`;
 }

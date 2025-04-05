@@ -1340,9 +1340,9 @@
       
         <tags>
             
-            <tag> centos </tag>
-            
             <tag> samba </tag>
+            
+            <tag> centos </tag>
             
         </tags>
       
@@ -3064,11 +3064,11 @@
       
         <tags>
             
-            <tag> github </tag>
-            
             <tag> blog </tag>
             
             <tag> hugo </tag>
+            
+            <tag> github </tag>
             
         </tags>
       
