@@ -1320,11 +1320,11 @@ var titleTime;
 document.addEventListener('visibilitychange', function () {
   if (document.hidden) {
     //离开当前页面时标签显示内容
-    document.title = '👀跑哪里去了~';
+    document.title = '👀哪里走~';
     clearTimeout(titleTime);
   } else {
     //返回当前页面时标签显示内容
-    document.title = '🐖抓到你啦～';
+    document.title = '🐖抓到你～';
     //两秒后变回正常标题
     titleTime = setTimeout(function () {
       document.title = OriginTitile;
@@ -2717,22 +2717,22 @@ class Cursor {
 //   // 新年时间戳 and 星期对象
 //   let newYear = new Date('2023-01-22 00:00:00').getTime() / 1000,
 //     week = { 0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六' }
-
+//
 //   time();
-
+//
 //   // 补零函数
 //   function nol(h) { return h > 9 ? h : '0' + h; };
-
+//
 //   function time() {
 //     // 现在 时间对象
 //     let now = new Date();
-
+//
 //     // 右下角 今天
 //     document.querySelector('#newYear .today').innerHTML = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + ' ' + week[now.getDay()]
-
+//
 //     // 现在与新年相差秒数
 //     let second = newYear - Math.round(now.getTime() / 1000);
-
+//
 //     // 小于0则表示已经过年
 //     if (second < 0) {
 //       document.querySelector('#newYear .title').innerHTML = 'Happy New Year!';
@@ -2740,7 +2740,7 @@ class Cursor {
 //     } else {
 //       // 大于0则还未过年
 //       document.querySelector('#newYear .title').innerHTML = '距离2023年春节：'
-
+//
 //       // 大于一天则直接渲染天数
 //       if (second > 86400) {
 //         document.querySelector('#newYear .newYear-time').innerHTML = `<span class="day">${Math.ceil(second / 86400)}<span class="unit">天</span></span>`
@@ -2757,7 +2757,7 @@ class Cursor {
 //       }
 //     }
 //   }
-
+//
 //   // 元宝飘落
 //   jQuery(document).ready(function ($) {
 //     $('#newYear').wpSuperSnow({
