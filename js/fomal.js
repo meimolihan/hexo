@@ -1073,8 +1073,8 @@ function changeMouseMode() {
       new Vue({
         data: function () {
           this.$notify({
-            title: "切换右键模式成功🍔",
-            message: "当前鼠标右键已恢复为系统默认！",
+            title: "右键已切换为【系统默认】🍔",
+            // message: "当前鼠标右键已恢复为系统默认！",
             position: 'top-left',
             offset: 50,
             showClose: true,
@@ -1091,8 +1091,8 @@ function changeMouseMode() {
       new Vue({
         data: function () {
           this.$notify({
-            title: "切换右键模式成功🍔",
-            message: "当前鼠标右键已更换为网站指定样式！",
+            title: "右键已切换为【指定样式】🍔",
+            // message: "当前鼠标右键已更换为网站指定样式！",
             position: 'top-left',
             offset: 50,
             showClose: true,

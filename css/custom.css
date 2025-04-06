@@ -433,7 +433,26 @@ blockquote {
     transition: all 0.3s ease;
 }
 
+/* 调整右下角 明暗模式图标位置 */
+.icon-V svg {
+    transform: translateY(5px); /* 将图标往下移动 2px */
+    display: inline-block;      /* 确保 transform 生效 */
+}
 
+/* 切换壁纸菜单元素旋转 */
+.fa-solid.fa-arrows-rotate::before {
+    display: inline-block;
+    animation: rotate-clockwise 5s linear infinite; /* 5秒一圈，无限循环 */
+}
+
+@keyframes rotate-clockwise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 /******************* 调整主内容区域布局 ******************/
 .layout {
     display: flex;
