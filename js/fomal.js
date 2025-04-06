@@ -66,14 +66,13 @@ function scrollToTop() {
 /* 导航栏显示标题 end */
 
 //----------------------------------------------------------------
-
 /* 欢迎信息 start */
 //get请求
 $.ajax({
   type: 'get',
   url: 'https://apis.map.qq.com/ws/location/v1/ip',
   data: {
-    key: 'CY5BZ-E2AKL-LGMPD-EJBUN-TYGLK-ZNFCU',  // 这里要写你的KEY!!!
+    key: 'XTKBZ-ZDHEB-NHGUJ-NIGXO-NDDFE-5SBZB',  // 这里要写你的KEY!!!
     output: 'jsonp',
   },
   dataType: 'jsonp',
@@ -2921,7 +2920,7 @@ function clearItem() {
 
 // 设置字体
 if (localStorage.getItem("font") == undefined) {
-  localStorage.setItem("font", "YSHST");
+  localStorage.setItem("font", "YSHST"); // 默认字体：YSHST
 }
 setFont(localStorage.getItem("font"));
 function setFont(n) {
