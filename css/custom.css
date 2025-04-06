@@ -307,9 +307,6 @@ blockquote {
     color: inherit;
 }
 
-
-
-
 /* 评论区圆角 */
 .tk-comments-container {
     border: var(--border-style) !important; /* 边框装饰线颜色 */
@@ -437,12 +434,12 @@ blockquote {
 }
 /********************** 鼠标悬停时边框阴影效果 **********************/
 /*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
+/*#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, !* toc 活性目录 悬停时 背景颜色 *!*/
 #pagination.pagination-post > div:hover,
 .relatedPosts > .relatedPosts-list > div:hover,
 #local-search .search-dialog:hover, /* 搜索框 */
 .cover.entered.loaded:hover, /* 相关推荐 4.3.1 */
 .relatedPosts-list > div:hover, /* 相关推荐 */
-#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
 #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover, /* 分类卡片卡片背景颜色*/
 #aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover, /* 分类卡片卡片背景颜色*/
 #post .container.post-content .folding-tag:hover, /* 外挂标签 */

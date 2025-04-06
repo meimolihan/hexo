@@ -7922,9 +7922,17 @@ blockquote {
 #aside-content #card-toc .toc-content .toc-link.active {
   background: var(--theme-color);
   border-radius: 8px;
+  line-height: 2; /* 设置行高 */
+  font-weight: bold; /* 设置字体加粗 */
+  font-size: 18px; /* 设置字体大小 */
 }
 #aside-content #card-toc .toc-content .toc-link.active:hover {
   color: #fefefe;
+}
+#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover {
+  line-height: 2; /* 设置行高 */
+  font-weight: bold; /* 设置字体加粗 */
+  font-size: 18px; /* 悬停时 字体大小 */
 }
 .site-data > a:hover div {
   color: var(--theme-color) !important;
