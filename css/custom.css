@@ -432,6 +432,72 @@ blockquote {
     text-decoration: none;
     transition: all 0.3s ease;
 }
+
+
+/******************* 调整主内容区域布局 ******************/
+.layout {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    max-width: 1280px; /* 增加整体最大宽度 */
+    margin: 0 auto; /* 居中显示 */
+    padding: 0 20px; /* 左右留白 */
+}
+/* 调整#post宽度为980px并优化间距 */
+#post {
+    max-width: 980px; /* 从880px增加到980px */
+    width: 100%;
+    margin-right: 20px; /* 减少与侧边栏的间距 */
+    box-sizing: border-box; /* 确保padding不会增加总宽度 */
+}
+/* 调整侧边栏样式 */
+#aside-content {
+    width: 280px; /* 固定侧边栏宽度 */
+    position: sticky;
+    top: 20px;
+    align-self: flex-start; /* 保持顶部对齐 */
+}
+/* 响应式处理 - 在小屏幕下改为垂直布局 */
+@media (max-width: 1300px) {
+    .layout {
+        flex-direction: column;
+        align-items: center;
+    }
+    #post {
+        margin-right: 0;
+        margin-bottom: 40px;
+        max-width: 980px; /* 保持980px宽度 */
+    }
+    #aside-content {
+        width: 100%;
+        max-width: 980px; /* 与主内容区同宽 */
+        position: static;
+    }
+}
+/* 调整文章内容区域的内部元素 */
+#article-container {
+    max-width: 100%; /* 确保内容不超出980px限制 */
+    padding: 0 15px; /* 添加内边距 */
+}
+/* 优化卡片间距 */
+.recent-post-item {
+    max-width: 980px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+/* 调整首页文章卡片布局 */
+#recent-posts {
+    padding-left: 0; /* 移除之前的偏移 */
+    max-width: 980px;
+    margin: 0 auto;
+}
+/* 首页卡片引导箭头背景 接入主题颜色*/
+.recent-post-item .recent-post-content.right .article-content {
+    background-color: var(--theme-color);
+}
+.recent-post-item .recent-post-content.left .article-content {
+    background-color: var(--theme-color);
+}
+
 /********************** 鼠标悬停时边框阴影效果 **********************/
 /*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
 /*#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, !* toc 活性目录 悬停时 背景颜色 *!*/

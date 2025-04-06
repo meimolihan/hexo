@@ -1367,9 +1367,9 @@
       
         <tags>
             
-            <tag> centos </tag>
-            
             <tag> samba </tag>
+            
+            <tag> centos </tag>
             
         </tags>
       
@@ -1394,9 +1394,9 @@
       
         <tags>
             
-            <tag> debian </tag>
-            
             <tag> samba </tag>
+            
+            <tag> debian </tag>
             
         </tags>
       
