@@ -2,6 +2,10 @@
 #ft {
     display: none;
 }
+/* 隐藏脚页下面元素 */
+#ghbdages {
+    display: none;
+}
 
 /* 隐藏首页分类卡片 */
 /*#catalog_magnet, .recent-post-item #catalog_magnet {*/
