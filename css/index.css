@@ -7905,9 +7905,10 @@ blockquote {
 .tag-cloud-list a:hover {
   color: var(--theme-color) !important;
 }
-#aside-content .card-tag-cloud a:hover {
-  color: var(--theme-color) !important;
-}
+/* 侧边栏标签云悬停文字颜色 */
+/*#aside-content .card-tag-cloud a:hover {*/
+/*  color: var(--theme-color) !important;*/
+/*}*/
 #aside-content .aside-list > .aside-list-item .content > .comment:hover {
   color: var(--theme-color) !important;
 }

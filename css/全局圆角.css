@@ -67,7 +67,7 @@
 #tag {
   border-radius: 20px;
 }
-/* 便签页面子内容 */
+/* 标签页面子内容 */
 .tag-cloud-list.text-center a {
   border-radius: 20px;
 }
@@ -90,20 +90,7 @@ div#archive {
   border-radius: 20px; /* 设置圆角边框 */
 }
 
-/****** 评论输入框圆角 ******/
-#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner {
-  border-radius: 15px; /* 设置圆角边框 */
-}
 
-
-/* 评论预览圆角 */
-.el-button.tk-preview.el-button--default.el-button--small {
-  border-radius: 10px; /* 设置圆角边框 */
-}
-/* 评论发送圆角 */
-.el-button.tk-send.el-button--primary.el-button--small.is-disabled {
-  border-radius: 10px; /* 设置圆角边框 */
-}
 
 /* md 表格 */
 .table-container .table-wrap table {

@@ -189,7 +189,7 @@ hr {
     transition: transform 0.3s ease; /* 平滑过渡效果 */
 }
 
-/*********************** 引用标签美化 **************************/
+/*********************** MD引用标签美化 **************************/
 blockquote {
     border-left: 8px solid var(--mobufan-hangneidaima); /* 左边框 */
     padding: 0px 16px; /* 内边距 */
@@ -216,7 +216,6 @@ blockquote p:last-child {
 /* md引用标签 */
 blockquote {
     border-radius: 15px; /* 圆角 */
-    /*background: var(--trans-light); !* 背景接入 *!*/
 }
 
 [data-theme="light"] blockquote {
@@ -226,12 +225,85 @@ blockquote {
     background: var(--trans-dark); /* 背景接入 */
 }
 
+/* 标签页面子内容 */
+#tag {
+    border-radius: 20px;
+}
+/* 分类页面子内容 */
+#category{
+    border-radius: 20px;
+}
+
+/****** 评论输入框圆角 ******/
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner {
+    border-radius: 15px; /* 设置圆角边框 */
+}
+
+
+/* 评论预览圆角 */
+.el-button.tk-preview.el-button--default.el-button--small {
+    border-radius: 10px; /* 设置圆角边框 */
+}
+/* 评论发送圆角 */
+.el-button.tk-send.el-button--primary.el-button--small.is-disabled {
+    border-radius: 10px; /* 设置圆角边框 */
+}
+
+/* 侧边栏标签云 */
+.card-tag-cloud a {
+    border-radius: 12px; /* 设置圆角边框 */
+    border: var(--border-style, 1px solid #ccc) !important; /* 边框装饰线颜色，添加默认值 */
+    display: flex; /* 使用标准的弹性盒子布局 */
+    flex-direction: row; /* 水平排列 */
+    justify-content: space-between; /* 两端对齐 */
+    flex-wrap: wrap; /* 换行排列 */
+    margin: 2px 2px; /* 上下边距为 8px，左右边距为 12px */
+}
+
+#aside-content .card-tag-cloud a:hover {
+    background-color: var(--theme-color); /* 悬停元素背景接入 */
+    transform: scale(0.93);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    color: var(--font-color) !important; /* 接入字体 */
+}
+
+/* 评论区圆角 */
+.tk-comments-container {
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    border-radius: 12px; /* 设置圆角边框 */
+}
+
+/* 下一篇文字 */
+.prev-post.pull-left,
+.next-post.pull-right {
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    border-radius: 15px; /* 设置圆角边框 */
+}
+.prev-post.pull-left:hover,
+.next-post.pull-right:hover {
+    border-radius: 15px; /* 设置圆角边框 */
+    box-shadow: 0 0 3px var(--theme-color) !important;
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    box-shadow: 0 0 3px var(--theme-color) !important; /* 添加阴影效果 */
+}
+
+/* 相关推荐 */
+.relatedPosts-list div:hover {
+    border-radius: 15px; /* 设置圆角边框 */
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
 
 /********************** 鼠标悬停时边框阴影效果 **********************/
 /*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
 #pagination.pagination-post > div:hover,
 .relatedPosts > .relatedPosts-list > div:hover,
 #local-search .search-dialog:hover, /* 搜索框 */
+.cover.entered.loaded:hover, /* 相关推荐 4.3.1 */
 .relatedPosts-list > div:hover, /* 相关推荐 */
 #aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, /* toc 活性目录 悬停时 背景颜色 */
 #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover, /* 分类卡片卡片背景颜色*/
@@ -273,6 +345,5 @@ div#archive:hover /* 归档页卡片 */
 {
     box-shadow: 0 0 3px var(--theme-color) !important; /* 添加阴影效果 */
 }
-
 
 
