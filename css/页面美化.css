@@ -263,29 +263,7 @@ div#sidebar-menus {
 /*  max-height: 300px; !* 最大高度限制 *!*/
 /*}*/
 
-/*********************** 引用标签美化 **************************/
-blockquote {
-  border-left: 8px solid var(--mobufan-hangneidaima); /* 左边框 */
-  padding: 0px 16px; /* 内边距 */
-  font-size: 15px; /* 减小字体大小 */
-  margin: 18px 0px; /* 外边距 */
-  /*font-style: italic; !* 斜体字 *!*/
-  backdrop-filter: var(--mobufan-backdrop-filter); /* 磨砂效果（模糊+饱和度） */
-}
 
-blockquote p {
-  margin: 1px 1; /* 减少上下外边距 */
-  padding: 10px 0; /* 减少上下内边距 */
-  line-height: 2; /* 减小行高 */
-}
-
-blockquote p:first-child {
-  margin-top: 0; /* 第一个段落的顶部外边距为0 */
-}
-
-blockquote p:last-child {
-  margin-bottom: 0; /* 最后一个段落的底部外边距为0 */
-}
 
 /*********************** 修改分类卡片布局 **************************/
 /* 为 .card-archive-list-item 和 .card-category-list-item 设置宽度和弹性盒子属性 */
