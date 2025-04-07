@@ -2482,17 +2482,17 @@ figure.highlight pre .javascript .function {
   color: #ff5722;
 }
 :root {
-  --recent-post-bgcolor: rgba(255,255,255,0.9);
-  --article-content-bgcolor: #49b1f5;
-  --recent-post-arrow: #fff;
-  --recent-post-cover-shadow: #fff;
+  --recent-post-bgcolor: var(--trans-light);
+  --article-content-bgcolor: var(--theme-color);
+  --recent-post-arrow: var(--theme-color);
+  --recent-post-cover-shadow: var(--trans-light);
   --recent-post-transition: all 0.5s cubic-bezier(0.59, 0.01, 0.48, 1.17);
 }
 [data-theme="dark"] {
-  --recent-post-bgcolor: rgba(35,35,35,0.5);
-  --article-content-bgcolor: #99999a;
-  --recent-post-arrow: #37e2dd;
-  --recent-post-cover-shadow: #232323;
+  --recent-post-bgcolor: var(--trans-dark);
+  --article-content-bgcolor: var(--theme-color);
+  --recent-post-arrow: var(--theme-color);
+  --recent-post-cover-shadow: var(--trans-light);
 }
 .recent-posts {
   padding: 0 15px 0 15px;
@@ -2503,7 +2503,7 @@ figure.highlight pre .javascript .function {
   width: 100%;
   background: var(--recent-post-bgcolor);
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 15px;
 }
 .recent-posts .recent-post-item .recent-post-content {
   display: -webkit-box;
@@ -2687,13 +2687,13 @@ figure.highlight pre .javascript .function {
   display: block !important;
   height: auto !important;
 }
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 1069px) {
   .recent-posts {
     padding: 0 15px 0 15px;
   }
   .recent-posts .recent-post-item .recent-post-content {
     position: relative;
-    height: 260px;
+    height: 252px;
     width: 100%;
     -webkit-transition: var(--recent-post-transition);
     -moz-transition: var(--recent-post-transition);
@@ -2745,11 +2745,11 @@ figure.highlight pre .javascript .function {
     -ms-transition: var(--recent-post-transition);
     transition: var(--recent-post-transition);
     position: absolute;
-    height: 260px;
+    height: 252px;
     width: 40%;
   }
   .recent-posts .recent-post-item .recent-post-content .recent-post-cover {
-    height: 260px;
+    height: 252px;
     width: 40%;
     -webkit-transition: var(--recent-post-transition);
     -moz-transition: var(--recent-post-transition);
@@ -2763,7 +2763,7 @@ figure.highlight pre .javascript .function {
     object-fit: cover;
   }
   .recent-posts .recent-post-item .recent-post-content .recent-post-info {
-    height: 260px;
+    height: 252px;
     width: calc(60% - 80px);
   }
   .recent-posts .recent-post-item .recent-post-content .recent-post-info .article-title {
@@ -2781,7 +2781,7 @@ figure.highlight pre .javascript .function {
     -webkit-line-clamp: 3;
   }
   .recent-posts .recent-post-item .recent-post-content .article-content {
-    height: 260px;
+    height: 252px;
     width: 90px;
     background: var(--article-content-bgcolor);
     -webkit-transition: var(--recent-post-transition);
@@ -2988,11 +2988,11 @@ figure.highlight pre .javascript .function {
   }
   .recent-posts .recent-post-item .recent-post-content .recent-post-cover {
     width: 100%;
-    height: 260px;
+    height: 200px;
     clip-path: polygon(0 130px, 0 0, 100% 0, 100% 130px, 50% 100%);
   }
   .recent-posts .recent-post-item .recent-post-content .recent-post-cover img {
-    height: 260px;
+    height: 200px;
     width: 100%;
     object-fit: cover;
   }
@@ -3017,7 +3017,7 @@ figure.highlight pre .javascript .function {
   }
   .recent-posts .recent-post-item .recent-post-content .article-content {
     position: absolute;
-    height: 260px;
+    height: 200px;
     width: 100%;
     background: rgba(25,25,25,0.5);
     clip-path: polygon(0 130px, 0 0, 100% 0, 100% 130px, 50% 100%);
