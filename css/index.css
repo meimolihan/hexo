@@ -9543,7 +9543,7 @@ figure.highlight pre .deletion {
   color: var(--theme-color) !important;
 }
 .el-textarea__inner {
-  border-radius: 8px !important;
+  border-radius: 12px !important;
 }
 
 /* 分割线 */

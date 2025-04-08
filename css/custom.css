@@ -453,6 +453,15 @@ blockquote {
         transform: rotate(360deg);
     }
 }
+
+/* 评论输入框 */
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner:hover {
+    border-radius: 12px; /* 设置圆角边框 */
+    transform: scale(0.98);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
 /******************* 调整主内容区域布局 ******************/
 /*.layout {*/
 /*    display: flex;*/
