@@ -261,7 +261,8 @@ function showWelcome() {
 当前位置距博主约 <b style="font-size: 15px; color: var(--theme-color)">${dist.toFixed(2)}</b> 公里！
 您的IP地址是：<b style="font-size: 15px; color: var(--theme-color)">${ip}</b>
 <span${timeChange}</span>
-${posdesc}
+<b style="font-size: 15px; color: var(--theme-color)">${posdesc}</b>
+
 `;
     } else {
         console.log("Pjax无法获取元素");

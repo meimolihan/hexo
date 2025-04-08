@@ -574,11 +574,14 @@ div#archive:hover /* 归档页卡片 */
     box-shadow: 0 0 3px var(--theme-color) !important; /* 添加阴影效果 */
 }
 
+/* 访客定位欢迎信息 */
 #welcome-info {
     white-space: pre-wrap;
-    border-radius: 14px;
-    --kouseki-welcome-color: #49B1F5;
-    --kouseki-ip-color: #49B1F5;
-    --kouseki-gl-size: 16px!important;
+    background: var(--trans-light);
+    border-radius: 18px;
+    padding: 0px 5px;  /* 修改这里：左右内边距设为5px */
+    border: var(--border-style);
 }
-
+[data-theme="dark"] #welcome-info {
+    background: var(--trans-dark);
+}
