@@ -8850,8 +8850,15 @@ span.card-clock-weather {
 }
 
 /* 小冰分类分类磁贴黑夜模式适配 */
-.magnet_item {
+[data-theme="light"] .magnet_item {
   margin-right: 5px !important;
+  border-radius: 8px;
+}
+[data-theme="light"] .magnet_item:hover {
+  background: var(--theme-color); !important;
+}
+[data-theme="light"] .magnet_link_context span {
+  color: var(--font-color) !important;
 }
 #catalog_magnet {
   padding: 18px 18px 0 18px !important;
@@ -8862,16 +8869,15 @@ span.card-clock-weather {
   }
 }
 [data-theme="dark"] .magnet_item {
-  background: #1e1e1e;
-  color: antiquewhite;
+  background: #343434;
+  border-radius: 8px;
 }
-[data-theme="dark"] .magnet_item {
-  border-radius: 6px;
+[data-theme="dark"] .magnet_link_context span {
+  color: var(--font-color) !important;
 }
 [data-theme="dark"] .magnet_item:hover {
-  background: var(--text-bg-hover) !important;
-  color: #f2f2f2;
-  border-radius: 6px;
+  background: var(--theme-color); !important;
+  border-radius: 8px;
 }
 
 /* 公告栏、微博 */

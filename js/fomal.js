@@ -3042,7 +3042,7 @@ function toggleRightside() {
 
 // 透明度调节滑块
 if (localStorage.getItem("transNum") == undefined) {
-  localStorage.setItem("transNum", 66); // 默认值
+  localStorage.setItem("transNum", 58); // 默认值
 }
 var curTransNum = localStorage.getItem("transNum");
 var curTransMini = curTransNum * 0.95;
@@ -3062,7 +3062,7 @@ function setTrans() {
 
 // 模糊度调节滑块
 if (localStorage.getItem("blurRad") == undefined) {
-  localStorage.setItem("blurRad", 20); //默认值
+  localStorage.setItem("blurRad", 5); // 默认值
 }
 var curBlur = localStorage.getItem("blurRad"); // 当前模糊半径
 var miniBlur = curBlur * 0.95;
@@ -3414,14 +3414,14 @@ function createWinbox() {
 <h3>2. 随机风景</h3>
 <details class="folding-tag" cyan><summary> 查看随机风景背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/landscape)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/landscape)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/gqbz/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/gqbz/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/scenery/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/scenery/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=4k)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=4k)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=qc)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=qc)')"></a></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/landscape)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/landscape)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/gqbz/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/gqbz/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/scenery/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/scenery/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.alcy.cc/fj)" class="imgbox" onclick="changeBg('url(https://t.alcy.cc/fj)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=fj)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=fj)')"></a></div>
               </div>
             </details>
 
 <h3>3. 萌宠</h3>
 <details class="folding-tag" cyan><summary> 查看萌宠背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/cutepet)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/cutepet)')"></a></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/cutepet)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/cutepet)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=dw)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=dw)')"></a></div>
               </div>
             </details>
 
