@@ -259,9 +259,9 @@ function showWelcome() {
         welcomeInfoElement.innerHTML = `
 欢迎来自 <b style="font-size: 15px; color: var(--theme-color)">${pos}</b> 的小友💖
 当前位置距博主约 <b style="font-size: 15px; color: var(--theme-color)">${dist.toFixed(2)}</b> 公里！
-<span${timeChange}</span>
-Tip：${posdesc}
 您的IP地址是：<b style="font-size: 15px; color: var(--theme-color)">${ip}</b>
+<span${timeChange}</span>
+${posdesc}
 `;
     } else {
         console.log("Pjax无法获取元素");
