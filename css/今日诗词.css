@@ -1,0 +1,70 @@
+#card-poem{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem!important;
+    min-height: 130px;
+}
+
+[data-theme=light] div#poem_sentence{
+    text-align: center;
+    font-family: serif,cursive;
+    line-height: 1.9;
+    margin-bottom: 0rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--trans-light);
+    min-height: 58px;
+    color: var(--theme-color);
+}
+[data-theme=dark] div#poem_sentence{
+    text-align: center;
+    font-family: serif,cursive;
+    line-height: 1.9;
+    margin-bottom: 0rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--trans-dark);
+    min-height: 58px;
+    color: var(--theme-color);
+}
+
+/* 诗词作者和名字 */
+[data-theme=light] div#poem_info{
+    display: flex;
+    color: var(--font-color);
+    font-size: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 9px;
+}
+[data-theme=dark] div#poem_info{
+    display: flex;
+    color: var(--font-color);
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 9px;
+}
+
+div#poem_author{
+    order: 1;
+    padding: 5px;
+    margin-left: 6px;
+}
+
+/* 朝代 */
+[data-theme=light] div#poem_dynasty{
+    order: 0;
+    padding: 1px 5px 3px 5px;
+    background: var(--trans-light);
+    color: var(--font-color);
+    border-radius: 8px;
+    font-size: 13px;
+}
+[data-theme=dark] div#poem_dynasty{
+    order: 0;
+    padding: 1px 5px 3px 5px;
+    background: var(--trans-dark);
+    color: var(--font-color);
+    border-radius: 8px;
+    font-size: 13px;
+}
