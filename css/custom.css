@@ -615,7 +615,6 @@ div#archive:hover /* 归档页卡片 */
     margin: 0 auto;
     z-index: 2; /* 确保在 .animal-wall 上方 */
 }
-
 /* 响应式调整 */
 @media screen and (max-width: 1023px) {
     #footer-animal .animal-wall {
@@ -625,12 +624,10 @@ div#archive:hover /* 归档页卡片 */
         max-width: 100%;
     }
 }
-
 /* 确保页脚整体样式不受影响 */
 #footer-bar {
     margin-top: 0 !important;
 }
-
 /* 小动物移动 */
 /* 容器：固定动画元素的布局空间 */
 .animal-container {
@@ -641,7 +638,6 @@ div#archive:hover /* 归档页卡片 */
     contain: layout paint;  /* 隔离布局和绘制影响 */
     perspective: 1000px;  /* 启用3D渲染上下文 */
 }
-
 /* 动画元素 */
 .animal {
     animation: sway 3s ease-in-out infinite;
@@ -653,7 +649,6 @@ div#archive:hover /* 归档页卡片 */
     backface-visibility: hidden;  /* 修复渲染闪烁 */
     transform: translateZ(0);  /* 强制GPU加速 */
 }
-
 /* 关键帧动画 */
 @keyframes sway {
     0%, 100% {
@@ -663,10 +658,14 @@ div#archive:hover /* 归档页卡片 */
         transform: translateX(5px) translateZ(0);
     }
 }
-
 /* 在低于1100px的屏幕宽度下关闭动画 */
 @media screen and (max-width: 1099px) {
     .animal {
         animation: none !important;  /* 关闭动画 */
     }
+}
+
+/* 公告内容与其他元素之间的间距 */
+.announcement_content {
+    margin-bottom: 6px;
 }
