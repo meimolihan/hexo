@@ -246,20 +246,20 @@ function showWelcome() {
     // 根据本地时间切换欢迎语
     let timeChange;
     let date = new Date();
-    if (date.getHours() >= 5 && date.getHours() < 11) timeChange = "<span>🌤️ 早上好，一日之计在于晨</span>";
-    else if (date.getHours() >= 11 && date.getHours() < 13) timeChange = "<span>☀️ 中午好，记得午休喔~</span>";
+    if (date.getHours() >= 5 && date.getHours() < 11) timeChange = "<span>🌤️ 早上好，加油加油 💪</span>";
+    else if (date.getHours() >= 11 && date.getHours() < 13) timeChange = "<span>☀️ 中午好，记得午休喔 🍹</span>";
     else if (date.getHours() >= 13 && date.getHours() < 17) timeChange = "<span>🕞 下午好，饮茶先啦 ☕</span>";
-    else if (date.getHours() >= 17 && date.getHours() < 19) timeChange = "<span>🚶‍♂️ 即将下班，记得按时吃饭~</span>";
-    else if (date.getHours() >= 19 && date.getHours() < 24) timeChange = "<span>🌙 晚上好，夜生活嗨起来！</span>";
+    else if (date.getHours() >= 17 && date.getHours() < 19) timeChange = "<span>🚶‍♂️ 即将下班，按时吃饭喔 🍚</span>";
+    else if (date.getHours() >= 19 && date.getHours() < 24) timeChange = "<span>🌙 晚上好，夜生活嗨起来 🍻</span>";
     else timeChange = "夜深了，早点休息，少熬夜";
 
     let welcomeInfoElement = document.getElementById("welcome-info");
 
     if (welcomeInfoElement) {
         welcomeInfoElement.innerHTML = `
-欢迎来自 <b style="font-size: 15px; color: var(--theme-color)">${pos}</b> 的小友💖
-当前位置距博主约 <b style="font-size: 15px; color: var(--theme-color)">${dist.toFixed(2)}</b> 公里！
-您的IP地址是：<b style="font-size: 15px; color: var(--theme-color)">${ip}</b>
+欢迎来自 <b style="font-size: 15px; color: var(--theme-color)">${pos}</b> 的朋友💖
+距博主约：<b style="font-size: 15px; color: var(--theme-color)">${dist.toFixed(2)}</b> 公里 🚗
+IP地址是：<b style="font-size: 15px; color: var(--theme-color)">${ip}</b>
 <span${timeChange}</span>
 <b style="font-size: 15px; color: var(--theme-color)">${posdesc}</b>
 
