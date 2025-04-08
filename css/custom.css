@@ -579,7 +579,7 @@ div#archive:hover /* 归档页卡片 */
     white-space: pre-wrap;
     background: var(--trans-light);
     border-radius: 18px;
-    padding: 0px 5px;  /* 修改这里：左右内边距设为5px */
+    padding: 0 6px;  /* 上下0，左右6px */
     border: var(--border-style);
 }
 [data-theme="dark"] #welcome-info {
