@@ -243,7 +243,7 @@ function showWelcome() {
             break;
     }
 
-    // 根据本地时间切换欢迎语
+// 根据本地时间切换欢迎语
     let timeChange;
     let date = new Date();
     if (date.getHours() >= 5 && date.getHours() < 11) timeChange = "<span>🌤️ 早上好，加油加油 💪</span>";
@@ -251,7 +251,8 @@ function showWelcome() {
     else if (date.getHours() >= 13 && date.getHours() < 17) timeChange = "<span>🕞 下午好，饮茶先啦 ☕</span>";
     else if (date.getHours() >= 17 && date.getHours() < 19) timeChange = "<span>🚶‍♂️ 即将下班，按时吃饭喔 🍚</span>";
     else if (date.getHours() >= 19 && date.getHours() < 24) timeChange = "<span>🌙 晚上好，夜生活嗨起来 🍻</span>";
-    else timeChange = "夜深了，早点休息，少熬夜";
+    else if (date.getHours() >= 0 && date.getHours() < 5) timeChange = "<span>🛏️ 夜深了，早点休息 🌃</span>";
+    // else timeChange = "夜深了，早点休息";
 
     let welcomeInfoElement = document.getElementById("welcome-info");
 
