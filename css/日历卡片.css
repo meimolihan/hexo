@@ -169,16 +169,17 @@
     display: flex;
 }
 
+/* 剩余-本年，本月，本周 */
 progress::-webkit-progress-bar {
     background: var(--june-secondbg);
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
-/* 本年，本月，本周，阴影 */
+/* 剩余-本年，本月，本周，（阴影） */
 progress::-webkit-progress-value {
     background: var(--theme-color);
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .aside-span1, .aside-span2 {

@@ -14,6 +14,7 @@ div#poem_sentence {
     background: var(--trans-light);
     min-height: 62px;
     color: var(--theme-color);
+    font-weight: bold; /* 设置字体加粗 */
 }
 [data-theme=dark] div#poem_sentence {
     background: var(--trans-dark);
