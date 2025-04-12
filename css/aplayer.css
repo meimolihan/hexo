@@ -1,0 +1,123 @@
+/* aplayer日间模式磨砂透明效果增强 */
+/* 主体背景与阴影 */
+.aplayer {
+    background: rgba(255, 255, 255, 0.7)!important; /* 背景色设置为半透明白色 */
+    backdrop-filter: blur(12px); /* 添加磨砂效果，模糊半径为12px */
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    position: relative;
+    border-radius: 10px 10px 0 0 !important; /* 设置圆角 */
+}
+.aplayer.aplayer-fixed .aplayer-lrc:after,
+.aplayer.aplayer-fixed .aplayer-lrc:before {
+    display: none; /* 隐藏多余的伪元素 */
+}
+.aplayer.aplayer-fixed .aplayer-body {
+    background: rgba(255, 255, 255, 0.7)!important; /* 背景色设置为半透明白色 */
+    backdrop-filter: blur(12px); /* 添加磨砂效果，模糊半径为12px */
+    /*box-shadow: 0 4px 12px 0 rgb(255 0 0), 0 1px 3px 0 rgba(0, 0, 0, 0.1); !* 添加阴影效果 *!*/
+    position: fixed;
+    border-radius: 10px 10px 0 0 !important; /* 设置圆角 */
+}
+
+/* 毛玻璃效果增强 */
+.aplayer-list,
+.aplayer-info {
+    backdrop-filter: blur(18px); /* 增强模糊效果，模糊半径为18px */
+    background: rgba(255, 255, 255, 0.5)!important; /* 背景色设置为更透明的白色 */
+    border-radius: 0 0 10px 10px !important; /* 设置圆角 */
+}
+
+/* 滚动条优化 */
+.aplayer .aplayer-list ol::-webkit-scrollbar {
+    width: 6px; /* 设置滚动条宽度 */
+}
+.aplayer .aplayer-list ol::-webkit-scrollbar-thumb {
+    border-radius: 3px; /* 设置滚动条圆角 */
+    background: rgba(0, 0, 0, 0.2); /* 设置滚动条背景色为半透明黑色 */
+}
+.aplayer .aplayer-list ol::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4); /* 鼠标悬停时滚动条背景色变深 */
+}
+
+/* 圆角与过渡效果 */
+.aplayer.aplayer-fixed .aplayer-list {
+    border-radius: 10px 10px 0 0 !important; /* 设置圆角 */
+}
+.aplayer.aplayer-fixed .aplayer-miniswitcher {
+    border-radius: 0 10px 10px 0 !important; /* 设置圆角 */
+}
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+    transition: 0.3s ease-in-out !important; /* 添加过渡动画效果 */
+    border-radius: 10px !important; /* 设置圆角 */
+}
+
+/* 悬停与激活状态优化 */
+.aplayer .aplayer-list ol li:hover {
+    background: rgba(208, 134, 134, 0.6)!important; /* 鼠标悬停时背景色为半透明红色 */
+}
+.aplayer .aplayer-list ol li.aplayer-list-light {
+    background: rgba(119, 64, 64, 0.4)!important; /* 播放中歌曲背景色为半透明棕色 */
+}
+
+/* aplayer黑暗模式磨砂透明效果优化 */
+[data-theme=dark] .aplayer {
+    background: rgba(18, 18, 18, 0.9)!important; /* 背景色设置为深灰色 */
+    color: #ffffff; /* 文字颜色设置为白色 */
+    backdrop-filter: blur(15px); /* 添加磨砂效果，模糊半径为15px */
+    box-shadow: 0 4px 12px 0 rgb(255 0 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+}
+[data-theme=dark] .aplayer.aplayer-fixed .aplayer-body {
+    background: rgba(18, 18, 18, 0.9)!important; /* 背景色设置为深灰色 */
+    color: #ffffff; /* 文字颜色设置为白色 */
+    backdrop-filter: blur(15px); /* 添加磨砂效果，模糊半径为15px */
+    /*box-shadow: 0 4px 12px 0 rgb(16 255 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); !* 添加阴影效果 *!*/
+}
+
+[data-theme=dark] .aplayer-list,
+[data-theme=dark] .aplayer-info {
+    backdrop-filter: blur(20px); /* 增强模糊效果，模糊半径为20px */
+    background: rgba(18, 18, 18, 0.7)!important; /* 背景色设置为稍浅的深灰色 */
+}
+
+[data-theme=dark] .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
+    fill: #ffffff; /* 图标颜色设置为白色 */
+}
+
+[data-theme=dark] .aplayer .aplayer-list ol li:hover {
+    background: rgba(48, 89, 114, 0.6)!important; /* 鼠标悬停时背景色为半透明蓝色 */
+}
+
+[data-theme=dark] .aplayer .aplayer-list ol li.aplayer-list-light {
+    background: rgba(0, 70, 120, 0.4)!important; /* 播放中歌曲背景色为半透明深蓝色 */
+}
+
+[data-theme=dark] .aplayer .aplayer-info .aplayer-controller .aplayer-time {
+    color: #ffffff; /* 时间文字颜色设置为白色 */
+}
+
+[data-theme=dark] .aplayer .aplayer-list ol li .aplayer-list-index {
+    color: #ffffff; /* 歌曲编号颜色设置为白色 */
+}
+
+[data-theme=dark] .aplayer .aplayer-list ol li .aplayer-list-author {
+    color: #ffffff; /* 歌曲作者颜色设置为白色 */
+}
+
+/* Width 的值可根据喜好调整（屏幕的宽度） */
+@media (max-width: 960px) {
+    /* APlayer 音乐标签伸缩 */
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+        /* 默认情况下缩进左侧 66px，只留一点箭头部分 */
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0 !important;
+        /* 鼠标悬停是左侧缩进归零，完全显示按钮 */
+    }
+}
+
+/*强制隐藏歌词-需要歌词释放此项*/
+.aplayer-lrc {
+    display: none !important;
+}
