@@ -902,7 +902,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/personal/bb/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -911,7 +911,16 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/personal/bb/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/personal/love/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -930,15 +939,6 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/social/fcircle/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.meimolihan.eu.org/personal/love/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -983,15 +983,6 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/life/games/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.meimolihan.eu.org/box/nav/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
@@ -1001,7 +992,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/life/music/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/life/games/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1011,6 +1002,15 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/life/movies/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/life/music/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1165,14 +1165,14 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/tags/compose/</loc>
+    <loc>https://www.meimolihan.eu.org/tags/chrome/</loc>
     <lastmod>2025-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/tags/chrome/</loc>
+    <loc>https://www.meimolihan.eu.org/tags/compose/</loc>
     <lastmod>2025-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
