@@ -712,3 +712,9 @@ summary,
 [data-theme="dark"] .highlight {
     background-color: transparent !important;
 }
+
+/* 复制弹窗 */
+.el-notification.left {
+    border-radius: 20px; /* 边框圆角 */
+    background-color: var(--theme-color); /* 背景接入主题颜色 */
+}
