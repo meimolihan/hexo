@@ -25,7 +25,7 @@
 /* 调整aplayer高度 */
 #aplayer {
     position: fixed;
-    bottom: 39px; /* 距离底部的高度 */
+    bottom: 40px; /* 距离底部的高度 */
 }
 
 /*************************** 右下角按钮美化 ************************/
@@ -668,4 +668,47 @@ div#archive:hover /* 归档页卡片 */
 /* 公告内容与其他元素之间的间距 */
 .announcement_content {
     margin-bottom: 6px;
+}
+
+
+/* 文章内容，代码框等，颜色，边框圆角，修改  */
+summary {
+    border-radius: 15px!important;
+    background: var(--trans-light) !important; /* 背景接入 */
+    color: var(--font-color) !important;
+}
+#post .post-content .folding-tag {
+    border-radius: 15px;
+    background: var(--trans-light);
+}
+#post .post-content .folding-tag .content {
+    border-radius: 15px;
+    background: var(--trans-light);
+}
+[data-theme="dark"] #post .post-content .folding-tag,
+[data-theme="dark"] #post .post-content .folding-tag .content {
+    background: var(--trans-dark);
+}
+summary,
+.highlight-tools {
+    background: var(--theme-color) !important;
+}
+.highlight pre,
+.highlight td,
+.highlight tr,
+.highlight table,
+.highlight .gutter,
+.highlight .code,
+.highlight {
+    background-color: transparent !important;
+    color: var(--font-color) !important;
+}
+[data-theme="dark"] .highlight pre,
+[data-theme="dark"] .highlight td,
+[data-theme="dark"] .highlight tr,
+[data-theme="dark"] .highlight table,
+[data-theme="dark"] .highlight .gutter,
+[data-theme="dark"] .highlight .code,
+[data-theme="dark"] .highlight {
+    background-color: transparent !important;
 }
