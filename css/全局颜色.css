@@ -1,0 +1,216 @@
+body, #footer {
+    background-color: #000000;
+    color: #ffffff; /* 白色文字 */
+}
+
+/****************************** 定义全局颜色 ****************************/
+:root {
+/****** 背景颜色 ******/
+    --trans-light: rgba(255, 255, 255, 0.6); /* 切换壁纸窗口（日间）透明度颜色变量 */
+    --trans-dark: rgba(0, 0, 0, 0.6); /* 切换壁纸窗口（夜间）透明度颜色变量 */
+    --mobufan-beijing: rgba(25, 25, 25, 0.6); /* 日间模式，背景颜色 */
+    --mobufan-touming: rgba(25, 25, 25, 0); /* 透明背景颜色 */
+/****** 字体颜色 ******/
+    --mobufan-fontcolor: #ffffff; /* 日间模式，字体颜色*/
+    --mobufan-text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* 日间模式，文字阴影效果 */
+    --mobufan-color: #ffb800; /* 悬停时文字颜色变为黄色 */
+    --mobufan-black-and-white: #ffffff; /* 反差字体颜色 */
+    --mobufan-hangneidaima: #00fdf6; /* 文章行内代码文字颜色 */
+    --mobufan-waigua: #ffffff; /* 日间模式，字体颜色*/
+    --mobufan-lighttext: #256cff; /* 鼠标悬停字体颜色 */
+/****** 边框颜色 ******/
+    --mobufan-border: 1px solid #e0e0e0; /* 边框样式（白色实线） */
+    --mobufan-shadow-border: 0 4px 12px 0 rgb(47, 255, 0), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+    --mobufan-backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
+    --mobufan-white: #ffffff; /* 白色 */
+    --mobufan-jianbian: linear-gradient(to right, #00075ef2, #2c0364, #003300, #330000); /* 渐变颜色*/
+}
+
+/********* 明亮模式颜色配置 *********/
+[data-theme="light"] {
+/****** 背景颜色 ******/
+    --trans-light: rgba(253, 253, 253, 0.95); /* 切换壁纸窗口（日间）透明度颜色变量 */
+    --trans-dark: rgba(25, 25, 25, 0.95); /* 切换壁纸窗口（夜间）透明度颜色变量 */
+    --mobufan-beijing: rgba(255, 255, 255, 0.6); /* 日间模式，背景颜色 */
+    --mobufan-touming: rgba(25, 25, 25, 0); /* 透明背景颜色 */
+/****** 字体颜色 ******/
+    --mobufan-fontcolor: #ffffff; /* 日间模式，字体颜色*/
+    --mobufan-text-shadow: 0 0 5px rgb(183 0 110); /* 日间模式，文字阴影效果 */
+    --mobufan-black-and-white: rgba(0, 0, 0, 0.85); /* 反差字体颜色 */
+    --mobufan-waigua: rgba(0, 0, 0, 0.63); /* 日间模式，字体颜色*/
+    --mobufan-color: #a9022b; /* 悬停时边框颜色变为黄色 */
+    --mobufan-hangneidaima: rgb(0, 125, 208); /* 文章行内代码文字颜色 */
+    --mobufan-lighttext: #007dd0; /* 鼠标悬停字体颜色 */
+/****** 边框颜色 ******/
+    --mobufan-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
+    --mobufan-shadow-border: 0 4px 12px 0 rgb(174 1 105), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+    --mobufan-backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
+    --mobufan-white: #ffffff; /* 白色 */
+    --mobufan-jianbian: linear-gradient(to right, #ffb4b4, #0082a9, #007057, #df5fff); /* 渐变颜色*/
+}
+
+/********* 暗色模式颜色配置 *********/
+[data-theme="dark"] {
+/****** 背景颜色 ******/
+    --trans-light: rgba(253, 253, 253, 0.95); /* 切换壁纸窗口（日间）透明度颜色变量 */
+    --trans-dark: rgba(25, 25, 25, 0.95); /* 切换壁纸窗口（夜间）透明度颜色变量 */
+    --mobufan-beijing: rgba(25, 25, 25, 0.6); /* 日间模式背景颜色 */
+    --mobufan-lighttext: #007dd0; /* 鼠标悬停字体颜色 */
+/****** 字体颜色 ******/
+    --mobufan-fontcolor: #212529; /* 日间模式，字体颜色*/
+    --mobufan-text-shadow: 0 0 5px rgb(40 221 0); /* 日间模式，文字阴影效果 */
+    --mobufan-black-and-white: rgb(255, 255, 255); /* 反差字体颜色 */
+    --mobufan-hangneidaima: rgb(47, 255, 0); /* 文章行内代码文字颜色 */
+    --mobufan-waigua: #ffffff; /* 日间模式，字体颜色*/
+    --mobufan-lighttext: #007dd0; /* 鼠标悬停字体颜色 */
+/****** 边框颜色 ******/
+    --mobufan-border: 1px solid #e0e0e0; /* 边框样式（浅灰色实线） */
+    --mobufan-shadow-border: 0 4px 12px 0 rgb(20 109 0 / 90%), 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* 边框阴影效果悬浮感的立体光影效果 */
+    --mobufan-backdrop-filter: blur(6px) saturate(150%); /* 磨砂效果（模糊+饱和度） */
+    --mobufan-white: #ffffff; /* 白色 */
+    --mobufan-jianbian: linear-gradient(to right, #00075ef2, #2c0364, #003300, #330000); /* 渐变颜色*/
+}
+
+
+
+/*********************************** 背景颜色+边框装饰线+磨砂效果 ***********************************/
+/*#to_comment .fas.fa-comments, !* 右下角明暗模式，评论 *!*/
+/*#rightside-config-hide .icon-V.hidden, !* 右下角明暗模式 *!*/
+/*[data-theme="light"] .site-data, !* 手机端菜单栏（头像下面，文章+标签+分类）*!*/
+/*[data-theme="light"] .menus_items, !* 手机端菜单栏(首页+文章+社交+关于)背景*!*/
+/*[data-theme="dark"] .menus_item_child, !* 导航栏（子菜单）背景颜色设置元素的背景颜色 *!*/
+/*[data-theme="light"] .site-page.child.faa-parent.animated-hover, !* 导航栏（子菜单）背景颜色设置元素的背景颜色 *!*/
+/*[data-theme="light"] .menus_items !* 导航栏（主菜单）背景颜色 *!*/
+/*[data-theme="light"] #post .container.post-content .folding-tag, #post .container.post-content .folding-tag .content, #post .container.post-content .folding-tag .content, summary, !* 标签外挂背景颜色添 *!*/
+
+
+[data-theme="light"] .tag-cloud-list.text-center a, /* 便签页面子内容 */
+[data-theme="light"] #nav .menus_items .menus_item .menus_item_child li, /* 导航栏子菜单背景 */
+[data-theme="light"] #changeBgBox .wb-body, /* 切换背景窗口 */
+[data-theme="light"] #aside-content #card-toc .toc-content .toc-link.active, /* toc 目录，浏览到该目录时 边框背景颜色 */
+[data-theme="light"] #page-header.nav-fixed #nav, /* 导航栏（主菜单）背景颜色 */
+[data-theme="light"] .menus_item_child, /* 导航栏（子菜单）背景颜色设置元素的背景颜色 */
+[data-theme="light"] .aside-list-item, /* 侧边栏最近文章 */
+[data-theme="light"] #twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner, /* 评论输入框圆角*/
+[data-theme="light"] blockquote, /* 引用标签背景颜色 */
+[data-theme="light"] div#sidebar-menus, /* 手机端菜单栏最外层：div#sidebar-menus */
+[data-theme="light"] #post .container.post-content .folding-tag, /* 标签外挂 */
+[data-theme="light"] #post .container.post-content .folding-tag .content,  /* 标签外挂 */
+[data-theme="light"] #post .container.post-content .folding-tag summary, /* 标签外挂 */
+[data-theme="light"] #rightside > div > button, /* 右下角明暗模式，评论 */
+[data-theme="light"] #rightside > div > a, /* 右下角明暗模式，评论 */
+[data-theme="light"] #pagination .page-number, /* 文章分页2 */
+[data-theme="light"] #pagination .extend.next, /* 文章分页1 */
+[data-theme="light"] .search-dialog, /* 搜索框 */
+[data-theme="light"] #tag, /* 标签子页面卡片 */
+[data-theme="light"] #category, /* 分类子页面卡片 */
+[data-theme="light"] #recent-posts .recent-post-item, /* 首页文章卡片 */
+[data-theme="light"] #aside-content .card-widget, /* 首页侧栏卡片 */
+[data-theme="light"] div#post, /* 文章页卡片 */
+[data-theme="light"] div#archive, /* 归档页卡片 */
+[data-theme="light"] div#page /* 普通页卡片 */
+{
+    background: var(--trans-light) !important; /* 背景颜色 */
+    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+}
+
+[data-theme="dark"] .tag-cloud-list.text-center a, /* 便签页面子内容 */
+[data-theme="dark"] #nav .menus_items .menus_item .menus_item_child li, /* 导航栏子菜单背景 */
+[data-theme="dark"] #changeBgBox .wb-body, /* 切换背景窗口 */
+[data-theme="dark"] #aside-content #card-toc .toc-content .toc-link.active, /* toc 目录，浏览到该目录时 边框背景颜色 */
+[data-theme="dark"] #page-header.nav-fixed #nav, /* 导航栏（主菜单）背景颜色 */
+[data-theme="dark"] .menus_item_child, /* 导航栏（子菜单）背景颜色设置元素的背景颜色 */
+[data-theme="dark"] .aside-list-item, /* 侧边栏最近文章 */
+[data-theme="dark"] #twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner, /* 评论输入框圆角*/
+[data-theme="dark"] blockquote, /* 引用标签背景颜色 */
+[data-theme="dark"] div#sidebar-menus, /* 手机端菜单栏最外层：div#sidebar-menus */
+[data-theme="dark"] #post .container.post-content .folding-tag, /* 标签外挂 */
+[data-theme="dark"] #post .container.post-content .folding-tag .content,  /* 标签外挂 */
+[data-theme="dark"] #post .container.post-content .folding-tag summary, /* 标签外挂 */
+[data-theme="dark"] #rightside > div > button, /* 右下角明暗模式，评论 */
+[data-theme="dark"] #rightside > div > a, /* 右下角明暗模式，评论 */
+[data-theme="dark"] #pagination .page-number, /* 文章分页2 */
+[data-theme="dark"] #pagination .extend.next, /* 文章分页1 */
+[data-theme="dark"] .search-dialog, /* 搜索框 */
+[data-theme="dark"] #tag, /* 标签子页面卡片 */
+[data-theme="dark"] #category, /* 分类子页面卡片 */
+[data-theme="dark"] #recent-posts .recent-post-item, /* 首页文章卡片 */
+[data-theme="dark"] #aside-content .card-widget, /* 首页侧栏卡片 */
+[data-theme="dark"] div#post, /* 文章页卡片 */
+[data-theme="dark"] div#archive, /* 归档页卡片 */
+[data-theme="dark"] div#page /* 普通页卡片 */
+{
+    background: var(--trans-dark) !important; /* 背景颜色 */
+    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+}
+
+/* 清除背景 */
+/*#changeBgBox .wb-body {*/
+/*    background-color: transparent; !* 清除背景颜色 *!*/
+/*    background-image: none; !* 清除背景图像 *!*/
+/*}*/
+
+/*************************************** 透明背景 **************************************/
+[data-theme="light"] .menus_items /* 导航栏主菜单 */
+{
+    background: var(--mobufan-touming) !important; /* 背景颜色 */
+    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+}
+
+[data-theme="dark"] .menus_items /* 导航栏主菜单 */
+{
+    background: var(--mobufan-touming) !important; /* 背景颜色 */
+    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+}
+
+
+/******************************* 导航栏（子菜单）背景颜色 ****************************/
+.menus_item_child,
+.site-page.child.faa-parent.animated-hover {
+    backdrop-filter: var(--mobufan-backdrop-filter) !important; /* 磨砂效果（模糊+饱和度） */
+    transition: background-color 0.3s ease !important; /* 日间模式，添加（子菜单）过渡效果 */
+}
+
+/******************************* 文字颜色 ****************************/
+/*[data-theme="light"] .site-page span, !* 调整（导航栏文字）颜色 *!*/
+/*[data-theme="light"] .site-name, !* 调整（站点标题文字）颜色 *!*/
+[data-theme="light"] #post .container.post-content .folding-tag summary, /* 标签外挂调整（文字）颜色 */
+[data-theme="light"] .menus_items {
+    color: var(--mobufan-black-and-white); /* 文字颜色 */
+}
+
+[data-theme="dark"] #post .container.post-content .folding-tag summary, /* 标签外挂调整（文字）颜色 */
+[data-theme="dark"] .menus_items {
+    color: var(--mobufan-black-and-white); /* 文字颜色 */
+}
+
+
+[data-theme="light"] #aside-content #card-toc .toc-content .toc-link, /* toc非活性目录卡片内容（文字）颜色 */
+[data-theme="light"] #post-meta .meta-firstline, #post-meta .meta-secondline,  /* 首页副标题（文字）颜色 */
+[data-theme="light"] #post-info .post-title /* 首页标题（文字）颜色 */
+{
+    color: var(--mobufan-white); /* 文字颜色 */
+}
+
+[data-theme="dark"] #aside-content #card-toc .toc-content .toc-link, /* toc非活性目录卡片内容（文字）颜色 */
+[data-theme="dark"] #post-meta .meta-firstline, #post-meta .meta-secondline,  /* 首页副标题（文字）颜色 */
+[data-theme="dark"] #post-info .post-title /* 首页标题（文字）颜色 */
+{
+    color: var(--mobufan-white); /* 文字颜色 */
+}
+
+
+#article-container a, /* 全局超链接颜色颜色 */
+#aside-content #card-toc .toc-content .toc-link.active /*  浏览到该目录时 文字颜色 */
+{
+    color: var(--mobufan-hangneidaima) !important; /* 鼠标悬停，文字颜色*/
+}
+
+
+
+
+
+
+
+
+

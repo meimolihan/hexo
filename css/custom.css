@@ -1,0 +1,720 @@
+/* 隐藏脚页内容 */
+/*#ft {*/
+/*    display: none;*/
+/*}*/
+/* 隐藏脚页下面元素 */
+#ghbdages {
+    display: none;
+}
+
+/* 代码框 */
+.highlight {
+    border-radius: 15px!important;
+}
+
+/* 隐藏首页分类卡片 */
+/*#catalog_magnet, .recent-post-item #catalog_magnet {*/
+/*    display: none;*/
+/*}*/
+/* 调整FPS高度 */
+#fps {
+    position: fixed;
+    bottom: 0px; /* 距离底部的高度 */
+    left: -2px; /* 往左移动的距离 */
+}
+/* 调整aplayer高度 */
+#aplayer {
+    position: fixed;
+    bottom: 40px; /* 距离底部的高度 */
+}
+
+/*************************** 右下角按钮美化 ************************/
+#to_comment .fas.fa-comments, /* 右下角明暗模式，评论 */
+#rightside > div > button, /* 右下角明暗模式，菜单 */
+#rightside > div > a {
+    display: block;
+    margin-bottom: 5px; /*间距*/
+    width: 42px; /*左右边框大小*/
+    height: 42px; /*上下边框大小*/
+    border-radius: 26px; /*圆角大小*/
+    /*background-color: #ffffff; !*背景颜色*!*/
+    text-align: center;
+    font-size: 19px; /*图标大小*/
+    line-height: 42px; /*图标上下调节*/
+    /*color: var(--mobufan-hangneidaima); !*图标颜色*!*/
+}
+
+/*********************** 修改分类卡片布局 **************************/
+/* 为 .card-archive-list-item 和 .card-category-list-item 设置宽度和弹性盒子属性 */
+li.card-archive-list-item, li.card-category-list-item {
+    width: 100%; /* 设置宽度为100% */
+    -webkit-box-flex: 1; /* Webkit 内核的弹性盒子属性 */
+    -moz-box-flex: 1; /* Firefox 的弹性盒子属性 */
+    -o-box-flex: 1; /* Opera 的弹性盒子属性 */
+    box-flex: 1; /* 标准的弹性盒子属性 */
+    -webkit-flex: 0 0 48%; /* Webkit 内核的弹性盒子属性，设置弹性大小为48% */
+    -ms-flex: 0 0 48%; /* IE 10 的弹性盒子属性 */
+    flex: 0 0 48%; /* 标准的弹性盒子属性 */
+}
+
+/* 当屏幕宽度大于等于1200px时，点击 .card-archive-list-item 和 .card-category-list-item 的 a 元素时的样式 */
+@media screen and (min-width: 1200px) {
+    #aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:active,
+    #aside-content .card-categories ul.card-category-list>.card-category-list-item a:active {
+        -webkit-transform: scale(.97); /* Webkit 内核的缩放效果 */
+        -moz-transform: scale(.97); /* Firefox 的缩放效果 */
+        -o-transform: scale(.97); /* Opera 的缩放效果 */
+        -ms-transform: scale(.97); /* IE 的缩放效果 */
+        transform: scale(.97); /* 标准的缩放效果 */
+    }
+}
+
+/* 为 .card-archive-list-item 和 .card-category-list-item 的 a 元素设置样式 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a,
+#aside-content .card-categories ul.card-category-list>.card-category-list-item a {
+    margin: 4px 0; /* 设置上下边距为4px，左右边距为0 */
+    display: -webkit-box; /* Webkit 内核的弹性盒子布局 */
+    display: -moz-box; /* Firefox 的弹性盒子布局 */
+    display: -webkit-flex; /* Webkit 内核的弹性盒子布局 */
+    display: -ms-flexbox; /* IE 10 的弹性盒子布局 */
+    display: box; /* 标准的弹性盒子布局 */
+    display: flex; /* 标准的弹性盒子布局 */
+    -webkit-box-orient: vertical; /* Webkit 内核的垂直排列 */
+    -moz-box-orient: vertical; /* Firefox 的垂直排列 */
+    -o-box-orient: vertical; /* Opera 的垂直排列 */
+    -webkit-flex-direction: column; /* Webkit 内核的垂直排列 */
+    -ms-flex-direction: column; /* IE 10 的垂直排列 */
+    flex-direction: column; /* 标准的垂直排列 */
+    -ms-flex-line-pack: justify; /* IE 10 的两端对齐 */
+    -webkit-align-content: space-between; /* Webkit 内核的两端对齐 */
+    align-content: space-between; /* 标准的两端对齐 */
+}
+
+/* 为 .card-archive-list 和 .card-category-list 的 a 元素的第一个 span 元素设置样式 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a span:first-child,
+#aside-content .card-categories ul.card-category-list>.card-category-list-item a span:first-child {
+    width: auto; /* 设置宽度为自动 */
+    -webkit-box-flex: inherit; /* Webkit 内核的继承弹性盒子属性 */
+    -moz-box-flex: inherit; /* Firefox 的继承弹性盒子属性 */
+    -o-box-flex: inherit; /* Opera 的继承弹性盒子属性 */
+    box-flex: inherit; /* 标准的继承弹性盒子属性 */
+    -webkit-flex: inherit; /* Webkit 内核的继承弹性属性 */
+    -ms-flex: inherit; /* IE 10 的继承弹性属性 */
+    flex: inherit; /* 标准的继承弹性属性 */
+}
+
+/* 为 .card-archive-list 和 .card-category-list 设置样式 */
+#aside-content .card-archives ul.card-archive-list,
+#aside-content .card-categories ul.card-category-list {
+    display: -webkit-box; /* Webkit 内核的弹性盒子布局 */
+    display: -moz-box; /* Firefox 的弹性盒子布局 */
+    display: -webkit-flex; /* Webkit 内核的弹性盒子布局 */
+    display: -ms-flexbox; /* IE 10 的弹性盒子布局 */
+    display: box; /* 标准的弹性盒子布局 */
+    display: flex; /* 标准的弹性盒子布局 */
+    -webkit-box-orient: horizontal; /* Webkit 内核的水平排列 */
+    -moz-box-orient: horizontal; /* Firefox 的水平排列 */
+    -o-box-orient: horizontal; /* Opera 的水平排列 */
+    -webkit-flex-direction: row; /* Webkit 内核的水平排列 */
+    -ms-flex-direction: row; /* IE 10 的水平排列 */
+    flex-direction: row; /* 标准的水平排列 */
+    -webkit-box-pack: justify; /* Webkit 内核的两端对齐 */
+    -moz-box-pack: justify; /* Firefox 的两端对齐 */
+    -o-box-pack: justify; /* Opera 的两端对齐 */
+    -ms-flex-pack: justify; /* IE 10 的两端对齐 */
+    -webkit-justify-content: space-between; /* Webkit 内核的两端对齐 */
+    justify-content: space-between; /* 标准的两端对齐 */
+    -webkit-box-lines: multiple; /* Webkit 内核的多行排列 */
+    -moz-box-lines: multiple; /* Firefox 的多行排列 */
+    -o-box-lines: multiple; /* Opera 的多行排列 */
+    -webkit-flex-wrap: wrap; /* Webkit 内核的换行排列 */
+    -ms-flex-wrap: wrap; /* IE 10 的换行排列 */
+    flex-wrap: wrap; /* 标准的换行排列 */
+}
+
+/********** 搜索框美化 **********/
+.local-search-box--input {
+    height: 50px; /* 或者使用其他单位，例如 height: 2.5rem; */
+    font-size: 18px; /* 文字大小 */
+    outline: none; /* 去掉聚焦时的默认边框 */
+    transition: all 0.3s ease; /* 添加过渡效果，使变化更平滑 */
+}
+hr {
+    display: none; /* 隐藏搜索框下面的分割线 */
+}
+
+/********* 去除导航栏选项中底下的蓝条 *********/
+#nav *::after{
+    background-color: transparent!important;
+}
+
+/* 侧边栏最近文章 */
+.aside-list-item {
+    border-radius: 15px; /* 设置圆角边框 */
+    margin: 3px 0; /* 设置上下边距为4px，左右边距为0 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    /*border: 1.2px solid var(--theme-color) !important; !* 边框装饰线颜色 *!*/
+}
+/* 侧边栏最近文章封面 */
+.thumbnail {
+    border-radius: 12px; /* 圆角 */
+}
+/* 侧边栏最近文章 */
+.announcement_content {
+    border-radius: 15px; /* 设置圆角边框 */
+    margin: 2px 0; /* 设置上下边距为4px，左右边距为0 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    /*border: 1.2px solid var(--theme-color) !important; !* 边框装饰线颜色 *!*/
+}
+/* 侧边栏分类卡片 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a,
+#aside-content .card-categories ul.card-category-list>.card-category-list-item a {
+    border-radius: 15px; /* 设置圆角边框 */
+    margin: 2px 0; /* 设置上下边距为4px，左右边距为0 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    /*border: 1.2px solid var(--theme-color) !important; !* 边框装饰线颜色 *!*/
+}
+.aside-list-item:hover {
+    background-color: var(--theme-color) !important;
+    border-radius: 15px; /* 设置圆角边框 */
+}
+.content a:hover {
+    color: var(--font-color) !important; /* 接入字体 */
+}
+
+/* 搜索框 */
+#local-search .search-dialog {
+    border-radius: 15px !important; /* 设置圆角 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+}
+
+.card-category-list-link:hover /* 侧边栏-分类卡片放大 */
+{
+    transform: scale(0.9);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+.aside-list-item:hover /* 侧边栏-最新文章卡片放大 */
+{
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/*********************** MD引用标签美化 **************************/
+blockquote {
+    border-left: 8px solid var(--mobufan-hangneidaima); /* 左边框 */
+    padding: 0px 16px; /* 内边距 */
+    font-size: 15px; /* 减小字体大小 */
+    margin: 18px 0px; /* 外边距 */
+    /*font-style: italic; !* 斜体字 *!*/
+    /*backdrop-filter: var(--mobufan-backdrop-filter); !* 磨砂效果（模糊+饱和度） *!*/
+}
+
+blockquote p {
+    margin: 1px 1; /* 减少上下外边距 */
+    padding: 10px 0; /* 减少上下内边距 */
+    line-height: 2; /* 减小行高 */
+}
+
+blockquote p:first-child {
+    margin-top: 0; /* 第一个段落的顶部外边距为0 */
+}
+
+blockquote p:last-child {
+    margin-bottom: 0; /* 最后一个段落的底部外边距为0 */
+}
+
+/* md引用标签 */
+blockquote {
+    border-radius: 15px; /* 圆角 */
+}
+
+[data-theme="light"] blockquote {
+    background: var(--trans-light); /* 背景接入 */
+}
+[data-theme="dark"] blockquote {
+    background: var(--trans-dark); /* 背景接入 */
+}
+
+/* 标签页面子内容 */
+#tag {
+    border-radius: 20px;
+}
+/* 分类页面子内容 */
+#category{
+    border-radius: 20px;
+}
+
+/****** 评论输入框圆角 ******/
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner {
+    border-radius: 15px; /* 设置圆角边框 */
+}
+
+
+/* 评论预览圆角 */
+.el-button.tk-preview.el-button--default.el-button--small {
+    border-radius: 10px; /* 设置圆角边框 */
+}
+/* 评论发送圆角 */
+.el-button.tk-send.el-button--primary.el-button--small.is-disabled {
+    border-radius: 10px; /* 设置圆角边框 */
+}
+
+/* 侧边栏标签云 */
+.card-tag-cloud a {
+    border-radius: 12px; /* 设置圆角边框 */
+    border: var(--border-style, 1px solid #ccc) !important; /* 边框装饰线颜色，添加默认值 */
+    display: flex; /* 使用标准的弹性盒子布局 */
+    flex-direction: row; /* 水平排列 */
+    justify-content: space-between; /* 两端对齐 */
+    flex-wrap: wrap; /* 换行排列 */
+    margin: 2px 2px; /* 上下边距为 8px，左右边距为 12px */
+}
+
+#aside-content .card-tag-cloud a:hover {
+    background-color: var(--theme-color); /* 悬停元素背景接入 */
+    transform: scale(0.93);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    color: var(--font-color) !important; /* 接入字体 */
+}
+.item-headline {
+    display: flex;
+    align-items: center;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.item-headline i {
+    margin-right: 10px;
+}
+.card-tag-cloud {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 6px;
+}
+.card-tag-cloud a {
+    display: block;
+    padding: 9px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 1.1em !important; /* 字体大小 */
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.card-tag-cloud a:hover {
+    transform: translateY(-2px);
+}
+.card-tag-cloud a sup {
+    font-size: 0.8em;
+    margin-left: 3px;
+    color: inherit;
+}
+
+/* 评论区圆角 */
+.tk-comments-container {
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    border-radius: 12px; /* 设置圆角边框 */
+}
+
+/* 下一篇文字 */
+.prev-post.pull-left,
+.next-post.pull-right {
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+    border-radius: 15px; /* 设置圆角边框 */
+}
+.prev-post.pull-left:hover,
+.next-post.pull-right:hover {
+    border-radius: 15px; /* 设置圆角边框 */
+    box-shadow: 0 0 3px var(--theme-color) !important;
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    box-shadow: 0 0 3px var(--theme-color) !important; /* 添加阴影效果 */
+}
+
+/* 相关推荐 */
+.relatedPosts-list div:hover {
+    border-radius: 15px; /* 设置圆角边框 */
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/* 分类页面子内容 */
+.category-list-item {
+    font-size: 20px; /* 减小字体大小 */
+    margin: 4px 2; /* 设置上下边距为4px，左右边距为0 */
+    border-radius: 15px; /* 设置圆角边框 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+}
+.category-list-item:hover {
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    box-shadow: 0 0 3px var(--theme-color) !important;
+    background-color: var(--theme-color); /* 悬停元素背景接入 */
+}
+#page .category-lists .category-list .category-list-item .category-list-link:hover {
+    color: var(--font-color) !important; /* 接入字体 */
+}
+.category-list-item::before {
+    /* 默认样式 */
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc; /* 默认颜色 */
+    margin-right: 8px;
+    /* 其他样式... */
+}
+.category-list-item:hover::before {
+    background-color: #ff0000; /* 悬停时的颜色，改为你需要的颜色 */
+    transform: scale(1.23);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+}
+
+
+/* 归档页面子内容 */
+.article-sort-item {
+    font-size: 20px; /* 减小字体大小 */
+    margin: 4px 2; /* 设置上下边距为4px，左右边距为0 */
+    border-radius: 20px; /* 设置圆角边框 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+}
+.article-sort-item:hover {
+    transform: scale(0.96);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    box-shadow: 0 0 3px var(--theme-color) !important;
+    background-color: var(--theme-color); /* 悬停元素背景接入 */
+}
+.article-sort-item-title:hover {
+    color: var(--font-color) !important; /* 接入字体 */
+}
+
+
+/* 标签页面子内容*/
+.tag-cloud-list.is-center a {
+    margin: 3px 2; /* 设置上下边距为4px，左右边距为0 */
+    border-radius: 15px; /* 设置圆角边框 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    border: var(--border-style) !important; /* 边框装饰线颜色 */
+}
+.tag-cloud-list.is-center a:hover {
+    transform: scale(0.92);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+    box-shadow: 0 0 3px var(--theme-color) !important;
+    background-color: var(--theme-color); /* 悬停元素背景接入 */
+}
+.tag-cloud-list.is-center a:hover {
+    color: var(--font-color) !important; /* 接入字体 */
+}
+.tag-cloud-list {
+    font-size: 16px; /* 减小字体大小 */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+.tag-cloud-list a {
+    font-size: 1em !important;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* 调整右下角 明暗模式图标位置 */
+.icon-V svg {
+    transform: translateY(5px); /* 将图标往下移动 2px */
+    display: inline-block;      /* 确保 transform 生效 */
+}
+
+/* 切换壁纸菜单元素旋转 */
+.fa-solid.fa-arrows-rotate::before {
+    display: inline-block;
+    animation: rotate-clockwise 5s linear infinite; /* 5秒一圈，无限循环 */
+}
+
+@keyframes rotate-clockwise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 评论输入框 */
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner:hover {
+    border-radius: 12px; /* 设置圆角边框 */
+    transform: scale(0.98);  /* 放大0.98倍 */
+    transform-origin: center;  /* 从中心点放大 */
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/******************* 调整主内容区域布局 ******************/
+/*.layout {*/
+/*    display: flex;*/
+/*    justify-content: center; !* 水平居中 *!*/
+/*    max-width: 1280px; !* 增加整体最大宽度 *!*/
+/*    margin: 0 auto; !* 居中显示 *!*/
+/*    padding: 0 20px; !* 左右留白 *!*/
+/*}*/
+/*!* 调整#post宽度为980px并优化间距 *!*/
+/*#post {*/
+/*    max-width: 980px; !* 从880px增加到980px *!*/
+/*    width: 100%;*/
+/*    margin-right: 20px; !* 减少与侧边栏的间距 *!*/
+/*    box-sizing: border-box; !* 确保padding不会增加总宽度 *!*/
+/*}*/
+/*!* 调整侧边栏样式 *!*/
+/*#aside-content {*/
+/*    width: 280px; !* 固定侧边栏宽度 *!*/
+/*    position: sticky;*/
+/*    top: 20px;*/
+/*    align-self: flex-start; !* 保持顶部对齐 *!*/
+/*}*/
+/*!* 响应式处理 - 在小屏幕下改为垂直布局 *!*/
+/*@media (max-width: 1300px) {*/
+/*    .layout {*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*    }*/
+/*    #post {*/
+/*        margin-right: 0;*/
+/*        margin-bottom: 40px;*/
+/*        max-width: 980px; !* 保持980px宽度 *!*/
+/*    }*/
+/*    #aside-content {*/
+/*        width: 100%;*/
+/*        max-width: 980px; !* 与主内容区同宽 *!*/
+/*        position: static;*/
+/*    }*/
+/*}*/
+/*!* 调整文章内容区域的内部元素 *!*/
+/*#article-container {*/
+/*    max-width: 100%; !* 确保内容不超出980px限制 *!*/
+/*    padding: 0 15px; !* 添加内边距 *!*/
+/*}*/
+/*!* 优化卡片间距 *!*/
+/*.recent-post-item {*/
+/*    max-width: 980px;*/
+/*    width: 100%;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+/*!* 调整首页文章卡片布局 *!*/
+/*#recent-posts {*/
+/*    padding-left: 0; !* 移除之前的偏移 *!*/
+/*    max-width: 980px;*/
+/*    margin: 0 auto;*/
+/*}*/
+/*!* 首页卡片引导箭头背景 接入主题颜色*!*/
+/*.recent-post-item .recent-post-content.right .article-content {*/
+/*    background-color: var(--theme-color);*/
+/*}*/
+/*.recent-post-item .recent-post-content.left .article-content {*/
+/*    background-color: var(--theme-color);*/
+/*}*/
+
+/********************** 鼠标悬停时边框阴影效果 **********************/
+/*a.site-page.child.faa-parent.animated-hover:hover, !* 导航栏（子菜单）背景颜色 *!*/
+/*#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover, !* toc 活性目录 悬停时 背景颜色 *!*/
+#pagination.pagination-post > div:hover,
+.relatedPosts > .relatedPosts-list > div:hover,
+#local-search .search-dialog:hover, /* 搜索框 */
+.cover.entered.loaded:hover, /* 相关推荐 4.3.1 */
+.relatedPosts-list > div:hover, /* 相关推荐 */
+#aside-content .card-archives ul.card-archive-list>.card-archive-list-item a:hover, /* 分类卡片卡片背景颜色*/
+#aside-content .card-categories ul.card-category-list>.card-category-list-item a:hover, /* 分类卡片卡片背景颜色*/
+#post .container.post-content .folding-tag:hover, /* 外挂标签 */
+.aside-list-item:hover, /* 侧边栏最近文章 */
+#changeBgBox:hover, /* 切换背景窗口 */
+.post_cover.left:hover, /* 首页文章封面图片圆角 */
+.post_cover.right:hover, /* 首页文章封面图片圆角 */
+.container img:hover, /* 文章图片圆角 */
+blockquote:hover, /* 引用标签美化 */
+#rightside > div > button:hover, /* 右下角明暗模式，菜单 */
+#to_comment .fas.fa-comments:hover, /* 右下角明暗模式，评论 */
+.icon-V.hidden:hover, /*右下角快捷菜单*/
+#go-down:hover, /*右下角快捷菜单*/
+#go-up:hover, /*右下角快捷菜单*/
+#hide-aside-btn:hover, /*右下角快捷菜单*/
+#rightside-config:hover, /*右下角快捷菜单*/
+.aplayer.aplayer-fixed .aplayer-body:hover, /* 音乐播放器 */
+.tk-submit-action-icon:hover, /* 评论表情：.tk-submit-action-icon */
+.el-button.tk-send.el-button--primary.el-button--small.is-disabled:hover, /* 评论发送 */
+.el-button.tk-preview.el-button--default.el-button--small:hover, /* 评论预览 */
+#twikoo .tk-comments .tk-submit .tk-row .tk-col .tk-input.el-textarea .el-textarea__inner:hover, /* 评论输入框：.tk-input.el-textarea */
+.el-input.el-input--small.el-input-group.el-input-group--prepend:hover, /* 评论邮箱+用户名 */
+#pagination .page-number:hover, /* 文章分页2 */
+#pagination .extend.next:hover, /* 文章分页1 */
+.pagination-related:hover, /* 相关推荐 */
+#pagination .pagination-related:hover, /* 下一篇文章 */
+.highlight:hover, /* 代码框 */
+.search-dialog:hover, /* 搜索框1 */
+.local-search-box--input:hover, /* 搜索框2 */
+#tag:hover, /* 标签子页面卡片 */
+#category:hover, /* 分类子页面卡片 */
+#recent-posts .recent-post-item:hover, /* 首页文章卡片 */
+#aside-content .card-widget:hover, /* 首页侧栏卡片 */
+div#post:hover, /* 文章页卡片 */
+div#page:hover, /* 普通页卡片*/
+div#archive:hover /* 归档页卡片 */
+{
+    box-shadow: 0 0 3px var(--theme-color) !important; /* 添加阴影效果 */
+}
+
+/* 访客定位欢迎信息 */
+#welcome-info {
+    white-space: pre-wrap;
+    background: var(--trans-light);
+    border-radius: 18px;
+    padding: 0 6px;  /* 上下0，左右6px */
+    border: var(--border-style);
+}
+[data-theme="dark"] #welcome-info {
+    background: var(--trans-dark);
+}
+
+/* 脚页添加小动物 */
+#footer-animal {
+    position: relative;
+    width: 100%;
+    margin-top: 20px; /* 与上方内容间隔 */
+}
+#footer-animal .animal-wall {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 36px;
+    max-width: none;
+    background: #bcb0a4 url("https://cdn.meimolihan.eu.org/hexo/img/photo.avif") repeat center;
+    background-size: auto 100%;
+    box-shadow: 0 4px 7px rgba(0,0,0,.15);
+}
+#footer-animal img.animal {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 974px;
+    margin: 0 auto;
+    z-index: 2; /* 确保在 .animal-wall 上方 */
+}
+/* 响应式调整 */
+@media screen and (max-width: 1023px) {
+    #footer-animal .animal-wall {
+        height: 4vw;
+    }
+    #footer-animal img.animal {
+        max-width: 100%;
+    }
+}
+/* 确保页脚整体样式不受影响 */
+#footer-bar {
+    margin-top: 0 !important;
+}
+/* 小动物移动 */
+/* 容器：固定动画元素的布局空间 */
+.animal-container {
+    display: block;
+    width: 120px;  /* 根据动画位移范围调整 */
+    height: auto;  /* 确保高度足够容纳动画 */
+    margin: 0 auto;
+    contain: layout paint;  /* 隔离布局和绘制影响 */
+    perspective: 1000px;  /* 启用3D渲染上下文 */
+}
+/* 动画元素 */
+.animal {
+    animation: sway 3s ease-in-out infinite;
+    display: block;
+    max-width: 100px;
+    margin: 0 auto;
+    position: relative;  /* 脱离文档流，避免重排 */
+    will-change: transform;  /* 提前优化动画性能 */
+    backface-visibility: hidden;  /* 修复渲染闪烁 */
+    transform: translateZ(0);  /* 强制GPU加速 */
+}
+/* 关键帧动画 */
+@keyframes sway {
+    0%, 100% {
+        transform: translateX(-5px) translateZ(0);  /* 减小位移范围 */
+    }
+    50% {
+        transform: translateX(5px) translateZ(0);
+    }
+}
+/* 在低于1100px的屏幕宽度下关闭动画 */
+@media screen and (max-width: 1099px) {
+    .animal {
+        animation: none !important;  /* 关闭动画 */
+    }
+}
+
+/* 公告内容与其他元素之间的间距 */
+.announcement_content {
+    margin-bottom: 6px;
+}
+
+
+/* 文章内容，代码框等，颜色，边框圆角，修改  */
+summary {
+    border-radius: 15px!important;
+    background: var(--trans-light) !important; /* 背景接入 */
+    color: var(--font-color) !important;
+}
+#post .post-content .folding-tag {
+    border-radius: 15px;
+    background: var(--trans-light);
+}
+#post .post-content .folding-tag .content {
+    border-radius: 15px;
+    background: var(--trans-light);
+}
+[data-theme="dark"] #post .post-content .folding-tag,
+[data-theme="dark"] #post .post-content .folding-tag .content {
+    background: var(--trans-dark);
+}
+summary,
+.highlight-tools {
+    background: var(--theme-color) !important;
+}
+.highlight pre,
+.highlight td,
+.highlight tr,
+.highlight table,
+.highlight .gutter,
+.highlight .code,
+.highlight {
+    background-color: transparent !important;
+    color: var(--font-color) !important;
+}
+[data-theme="dark"] .highlight pre,
+[data-theme="dark"] .highlight td,
+[data-theme="dark"] .highlight tr,
+[data-theme="dark"] .highlight table,
+[data-theme="dark"] .highlight .gutter,
+[data-theme="dark"] .highlight .code,
+[data-theme="dark"] .highlight {
+    background-color: transparent !important;
+}
+
+/* 复制弹窗 */
+.el-notification.left {
+    border-radius: 20px; /* 边框圆角 */
+    background-color: var(--theme-color); /* 背景接入主题颜色 */
+}
