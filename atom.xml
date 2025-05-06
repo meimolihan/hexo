@@ -6,7 +6,7 @@
   <link href="https://www.meimolihan.eu.org/atom.xml" rel="self"/>
   
   <link href="https://www.meimolihan.eu.org/"/>
-  <updated>2025-05-03T16:00:55.000Z</updated>
+  <updated>2025-05-06T12:18:34.000Z</updated>
   <id>https://www.meimolihan.eu.org/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title> Git 脚本</title>
+    <link href="https://www.meimolihan.eu.org/posts/456dbb51.html"/>
+    <id>https://www.meimolihan.eu.org/posts/456dbb51.html</id>
+    <published>2025-05-06T12:18:34.000Z</published>
+    <updated>2025-05-06T12:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Git-脚本">Git 脚本</h2><blockquote><p>Git 通用脚本（linux命令+git bash命令）</p></blockquote><h3 id="gitee-clone-docker-sh"><a href="http://gitee-clone-docker.sh">gitee-clone-docker.sh</a></h3><p>克隆 docker 项目</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-all-sh">git_push_all.sh</h3><p><code>推送更新</code> 当前目录下的所有有效的Git仓库</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push_all.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-all-sh">git_update_all.sh</h3><p><code>拉取更新</code> 当前目录下所有有效Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update_all.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-sh">git_push.sh</h3><p><code>推送更新</code> 当前Git仓库</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-sh">git_update.sh</h3><p><code>拉取更新</code> 当前Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update.sh)</span><br></pre></td></tr></table></figure><h3 id="git-push-update-sh">git_push+<a href="http://update.sh">update.sh</a></h3><p>管理当前仓库推送更新+拉取更新</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_push+update.sh)</span><br></pre></td></tr></table></figure><h3 id="本地使用方法">本地使用方法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/test <span class="comment"># 进入仓库目录</span></span><br><span class="line">wget -c https://gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh &amp;&amp; <span class="built_in">chmod</span> +x git_clone_docker.sh &amp;&amp; bash git_clone_docker.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install dos2unix</span><br><span class="line">dos2unix git_clone_docker.sh</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Git-脚本&quot;&gt;Git 脚本&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Git 通用脚本（linux命令+git bash命令）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;gitee-clone-docker-sh&quot;&gt;&lt;a href=&quot;http://gi</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Docker 部署 istoreos</title>
@@ -532,31 +556,6 @@
     
     <category term="linux" scheme="https://www.meimolihan.eu.org/categories/linux/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Docker  部署 思源笔记</title>
-    <link href="https://www.meimolihan.eu.org/posts/1595.html"/>
-    <id>https://www.meimolihan.eu.org/posts/1595.html</id>
-    <published>2025-02-27T16:29:43.000Z</published>
-    <updated>2025-03-14T17:36:41.036Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一-、部署-思源笔记">一 、部署 思源笔记</h2><p><strong>思源笔记_Docker Hub地址：<a href="https://github.com/siyuan-note/siyuan/blob/master/README_zh_CN.md">https://github.com/siyuan-note/siyuan/blob/master/README_zh_CN.md</a></strong><br><strong>思源笔记_官网地址：<a href="https://b3log.org/siyuan/">https://b3log.org/siyuan/</a></strong><br><strong>思源笔记_后台地址：<a href="http://10.10.10.245:6806">http://10.10.10.245:6806</a></strong></p><h3 id="1-、终端命令创建docker-compose-yml文件">1 、终端命令创建docker-compose.yml文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mkdir</span> <span class="string">-p</span> <span class="string">/mnt/mydisk/home/siyuan</span> <span class="string">&amp;&amp;</span> <span class="string">touch</span> <span class="string">/mnt/mydisk/home/siyuan/docker-compose.yml</span> <span class="string">&amp;&amp;</span> <span class="string">cat</span> <span class="string">&gt;</span> <span class="string">/mnt/mydisk/home/siyuan/docker-compose.yml</span> <span class="string">&lt;&lt;&#x27;EOF&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">   <span class="attr">main:</span></span><br><span class="line">      <span class="attr">container_name:</span> <span class="string">siyuan</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">b3log/siyuan</span></span><br><span class="line">      <span class="attr">command:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">--workspace=/siyuan/workspace/</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">--accessAuthCode=12345678</span> <span class="comment"># 后台密码</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="number">6806</span><span class="string">:6806</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">./workspace:/siyuan/workspace</span></span><br><span class="line">      <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">      <span class="attr">environment:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">PUID=1001</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">PGID=1002</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="string">cd</span> <span class="string">/mnt/mydisk/home/siyuan</span> <span class="string">&amp;&amp;</span> <span class="string">docker-compose</span> <span class="string">up</span> <span class="string">-d</span></span><br></pre></td></tr></table></figure><h3 id="2-、拉取并运行">2 、拉取并运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/siyuan &amp;&amp; docker-compose up -d</span><br></pre></td></tr></table></figure><h3 id="3-、停止并删除">3 、停止并删除</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/siyuan &amp;&amp; docker-compose down</span><br></pre></td></tr></table></figure><h3 id="4-、拉取镜像">4 、拉取镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull b3log/siyuan</span><br></pre></td></tr></table></figure><h3 id="5-、容器升级">5 、容器升级</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/siyuan &amp;&amp; docker-compose down &amp;&amp; docker-compose pull &amp;&amp; docker-compose up -d &amp;&amp; docker image prune -f</span><br></pre></td></tr></table></figure><h2 id="二-、容器维护命令">二  、容器维护命令</h2><h3 id="1-、查看所有运行容器的名称">1 、查看所有运行容器的名称</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a --format <span class="string">&quot;&#123;&#123;.Names&#125;&#125;&quot;</span></span><br></pre></td></tr></table></figure><h3 id="2-、停止-siyuan-容器">2 、停止 siyuan 容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop siyuan</span><br></pre></td></tr></table></figure><h3 id="3-、启动-siyuan-容器">3 、启动  siyuan 容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start siyuan</span><br></pre></td></tr></table></figure><h3 id="4-、重启-siyuan-容器">4 、重启 siyuan 容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart siyuan</span><br></pre></td></tr></table></figure><h3 id="5-、进入-verysync-容器">5 、进入 verysync 容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Ctrl+D 退出容器</span></span><br><span class="line"><span class="comment">## docker exec -it siyuan sh</span></span><br><span class="line">docker <span class="built_in">exec</span> -it siyuan bash</span><br></pre></td></tr></table></figure><h3 id="6-、查看-siyuan-配置文件">6 、查看 siyuan 配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /mnt/mydisk/home/siyuan/docker-compose.yml</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;一-、部署-思源笔记&quot;&gt;一 、部署 思源笔记&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;思源笔记_Docker Hub地址：&lt;a href=&quot;https://github.com/siyuan-note/siyuan/blob/master/README_zh_CN.md&quot;</summary>
-      
-    
-    
-    
-    <category term="docker" scheme="https://www.meimolihan.eu.org/categories/docker/"/>
-    
-    
-    <category term="compose" scheme="https://www.meimolihan.eu.org/tags/compose/"/>
     
   </entry>
   
