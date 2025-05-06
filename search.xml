@@ -4,13 +4,50 @@
   
     
     <entry>
+      <title>Linux 压缩脚本</title>
+      <link href="/posts/b062c523.html"/>
+      <url>/posts/b062c523.html</url>
+      
+        <content type="html"><![CDATA[<h1>Linux 压缩脚本</h1><h2 id="压缩">压缩</h2><h3 id="压缩为-zip文件">压缩为<code>.zip</code>文件</h3><ul><li>遍历当前目录下的子目录压缩为<code>.zip</code>文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/backup-zip.sh)</span><br></pre></td></tr></table></figure><h3 id="压缩为-gz文件">压缩为<code>.gz</code>文件</h3><ul><li>遍历当前目录下的子目录压缩为<code>.tar.gz</code>文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/backup-gz.sh)</span><br></pre></td></tr></table></figure><hr><h2 id="解压">解压</h2><h3 id="解压-zip-文件">解压 <code>.zip</code> 文件</h3><ul><li>遍历当前目录下的<code>*.zip</code>文件,解压到当前目录下</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/unzip.sh)</span><br></pre></td></tr></table></figure><h3 id="解压-tar-gz-文件">解压  <code>.tar.gz</code>  文件</h3><ul><li>遍历当前目录下的<code>*.tar.gz</code>文件,解压到当前目录下</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/untar.sh)</span><br></pre></td></tr></table></figure><h2 id="本地脚本使用方法">本地脚本使用方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/test <span class="comment"># test目录下的子目录压缩为.zip文件</span></span><br><span class="line"></span><br><span class="line">wget -c https://gitee.com/meimolihan/sh/raw/master/backup/backup-zip.sh &amp;&amp; <span class="built_in">chmod</span> +x backup-zip.sh &amp;&amp; bash backup-zip.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install dos2unix</span><br><span class="line">dos2unix backup-zip.sh</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 脚本 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title> Git 脚本</title>
       <link href="/posts/456dbb51.html"/>
       <url>/posts/456dbb51.html</url>
       
-        <content type="html"><![CDATA[<h2 id="Git-脚本">Git 脚本</h2><blockquote><p>Git 通用脚本（linux命令+git bash命令）</p></blockquote><h3 id="gitee-clone-docker-sh"><a href="http://gitee-clone-docker.sh">gitee-clone-docker.sh</a></h3><p>克隆 docker 项目</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-all-sh">git_push_all.sh</h3><p><code>推送更新</code> 当前目录下的所有有效的Git仓库</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push_all.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-all-sh">git_update_all.sh</h3><p><code>拉取更新</code> 当前目录下所有有效Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update_all.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-sh">git_push.sh</h3><p><code>推送更新</code> 当前Git仓库</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-sh">git_update.sh</h3><p><code>拉取更新</code> 当前Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update.sh)</span><br></pre></td></tr></table></figure><h3 id="git-push-update-sh">git_push+<a href="http://update.sh">update.sh</a></h3><p><code>推送更新+拉取更新</code> 当前Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_push+update.sh)</span><br></pre></td></tr></table></figure><h2 id="本地使用方法">本地使用方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/test <span class="comment"># 进入仓库目录</span></span><br><span class="line">wget -c https://gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh &amp;&amp; <span class="built_in">chmod</span> +x git_clone_docker.sh &amp;&amp; bash git_clone_docker.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install dos2unix</span><br><span class="line">dos2unix git_clone_docker.sh</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h2 id="Git-脚本">Git 脚本</h2><div class="note blue icon-padding simple"><i class="note-icon fas fa-bullhorn"></i><p><a href="https://gitee.com/meimolihan/sh">Git 通用脚本</a>（linux命令+git bash命令）</p></div><h3 id="gitee-clone-docker-sh"><a href="http://gitee-clone-docker.sh">gitee-clone-docker.sh</a></h3><ul><li>克隆 docker 项目</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-sh">git_push.sh</h3><ul><li><code>推送更新</code> 当前Git仓库</li></ul><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-sh">git_update.sh</h3><ul><li><code>拉取更新</code> 当前Git仓库</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update.sh)</span><br></pre></td></tr></table></figure><h3 id="git-push-update-sh">git_push+<a href="http://update.sh">update.sh</a></h3><ul><li><code>推送更新+拉取更新</code> 当前Git仓库</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_push+update.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-all-sh">git_push_all.sh</h3><ul><li><code>推送所有更新</code> 当前目录下的所有有效的Git仓库</li></ul><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push_all.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-all-sh">git_update_all.sh</h3><ul><li><code>拉取所有更新</code> 当前目录下所有有效Git仓库</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update_all.sh)</span><br></pre></td></tr></table></figure><hr><h2 id="本地使用方法">本地使用方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/test <span class="comment"># 进入仓库目录</span></span><br><span class="line">wget -c https://gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh &amp;&amp; <span class="built_in">chmod</span> +x git_clone_docker.sh &amp;&amp; bash git_clone_docker.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install dos2unix</span><br><span class="line">dos2unix git_clone_docker.sh</span><br></pre></td></tr></table></figure>]]></content>
       
       
+      <categories>
+          
+          <category> 默认分类 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 脚本 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -840,6 +877,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> 脚本 </tag>
+            
+        </tags>
       
     </entry>
     

@@ -6,7 +6,7 @@
   <link href="https://www.meimolihan.eu.org/atom.xml" rel="self"/>
   
   <link href="https://www.meimolihan.eu.org/"/>
-  <updated>2025-05-06T12:18:34.000Z</updated>
+  <updated>2025-05-06T12:31:07.000Z</updated>
   <id>https://www.meimolihan.eu.org/</id>
   
   <author>
@@ -17,26 +17,56 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Linux 压缩脚本</title>
+    <link href="https://www.meimolihan.eu.org/posts/b062c523.html"/>
+    <id>https://www.meimolihan.eu.org/posts/b062c523.html</id>
+    <published>2025-05-06T12:31:07.000Z</published>
+    <updated>2025-05-06T12:31:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1>Linux 压缩脚本</h1><h2 id="压缩">压缩</h2><h3 id="压缩为-zip文件">压缩为<code>.zip</code>文件</h3><ul><li>遍历当前目录下的子目录压缩为<code>.zip</code>文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/backup-zip.sh)</span><br></pre></td></tr></table></figure><h3 id="压缩为-gz文件">压缩为<code>.gz</code>文件</h3><ul><li>遍历当前目录下的子目录压缩为<code>.tar.gz</code>文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/backup-gz.sh)</span><br></pre></td></tr></table></figure><hr><h2 id="解压">解压</h2><h3 id="解压-zip-文件">解压 <code>.zip</code> 文件</h3><ul><li>遍历当前目录下的<code>*.zip</code>文件,解压到当前目录下</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/unzip.sh)</span><br></pre></td></tr></table></figure><h3 id="解压-tar-gz-文件">解压  <code>.tar.gz</code>  文件</h3><ul><li>遍历当前目录下的<code>*.tar.gz</code>文件,解压到当前目录下</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/backup/untar.sh)</span><br></pre></td></tr></table></figure><h2 id="本地脚本使用方法">本地脚本使用方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/test <span class="comment"># test目录下的子目录压缩为.zip文件</span></span><br><span class="line"></span><br><span class="line">wget -c https://gitee.com/meimolihan/sh/raw/master/backup/backup-zip.sh &amp;&amp; <span class="built_in">chmod</span> +x backup-zip.sh &amp;&amp; bash backup-zip.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install dos2unix</span><br><span class="line">dos2unix backup-zip.sh</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;Linux 压缩脚本&lt;/h1&gt;
+&lt;h2 id=&quot;压缩&quot;&gt;压缩&lt;/h2&gt;
+&lt;h3 id=&quot;压缩为-zip文件&quot;&gt;压缩为&lt;code&gt;.zip&lt;/code&gt;文件&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;遍历当前目录下的子目录压缩为&lt;code&gt;.zip&lt;/code&gt;文件&lt;/li&gt;
+&lt;/ul&gt;</summary>
+      
+    
+    
+    
+    <category term="linux" scheme="https://www.meimolihan.eu.org/categories/linux/"/>
+    
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
     <title> Git 脚本</title>
     <link href="https://www.meimolihan.eu.org/posts/456dbb51.html"/>
     <id>https://www.meimolihan.eu.org/posts/456dbb51.html</id>
     <published>2025-05-06T12:18:34.000Z</published>
     <updated>2025-05-06T12:18:34.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Git-脚本">Git 脚本</h2><blockquote><p>Git 通用脚本（linux命令+git bash命令）</p></blockquote><h3 id="gitee-clone-docker-sh"><a href="http://gitee-clone-docker.sh">gitee-clone-docker.sh</a></h3><p>克隆 docker 项目</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-all-sh">git_push_all.sh</h3><p><code>推送更新</code> 当前目录下的所有有效的Git仓库</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push_all.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-all-sh">git_update_all.sh</h3><p><code>拉取更新</code> 当前目录下所有有效Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update_all.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-sh">git_push.sh</h3><p><code>推送更新</code> 当前Git仓库</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-sh">git_update.sh</h3><p><code>拉取更新</code> 当前Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update.sh)</span><br></pre></td></tr></table></figure><h3 id="git-push-update-sh">git_push+<a href="http://update.sh">update.sh</a></h3><p><code>推送更新+拉取更新</code> 当前Git仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_push+update.sh)</span><br></pre></td></tr></table></figure><h2 id="本地使用方法">本地使用方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/test <span class="comment"># 进入仓库目录</span></span><br><span class="line">wget -c https://gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh &amp;&amp; <span class="built_in">chmod</span> +x git_clone_docker.sh &amp;&amp; bash git_clone_docker.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install dos2unix</span><br><span class="line">dos2unix git_clone_docker.sh</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="Git-脚本">Git 脚本</h2><div class="note blue icon-padding simple"><i class="note-icon fas fa-bullhorn"></i><p><a href="https://gitee.com/meimolihan/sh">Git 通用脚本</a>（linux命令+git bash命令）</p></div><h3 id="gitee-clone-docker-sh"><a href="http://gitee-clone-docker.sh">gitee-clone-docker.sh</a></h3><ul><li>克隆 docker 项目</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-sh">git_push.sh</h3><ul><li><code>推送更新</code> 当前Git仓库</li></ul><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-sh">git_update.sh</h3><ul><li><code>拉取更新</code> 当前Git仓库</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update.sh)</span><br></pre></td></tr></table></figure><h3 id="git-push-update-sh">git_push+<a href="http://update.sh">update.sh</a></h3><ul><li><code>推送更新+拉取更新</code> 当前Git仓库</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_push+update.sh)</span><br></pre></td></tr></table></figure><hr><h3 id="git-push-all-sh">git_push_all.sh</h3><ul><li><code>推送所有更新</code> 当前目录下的所有有效的Git仓库</li></ul><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com<span class="regexp">/meimolihan/</span>sh<span class="regexp">/raw/m</span>aster<span class="regexp">/git/gi</span>t_push_all.sh)</span><br></pre></td></tr></table></figure><h3 id="git-update-all-sh">git_update_all.sh</h3><ul><li><code>拉取所有更新</code> 当前目录下所有有效Git仓库</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/sh/raw/master/git/git_update_all.sh)</span><br></pre></td></tr></table></figure><hr><h2 id="本地使用方法">本地使用方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/test <span class="comment"># 进入仓库目录</span></span><br><span class="line">wget -c https://gitee.com/meimolihan/sh/raw/master/git/git_clone_docker.sh &amp;&amp; <span class="built_in">chmod</span> +x git_clone_docker.sh &amp;&amp; bash git_clone_docker.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install dos2unix</span><br><span class="line">dos2unix git_clone_docker.sh</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
       
     <summary type="html">&lt;h2 id=&quot;Git-脚本&quot;&gt;Git 脚本&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Git 通用脚本（linux命令+git bash命令）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;gitee-clone-docker-sh&quot;&gt;&lt;a href=&quot;http://gi</summary>
+&lt;div class=&quot;note blue icon-padding simple&quot;&gt;&lt;i class=&quot;note-icon fas fa-bullhorn&quot;&gt;&lt;/i&gt;&lt;p&gt;&lt;a href=&quot;https://gitee.co</summary>
       
     
     
     
+    <category term="默认分类" scheme="https://www.meimolihan.eu.org/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+    
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
@@ -530,31 +560,6 @@
     
     
     <category term="windows" scheme="https://www.meimolihan.eu.org/categories/windows/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Linux文件系统目录结构全解析</title>
-    <link href="https://www.meimolihan.eu.org/posts/39438.html"/>
-    <id>https://www.meimolihan.eu.org/posts/39438.html</id>
-    <published>2025-03-01T01:09:00.000Z</published>
-    <updated>2025-03-14T17:36:40.964Z</updated>
-    
-    <content type="html"><![CDATA[<h1>Linux文件系统目录结构全解析</h1><p>在Linux系统中，文件系统的目录结构如同大树，根目录是主干，其他子目录是枝叶。清晰了解这些目录的功能和作用，对系统管理和操作至关重要。</p><h2 id="核心目录详解">核心目录详解</h2><h3 id="bin-基本命令目录">/bin - 基本命令目录</h3><p>存放系统最基本的命令，如<code>ls</code>（列表）、<code>cp</code>（复制）、<code>mv</code>（移动）、<code>rm</code>（删除）等，所有用户都能使用，是系统启动时必需的程序。</p><h3 id="boot-启动目录">/boot - 启动目录</h3><p>包含系统启动必需的文件，如Linux内核和引导加载程序配置文件，系统启动时最先读取。</p><h3 id="dev-设备目录">/dev - 设备目录</h3><p>体现Linux “一切皆文件” 的理念，存放系统所有设备文件，像硬盘、光驱、USB等设备都在此处，也是设备驱动程序的接口。</p><h3 id="etc-配置文件目录">/etc - 配置文件目录</h3><p>存放系统级配置文件，涵盖用户账户信息、网络配置、系统服务配置等，是最重要的配置目录之一。</p><h3 id="home-用户主目录">/home - 用户主目录</h3><p>普通用户的家目录，每个用户都有独立空间，如<code>/home/user1</code>、<code>/home/user2</code>，用于存放个人文件和配置。</p><h3 id="lib-系统库目录">/lib - 系统库目录</h3><p>包含系统运行必需的库文件、共享库文件和内核模块，支持其他目录中程序的运行。</p><h3 id="media和-mnt-挂载目录">/media和/mnt - 挂载目录</h3><p><code>/media</code>用于自动挂载，如U盘、光盘；<code>/mnt</code>用于手动挂载，它们是临时文件系统的挂载点。</p><h3 id="opt-可选软件目录">/opt - 可选软件目录</h3><p>是第三方应用程序的目录，用于安装额外软件包，能保持系统其他目录的整洁。</p><h3 id="proc-进程目录">/proc - 进程目录</h3><p>这是一个虚拟文件系统，存储系统运行状态信息、进程信息以及系统资源使用情况。</p><h3 id="root-超级用户目录">/root - 超级用户目录</h3><p>root用户的主目录，是系统管理员的家，需要特殊权限才能访问。</p><h3 id="sbin-系统管理命令目录">/sbin - 系统管理命令目录</h3><p>存放系统管理员使用的命令，需root权限，主要是系统维护命令。</p><h3 id="tmp-临时文件目录">/tmp - 临时文件目录</h3><p>用于存放临时文件，系统重启时会被清空，所有用户都可写入。</p><h3 id="usr-用户程序目录">/usr - 用户程序目录</h3><p>是最大的目录之一，包含主要的应用程序。重要子目录有<code>/usr/bin</code>（用户命令）、<code>/usr/lib</code>（程序库）、<code>/usr/local</code>（本地安装的软件） 。</p><h3 id="var-可变文件目录">/var - 可变文件目录</h3><p>存放经常变化的文件，如系统日志、邮件数据、打印队列和临时文件等。</p><h2 id="使用技巧">使用技巧</h2><ul><li><code>ls /</code>查看根目录内容。</li><li><code>pwd</code>命令显示当前位置。</li><li><code>cd</code>命令在目录间切换。</li><li><code>df -h</code>查看磁盘使用情况。</li></ul><h2 id="注意事项">注意事项</h2><ul><li>切勿随意删除系统目录中的文件。</li><li>进行重要操作前，一定要先备份。</li><li>时刻注意文件权限。</li><li>对系统目录操作通常需要root权限。</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;Linux文件系统目录结构全解析&lt;/h1&gt;
-&lt;p&gt;在Linux系统中，文件系统的目录结构如同大树，根目录是主干，其他子目录是枝叶。清晰了解这些目录的功能和作用，对系统管理和操作至关重要。&lt;/p&gt;
-&lt;h2 id=&quot;核心目录详解&quot;&gt;核心目录详解&lt;/h2&gt;
-&lt;h3 id=&quot;bi</summary>
-      
-    
-    
-    
-    <category term="linux" scheme="https://www.meimolihan.eu.org/categories/linux/"/>
     
     
   </entry>
