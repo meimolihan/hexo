@@ -857,15 +857,6 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.meimolihan.eu.org/social/fcircle/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
@@ -876,6 +867,15 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/social/link/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -911,24 +911,6 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/box/nav/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.meimolihan.eu.org/box/gallery/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.meimolihan.eu.org/life/games/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
@@ -948,6 +930,24 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/life/music/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/box/gallery/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/box/nav/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
