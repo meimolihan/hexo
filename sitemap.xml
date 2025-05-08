@@ -857,7 +857,16 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/personal/love/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/site/time/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -875,7 +884,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/personal/love/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -885,15 +894,6 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/social/fcircle/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.meimolihan.eu.org/site/time/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -920,7 +920,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/box/animation/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/box/gallery/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -929,7 +929,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/box/gallery/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/box/animation/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -956,7 +956,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/life/music/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/life/movies/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -965,7 +965,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/life/movies/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/life/music/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1022,6 +1022,13 @@
   </url>
   
   <url>
+    <loc>https://www.meimolihan.eu.org/tags/caddy/</loc>
+    <lastmod>2025-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.meimolihan.eu.org/tags/github/</loc>
     <lastmod>2025-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1051,13 +1058,6 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/tags/hugo/</loc>
-    <lastmod>2025-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.meimolihan.eu.org/tags/caddy/</loc>
     <lastmod>2025-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
