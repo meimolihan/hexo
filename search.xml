@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>GNOME 桌面扩展</title>
+      <link href="/posts/c7838aa1.html"/>
+      <url>/posts/c7838aa1.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>在 Ubuntu 系统中，通过 GNOME Shell 扩展可以轻松定制桌面，满足个性化需求，提升使用效率和视觉体验。本文将介绍如何在 Ubuntu 软件中心安装扩展管理器并添加应用图标到桌面，同时推荐 15 款实用的 GNOME Shell 扩展。</p></blockquote><p>一、安装扩展管理器及添加图标到桌面<br>在 Ubuntu 软件中心搜索 <code>extension manager</code> ，找到并安装 GNOME Shell 扩展管理器。安装完成后，为方便使用，可将其应用图标添加到桌面。通常在应用程序列表中找到扩展管理器，右键选择 “添加到桌面”，后续就能直接从桌面启动扩展管理器，便捷地管理各类扩展。</p><p><img src="http://file.meimolihan.eu.org/screenshot%5Cgnome-001.webp" alt=""></p><p>二、实用 GNOME Shell 扩展推荐</p><ol><li><p>add to desktop<br>官网地址：<a href="https://extensions.gnome.org/extension/3240/add-to-desktop/">https://extensions.gnome.org/extension/3240/add-to-desktop/</a><br>功能介绍：将应用图标添加到桌面</p></li><li><p>Clipboard Indicator<br>官网地址：<a href="https://extensions.gnome.org/extension/779/clipboard-indicator/">https://extensions.gnome.org/extension/779/clipboard-indicator/</a><br>功能介绍：这是一款超实用的剪贴板管理插件。安装后，它会在顶部面板展示剪贴板历史记录。操作时，点击图标，配合 Ctrl + v 快捷键，就能轻松调用剪贴板内容，极大提升了文本粘贴的便利性。</p></li><li><p>Coverflow Alt-Tab<br>官网地址：<a href="https://extensions.gnome.org/extension/97/coverflow-alt-tab/">https://extensions.gnome.org/extension/97/coverflow-alt-tab/</a><br>功能介绍：该插件优化了 Alt+Tab 切换应用的功能。虽然系统本身具备此功能，但安装这个插件后，切换效果更加酷炫，为用户带来全新的视觉体验。</p></li><li><p>Launch new instance<br>官网地址：<a href="https://extensions.gnome.org/extension/600/launch-new-instance/">https://extensions.gnome.org/extension/600/launch-new-instance/</a><br>功能介绍：若有应用多开需求，这款插件绝对值得一试。安装后，点击应用图标时，无论应用是否已打开，都会新建一个实例。不过，鉴于多开应用的场景相对较少，可按需选择安装。</p></li><li><p>NetSpeed<br>官网地址：<a href="https://extensions.gnome.org/extension/104/netspeed/">https://extensions.gnome.org/extension/104/netspeed/</a><br>功能介绍：对于关注网络状态的用户，NetSpeed 必不可少。安装后，它能在顶部面板实时显示网速，帮助用户随时了解网络情况。比如在软件安装过程中，可通过网速判断安装进程是否正常。</p></li><li><p>Unite<br>官网地址：<a href="https://extensions.gnome.org/extension/1287/unite/">https://extensions.gnome.org/extension/1287/unite/</a><br>功能介绍：Unite 可以优化 GNOME 桌面的布局。在 GNOME 桌面中，应用图标的菜单栏通常会单独占用面板下方的一排位置，而 Unite 插件能将其与顶部面板有效融合，让桌面看起来更加整洁。</p></li><li><p>Workspace Indicator<br>官网地址：<a href="https://extensions.gnome.org/extension/21/workspace-indicator/">https://extensions.gnome.org/extension/21/workspace-indicator/</a><br>功能介绍：对于熟悉 MacOS 工作区概念的用户，这款插件十分友好。它能在顶部面板显示当前所在工作区，还支持直接在面板上切换工作区，提高了工作效率。</p></li><li><p>Sound Input &amp; Output Device Chooser<br>官网地址：<a href="https://extensions.gnome.org/extension/906/sound-output-device-chooser/">https://extensions.gnome.org/extension/906/sound-output-device-chooser/</a><br>功能介绍：对于配备多个声卡或外接声卡的电脑，该插件尤为重要。它能在顶部面板直观显示当前使用的声卡，并支持用户自由选择，避免因声卡选择错误导致的声音问题。</p></li><li><p>Lunar Calendar 农历<br>官网地址：<a href="https://extensions.gnome.org/extension/675/lunar-calendar/">https://extensions.gnome.org/extension/675/lunar-calendar/</a><br>功能介绍：在日常生活中，很多人会按照农历庆祝生日等节日。安装这款插件后，日历将同时显示公历和农历，方便用户随时查看农历日期，避免错过重要日子。</p></li><li><p>Screenshot Tool<br>官网地址：<a href="https://extensions.gnome.org/extension/1112/screenshot-tool/">https://extensions.gnome.org/extension/1112/screenshot-tool/</a><br>功能介绍：此插件可替代系统自带的截图工具，提供更人性化的功能。安装后，顶部面板会出现截图图标，点击即可进行截图操作，无需记忆复杂的快捷键。</p></li><li><p>Drop Down Terminal<br>官网地址：<a href="https://extensions.gnome.org/extension/442/drop-down-terminal/">https://extensions.gnome.org/extension/442/drop-down-terminal/</a><br>功能介绍：对于高级用户而言，这款插件非常实用。它支持通过快捷键（默认是 Tab 键上方的按键）快速调出下拉式终端，方便随时使用命令行进行操作。</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Kubuntu 配置记录</title>
       <link href="/posts/e65ba9f8.html"/>
       <url>/posts/e65ba9f8.html</url>
