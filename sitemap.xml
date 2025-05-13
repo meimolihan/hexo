@@ -893,24 +893,6 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.meimolihan.eu.org/site/time/index.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.meimolihan.eu.org/social/fcircle/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
@@ -921,6 +903,24 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/social/link/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/site/census/index.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/site/time/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -947,7 +947,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/box/nav/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/box/gallery/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -956,7 +956,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/box/gallery/index.html</loc>
+    <loc>https://www.meimolihan.eu.org/box/nav/index.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1047,13 +1047,6 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/tags/github/</loc>
-    <lastmod>2025-05-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.meimolihan.eu.org/tags/ubuntu/</loc>
     <lastmod>2025-05-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -1061,14 +1054,7 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/tags/blog/</loc>
-    <lastmod>2025-05-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.meimolihan.eu.org/tags/hugo/</loc>
+    <loc>https://www.meimolihan.eu.org/tags/github/</loc>
     <lastmod>2025-05-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1083,6 +1069,20 @@
   
   <url>
     <loc>https://www.meimolihan.eu.org/tags/git/</loc>
+    <lastmod>2025-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/tags/blog/</loc>
+    <lastmod>2025-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.meimolihan.eu.org/tags/hugo/</loc>
     <lastmod>2025-05-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1152,14 +1152,14 @@
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/tags/istoreos/</loc>
+    <loc>https://www.meimolihan.eu.org/tags/tv/</loc>
     <lastmod>2025-05-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.meimolihan.eu.org/tags/tv/</loc>
+    <loc>https://www.meimolihan.eu.org/tags/istoreos/</loc>
     <lastmod>2025-05-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
