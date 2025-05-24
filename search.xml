@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Windows 创建 SSH 密钥对及在 FnOS 上配置的完整流程</title>
+      <link href="/posts/17e82d20.html"/>
+      <url>/posts/17e82d20.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、在-Windows-上创建-FnOS-SSH-密钥对">一、在 Windows 上创建 FnOS_SSH 密钥对</h2><h3 id="1-打开-Git-Bash-终端">1. 打开 <code>Git Bash</code> 终端</h3><blockquote><p>在 <code>Windows</code> 上安装 <code>Git</code> 后，右键点击任意位置，选择 “<code>Git Bash Here</code>” 打开终端</p></blockquote><h3 id="2-生成-SSH-密钥对">2. 生成 SSH 密钥对</h3><ul><li>使用以下命令生成名为 FnOS_SSH 的 RSA 密钥对：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your_email@example.com&quot;</span> -f ~/.ssh/FnOS_SSH</span><br></pre></td></tr></table></figure><h3 id="3-查看公钥内容">3. 查看公钥内容</h3><ul><li>使用以下命令查看公钥内容：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/FnOS_SSH.pub</span><br></pre></td></tr></table></figure><p>复制输出的全部内容（以ssh-rsa开头的长字符串）</p><p><img src="https://file.meimolihan.eu.org/gif/gif-001.gif" alt=""></p><h2 id="二、在-FnOS-服务器上手动配置-SSH-密钥">二、在 FnOS 服务器上手动配置 SSH 密钥</h2><h3 id="1-使用密码登录-FnOS-服务器：">1. 使用密码登录 FnOS 服务器：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@10.10.10.251</span><br></pre></td></tr></table></figure><h3 id="2-在服务器上创建或编辑authorized-keys文件：">2. 在服务器上创建或编辑authorized_keys文件：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.ssh</span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh</span><br><span class="line">nano ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure><p>将之前复制的公钥内容粘贴到文件中</p><p>按Ctrl+X，然后按Y保存，再按Enter确认</p><h3 id="3-设置正确的文件权限：">3. 设置正确的文件权限：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure><h3 id="4-退出服务器：">4. 退出服务器：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure><p><img src="https://file.meimolihan.eu.org/gif/gif-001.gif" alt=""></p><h2 id="三、验证-SSH-密钥配置是否成功">三、验证 SSH 密钥配置是否成功</h2><h3 id="1-使用-SSH-密钥登录-FnOS-服务器：">1. 使用 SSH 密钥登录 FnOS 服务器：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i ~/.ssh/FnOS_SSH root@10.10.10.251</span><br></pre></td></tr></table></figure><p>如果无需输入密码直接登录，则配置成功</p><h3 id="2-简化-SSH-登录命令（可选）">2. 简化 SSH 登录命令（可选）</h3><ul><li>编辑 SSH 配置文件：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.ssh/config</span><br></pre></td></tr></table></figure><p><code>添加以下内容：</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># FnOS_SSH 配置</span><br><span class="line">Host fnos</span><br><span class="line">    HostName 10.10.10.251</span><br><span class="line">    User root</span><br><span class="line">    IdentityFile ~/.ssh/FnOS_SSH</span><br></pre></td></tr></table></figure><h3 id="3-保存后，可直接使用以下命令登录：">3. 保存后，可直接使用以下命令登录：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh fnos</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>docker 部署 allinssl 申请SSL证书</title>
       <link href="/posts/32bc5f5b.html"/>
       <url>/posts/32bc5f5b.html</url>
