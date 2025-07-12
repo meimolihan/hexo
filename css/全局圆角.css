@@ -38,6 +38,19 @@
   border-radius: 20px;
 }
 
+/* 文章上下篇卡片悬停圆角 */
+.next-post a:hover {
+  /* 设置15px圆角，使轮廓呈现圆角效果 */
+  border-radius: 15px;
+  /* 可选：添加过渡动画让效果更平滑 */
+  transition: all 0.3s ease;
+}
+.prev-post a:hover {
+  /* 设置15px圆角，使轮廓呈现圆角效果 */
+  border-radius: 15px;
+  /* 可选：添加过渡动画让效果更平滑 */
+  transition: all 0.3s ease;
+}
 
 
 /* 文字代码框圆角 */
