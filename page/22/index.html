@@ -1,0 +1,886 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta property="og:type" content="website">
+<meta property="og:title" content="凡凡小站🍁">
+<meta property="og:url" content="https://www.meimolihan.eu.org/page/22/index.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.meimolihan.eu.org/img/muzimi.gif">
+<meta property="article:author" content="墨不凡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.meimolihan.eu.org/img/muzimi.gif"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/page/22/index.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '凡凡小站🍁',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">284</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header" style="background-image: url(https://file.meimolihan.eu.org/wallpaper/pc-001.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="site-info"><h1 id="site-title">凡凡小站🍁</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/f7cc44cc.html" title="iStoreOS 挂载点管理与硬盘格式化 💾"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?1823" onerror="this.onerror=null;this.src='/img/404.gif'" alt="iStoreOS 挂载点管理与硬盘格式化 💾"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/f7cc44cc.html" title="iStoreOS 挂载点管理与硬盘格式化 💾">iStoreOS 挂载点管理与硬盘格式化 💾</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:58:28.000Z" title="发表于 2025-09-12 14:58:28">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/istoreos/">istoreos</a></span></div><div class="content">iStoreOS 挂载点管理与硬盘格式化 💾  本指南详细介绍如何在 iStoreOS 中修改挂载点和格式化硬盘，包括图形界面操作和命令行方法，帮助您有效管理存储空间！🚀   📖 导航目录 ✨ 功能概述 🔧 修改挂载点步骤 ⏹️ 停止相关服务 🗑️ 删除现有挂载点 🔄 重新挂载   💾 格式化硬盘方法 📦 安装必要工具 📊 查看磁盘信息 ⚙️ 执行格式化   ⚡ 高级操作指南 🐛 故障排除 🔧 完整操作示例 💡 最佳实践建议    ✨ 功能概述iStoreOS 提供了灵活的存储管理功能，让您可以：  📂 灵活挂载：轻松管理多个存储设备和分区 🔄 动态调整：无需重启系统即可修改挂载点 💾 多种格式支持：支持 ext4、XFS、Btrfs 等多种文件系统 🛡️ 安全操作：提供数据保护机制和备份选项 📊 可视化管理：通过 Web 界面直观管理存储设备 ⚙️ 高级配置：支持命令行操作满足高级用户需求    🔧 修改挂载点步骤 ⏹️ 停止相关服务首先关闭依赖存储的服务：  进入 iStoreOS 后台管理界面 导航到”服务”菜单 找到 Docker...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/ace97153.html" title="Proxmox VE LXC 容器配置指南"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?1993" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Proxmox VE LXC 容器配置指南"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/ace97153.html" title="Proxmox VE LXC 容器配置指南">Proxmox VE LXC 容器配置指南</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:57:59.000Z" title="发表于 2025-09-12 14:57:59">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Proxmox-VE/">Proxmox VE</a></span></div><div class="content">Proxmox VE LXC 容器配置指南 1234567891011121314151617181920212223242526272829cat &gt;&gt;/etc/pve/lxc/242.conf &lt;&lt;EOF## 允许容器对特定设备（主 226 次 0）进行读写执行。lxc.cgroup2.devices.allow: c 226:0 rwm## 允许容器对特定设备（主 226 次 128）进行读写执行。lxc.cgroup2.devices.allow: c 226:128 rwm## 允许容器对特定设备（主 29 次 0）进行读写执行。lxc.cgroup2.devices.allow: c 29:0 rwm## 将宿主机 /dev/dri 目录挂载到容器，绑定挂载，可选，创建目录。lxc.mount.entry: /dev/dri dev/dri none bind,optional,create=dir## 将宿主机 /dev/fb0 文件挂载到容器，绑定挂载，可选，创建文件。lxc.mount.entry: /dev/fb0 dev/fb0...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/7007c888.html" title="Debian/PVE/Ubuntu/FnOS 配置 SSH 服务 🔐"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?3033" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Debian/PVE/Ubuntu/FnOS 配置 SSH 服务 🔐"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/7007c888.html" title="Debian/PVE/Ubuntu/FnOS 配置 SSH 服务 🔐">Debian/PVE/Ubuntu/FnOS 配置 SSH 服务 🔐</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:53:03.000Z" title="发表于 2025-09-12 14:53:03">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/debian/">debian</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/fnos/">fnos</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ssh/">ssh</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ubuntu/">ubuntu</a></span></div><div class="content">Debian/PVE/Ubuntu/FnOS 配置 SSH 服务🔐  SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   📋 目录导航 📖 简介 🛠️ 一、SSH 服务安装与基本配置 ⚙️ 二、SSH 服务优化配置 客户端连接 SSH 🔒 四、高级安全配置 🔥 五、防火墙配置 🔍 六、故障排除与监控 🚀 七、性能优化 💾 八、备份与恢复 🔎 九、安全审计脚本 🐛 十、常见问题解决 📋 十一、最佳实践总结    📖 简介SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   🛠️ 一、SSH 服务安装与基本配置1. 📦 安装 SSH 服务器并启用服务1234567891011# 更新软件包列表并安装 SSH 服务器sudo apt-get update...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/f5c67033.html" title="Alpine 配置 SSH 服务指南 🔐"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?3912" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Alpine 配置 SSH 服务指南 🔐"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/f5c67033.html" title="Alpine 配置 SSH 服务指南 🔐">Alpine 配置 SSH 服务指南 🔐</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:51:00.000Z" title="发表于 2025-09-12 14:51:00">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ssh/">ssh</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/alpine/">alpine</a></span></div><div class="content">Alpine 配置 SSH 服务指南 🔐  本指南详细介绍如何在 Alpine Linux 中安装和配置 SSH 服务，实现安全可靠的远程访问功能。Alpine 的轻量级特性与 SSH 的强大功能相结合，为您提供高效的远程管理解决方案！🚀   📖 导航目录 ✨ 功能特点 🚀 快速安装与配置 📋 分步配置说明 🔧 配置参数详解 🌐 连接示例 🛡️ 安全增强建议 🔍 故障排除 📝 注意事项    ✨ 功能特点Alpine Linux 的 SSH 服务提供以下优势：  🔐 安全远程访问：通过 SSH 协议加密所有通信，确保连接安全 ⚡ 轻量高效：OpenSSH 服务器包小巧，占用系统资源极少 🔧 灵活配置：支持密码认证和公钥认证，可根据需要灵活配置 🌐 跨平台兼容：支持所有主流 SSH 客户端连接 ⏰ 会话保持：可配置心跳包保持长时间连接不中断 🛡️ 安全加固：支持多种安全增强配置，保护系统免受攻击    🚀...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/217eb7b9.html" title="Alpine 配置 Samba 共享指南 📁"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?8328" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Alpine 配置 Samba 共享指南 📁"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/217eb7b9.html" title="Alpine 配置 Samba 共享指南 📁">Alpine 配置 Samba 共享指南 📁</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:49:47.000Z" title="发表于 2025-09-12 14:49:47">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/samba/">samba</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/alpine/">alpine</a></span></div><div class="content">Alpine 配置 Samba 共享指南 📁  📋 目录导航 📖 简介 🛠️ 一、Samba 基础配置 🖥️ 二、Alpine 作为 Samba 服务端配置 💻 三、Alpine 作为 Samba 客户端配置 🔧 四、Samba 管理命令 🐛 五、故障排除和调试 ⚙️ 六、高级配置选项 🔒 七、安全加固建议 🚀 八、性能优化建议    📖 简介本指南详细介绍了在 Alpine Linux 环境中配置 Samba 共享服务的完整流程，包括服务端和客户端的配置方法。Samba 允许在不同操作系统之间共享文件和打印机，特别适合在 Linux 和 Windows 系统之间共享文件。   🛠️ 一、Samba 基础配置1. 📁 创建共享目录并安装 Samba1234567# 创建共享目录并设置权限mkdir -p /mnt/mydiskchmod -R 755 /mnt/mydisk# 更新软件包列表并安装 Sambaapk updateapk add samba shadow 2. 👤 创建 Samba 用户并设置密码12345# 创建系统用户useradd...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/90f27eaf.html" title="Alpine 配置 NFS 网络文件系统"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?8527" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Alpine 配置 NFS 网络文件系统"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/90f27eaf.html" title="Alpine 配置 NFS 网络文件系统">Alpine 配置 NFS 网络文件系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:48:53.000Z" title="发表于 2025-09-12 14:48:53">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/nfs/">nfs</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/alpine/">alpine</a></span></div><div class="content">Alpine 配置 NFS 网络文件系统 🖥️  本文详细介绍了如何在 Alpine Linux 上配置 NFS 服务，包括服务端和客户端的设置，以及各种挂载选项和故障排除方法。   ✨ 目录 ✨ NFS 简介 🚀 一、基础环境配置 🖥️ 二、NFS 服务端配置 💻 三、NFS 客户端配置 🔧 四、NFS 管理命令 📊 五、NFS 共享检查脚本 🛠️ 六、高级配置和优化 🔍 七、故障排除 💾 八、备份与恢复 🎯 总结 📚 扩展阅读    ✨ NFS 简介NFS（Network File System）是一种分布式文件系统协议，允许客户端计算机通过网络访问服务器上的文件，就像访问本地存储一样。Alpine Linux 是一个轻量级的 Linux 发行版，非常适合用作 NFS 服务器或客户端。 🌟 NFS 特点与优势 跨平台共享 📁: 支持不同操作系统之间的文件共享 透明访问 👁️: 远程文件访问就像本地文件一样 高性能 🚀: 通过优化协议提供高效数据传输 易于管理 🛠️: 集中式存储简化了数据管理 扩展性强 📈:...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/aef2da62.html" title="Docker 部署 DPanel 容器管理面板 🐳"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?1925" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Docker 部署 DPanel 容器管理面板 🐳"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/aef2da62.html" title="Docker 部署 DPanel 容器管理面板 🐳">Docker 部署 DPanel 容器管理面板 🐳</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:47:11.000Z" title="发表于 2025-09-12 14:47:11">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/compose/">compose</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86/">容器管理</a></span></div><div class="content">Docker 部署 DPanel 容器管理面板 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 DPanel 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 DPanel 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航管理，掌控无限     🎯 项目简介 🌐 DPanel 官网地址：https://dpanel.cc/ 🐱 GitHub 项目地址：https://github.com/donknap/dpanel 🐋 Docker 镜像地址：https://hub.docker.com/r/dpanel/dpanel  DPanel 是一个轻量级的 Docker...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/5b1cd4dd.html" title="Proxmox VE 虚拟机与容器 ID 名称修改指南 🏷️"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?7319" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Proxmox VE 虚拟机与容器 ID 名称修改指南 🏷️"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5b1cd4dd.html" title="Proxmox VE 虚拟机与容器 ID 名称修改指南 🏷️">Proxmox VE 虚拟机与容器 ID 名称修改指南 🏷️</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:45:46.000Z" title="发表于 2025-09-12 14:45:46">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Proxmox-VE/">Proxmox VE</a></span></div><div class="content">Proxmox VE 虚拟机与容器 ID 名称修改指南 🏷️  本文详细介绍了如何在 Proxmox VE (PVE) 中安全地修改虚拟机和 LXC 容器的 ID 及名称，包括配置文件修改、磁盘文件重命名、注意事项和故障恢复方法。   ✨ 目录 ✨ 修改前的准备工作 🖥️ 虚拟机修改 ID 和名称 📦 LXC 容器修改 ID 和名称 ⚠️ 重要注意事项 🔍 验证修改结果 🔧 额外清理工作 💡 自动化脚本 🆘 故障恢复    ✨ 修改前的准备工作在开始修改前，必须做好充分准备，以避免数据丢失或配置错误。 1️⃣ 停止虚拟机/容器12345# 停止虚拟机qm stop 106# 停止容器pct stop 103 2️⃣ 备份重要数据123456789# 备份虚拟机配置文件cp -r /etc/pve/qemu-server/106.conf /root/106.conf.backup# 备份容器配置文件  cp -r /etc/pve/lxc/103.conf /root/103.conf.backup# 备份镜像文件cp -r...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/c16a218b.html" title="Docker 部署 Cloudreve 个人网盘 🗂️"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?1716" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Docker 部署 Cloudreve 个人网盘 🗂️"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/c16a218b.html" title="Docker 部署 Cloudreve 个人网盘 🗂️">Docker 部署 Cloudreve 个人网盘 🗂️</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:43:32.000Z" title="发表于 2025-09-12 14:43:32">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/compose/">compose</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/">文件服务</a></span></div><div class="content">Docker 部署 Cloudreve 个人网盘 🗂️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Cloudreve 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航个人云存储，探索无限可能     🎯 项目简介 🌐 Cloudreve 官网地址：https://cloudreve.org 🐱 GitHub 项目地址：https://github.com/cloudreve/cloudreve 🐋 Docker...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/ae005660.html" title="Markdown 嵌入视频"><img class="post-bg" src="https://api.mobufan.eu.org:666/pc?2361" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Markdown 嵌入视频"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/ae005660.html" title="Markdown 嵌入视频">Markdown 嵌入视频</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-09-12T06:42:38.000Z" title="发表于 2025-09-12 14:42:38">2025-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/">Windows</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/markdown/">markdown</a></span></div><div class="content">Markdown 嵌入视频 Markdown 嵌入视频链接1&lt;video src=&quot;https://blog.mobufan.eu.org:666/video/和风天气时钟插件安装.mp4&quot; controls=&quot;controls&quot; width=&quot;650&quot; height=&quot;300&quot;&gt;&lt;/video&gt;      Markdown 嵌入哔哩哔哩视频获得哔哩哔哩视频嵌入代码方法 哔哩哔哩点击分享按钮，点击嵌入代码，会自动复制内容 哔哩哔哩视频嵌入完整代码如下：  &lt;iframe src=&quot;//player.bilibili.com/player.html?isOutside=true&amp;aid=327623069&amp;bvid=BV1JA411h7Gw&amp;cid=171385214&amp;p=1&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot;...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/21/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#content-inner">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/#content-inner">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/#content-inner">29</a><a class="extend next" rel="next" href="/page/23/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="author-info-name">墨不凡</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">284</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/meimolihan"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center><b>--- 主域名 ---<br><a href="https://www.meimolihan.eu.org" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">www.meimolihan.eu.org</font></a>&nbsp;|&nbsp;<a target="_blank" rel="noopener" href="https://meimolihan.eu.org" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">meimolihan.eu.org</font></a></b></center></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/d52ab947.html" title="Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧"><img src="https://api.mobufan.eu.org:666/pc?4165" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧"/></a><div class="content"><a class="title" href="/posts/d52ab947.html" title="Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧">Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧</a><time datetime="2025-09-12T17:17:53.000Z" title="发表于 2025-09-13 01:17:53">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4608118b.html" title="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑"><img src="https://api.mobufan.eu.org:666/pc?1949" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑"/></a><div class="content"><a class="title" href="/posts/4608118b.html" title="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑">Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑</a><time datetime="2025-09-12T17:14:33.000Z" title="发表于 2025-09-13 01:14:33">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/597ff12a.html" title="Windows 快速安装 wget 指南 🚀"><img src="https://api.mobufan.eu.org:666/pc?5916" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Windows 快速安装 wget 指南 🚀"/></a><div class="content"><a class="title" href="/posts/597ff12a.html" title="Windows 快速安装 wget 指南 🚀">Windows 快速安装 wget 指南 🚀</a><time datetime="2025-09-12T17:13:15.000Z" title="发表于 2025-09-13 01:13:15">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f589a7a7.html" title="WSL 主机名修改指南 🖥️"><img src="https://api.mobufan.eu.org:666/pc?666" onerror="this.onerror=null;this.src='/img/404.gif'" alt="WSL 主机名修改指南 🖥️"/></a><div class="content"><a class="title" href="/posts/f589a7a7.html" title="WSL 主机名修改指南 🖥️">WSL 主机名修改指南 🖥️</a><time datetime="2025-09-12T17:12:11.000Z" title="发表于 2025-09-13 01:12:11">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/6569dfc4.html" title="WSL 安装 Debian 完全指南 🐧"><img src="https://api.mobufan.eu.org:666/pc?6359" onerror="this.onerror=null;this.src='/img/404.gif'" alt="WSL 安装 Debian 完全指南 🐧"/></a><div class="content"><a class="title" href="/posts/6569dfc4.html" title="WSL 安装 Debian 完全指南 🐧">WSL 安装 Debian 完全指南 🐧</a><time datetime="2025-09-12T17:09:38.000Z" title="发表于 2025-09-13 01:09:38">2025-09-13</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Docker/"><span class="card-category-list-name">Docker</span><span class="card-category-list-count">88</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ESXi/"><span class="card-category-list-name">ESXi</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">98</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Proxmox-VE/"><span class="card-category-list-name">Proxmox VE</span><span class="card-category-list-count">38</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/"><span class="card-category-list-name">Windows</span><span class="card-category-list-count">33</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"><span class="card-category-list-name">默认分类</span><span class="card-category-list-count">19</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" style="font-size: 1.31em; color: rgb(50, 154, 140);">命令大全</a><a href="/tags/ffmpeg/" style="font-size: 1.15em; color: rgb(194, 75, 50);">ffmpeg</a><a href="/tags/git/" style="font-size: 1.31em; color: rgb(50, 50, 200);">git</a><a href="/tags/markdown/" style="font-size: 1.35em; color: rgb(50, 50, 139);">markdown</a><a href="/tags/debian/" style="font-size: 1.25em; color: rgb(118, 88, 186);">debian</a><a href="/tags/fnos/" style="font-size: 1.25em; color: rgb(117, 102, 147);">fnos</a><a href="/tags/ssh/" style="font-size: 1.27em; color: rgb(61, 129, 93);">ssh</a><a href="/tags/tv/" style="font-size: 1.29em; color: rgb(50, 50, 186);">tv</a><a href="/tags/compose/" style="font-size: 1.45em; color: rgb(153, 64, 50);">compose</a><a href="/tags/nfs/" style="font-size: 1.29em; color: rgb(119, 169, 88);">nfs</a><a href="/tags/hugo/" style="font-size: 1.15em; color: rgb(50, 96, 50);">hugo</a><a href="/tags/samba/" style="font-size: 1.31em; color: rgb(50, 133, 187);">samba</a><a href="/tags/%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/" style="font-size: 1.19em; color: rgb(72, 117, 50);">换国内源</a><a href="/tags/istoreos/" style="font-size: 1.43em; color: rgb(118, 179, 137);">istoreos</a><a href="/tags/ntfs/" style="font-size: 1.19em; color: rgb(50, 65, 199);">ntfs</a><a href="/tags/ubuntu/" style="font-size: 1.25em; color: rgb(194, 50, 88);">ubuntu</a><a href="/tags/centos/" style="font-size: 1.25em; color: rgb(50, 61, 50);">centos</a><a href="/tags/%E6%88%91%E7%9A%84/" style="font-size: 1.21em; color: rgb(50, 50, 172);">我的</a><a href="/tags/github/" style="font-size: 1.21em; color: rgb(50, 145, 50);">github</a><a href="/tags/gitee/" style="font-size: 1.19em; color: rgb(59, 55, 200);">gitee</a><a href="/tags/%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86/" style="font-size: 1.25em; color: rgb(50, 50, 50);">容器管理</a><a href="/tags/ssl/" style="font-size: 1.27em; color: rgb(50, 54, 93);">ssl</a><a href="/tags/%E4%B8%8B%E8%BD%BD%E5%99%A8/" style="font-size: 1.25em; color: rgb(70, 114, 180);">下载器</a><a href="/tags/caddy/" style="font-size: 1.39em; color: rgb(152, 50, 175);">caddy</a><a href="/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/" style="font-size: 1.37em; color: rgb(125, 149, 173);">文件服务</a><a href="/tags/%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1/" style="font-size: 1.33em; color: rgb(103, 177, 50);">媒体服务</a><a href="/tags/emby/" style="font-size: 1.27em; color: rgb(130, 146, 121);">emby</a><a href="/tags/halo/" style="font-size: 1.17em; color: rgb(196, 112, 154);">halo</a><a href="/tags/music/" style="font-size: 1.21em; color: rgb(191, 52, 193);">music</a><a href="/tags/conpose/" style="font-size: 1.15em; color: rgb(74, 50, 69);">conpose</a><a href="/tags/nginx/" style="font-size: 1.41em; color: rgb(170, 60, 50);">nginx</a><a href="/tags/sun-panel/" style="font-size: 1.23em; color: rgb(165, 50, 139);">sun-panel</a><a href="/tags/typecho/" style="font-size: 1.29em; color: rgb(53, 55, 120);">typecho</a><a href="/tags/alpine/" style="font-size: 1.25em; color: rgb(198, 50, 50);">alpine</a><a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.15em; color: rgb(50, 192, 50);">博客</a><a href="/tags/1panel/" style="font-size: 1.17em; color: rgb(112, 50, 54);">1panel</a><a href="/tags/ipv4/" style="font-size: 1.21em; color: rgb(50, 131, 51);">ipv4</a><a href="/tags/jellyfin/" style="font-size: 1.15em; color: rgb(134, 103, 161);">jellyfin</a><a href="/tags/certbot/" style="font-size: 1.17em; color: rgb(177, 108, 93);">certbot</a><a href="/tags/nastools/" style="font-size: 1.19em; color: rgb(50, 50, 136);">nastools</a></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">284</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">560.9k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-12T17:21:14.351Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = ["你在抱怨什么呢","为明天到来的事，说人生像是没有意义","没有选择会是唯一的路","这不是你自己的问题，人终归要好好去生活"].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const from = '出自 ' + data.from
+      typedJSFn.processSubtitle(data.hitokoto, [from])
+    })
+    .catch(err => {
+      console.error('Failed to get the Hitokoto API:', err)
+      typedJSFn.processSubtitle(["你在抱怨什么呢","为明天到来的事，说人生像是没有意义","没有选择会是唯一的路","这不是你自己的问题，人终归要好好去生活"])
+    })
+}
+typedJSFn.run(subtitleType)
+</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

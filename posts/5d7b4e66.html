@@ -1,0 +1,1648 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>VSCode Markdown 编辑快捷键大全 ⚡ | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="VSCode Markdown 编辑快捷键大全 ⚡  🚀 掌握VSCode快捷键，提升Markdown写作效率，打造流畅的文档编写体验   ✨ 特点和功能VSCode Markdown 编辑提供以下强大功能：  ⚡ 高效编辑：丰富的快捷键支持，大幅提升写作和编辑效率 👁️ 实时预览：内置Markdown预览功能，所见即所得 🎨 智能格式化：自动补全、代码片段和语法高亮，让写作更轻松 🔗 便">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSCode Markdown 编辑快捷键大全 ⚡">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/5d7b4e66.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="VSCode Markdown 编辑快捷键大全 ⚡  🚀 掌握VSCode快捷键，提升Markdown写作效率，打造流畅的文档编写体验   ✨ 特点和功能VSCode Markdown 编辑提供以下强大功能：  ⚡ 高效编辑：丰富的快捷键支持，大幅提升写作和编辑效率 👁️ 实时预览：内置Markdown预览功能，所见即所得 🎨 智能格式化：自动补全、代码片段和语法高亮，让写作更轻松 🔗 便">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?1254">
+<meta property="article:published_time" content="2025-09-12T16:05:57.000Z">
+<meta property="article:modified_time" content="2025-09-12T16:05:57.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="markdown">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?1254"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "VSCode Markdown 编辑快捷键大全 ⚡",
+  "url": "https://www.meimolihan.eu.org/posts/5d7b4e66.html",
+  "image": "https://api.mobufan.eu.org:666/pc?1254",
+  "datePublished": "2025-09-12T16:05:57.000Z",
+  "dateModified": "2025-09-12T16:05:57.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/5d7b4e66.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VSCode Markdown 编辑快捷键大全 ⚡',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">284</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?1254);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">VSCode Markdown 编辑快捷键大全 ⚡</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">VSCode Markdown 编辑快捷键大全 ⚡</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T16:05:57.000Z" title="发表于 2025-09-13 00:05:57">2025-09-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T16:05:57.000Z" title="更新于 2025-09-13 00:05:57">2025-09-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Windows/">Windows</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-13 00:05:57&quot;}" hidden></div><h1 id="VSCode-Markdown-编辑快捷键大全-⚡"><a href="#VSCode-Markdown-编辑快捷键大全-⚡" class="headerlink" title="VSCode Markdown 编辑快捷键大全 ⚡"></a>VSCode Markdown 编辑快捷键大全 ⚡</h1><p><img src="https://file.meimolihan.eu.org/img/vscode.webp" alt=""></p>
+<blockquote>
+<p>🚀 掌握VSCode快捷键，提升Markdown写作效率，打造流畅的文档编写体验</p>
+</blockquote>
+<hr>
+<h2 id="✨-特点和功能"><a href="#✨-特点和功能" class="headerlink" title="✨ 特点和功能"></a>✨ 特点和功能</h2><p>VSCode Markdown 编辑提供以下强大功能：</p>
+<ul>
+<li>⚡ <strong>高效编辑</strong>：丰富的快捷键支持，大幅提升写作和编辑效率</li>
+<li>👁️ <strong>实时预览</strong>：内置Markdown预览功能，所见即所得</li>
+<li>🎨 <strong>智能格式化</strong>：自动补全、代码片段和语法高亮，让写作更轻松</li>
+<li>🔗 <strong>便捷导航</strong>：快速跳转、大纲视图和符号导航，方便长文档管理</li>
+<li>🛠️ <strong>高度可定制</strong>：支持自定义快捷键、主题和扩展，满足个性化需求</li>
+<li>🌐 <strong>多平台支持</strong>：Windows、macOS和Linux全平台一致体验</li>
+</ul>
+<hr>
+<h2 id="📖-目录导航"><a href="#📖-目录导航" class="headerlink" title="📖 目录导航"></a>📖 目录导航</h2><ul>
+<li><a href="#basic-editing">⌨️ 基础编辑快捷键</a></li>
+<li><a href="#markdown-shortcuts">📝 Markdown专属快捷键</a></li>
+<li><a href="#navigation-search">🔍 导航与搜索</a></li>
+<li><a href="#view-layout">📊 视图与布局</a></li>
+<li><a href="#advanced-editing">🎯 高级编辑技巧</a></li>
+<li><a href="#productivity-tips">⚡ 效率提升技巧</a></li>
+<li><a href="#custom-configuration">🔧 自定义配置</a></li>
+</ul>
+<hr>
+<p><a id="basic-editing"></a></p>
+<h2 id="⌨️-基础编辑快捷键"><a href="#⌨️-基础编辑快捷键" class="headerlink" title="⌨️ 基础编辑快捷键"></a>⌨️ 基础编辑快捷键</h2><h3 id="📝-文本操作"><a href="#📝-文本操作" class="headerlink" title="📝 文本操作"></a>📝 文本操作</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保存文件</td>
+<td><code>Ctrl + S</code></td>
+<td><code>Cmd + S</code></td>
+<td>快速保存当前文件</td>
+</tr>
+<tr>
+<td>撤销操作</td>
+<td><code>Ctrl + Z</code></td>
+<td><code>Cmd + Z</code></td>
+<td>撤销上一步操作</td>
+</tr>
+<tr>
+<td>重做操作</td>
+<td><code>Ctrl + Y</code></td>
+<td><code>Cmd + Y</code></td>
+<td>重做被撤销的操作</td>
+</tr>
+<tr>
+<td>剪切行</td>
+<td><code>Ctrl + X</code></td>
+<td><code>Cmd + X</code></td>
+<td>剪切当前行</td>
+</tr>
+<tr>
+<td>复制行</td>
+<td><code>Ctrl + C</code></td>
+<td><code>Cmd + C</code></td>
+<td>复制当前行</td>
+</tr>
+<tr>
+<td>粘贴行</td>
+<td><code>Ctrl + V</code></td>
+<td><code>Cmd + V</code></td>
+<td>粘贴剪贴板内容</td>
+</tr>
+<tr>
+<td>删除行</td>
+<td><code>Ctrl + Shift + K</code></td>
+<td><code>Cmd + Shift + K</code></td>
+<td>删除整行</td>
+</tr>
+<tr>
+<td>复制行向上</td>
+<td><code>Alt + Shift + ↑</code></td>
+<td><code>Option + Shift + ↑</code></td>
+<td>向上复制行</td>
+</tr>
+<tr>
+<td>复制行向下</td>
+<td><code>Alt + Shift + ↓</code></td>
+<td><code>Option + Shift + ↓</code></td>
+<td>向下复制行</td>
+</tr>
+<tr>
+<td>移动行向上</td>
+<td><code>Alt + ↑</code></td>
+<td><code>Option + ↑</code></td>
+<td>向上移动行</td>
+</tr>
+<tr>
+<td>移动行向下</td>
+<td><code>Alt + ↓</code></td>
+<td><code>Option + ↓</code></td>
+<td>向下移动行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="📑-选择操作"><a href="#📑-选择操作" class="headerlink" title="📑 选择操作"></a>📑 选择操作</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选择当前行</td>
+<td><code>Ctrl + L</code></td>
+<td><code>Cmd + L</code></td>
+<td>选择整行内容</td>
+</tr>
+<tr>
+<td>多选相同词</td>
+<td><code>Ctrl + D</code></td>
+<td><code>Cmd + D</code></td>
+<td>选择下一个相同单词</td>
+</tr>
+<tr>
+<td>选择所有相同词</td>
+<td><code>Ctrl + F2</code></td>
+<td><code>Cmd + F2</code></td>
+<td>选择文档中所有相同单词</td>
+</tr>
+<tr>
+<td>列选择</td>
+<td><code>Shift + Alt + 拖动</code></td>
+<td><code>Shift + Option + 拖动</code></td>
+<td>多列同时选择</td>
+</tr>
+<tr>
+<td>扩大选择范围</td>
+<td><code>Shift + Alt + →</code></td>
+<td><code>Shift + Option + →</code></td>
+<td>扩大选择范围</td>
+</tr>
+<tr>
+<td>缩小选择范围</td>
+<td><code>Shift + Alt + ←</code></td>
+<td><code>Shift + Option + ←</code></td>
+<td>缩小选择范围</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="markdown-shortcuts"></a></p>
+<h2 id="📝-Markdown专属快捷键"><a href="#📝-Markdown专属快捷键" class="headerlink" title="📝 Markdown专属快捷键"></a>📝 Markdown专属快捷键</h2><h3 id="🎨-文本格式化"><a href="#🎨-文本格式化" class="headerlink" title="🎨 文本格式化"></a>🎨 文本格式化</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>粗体文本</td>
+<td><code>Ctrl + B</code></td>
+<td><code>Cmd + B</code></td>
+<td><strong>粗体</strong></td>
+</tr>
+<tr>
+<td>斜体文本</td>
+<td><code>Ctrl + I</code></td>
+<td><code>Cmd + I</code></td>
+<td><em>斜体</em></td>
+</tr>
+<tr>
+<td>代码块</td>
+<td><code>Ctrl + Shift + ``` </code></td>
+<td><code>Cmd + Shift + ``` </code></td>
+<td>插入代码块</td>
+</tr>
+<tr>
+<td>行内代码</td>
+<td><code>Ctrl + `` </code></td>
+<td><code>Cmd + `` </code></td>
+<td><code>代码</code></td>
+</tr>
+<tr>
+<td>删除线文本</td>
+<td><code>Alt + Shift + S</code></td>
+<td><code>Option + Shift + S</code></td>
+<td><del>删除线</del></td>
+</tr>
+<tr>
+<td>下划线文本</td>
+<td><code>Ctrl + U</code></td>
+<td><code>Cmd + U</code></td>
+<td><u>下划线</u></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="📋-列表与结构"><a href="#📋-列表与结构" class="headerlink" title="📋 列表与结构"></a>📋 列表与结构</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无序列表</td>
+<td><code>Ctrl + Shift + 8</code></td>
+<td><code>Cmd + Shift + 8</code></td>
+<td>- 项目</td>
+</tr>
+<tr>
+<td>有序列表</td>
+<td><code>Ctrl + Shift + 7</code></td>
+<td><code>Cmd + Shift + 7</code></td>
+<td>1. 项目</td>
+</tr>
+<tr>
+<td>引用块</td>
+<td><code>Ctrl + Shift + &gt;</code></td>
+<td><code>Cmd + Shift + &gt;</code></td>
+<td>&gt; 引用</td>
+</tr>
+<tr>
+<td>增加缩进</td>
+<td><code>Ctrl + ]</code></td>
+<td><code>Cmd + ]</code></td>
+<td>增加列表缩进</td>
+</tr>
+<tr>
+<td>减少缩进</td>
+<td><code>Ctrl + [</code></td>
+<td><code>Cmd + [</code></td>
+<td>减少列表缩进</td>
+</tr>
+<tr>
+<td>任务列表</td>
+<td><code>Ctrl + Shift + ]</code></td>
+<td><code>Cmd + Shift + ]</code></td>
+<td>- [ ] 任务</td>
+</tr>
+<tr>
+<td>切换任务状态</td>
+<td><code>Ctrl + Enter</code></td>
+<td><code>Cmd + Enter</code></td>
+<td>切换复选框状态</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="🔗-链接与媒体"><a href="#🔗-链接与媒体" class="headerlink" title="🔗 链接与媒体"></a>🔗 链接与媒体</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入链接</td>
+<td><code>Ctrl + K</code> <code>Ctrl + V</code></td>
+<td><code>Cmd + K</code> <code>Cmd + V</code></td>
+<td><a href="链接">文本</a></td>
+</tr>
+<tr>
+<td>插入图片</td>
+<td><code>Ctrl + Shift + P</code> → “Insert Image”</td>
+<td><code>Cmd + Shift + P</code> → “Insert Image”</td>
+<td><img src="url" alt="alt"></td>
+</tr>
+<tr>
+<td>快速链接</td>
+<td><code>Ctrl + K</code> <code>Ctrl + L</code></td>
+<td><code>Cmd + K</code> <code>Cmd + L</code></td>
+<td>插入页内链接</td>
+</tr>
+<tr>
+<td>打开链接</td>
+<td><code>Ctrl + Click</code></td>
+<td><code>Cmd + Click</code></td>
+<td>打开链接</td>
+</tr>
+<tr>
+<td>复制链接地址</td>
+<td><code>Ctrl + K</code> <code>Ctrl + V</code></td>
+<td><code>Cmd + K</code> <code>Cmd + V</code></td>
+<td>复制链接URL</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="navigation-search"></a></p>
+<h2 id="🔍-导航与搜索"><a href="#🔍-导航与搜索" class="headerlink" title="🔍 导航与搜索"></a>🔍 导航与搜索</h2><h3 id="🧭-文件导航"><a href="#🧭-文件导航" class="headerlink" title="🧭 文件导航"></a>🧭 文件导航</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>快速打开</td>
+<td><code>Ctrl + P</code></td>
+<td><code>Cmd + P</code></td>
+<td>按文件名搜索</td>
+</tr>
+<tr>
+<td>转到行号</td>
+<td><code>Ctrl + G</code></td>
+<td><code>Cmd + G</code></td>
+<td>跳转到指定行</td>
+</tr>
+<tr>
+<td>转到符号</td>
+<td><code>Ctrl + Shift + O</code></td>
+<td><code>Cmd + Shift + O</code></td>
+<td>跳转到标题</td>
+</tr>
+<tr>
+<td>转到定义</td>
+<td><code>F12</code></td>
+<td><code>F12</code></td>
+<td>转到链接目标</td>
+</tr>
+<tr>
+<td>查看引用</td>
+<td><code>Shift + F12</code></td>
+<td><code>Shift + F12</code></td>
+<td>查看符号引用</td>
+</tr>
+<tr>
+<td>后退</td>
+<td><code>Alt + ←</code></td>
+<td><code>Ctrl + -</code></td>
+<td>导航后退</td>
+</tr>
+<tr>
+<td>前进</td>
+<td><code>Alt + →</code></td>
+<td><code>Ctrl + Shift + -</code></td>
+<td>导航前进</td>
+</tr>
+<tr>
+<td>切换标签页</td>
+<td><code>Ctrl + Tab</code></td>
+<td><code>Ctrl + Tab</code></td>
+<td>切换编辑器标签</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="🔎-搜索替换"><a href="#🔎-搜索替换" class="headerlink" title="🔎 搜索替换"></a>🔎 搜索替换</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查找</td>
+<td><code>Ctrl + F</code></td>
+<td><code>Cmd + F</code></td>
+<td>在当前文件查找</td>
+</tr>
+<tr>
+<td>替换</td>
+<td><code>Ctrl + H</code></td>
+<td><code>Cmd + H</code></td>
+<td>查找并替换</td>
+</tr>
+<tr>
+<td>全局查找</td>
+<td><code>Ctrl + Shift + F</code></td>
+<td><code>Cmd + Shift + F</code></td>
+<td>在所有文件查找</td>
+</tr>
+<tr>
+<td>正则查找</td>
+<td><code>Alt + R</code></td>
+<td><code>Option + R</code></td>
+<td>启用正则表达式</td>
+</tr>
+<tr>
+<td>查找下一个</td>
+<td><code>F3</code></td>
+<td><code>Cmd + G</code></td>
+<td>查找下一个匹配项</td>
+</tr>
+<tr>
+<td>查找上一个</td>
+<td><code>Shift + F3</code></td>
+<td><code>Cmd + Shift + G</code></td>
+<td>查找上一个匹配项</td>
+</tr>
+<tr>
+<td>选择所有匹配项</td>
+<td><code>Alt + Enter</code></td>
+<td><code>Option + Enter</code></td>
+<td>选择所有匹配项</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="view-layout"></a></p>
+<h2 id="📊-视图与布局"><a href="#📊-视图与布局" class="headerlink" title="📊 视图与布局"></a>📊 视图与布局</h2><h3 id="🖥️-界面控制"><a href="#🖥️-界面控制" class="headerlink" title="🖥️ 界面控制"></a>🖥️ 界面控制</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切换侧边栏</td>
+<td><code>Ctrl + B</code></td>
+<td><code>Cmd + B</code></td>
+<td>显示/隐藏侧边栏</td>
+</tr>
+<tr>
+<td>切换终端</td>
+<td><code>Ctrl + `` </code></td>
+<td><code>Cmd + `` </code></td>
+<td>显示/隐藏终端</td>
+</tr>
+<tr>
+<td>命令面板</td>
+<td><code>Ctrl + Shift + P</code></td>
+<td><code>Cmd + Shift + P</code></td>
+<td>打开命令面板</td>
+</tr>
+<tr>
+<td>Markdown预览</td>
+<td><code>Ctrl + Shift + V</code></td>
+<td><code>Cmd + Shift + V</code></td>
+<td>打开预览窗口</td>
+</tr>
+<tr>
+<td>侧边预览</td>
+<td><code>Ctrl + K</code> <code>V</code></td>
+<td><code>Cmd + K</code> <code>V</code></td>
+<td>在侧边打开预览</td>
+</tr>
+<tr>
+<td>切换全屏</td>
+<td><code>F11</code></td>
+<td><code>Ctrl + Cmd + F</code></td>
+<td>切换全屏模式</td>
+</tr>
+<tr>
+<td>切换zen模式</td>
+<td><code>Ctrl + K</code> <code>Z</code></td>
+<td><code>Cmd + K</code> <code>Z</code></td>
+<td>切换zen模式</td>
+</tr>
+<tr>
+<td>切换面包屑</td>
+<td><code>Ctrl + Shift + .</code></td>
+<td><code>Cmd + Shift + .</code></td>
+<td>显示/隐藏面包屑</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="🎛️-窗口管理"><a href="#🎛️-窗口管理" class="headerlink" title="🎛️ 窗口管理"></a>🎛️ 窗口管理</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>拆分编辑器</td>
+<td><code>Ctrl + \</code></td>
+<td><code>Cmd + \</code></td>
+<td>左右分屏</td>
+</tr>
+<tr>
+<td>切换编辑器</td>
+<td><code>Ctrl + 1/2/3</code></td>
+<td><code>Cmd + 1/2/3</code></td>
+<td>切换编辑组</td>
+</tr>
+<tr>
+<td>缩放编辑组</td>
+<td><code>Ctrl + =</code></td>
+<td><code>Cmd + =</code></td>
+<td>放大编辑器</td>
+</tr>
+<tr>
+<td>重置缩放</td>
+<td><code>Ctrl + 0</code></td>
+<td><code>Cmd + 0</code></td>
+<td>重置缩放级别</td>
+</tr>
+<tr>
+<td>新窗口</td>
+<td><code>Ctrl + Shift + N</code></td>
+<td><code>Cmd + Shift + N</code></td>
+<td>新建窗口</td>
+</tr>
+<tr>
+<td>关闭窗口</td>
+<td><code>Ctrl + Shift + W</code></td>
+<td><code>Cmd + Shift + W</code></td>
+<td>关闭当前窗口</td>
+</tr>
+<tr>
+<td>切换编辑器布局</td>
+<td><code>Shift + Alt + 0</code></td>
+<td><code>Shift + Option + 0</code></td>
+<td>切换布局(水平/垂直)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="advanced-editing"></a></p>
+<h2 id="🎯-高级编辑技巧"><a href="#🎯-高级编辑技巧" class="headerlink" title="🎯 高级编辑技巧"></a>🎯 高级编辑技巧</h2><h3 id="✨-多光标操作"><a href="#✨-多光标操作" class="headerlink" title="✨ 多光标操作"></a>✨ 多光标操作</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>添加光标</td>
+<td><code>Alt + 点击</code></td>
+<td><code>Option + 点击</code></td>
+<td>添加新光标</td>
+</tr>
+<tr>
+<td>列选择</td>
+<td><code>Shift + Alt + 拖动</code></td>
+<td><code>Shift + Option + 拖动</code></td>
+<td>多列编辑</td>
+</tr>
+<tr>
+<td>向上添加光标</td>
+<td><code>Ctrl + Alt + ↑</code></td>
+<td><code>Cmd + Option + ↑</code></td>
+<td>向上添加光标</td>
+</tr>
+<tr>
+<td>向下添加光标</td>
+<td><code>Ctrl + Alt + ↓</code></td>
+<td><code>Cmd + Option + ↓</code></td>
+<td>向下添加光标</td>
+</tr>
+<tr>
+<td>选择所有出现</td>
+<td><code>Ctrl + Shift + L</code></td>
+<td><code>Cmd + Shift + L</code></td>
+<td>选择所有匹配项</td>
+</tr>
+<tr>
+<td>插入光标到行尾</td>
+<td><code>Shift + Alt + I</code></td>
+<td><code>Shift + Option + I</code></td>
+<td>在每行行尾添加光标</td>
+</tr>
+<tr>
+<td>撤消光标</td>
+<td><code>Ctrl + U</code></td>
+<td><code>Cmd + U</code></td>
+<td>撤消上一个光标操作</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="🔄-代码片段"><a href="#🔄-代码片段" class="headerlink" title="🔄 代码片段"></a>🔄 代码片段</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Windows/Linux</th>
+<th>macOS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入代码片段</td>
+<td><code>Ctrl + Space</code></td>
+<td><code>Cmd + Space</code></td>
+<td>显示代码片段建议</td>
+</tr>
+<tr>
+<td>自定义片段</td>
+<td><code>Ctrl + Shift + P</code> → “Configure User Snippets”</td>
+<td><code>Cmd + Shift + P</code> → “Configure User Snippets”</td>
+<td>自定义代码片段</td>
+</tr>
+<tr>
+<td>插入当前日期</td>
+<td>需自定义片段</td>
+<td>需自定义片段</td>
+<td>插入当前日期</td>
+</tr>
+<tr>
+<td>插入当前时间</td>
+<td>需自定义片段</td>
+<td>需自定义片段</td>
+<td>插入当前时间</td>
+</tr>
+<tr>
+<td>插入代码块</td>
+<td><code>Ctrl + Shift + ``` </code></td>
+<td><code>Cmd + Shift + ``` </code></td>
+<td>插入代码块</td>
+</tr>
+<tr>
+<td>插入表格</td>
+<td>需自定义片段</td>
+<td>需自定义片段</td>
+<td>插入表格结构</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="productivity-tips"></a></p>
+<h2 id="⚡-效率提升技巧"><a href="#⚡-效率提升技巧" class="headerlink" title="⚡ 效率提升技巧"></a>⚡ 效率提升技巧</h2><h3 id="🚀-实用工作流"><a href="#🚀-实用工作流" class="headerlink" title="🚀 实用工作流"></a>🚀 实用工作流</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span>  <span class="strong">**快速创建标题**</span>: 使用 <span class="code">`# 空格`</span> 自动创建标题</span><br><span class="line"><span class="bullet">2.</span>  <span class="strong">**自动补全**</span>: 输入 <span class="code">`[]()`</span> 自动补全链接格式</span><br><span class="line"><span class="bullet">3.</span>  <span class="strong">**表格生成**</span>: 使用 <span class="code">`| 列1 | 列2 |`</span> 自动格式化表格</span><br><span class="line"><span class="bullet">4.</span>  <span class="strong">**任务列表**</span>: <span class="code">`- [ ] 任务`</span> 创建复选框</span><br><span class="line"><span class="bullet">5.</span>  <span class="strong">**表情符号**</span>: 输入 <span class="code">`:`</span> 触发表情符号选择器</span><br><span class="line"><span class="bullet">6.</span>  <span class="strong">**目录生成**</span>: 使用扩展自动生成文档目录</span><br><span class="line"><span class="bullet">7.</span>  <span class="strong">**文档统计**</span>: 使用扩展查看字数统计和阅读时间</span><br></pre></td></tr></table></figure>
+<h3 id="📋-常用命令"><a href="#📋-常用命令" class="headerlink" title="📋 常用命令"></a>📋 常用命令</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Markdown: Open Preview</td>
+<td>打开预览</td>
+<td><code>Ctrl+Shift+V</code></td>
+</tr>
+<tr>
+<td>Markdown: Toggle Preview</td>
+<td>切换预览</td>
+<td><code>Ctrl+Shift+V</code></td>
+</tr>
+<tr>
+<td>Format Document</td>
+<td>格式化文档</td>
+<td><code>Shift+Alt+F</code></td>
+</tr>
+<tr>
+<td>Fold All</td>
+<td>折叠所有标题</td>
+<td><code>Ctrl+K</code> <code>Ctrl+0</code></td>
+</tr>
+<tr>
+<td>Unfold All</td>
+<td>展开所有标题</td>
+<td><code>Ctrl+K</code> <code>Ctrl+J</code></td>
+</tr>
+<tr>
+<td>Fold Level 1</td>
+<td>折叠一级标题</td>
+<td><code>Ctrl+K</code> <code>Ctrl+1</code></td>
+</tr>
+<tr>
+<td>Fold Level 2</td>
+<td>折叠二级标题</td>
+<td><code>Ctrl+K</code> <code>Ctrl+2</code></td>
+</tr>
+<tr>
+<td>Change All Occurrences</td>
+<td>更改所有出现</td>
+<td><code>Ctrl+F2</code></td>
+</tr>
+<tr>
+<td>Rename Symbol</td>
+<td>重命名符号</td>
+<td><code>F2</code></td>
+</tr>
+<tr>
+<td>Trigger Suggest</td>
+<td>触发建议</td>
+<td><code>Ctrl+Space</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="custom-configuration"></a></p>
+<h2 id="🔧-自定义配置"><a href="#🔧-自定义配置" class="headerlink" title="🔧 自定义配置"></a>🔧 自定义配置</h2><h3 id="⚙️-推荐设置"><a href="#⚙️-推荐设置" class="headerlink" title="⚙️ 推荐设置"></a>⚙️ 推荐设置</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;[markdown]&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;editor.wordWrap&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.quickSuggestions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;comments&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;strings&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;other&quot;</span><span class="punctuation">:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.fontSize&quot;</span><span class="punctuation">:</span> <span class="number">14</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.lineHeight&quot;</span><span class="punctuation">:</span> <span class="number">1.6</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.tabSize&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.insertSpaces&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.trimAutoWhitespace&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.renderWhitespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;boundary&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.rulers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">80</span><span class="punctuation">,</span> <span class="number">100</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;editor.foldingStrategy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;indentation&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;markdown.preview.fontSize&quot;</span><span class="punctuation">:</span> <span class="number">14</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;markdown.preview.lineHeight&quot;</span><span class="punctuation">:</span> <span class="number">1.6</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;markdown.preview.doubleClickToSwitchToEditor&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;markdown.preview.linkify&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;files.associations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*.md&quot;</span><span class="punctuation">:</span> <span class="string">&quot;markdown&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;emmet.includeLanguages&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;markdown&quot;</span><span class="punctuation">:</span> <span class="string">&quot;html&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="🧩-推荐扩展"><a href="#🧩-推荐扩展" class="headerlink" title="🧩 推荐扩展"></a>🧩 推荐扩展</h3><ol>
+<li><strong>Markdown All in One</strong> - 增强Markdown功能（快捷键、目录、自动完成等）</li>
+<li><strong>Markdown Preview Enhanced</strong> - 高级预览功能（数学公式、图表等）</li>
+<li><strong>Paste Image</strong> - 快速粘贴图片到Markdown</li>
+<li><strong>Markdown Lint</strong> - 语法检查和格式化</li>
+<li><strong>Markdown Emoji</strong> - 表情符号支持</li>
+<li><strong>Markdown Table Formatter</strong> - 表格格式化</li>
+<li><strong>Word Count</strong> - 字数统计</li>
+<li><strong>Code Spell Checker</strong> - 代码拼写检查</li>
+</ol>
+<h3 id="🎨-主题推荐"><a href="#🎨-主题推荐" class="headerlink" title="🎨 主题推荐"></a>🎨 主题推荐</h3><ul>
+<li><strong>GitHub Theme</strong> - GitHub风格的Markdown预览</li>
+<li><strong>Material Theme</strong> - Material Design风格</li>
+<li><strong>One Dark Pro</strong> - 深色主题，保护眼睛</li>
+<li><strong>Solarized Light</strong> - 浅色主题，适合长时间阅读</li>
+<li><strong>Night Owl</strong> - 专业深色主题，对比度适中</li>
+</ul>
+<h3 id="⌨️-自定义快捷键"><a href="#⌨️-自定义快捷键" class="headerlink" title="⌨️ 自定义快捷键"></a>⌨️ 自定义快捷键</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// keybindings.json 中的自定义快捷键</span></span><br><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+shift+1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;markdown.extension.editing.toggleHeading&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;level&quot;</span><span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus &amp;&amp; editorLangId == markdown&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+shift+2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;markdown.extension.editing.toggleHeading&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;level&quot;</span><span class="punctuation">:</span> <span class="number">2</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus &amp;&amp; editorLangId == markdown&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+shift+3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;markdown.extension.editing.toggleHeading&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;level&quot;</span><span class="punctuation">:</span> <span class="number">3</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus &amp;&amp; editorLangId == markdown&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+shift+i&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editor.action.insertSnippet&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;snippet&quot;</span><span class="punctuation">:</span> <span class="string">&quot;![$&#123;1:alt&#125;]($&#123;2:url&#125;)$&#123;0&#125;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>💡 <strong>专业提示</strong>: 建议将最常用的快捷键制作成cheat sheet放在手边，定期练习使用。VSCode的快捷键支持自定义，可以根据个人习惯进行调整。使用 <code>Ctrl+K Ctrl+S</code> (Windows/Linux) 或 <code>Cmd+K Cmd+S</code> (macOS) 打开键盘快捷键编辑器进行个性化设置。</p>
+<p><img src="https://file.meimolihan.eu.org/gif/gif-003.gif" alt="VSCode使用示例"></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/markdown/">markdown</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?1254" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/b23ec538.html" title="GitHub &amp; Gitee SSH 密钥配置指南  🔑"><img class="cover" src="https://api.mobufan.eu.org:666/pc?589" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">GitHub & Gitee SSH 密钥配置指南  🔑</div></div><div class="info-2"><div class="info-item-1">GitHub &amp; Gitee SSH 密钥配置指南  🔑  🚀 一站式配置 SSH 密钥，轻松管理代码仓库   📋 目录 🎯 快速开始 🔑 SSH 密钥生成 🌐 GitHub 配置 🐱 Gitee 配置 ⚙️ SSH 配置管理 🔍 连接验证 💡 故障排除 🚀 高级用法    🎯 快速开始🌟 一站式配置脚本1234567891011121314#!/bin/bash# 🚀 GitHub &amp; Gitee SSH 密钥快速配置脚本echo &quot;开始配置 SSH 密钥...&quot;# 设置全局 Git 配置git config --global user.name &quot;meimolihan&quot;git config --global user.email &quot;meimolihan@gmail.com&quot;# 创建 SSH 目录mkdir -p ~/.sshchmod 700 ~/.sshecho &quot;✅ SSH 配置完成！&quot;   🔑 SSH 密钥生成🎯 生成 GitHub...</div></div></div></a><a class="pagination-related" href="/posts/26f1fca5.html" title="Docker 部署 random-pic-api 随机壁纸服务 🖼️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4102" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Docker 部署 random-pic-api 随机壁纸服务 🖼️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 random-pic-api 随机壁纸服务 🖼️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🔗 项目地址 🐳 一、Docker 部署 random-pic-api 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 random-pic-api 1. 克隆项目仓库 📦 2. 使用 Docker 镜像离线包 🚢 3. 图片处理与管理 👀   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航视觉，创意无限     🎯 项目简介 🐱 GitHub 项目地址：https://github.com/Nei-Xin/random-pic-api 🐋 Docker...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/d95c127b.html" title="十六进制颜色代码大全 🎨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4183" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">十六进制颜色代码大全 🎨</div></div><div class="info-2"><div class="info-item-1">十六进制颜色代码大全 🎨   ✨ 目录 ✨ 色彩使用原则 🔴 红色系 - 激情与警告 🟠 橙色系 - 活力与注意 🟡 黄色系 - 明亮与提示 🟢 绿色系 - 成功与自然 🔵 青色系 - 清新与冷静 🔷 蓝色系 - 信任与稳定 🟣 紫色系 - 奢华与创意 💖 粉色系 - 温柔与浪漫 ⚪ 白色系 - 纯净与简洁 ⚫ 灰色系 - 中性与平衡 🟤 棕色系 - 温暖与自然   🎨 使用建议 🚀 使用技巧    ✨ 色彩使用原则设计基础原则 🎯 一致性 - 在整个项目中保持颜色使用的一致性 👁️ 可访问性 - 确保颜色对比度符合 WCAG 2.1 标准 🎨 语义化 - 使用颜色传达明确的含义和信息 ⚖️ 适度性 - 避免过度使用鲜艳颜色造成视觉疲劳 📱 响应式 - 在不同设备上测试颜色显示效果  对比度检查标准    文本大小 AA 标准 AAA 标准     正常文本 4.5:1 7:1   大文本 3:1 4.5:1     色彩心理学简要指南 🔴 红色: 紧急、激情、危险、重要 🟠 橙色: 活力、温暖、友好、创意 🟡 黄色:...</div></div></div></a><a class="pagination-related" href="/posts/af6a741.html" title="Markdown 下划线样式完全指南 📝"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2908" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 下划线样式完全指南 📝</div></div><div class="info-2"><div class="info-item-1">Markdown 下划线样式完全指南 📝 🔖 扩展你的 Markdown 技能：Markdown 高级教程 — 探索更多 Markdown 隐藏功能！  📋 文章目录 🎨 Markdown 下划线样式概览 📏 基础下划线样式 1. 下划虚线样式 2. 单实线下划线 3. 双下划线样式 4. 点状下划线 5. 着重号样式   ✨ 高级创意样式 1. 波浪下划线 2. 渐变色下划线 3. 动画下划线   🎯 实用技巧与配置 1. 颜色选择指南 2. 线型样式大全 3. 尺寸控制技巧   ⚠️ 兼容性注意事项 🔍 浏览器支持情况 💡 最佳实践建议    🎨 Markdown 下划线样式概览虽然标准的 Markdown 语法本身不直接支持丰富文本样式，但通过结合 HTML 和 CSS，我们可以为 Markdown 文档添加各种精美的下划线效果！✨ 这些技巧特别适用于：  🔍 突出显示重要内容 🎯 视觉引导读者注意力 📚 创建技术文档和教程 ✨ 增强文档的视觉吸引力   💡 你知道吗？...</div></div></div></a><a class="pagination-related" href="/posts/f2372cde.html" title="Markdown 内容折叠完全指南 📝"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3554" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 内容折叠完全指南 📝</div></div><div class="info-2"><div class="info-item-1">Markdown 内容折叠完全指南 📝 🌐 扩展你的 Markdown 技能：Markdown 高级教程 — 掌握更多专业排版技巧！  📋 文章目录 ✨ Markdown 折叠功能概述 🛠️ 基础折叠语法详解 1. 标准折叠语法 2. 带空行的折叠语法   🎨 高级折叠样式技巧 1. 自定义折叠图标与样式 2. 嵌套折叠结构 3. 默认展开状态设置   💡 实用场景示例 1. 代码示例折叠 2. 问答内容隐藏 3. 数据表格折叠 4. 多级目录结构   ⚠️ 兼容性与注意事项 1. 平台兼容性指南 2. 移动端适配建议 3. 可访问性考虑   🚀 扩展资源与工具 1. 在线工具推荐 2. 学习资源链接   🔧 故障排除与技巧 1. 常见问题解决 2. 最佳实践建议      ✨ Markdown 折叠功能概述Markdown 折叠功能通过 HTML 的 &lt;details&gt; 和 &lt;summary&gt; 标签实现，能够将内容组织成可交互的折叠区块，极大提升文档的可读性和用户体验！🎯 🌟 折叠功能的优势： 📚...</div></div></div></a><a class="pagination-related" href="/posts/28bbbc05.html" title="Markdown 图片嵌入指南 📸"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9167" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 图片嵌入指南 📸</div></div><div class="info-2"><div class="info-item-1">Markdown 图片嵌入指南 📸  🌟 简介本指南将介绍在 Markdown 文档中嵌入图片的多种方法，包括基础语法、带链接的图片以及可调整大小的图片。  🖼️ 一、基础图片语法语法格式：1![图片替代文本](图片URL) 示例代码：1![我的图片名称](https://pic3.zhimg.com/v2-52e3d25b08972370aeefe92a202e5ba3_r.jpg) 效果演示：以下是《基础图片语法》示例：    🔗 二、带链接的图片语法语法格式：1[![图片替代文本](图片URL)](链接URL) 示例代码：1[![示例图片](https://pic3.zhimg.com/v2-52e3d25b08972370aeefe92a202e5ba3_r.jpg)](https://pic3.zhimg.com/v2-52e3d25b08972370aeefe92a202e5ba3_r.jpg) 效果演示：以下是《带链接的图片语法》示例：    💡 点击图片可以跳转到指定链接   📐 三、调整图像大小的语法使用 HTML...</div></div></div></a><a class="pagination-related" href="/posts/79e868c5.html" title="Markdown 字体样式与颜色指南🎨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7148" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 字体样式与颜色指南🎨</div></div><div class="info-2"><div class="info-item-1">Markdown 字体样式与颜色指南🎨 简介 📖在 Markdown 中，虽然原生语法不支持直接设置字体样式、大小和颜色，但我们可以通过 HTML 标签来实现这些效果。本指南将详细介绍如何在 Markdown 中使用各种字体样式。  字体样式示例 🎯1. 黑体 (Heiti)1&lt;font color=#00ffff size=4 face=&quot;黑体&quot;&gt;我是黑体字&lt;/font&gt; 我是黑体字  2. 微软雅黑 (Microsoft YaHei)1&lt;font color=#00ffff size=4 face=&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;/font&gt; 我是微软雅黑  3. 华文彩云 (STCAIYUN)1&lt;font color=#00ffff size=4 face=&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;/font&gt; 我是华文彩云  4. 华文行楷 (STXingkai)1&lt;font color=#00ffff size=4...</div></div></div></a><a class="pagination-related" href="/posts/ae005660.html" title="Markdown 嵌入视频"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2361" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 嵌入视频</div></div><div class="info-2"><div class="info-item-1">Markdown 嵌入视频 Markdown 嵌入视频链接1&lt;video src=&quot;https://blog.mobufan.eu.org:666/video/和风天气时钟插件安装.mp4&quot; controls=&quot;controls&quot; width=&quot;650&quot; height=&quot;300&quot;&gt;&lt;/video&gt;      Markdown 嵌入哔哩哔哩视频获得哔哩哔哩视频嵌入代码方法 哔哩哔哩点击分享按钮，点击嵌入代码，会自动复制内容 哔哩哔哩视频嵌入完整代码如下：  &lt;iframe src=&quot;//player.bilibili.com/player.html?isOutside=true&amp;aid=327623069&amp;bvid=BV1JA411h7Gw&amp;cid=171385214&amp;p=1&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot;...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VSCode-Markdown-%E7%BC%96%E8%BE%91%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8-%E2%9A%A1"><span class="toc-text">VSCode Markdown 编辑快捷键大全 ⚡</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E7%89%B9%E7%82%B9%E5%92%8C%E5%8A%9F%E8%83%BD"><span class="toc-text">✨ 特点和功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%88%AA"><span class="toc-text">📖 目录导航</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%8C%A8%EF%B8%8F-%E5%9F%BA%E7%A1%80%E7%BC%96%E8%BE%91%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">⌨️ 基础编辑快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%9D-%E6%96%87%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">📝 文本操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%91-%E9%80%89%E6%8B%A9%E6%93%8D%E4%BD%9C"><span class="toc-text">📑 选择操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-Markdown%E4%B8%93%E5%B1%9E%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">📝 Markdown专属快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A8-%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">🎨 文本格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8B-%E5%88%97%E8%A1%A8%E4%B8%8E%E7%BB%93%E6%9E%84"><span class="toc-text">📋 列表与结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%97-%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%AA%92%E4%BD%93"><span class="toc-text">🔗 链接与媒体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E5%AF%BC%E8%88%AA%E4%B8%8E%E6%90%9C%E7%B4%A2"><span class="toc-text">🔍 导航与搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%AD-%E6%96%87%E4%BB%B6%E5%AF%BC%E8%88%AA"><span class="toc-text">🧭 文件导航</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8E-%E6%90%9C%E7%B4%A2%E6%9B%BF%E6%8D%A2"><span class="toc-text">🔎 搜索替换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%B8%83%E5%B1%80"><span class="toc-text">📊 视图与布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8F-%E7%95%8C%E9%9D%A2%E6%8E%A7%E5%88%B6"><span class="toc-text">🖥️ 界面控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%9B%EF%B8%8F-%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86"><span class="toc-text">🎛️ 窗口管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E9%AB%98%E7%BA%A7%E7%BC%96%E8%BE%91%E6%8A%80%E5%B7%A7"><span class="toc-text">🎯 高级编辑技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%A8-%E5%A4%9A%E5%85%89%E6%A0%87%E6%93%8D%E4%BD%9C"><span class="toc-text">✨ 多光标操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5"><span class="toc-text">🔄 代码片段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87%E6%8A%80%E5%B7%A7"><span class="toc-text">⚡ 效率提升技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E5%AE%9E%E7%94%A8%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">🚀 实用工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8B-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">📋 常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="toc-text">🔧 自定义配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E6%8E%A8%E8%8D%90%E8%AE%BE%E7%BD%AE"><span class="toc-text">⚙️ 推荐设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A9-%E6%8E%A8%E8%8D%90%E6%89%A9%E5%B1%95"><span class="toc-text">🧩 推荐扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A8-%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90"><span class="toc-text">🎨 主题推荐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%8C%A8%EF%B8%8F-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">⌨️ 自定义快捷键</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

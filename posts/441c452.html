@@ -1,0 +1,1072 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Ubuntu 国内镜像源配置指南 🚀 | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Ubuntu 国内镜像源配置指南 🚀 🔄 提升您的Ubuntu软件下载速度，享受更流畅的更新体验！  📋 目录 🌟 简介 📦 国内镜像源选择 🔄 应用配置并更新 🛠️ 手动编辑源文件 📋 各版本代号对应表 🔍 验证源配置 ⚠️ 注意事项 🚨 故障排除 💡 额外提示 📊 镜像源速度比较    🌟 简介本指南将帮助您将 Ubuntu 的软件源更换为国内镜像源，显著提升软件下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 国内镜像源配置指南 🚀">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/441c452.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="Ubuntu 国内镜像源配置指南 🚀 🔄 提升您的Ubuntu软件下载速度，享受更流畅的更新体验！  📋 目录 🌟 简介 📦 国内镜像源选择 🔄 应用配置并更新 🛠️ 手动编辑源文件 📋 各版本代号对应表 🔍 验证源配置 ⚠️ 注意事项 🚨 故障排除 💡 额外提示 📊 镜像源速度比较    🌟 简介本指南将帮助您将 Ubuntu 的软件源更换为国内镜像源，显著提升软件下载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?9276">
+<meta property="article:published_time" content="2025-09-12T10:52:20.000Z">
+<meta property="article:modified_time" content="2025-09-12T10:52:20.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="换国内源">
+<meta property="article:tag" content="ubuntu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?9276"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Ubuntu 国内镜像源配置指南 🚀",
+  "url": "https://www.meimolihan.eu.org/posts/441c452.html",
+  "image": "https://api.mobufan.eu.org:666/pc?9276",
+  "datePublished": "2025-09-12T10:52:20.000Z",
+  "dateModified": "2025-09-12T10:52:20.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/441c452.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ubuntu 国内镜像源配置指南 🚀',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">284</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?9276);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">Ubuntu 国内镜像源配置指南 🚀</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Ubuntu 国内镜像源配置指南 🚀</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T10:52:20.000Z" title="发表于 2025-09-12 18:52:20">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T10:52:20.000Z" title="更新于 2025-09-12 18:52:20">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 18:52:20&quot;}" hidden></div><h1 id="Ubuntu-国内镜像源配置指南-🚀"><a href="#Ubuntu-国内镜像源配置指南-🚀" class="headerlink" title="Ubuntu 国内镜像源配置指南 🚀"></a>Ubuntu 国内镜像源配置指南 🚀</h1><p><img src="https://file.meimolihan.eu.org/img/ubuntu-01.webp" alt="Ubuntu Sources"></p>
+<p>🔄 提升您的Ubuntu软件下载速度，享受更流畅的更新体验！</p>
+<hr>
+<h2 id="📋-目录"><a href="#📋-目录" class="headerlink" title="📋 目录"></a>📋 目录</h2><ul>
+<li><a href="#intro">🌟 简介</a></li>
+<li><a href="#mirrors">📦 国内镜像源选择</a></li>
+<li><a href="#apply">🔄 应用配置并更新</a></li>
+<li><a href="#manual">🛠️ 手动编辑源文件</a></li>
+<li><a href="#versions">📋 各版本代号对应表</a></li>
+<li><a href="#verify">🔍 验证源配置</a></li>
+<li><a href="#notes">⚠️ 注意事项</a></li>
+<li><a href="#troubleshooting">🚨 故障排除</a></li>
+<li><a href="#tips">💡 额外提示</a></li>
+<li><a href="#speedtest">📊 镜像源速度比较</a></li>
+</ul>
+<hr>
+<p><a id="intro"></a></p>
+<h2 id="🌟-简介"><a href="#🌟-简介" class="headerlink" title="🌟 简介"></a>🌟 简介</h2><p>本指南将帮助您将 Ubuntu 的软件源更换为国内镜像源，显著提升软件下载和更新速度。国内镜像源可以为您提供：</p>
+<ul>
+<li>⚡ <strong>更快的下载速度</strong> - 减少国际带宽限制带来的延迟</li>
+<li>🔒 <strong>更稳定的连接</strong> - 避免国外源连接不稳定的问题</li>
+<li>📦 <strong>完整的镜像</strong> - 包含所有官方软件包，与官方源同步更新</li>
+<li>🌐 <strong>本地化支持</strong> - 部分源提供本地化文档和帮助</li>
+</ul>
+<blockquote>
+<p>💡 <strong>首先备份配置文件</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="mirrors"></a></p>
+<h2 id="📦-国内镜像源选择"><a href="#📦-国内镜像源选择" class="headerlink" title="📦 国内镜像源选择"></a>📦 国内镜像源选择</h2><h3 id="1-阿里云镜像源-🇨🇳"><a href="#1-阿里云镜像源-🇨🇳" class="headerlink" title="1. 阿里云镜像源 🇨🇳"></a>1. 阿里云镜像源 🇨🇳</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/ubuntu.sources &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">Types: deb</span><br><span class="line">URIs: https://mirrors.aliyun.com/ubuntu/</span><br><span class="line">Suites: noble noble-updates noble-security</span><br><span class="line">Components: main restricted universe multiverse</span><br><span class="line">Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：覆盖全国多线路，速度稳定，更新及时</p>
+<h3 id="2-清华大学镜像源-🎓"><a href="#2-清华大学镜像源-🎓" class="headerlink" title="2. 清华大学镜像源 🎓"></a>2. 清华大学镜像源 🎓</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/ubuntu.sources &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">Types: deb</span><br><span class="line">URIs: https://mirrors.tuna.tsinghua.edu.cn/ubuntu/</span><br><span class="line">Suites: noble noble-updates noble-security</span><br><span class="line">Components: main restricted universe multiverse</span><br><span class="line">Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：教育网优势明显，更新频率高，文档齐全</p>
+<h3 id="3-中科大镜像源-🔬"><a href="#3-中科大镜像源-🔬" class="headerlink" title="3. 中科大镜像源 🔬"></a>3. 中科大镜像源 🔬</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/ubuntu.sources &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">Types: deb</span><br><span class="line">URIs: https://mirrors.ustc.edu.cn/ubuntu/</span><br><span class="line">Suites: noble noble-updates noble-security</span><br><span class="line">Components: main restricted universe multiverse</span><br><span class="line">Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：科研机构维护，稳定性好，技术支持强</p>
+<h3 id="4-网易163镜像源-🦌"><a href="#4-网易163镜像源-🦌" class="headerlink" title="4. 网易163镜像源 🦌"></a>4. 网易163镜像源 🦌</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/ubuntu.sources &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">Types: deb</span><br><span class="line">URIs: https://mirrors.163.com/ubuntu/</span><br><span class="line">Suites: noble noble-updates noble-security</span><br><span class="line">Components: main restricted universe multiverse</span><br><span class="line">Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：商业公司维护，带宽充足，全国覆盖好</p>
+<h3 id="5-华为云镜像源-☁️"><a href="#5-华为云镜像源-☁️" class="headerlink" title="5. 华为云镜像源 ☁️"></a>5. 华为云镜像源 ☁️</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/ubuntu.sources &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">Types: deb</span><br><span class="line">URIs: https://mirrors.huaweicloud.com/ubuntu/</span><br><span class="line">Suites: noble noble-updates noble-security</span><br><span class="line">Components: main restricted universe multiverse</span><br><span class="line">Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：云服务商提供，与云服务集成好，企业级支持</p>
+<hr>
+<p><a id="apply"></a></p>
+<h2 id="🔄-应用配置并更新"><a href="#🔄-应用配置并更新" class="headerlink" title="🔄 应用配置并更新"></a>🔄 应用配置并更新</h2><p>选择任一源配置后，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新软件源列表</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升级已安装的软件包</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get upgrade -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：完整系统升级</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get dist-upgrade -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理无用的软件包</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get autoremove -y</span><br><span class="line"><span class="built_in">sudo</span> apt-get autoclean -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证系统状态</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get check</span><br></pre></td></tr></table></figure>
+<p><strong>更新过程说明</strong>：</p>
+<ul>
+<li>🔄 <code>apt-get update</code> - 刷新软件包列表</li>
+<li>📈 <code>apt-get upgrade</code> - 升级已安装的包</li>
+<li>🚀 <code>apt-get dist-upgrade</code> - 智能处理依赖关系的升级</li>
+<li>🧹 <code>autoremove</code> 和 <code>autoclean</code> - 清理不需要的包和缓存</li>
+</ul>
+<hr>
+<p><a id="manual"></a></p>
+<h2 id="🛠️-手动编辑源文件"><a href="#🛠️-手动编辑源文件" class="headerlink" title="🛠️ 手动编辑源文件"></a>🛠️ 手动编辑源文件</h2><p>如果您更喜欢手动编辑或需要自定义配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 nano 编辑</span></span><br><span class="line"><span class="built_in">sudo</span> nano /etc/apt/sources.list.d/ubuntu.sources</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用 vim</span></span><br><span class="line"><span class="built_in">sudo</span> vim /etc/apt/sources.list.d/ubuntu.sources</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用 gedit (GUI)</span></span><br><span class="line"><span class="built_in">sudo</span> gedit /etc/apt/sources.list.d/ubuntu.sources</span><br></pre></td></tr></table></figure>
+<p>在文本编辑器中粘贴您选择的源配置，然后保存退出。</p>
+<p><strong>文件格式说明</strong>：</p>
+<ul>
+<li><code>Types: deb</code> - 包类型（deb为二进制包）</li>
+<li><code>URIs</code> - 镜像源地址</li>
+<li><code>Suites</code> - Ubuntu版本代号和更新类型</li>
+<li><code>Components</code> - 软件包分类</li>
+<li><code>Signed-By</code> - GPG密钥路径</li>
+</ul>
+<hr>
+<p><a id="versions"></a></p>
+<h2 id="📋-各版本代号对应表"><a href="#📋-各版本代号对应表" class="headerlink" title="📋 各版本代号对应表"></a>📋 各版本代号对应表</h2><p>如果您的 Ubuntu 版本不是 Noble（24.04），请相应调整 <code>Suites</code> 字段：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Ubuntu 版本</th>
+<th>版本代号</th>
+<th>LTS 支持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>24.04 LTS</td>
+<td>noble</td>
+<td>✅ 是</td>
+</tr>
+<tr>
+<td>22.04 LTS</td>
+<td>jammy</td>
+<td>✅ 是</td>
+</tr>
+<tr>
+<td>20.04 LTS</td>
+<td>focal</td>
+<td>✅ 是</td>
+</tr>
+<tr>
+<td>18.04 LTS</td>
+<td>bionic</td>
+<td>✅ 是</td>
+</tr>
+<tr>
+<td>16.04 LTS</td>
+<td>xenial</td>
+<td>❌ 已结束</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>例如，对于 Ubuntu 22.04 (Jammy Jellyfish)：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/ubuntu.sources &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">Types: deb</span><br><span class="line">URIs: https://mirrors.aliyun.com/ubuntu/</span><br><span class="line">Suites: jammy jammy-updates jammy-security</span><br><span class="line">Components: main restricted universe multiverse</span><br><span class="line">Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>版本说明</strong>：</p>
+<ul>
+<li><code>[版本代号]</code> - 基础版本</li>
+<li><code>[版本代号]-updates</code> - 常规更新</li>
+<li><code>[版本代号]-security</code> - 安全更新</li>
+<li><code>[版本代号]-backports</code> - 向后移植的新功能</li>
+</ul>
+<hr>
+<p><a id="verify"></a></p>
+<h2 id="🔍-验证源配置"><a href="#🔍-验证源配置" class="headerlink" title="🔍 验证源配置"></a>🔍 验证源配置</h2><h3 id="检查当前配置"><a href="#检查当前配置" class="headerlink" title="检查当前配置"></a>检查当前配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前源配置</span></span><br><span class="line"><span class="built_in">cat</span> /etc/apt/sources.list.d/ubuntu.sources</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查更新是否正常</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看可升级的包</span></span><br><span class="line">apt list --upgradable</span><br></pre></td></tr></table></figure>
+<h3 id="测试下载速度"><a href="#测试下载速度" class="headerlink" title="测试下载速度"></a>测试下载速度</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试镜像源速度（安装 speedtest-cli 后）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install speedtest-cli</span><br><span class="line">speedtest-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 curl 测试下载速度</span></span><br><span class="line"><span class="keyword">time</span> curl -O https://mirrors.aliyun.com/ubuntu/ubuntu/indices/Release</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试特定镜像的响应时间</span></span><br><span class="line">curl -s -w <span class="string">&quot;HTTP响应: %&#123;http_code&#125;\n总时间: %&#123;time_total&#125;s\n&quot;</span> -o /dev/null https://mirrors.aliyun.com/ubuntu/</span><br></pre></td></tr></table></figure>
+<h3 id="验证软件包完整性"><a href="#验证软件包完整性" class="headerlink" title="验证软件包完整性"></a>验证软件包完整性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 debian-goodies 以使用 checkrestart 工具</span></span><br><span class="line"><span class="built_in">sudo</span> apt install debian-goodies</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查需要重启的服务</span></span><br><span class="line"><span class="built_in">sudo</span> checkrestart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证已安装的软件包</span></span><br><span class="line">dpkg -l | grep ^ii | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="notes"></a></p>
+<h2 id="⚠️-注意事项"><a href="#⚠️-注意事项" class="headerlink" title="⚠️ 注意事项"></a>⚠️ 注意事项</h2><ol>
+<li><strong>选择最近的镜像</strong>：根据您的地理位置选择最近的镜像源以获得最佳速度</li>
+<li><strong>版本匹配</strong>：确保 <code>Suites</code> 中的版本代号与您的 Ubuntu 版本一致</li>
+<li><strong>HTTPS 支持</strong>：推荐使用 HTTPS 源，更安全</li>
+<li><strong>定期更新</strong>：建议定期更新软件包以获取安全补丁和新功能</li>
+<li><strong>源优先级</strong>：不要同时启用多个源，可能导致依赖冲突</li>
+<li><strong>企业环境</strong>：在企业环境中，考虑搭建本地镜像源</li>
+<li><strong>备份配置</strong>：修改前始终备份原始配置，便于恢复</li>
+</ol>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🚨-故障排除"><a href="#🚨-故障排除" class="headerlink" title="🚨 故障排除"></a>🚨 故障排除</h2><h3 id="如果遇到-GPG-密钥错误"><a href="#如果遇到-GPG-密钥错误" class="headerlink" title="如果遇到 GPG 密钥错误"></a>如果遇到 GPG 密钥错误</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新密钥</span></span><br><span class="line"><span class="built_in">sudo</span> apt-key update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者重新导入 Ubuntu 密钥</span></span><br><span class="line"><span class="built_in">sudo</span> apt install ubuntu-keyring</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者手动下载密钥</span></span><br><span class="line"><span class="built_in">sudo</span> gpg --keyserver keyserver.ubuntu.com --recv-keys [密钥ID]</span><br><span class="line"><span class="built_in">sudo</span> gpg --<span class="built_in">export</span> --armor [密钥ID] | <span class="built_in">sudo</span> apt-key add -</span><br></pre></td></tr></table></figure>
+<h3 id="如果源不可用"><a href="#如果源不可用" class="headerlink" title="如果源不可用"></a>如果源不可用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 暂时恢复官方源测试</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/apt/sources.list.d/ubuntu.sources.bak /etc/apt/sources.list.d/ubuntu.sources</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者尝试其他镜像源</span></span><br></pre></td></tr></table></figure>
+<h3 id="清除-apt-缓存"><a href="#清除-apt-缓存" class="headerlink" title="清除 apt 缓存"></a>清除 apt 缓存</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清除缓存并重新更新</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /var/lib/apt/lists/*</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /var/lib/apt/lists/partial</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除部分下载的包</span></span><br><span class="line"><span class="built_in">sudo</span> apt clean</span><br></pre></td></tr></table></figure>
+<h3 id="修复损坏的包"><a href="#修复损坏的包" class="headerlink" title="修复损坏的包"></a>修复损坏的包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修复损坏的依赖关系</span></span><br><span class="line"><span class="built_in">sudo</span> apt --fix-broken install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新配置包</span></span><br><span class="line"><span class="built_in">sudo</span> dpkg --configure -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查包管理器状态</span></span><br><span class="line"><span class="built_in">sudo</span> apt check</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="tips"></a></p>
+<h2 id="💡-额外提示"><a href="#💡-额外提示" class="headerlink" title="💡 额外提示"></a>💡 额外提示</h2><h3 id="使用地理最近的镜像"><a href="#使用地理最近的镜像" class="headerlink" title="使用地理最近的镜像"></a>使用地理最近的镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自动选择最佳镜像（需要安装 netselect-apt）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install netselect-apt</span><br><span class="line"><span class="built_in">sudo</span> netselect-apt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用 mirrors命令（需要先安装）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install mirrors</span><br><span class="line"><span class="built_in">sudo</span> mirrors</span><br></pre></td></tr></table></figure>
+<h3 id="添加第三方-PPA-源"><a href="#添加第三方-PPA-源" class="headerlink" title="添加第三方 PPA 源"></a>添加第三方 PPA 源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例：添加 PHP PPA</span></span><br><span class="line"><span class="built_in">sudo</span> add-apt-repository ppa:ondrej/php</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已添加的 PPA</span></span><br><span class="line"><span class="built_in">ls</span> /etc/apt/sources.list.d/</span><br></pre></td></tr></table></figure>
+<h3 id="查看当前下载速度"><a href="#查看当前下载速度" class="headerlink" title="查看当前下载速度"></a>查看当前下载速度</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 apt 速度显示插件</span></span><br><span class="line"><span class="built_in">sudo</span> apt install apt-transport-https</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 apt 下载统计</span></span><br><span class="line"><span class="built_in">sudo</span> apt install apt-listbugs</span><br></pre></td></tr></table></figure>
+<h3 id="设置-apt-代理"><a href="#设置-apt-代理" class="headerlink" title="设置 apt 代理"></a>设置 apt 代理</h3><p>如果您的网络需要通过代理访问，可以配置 apt 使用代理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 apt 代理配置文件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;Acquire::http::Proxy &quot;http://proxy-ip:proxy-port&quot;;&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/apt.conf.d/80proxy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果需要认证</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;Acquire::http::Proxy &quot;http://username:password@proxy-ip:proxy-port&quot;;&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/apt.conf.d/80proxy</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="speedtest"></a></p>
+<h2 id="📊-镜像源速度比较"><a href="#📊-镜像源速度比较" class="headerlink" title="📊 镜像源速度比较"></a>📊 镜像源速度比较</h2><p>您可以通过以下命令测试各个镜像源的速度：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建测试脚本</span></span><br><span class="line"><span class="built_in">cat</span> &gt; test_mirrors.sh &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">MIRRORS=(</span><br><span class="line">    <span class="string">&quot;阿里云&quot;</span> <span class="string">&quot;https://mirrors.aliyun.com/ubuntu/dists/noble/Release&quot;</span></span><br><span class="line">    <span class="string">&quot;清华大学&quot;</span> <span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/ubuntu/dists/noble/Release&quot;</span></span><br><span class="line">    <span class="string">&quot;中科大&quot;</span> <span class="string">&quot;https://mirrors.ustc.edu.cn/ubuntu/dists/noble/Release&quot;</span></span><br><span class="line">    <span class="string">&quot;网易&quot;</span> <span class="string">&quot;https://mirrors.163.com/ubuntu/dists/noble/Release&quot;</span></span><br><span class="line">    <span class="string">&quot;华为云&quot;</span> <span class="string">&quot;https://mirrors.huaweicloud.com/ubuntu/dists/noble/Release&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ((i=<span class="number">0</span>; i&lt;<span class="variable">$&#123;#MIRRORS[@]&#125;</span>; i+=<span class="number">2</span>)); <span class="keyword">do</span></span><br><span class="line">    name=<span class="variable">$&#123;MIRRORS[i]&#125;</span></span><br><span class="line">    url=<span class="variable">$&#123;MIRRORS[i+1]&#125;</span></span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">&quot;测试 <span class="variable">$name</span> ... &quot;</span></span><br><span class="line">    speed=$(curl -o /dev/null -s -w <span class="string">&quot;%&#123;time_total&#125;s\n&quot;</span> <span class="variable">$url</span>)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$speed</span> 秒&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行测试</span></span><br><span class="line"><span class="built_in">chmod</span> +x test_mirrors.sh</span><br><span class="line">./test_mirrors.sh</span><br></pre></td></tr></table></figure>
+<p>选择响应时间最短的镜像源。</p>
+<hr>
+<h2 id="🎯-总结"><a href="#🎯-总结" class="headerlink" title="🎯 总结"></a>🎯 总结</h2><p>通过以上步骤，您应该能够成功将 Ubuntu 的软件源更换为国内镜像源，享受更快的下载速度。如果您遇到任何问题，可以随时恢复备份的配置文件。</p>
+<p><strong>最佳实践建议</strong>：</p>
+<ol>
+<li>✅ 定期更新系统：<code>sudo apt update &amp;&amp; sudo apt upgrade</code></li>
+<li>✅ 选择地理最近的镜像源</li>
+<li>✅ 保持备份习惯，修改前备份配置文件</li>
+<li>✅ 定期检查源状态，确保镜像源仍然可用</li>
+<li>✅ 关注安全更新，及时应用安全补丁</li>
+</ol>
+<p>享受您更快速的 Ubuntu 体验！🚀</p>
+<hr>
+<h2 id="📚-扩展阅读"><a href="#📚-扩展阅读" class="headerlink" title="📚 扩展阅读"></a>📚 扩展阅读</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://launchpad.net/ubuntu/+archivemirrors">Ubuntu 官方镜像列表</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.ubuntu.com/community/AptGet/Howto">APT 使用指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://ubuntu.com/about/release-cycle">Ubuntu 版本生命周期</a></li>
+</ul>
+<h2 id="❓-常见问题"><a href="#❓-常见问题" class="headerlink" title="❓ 常见问题"></a>❓ 常见问题</h2><p><strong>Q: 更换源后出现依赖错误怎么办？</strong><br>A: 尝试运行 <code>sudo apt --fix-broken install</code> 或换回官方源更新后再切换。</p>
+<p><strong>Q: 如何知道哪个源最快？</strong><br>A: 使用上面提供的测试脚本或使用 <code>netselect-apt</code> 工具自动选择。</p>
+<p><strong>Q: 企业环境如何配置？</strong><br>A: 考虑搭建本地镜像服务器，使用 apt-mirror 或 aptly 工具。</p>
+<p><strong>Q: 为什么有时候更新还是很慢？</strong><br>A: 可能是网络问题或镜像源正在同步，尝试更换其他镜像源。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/">换国内源</a><a class="post-meta__tags" href="/tags/ubuntu/">ubuntu</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?9276" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/3b57c68e.html" title="Proxmox VE 合并 local 和 local-lvm 存储空间 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2787" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Proxmox VE 合并 local 和 local-lvm 存储空间 🐧</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 合并 local 和 local-lvm 存储空间 🐧  本指南详细介绍如何在 Proxmox VE (PVE) 中将 local-lvm 存储空间合并到 local 存储中，以简化存储管理并增加根分区容量。适用于家庭实验室和小型部署环境。   📋 目录导航 ✨ 特点速览   📖 一、背景介绍 🔍 二、查看当前存储结构 ⚠️ 三、重要准备工作 🔧 四、合并操作步骤 💡 五、LVM-thin 技术说明 🛠️ 六、后续配置建议 🚨 七、注意事项与常见问题 📊 八、存储方案对比 🔄 九、恢复方案    ✨ 特点速览 ✅ 简化管理：将两个存储池合并为一个，减少管理复杂度 ✅ 空间最大化：充分利用磁盘空间，避免固定分配带来的浪费 ✅ 操作指南：提供从准备到完成的完整步骤 ✅ 风险提示：包含重要注意事项和恢复方案 ✅ 性能对比：帮助您选择最适合的存储方案    📖 一、背景介绍PVE 默认安装会创建两个存储：  🗂️ local：目录类型存储，用于存放 ISO 镜像、备份文件等 💾 local-lvm：LVM-thin...</div></div></div></a><a class="pagination-related" href="/posts/af4dfd37.html" title="群晖第三方套件源大全 🗃️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4711" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">群晖第三方套件源大全 🗃️</div></div><div class="info-2"><div class="info-item-1">群晖第三方套件源大全 🗃️ 🔄 扩展您的群晖NAS功能，获取丰富第三方应用！第三方套件源为您打开一扇新世界的大门，让您的群晖NAS发挥更大潜力。  ✨ 特点与功能 🎯 丰富应用生态 - 提供官方商店之外的海量应用选择 ⚡ 快速获取更新 - 第一时间获取最新版本的应用软件 🔓 解锁高级功能 - 访问那些官方商店未提供的特色应用 🌍 全球资源整合 - 汇集世界各地开发者制作的优秀套件 🆓 完全免费使用 - 大多数第三方套件源都是免费提供的   📋 目录 🎯 套件源简介 🌟 推荐源列表 🔧 添加方法 ⚠️ 注意事项 💡 使用技巧 📦 热门推荐套件    🎯 套件源简介第三方套件源为群晖DSM系统提供了官方商店之外的大量实用应用程序，涵盖下载工具、媒体服务器、备份工具、开发工具等多个类别。🌐 这些源由全球开发者社区维护，为您提供：  🆕 最新应用版本 - 比官方源更早获得更新 🛠️ 专业工具 - 开发、运维等专业领域工具 🎮 娱乐应用 - 各种媒体和游戏服务器 🔐 安全工具 - 网络安全和隐私保护应用    🌟 推荐源列表🥇...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/d802418b.html" title="Proxmox VE 国内镜像源配置指南 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9888" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Proxmox VE 国内镜像源配置指南 🚀</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 国内镜像源配置指南 🚀  ✨ 为Proxmox VE (PVE) 更换国内镜像源可以大幅提升软件包下载速度，减少更新等待时间，提高系统维护效率。本指南提供多个国内主流镜像源的配置方法。   📋 导航目录 ✨ 特性与优势 🔧 准备工作 📦 更换软件源 🏢 企业源配置 🔓 无订阅源配置 🌊 Ceph源配置 📦 LXC容器源 🚫 去除订阅提示 🔄 更新与重启 ⚠️ 注意事项    ✨ 特性与优势 ⚡ 极速下载：国内镜像源提供更快的下载速度 🌐 稳定连接：避免国际网络波动导致的连接问题 🔒 安全可靠：官方镜像同步，保证软件包安全性 🆓 免费使用：无需订阅即可享受企业级功能 🛠️ 多源选择：提供多个主流镜像源供选择    🔧 准备工作 📝 在开始前，请务必备份原始配置文件  123456# 备份原始软件源配置cp /etc/apt/sources.list /etc/apt/sources.list.backupcp /etc/apt/sources.list.d/*.list...</div></div></div></a><a class="pagination-related" href="/posts/4f853905.html" title="Alpine 国内镜像源配置指南 🏔️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2873" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Alpine 国内镜像源配置指南 🏔️</div></div><div class="info-2"><div class="info-item-1">Alpine 国内镜像源配置指南 🏔️  🚀 为Alpine Linux更换国内镜像源可以显著提升软件包下载速度，加速系统更新和软件安装过程，特别适合国内用户使用。   ✨ Alpine Linux 特点 🐧 轻量级：基础镜像仅5MB左右，极其精简 🔒 安全性：采用musl libc和BusyBox， attack surface小 📦 简单包管理：apk包管理器简单易用，依赖处理优秀 🏗️ 模块化设计：可根据需要定制最小化系统 🔧 适合容器：广泛用于Docker基础镜像   📋 导航目录 ✨ Alpine Linux 特点 🔧 准备工作 🔄 镜像源配置 🔍 验证配置 ⚙️ 高级配置 ⚠️ 注意事项    ✨ Alpine Linux 特点Alpine Linux是一款面向安全应用的轻量级Linux发行版，具有以下特点：  🛡️ 安全导向：所有用户态二进制文件都编译为位置无关可执行文件(PIE)并堆栈保护 🏗️ 基于musl libc：使用musl libc和BusyBox替代GNU核心工具 📦...</div></div></div></a><a class="pagination-related" href="/posts/b8c33b29.html" title="Proxmox VE 虚拟机安装 qemu-guest-agent 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7637" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Proxmox VE 虚拟机安装 qemu-guest-agent 🚀</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 虚拟机安装 qemu-guest-agent 🚀 🔧 提升虚拟机管理效率 — 通过 qemu-guest-agent 实现主机与虚拟机之间的高效通信与集成  📋 文章目录 🌟 qemu-guest-agent 简介 ⚙️ 一、Proxmox VE 后台配置 1. 启用虚拟机代理 2. 配置注意事项   🐧 二、Linux 系统安装指南 1. Debian/Ubuntu 系统 2. CentOS/RHEL 系统 3. OpenSUSE 系统   🔗 三、OpenWRT/iStoreOS 安装 1. 安装步骤 2. 服务配置   🖥️ 四、Windows 系统安装 1. 驱动下载 2. 安装方法   ✅ 五、验证与测试 1. 基础验证 2. 高级测试   🔧 六、高级配置与优化 1. 自定义配置 2. 性能优化   ❌ 七、故障排除 1. 常见问题 2. 解决方案   💡 八、最佳实践 1. 安全建议 2. 维护技巧      🌟 qemu-guest-agent 简介qemu-guest-agent (QGA)...</div></div></div></a><a class="pagination-related" href="/posts/9b7731f4.html" title="Docker 部署 Webtop-Ubuntu 桌面环境 🖥️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3122" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Webtop-Ubuntu 桌面环境 🖥️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Webtop-Ubuntu 桌面环境 🖥️  📋 目录导航 🎯 项目简介 ✨ 核心特性 🐳 一、Docker 部署 Webtop-Ubuntu 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Webtop-Ubuntu 1. 访问 Web 界面 💻 2. 初始配置步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航远程桌面，探索无限可能     🎯 项目简介 🌐 Webtop 官网地址：https://docs.linuxserver.io/images/docker-webtop 🐱 GitHub 项目地址：https://github.com/linuxserver/docker-webtop 🐋 Docker...</div></div></div></a><a class="pagination-related" href="/posts/7007c888.html" title="Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3033" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐</div></div><div class="info-2"><div class="info-item-1">Debian/PVE/Ubuntu/FnOS 配置 SSH 服务🔐  SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   📋 目录导航 📖 简介 🛠️ 一、SSH 服务安装与基本配置 ⚙️ 二、SSH 服务优化配置 客户端连接 SSH 🔒 四、高级安全配置 🔥 五、防火墙配置 🔍 六、故障排除与监控 🚀 七、性能优化 💾 八、备份与恢复 🔎 九、安全审计脚本 🐛 十、常见问题解决 📋 十一、最佳实践总结    📖 简介SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   🛠️ 一、SSH 服务安装与基本配置1. 📦 安装 SSH 服务器并启用服务1234567891011# 更新软件包列表并安装 SSH 服务器sudo apt-get update...</div></div></div></a><a class="pagination-related" href="/posts/be3bdcbc.html" title="Debian&#x2F;Ubuntu 手动配置 Samba 共享 📁"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2453" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Debian&#x2F;Ubuntu 手动配置 Samba 共享 📁</div></div><div class="info-2"><div class="info-item-1">Debian/Ubuntu 手动配置 Samba 共享 📁  目录 📚 ✨ Samba 简介与优势 🚀 一、Samba 基础配置 🖥️ 二、Debian 作为 Samba 服务端配置 💻 三、Debian 作为 Samba 客户端配置 🔍 四、Samba 服务验证和测试 🔧 五、Samba 服务管理 🐛 六、故障排除和调试 ⚙️ 七、高级配置选项 🔒 八、安全加固建议 🚀 九、性能优化建议 💾 十、备份和恢复 📊 总结    ✨ Samba 简介与优势Samba 是一个开源的软件套件，提供了在 Linux/Unix 系统上与 Windows 系统进行文件和打印机共享的服务。在 Debian 系统上配置 Samba 可以让您轻松实现跨平台文件共享，特别适合在混合操作系统环境中使用。 主要优势：  🌐 跨平台兼容：完美支持 Linux 与 Windows 系统间的文件共享 🔒 安全认证：支持用户认证和权限控制，保障数据安全 👥 多用户支持：支持多个用户和组权限管理 📊 高性能传输：提供高效稳定的文件传输服务 🛡️ 协议兼容：完全兼容...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu-%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97-%F0%9F%9A%80"><span class="toc-text">Ubuntu 国内镜像源配置指南 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E7%9B%AE%E5%BD%95"><span class="toc-text">📋 目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E7%AE%80%E4%BB%8B"><span class="toc-text">🌟 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90%E9%80%89%E6%8B%A9"><span class="toc-text">📦 国内镜像源选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%98%BF%E9%87%8C%E4%BA%91%E9%95%9C%E5%83%8F%E6%BA%90-%F0%9F%87%A8%F0%9F%87%B3"><span class="toc-text">1. 阿里云镜像源 🇨🇳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E9%95%9C%E5%83%8F%E6%BA%90-%F0%9F%8E%93"><span class="toc-text">2. 清华大学镜像源 🎓</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%AD%E7%A7%91%E5%A4%A7%E9%95%9C%E5%83%8F%E6%BA%90-%F0%9F%94%AC"><span class="toc-text">3. 中科大镜像源 🔬</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BD%91%E6%98%93163%E9%95%9C%E5%83%8F%E6%BA%90-%F0%9F%A6%8C"><span class="toc-text">4. 网易163镜像源 🦌</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%95%9C%E5%83%8F%E6%BA%90-%E2%98%81%EF%B8%8F"><span class="toc-text">5. 华为云镜像源 ☁️</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B9%B6%E6%9B%B4%E6%96%B0"><span class="toc-text">🔄 应用配置并更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E6%89%8B%E5%8A%A8%E7%BC%96%E8%BE%91%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-text">🛠️ 手动编辑源文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E5%90%84%E7%89%88%E6%9C%AC%E4%BB%A3%E5%8F%B7%E5%AF%B9%E5%BA%94%E8%A1%A8"><span class="toc-text">📋 各版本代号对应表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E9%AA%8C%E8%AF%81%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-text">🔍 验证源配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE"><span class="toc-text">检查当前配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6"><span class="toc-text">测试下载速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="toc-text">验证软件包完整性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">⚠️ 注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%A8-%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">🚨 故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E9%81%87%E5%88%B0-GPG-%E5%AF%86%E9%92%A5%E9%94%99%E8%AF%AF"><span class="toc-text">如果遇到 GPG 密钥错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E6%BA%90%E4%B8%8D%E5%8F%AF%E7%94%A8"><span class="toc-text">如果源不可用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%85%E9%99%A4-apt-%E7%BC%93%E5%AD%98"><span class="toc-text">清除 apt 缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E6%8D%9F%E5%9D%8F%E7%9A%84%E5%8C%85"><span class="toc-text">修复损坏的包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E9%A2%9D%E5%A4%96%E6%8F%90%E7%A4%BA"><span class="toc-text">💡 额外提示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%B0%E7%90%86%E6%9C%80%E8%BF%91%E7%9A%84%E9%95%9C%E5%83%8F"><span class="toc-text">使用地理最近的镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%AC%AC%E4%B8%89%E6%96%B9-PPA-%E6%BA%90"><span class="toc-text">添加第三方 PPA 源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6"><span class="toc-text">查看当前下载速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-apt-%E4%BB%A3%E7%90%86"><span class="toc-text">设置 apt 代理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E9%95%9C%E5%83%8F%E6%BA%90%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83"><span class="toc-text">📊 镜像源速度比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E6%80%BB%E7%BB%93"><span class="toc-text">🎯 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9A-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB"><span class="toc-text">📚 扩展阅读</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9D%93-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">❓ 常见问题</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

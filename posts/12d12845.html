@@ -1,0 +1,1053 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Docker 部署 NASTools 媒体管理全家桶  🐳 | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Docker 部署 NASTools 媒体管理全家桶 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 NASTools 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 访问 Web 界面 💻 2. 初始配置步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 部署 NASTools 媒体管理全家桶  🐳">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/12d12845.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="Docker 部署 NASTools 媒体管理全家桶 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 NASTools 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 访问 Web 界面 💻 2. 初始配置步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 N">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?3040">
+<meta property="article:published_time" content="2025-09-12T10:58:09.000Z">
+<meta property="article:modified_time" content="2025-09-12T10:58:09.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="compose">
+<meta property="article:tag" content="媒体服务">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?3040"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Docker 部署 NASTools 媒体管理全家桶  🐳",
+  "url": "https://www.meimolihan.eu.org/posts/12d12845.html",
+  "image": "https://api.mobufan.eu.org:666/pc?3040",
+  "datePublished": "2025-09-12T10:58:09.000Z",
+  "dateModified": "2025-09-12T10:58:09.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/12d12845.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Docker 部署 NASTools 媒体管理全家桶  🐳',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">284</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?3040);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">Docker 部署 NASTools 媒体管理全家桶  🐳</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Docker 部署 NASTools 媒体管理全家桶  🐳</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T10:58:09.000Z" title="发表于 2025-09-12 18:58:09">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T10:58:09.000Z" title="更新于 2025-09-12 18:58:09">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Docker/">Docker</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 18:58:09&quot;}" hidden></div><h1 id="Docker-部署-NASTools-媒体管理全家桶-🐳"><a href="#Docker-部署-NASTools-媒体管理全家桶-🐳" class="headerlink" title="Docker 部署 NASTools 媒体管理全家桶 🐳"></a>Docker 部署 NASTools 媒体管理全家桶 🐳</h1><p><img src="https://file.meimolihan.eu.org/img/nastools-01.webp" alt="NASTools 媒体管理"></p>
+<hr>
+<h2 id="📋-目录导航"><a href="#📋-目录导航" class="headerlink" title="📋 目录导航"></a>📋 目录导航</h2><ul>
+<li><a href="#project-intro">🎯 项目简介</a></li>
+<li><a href="#features">🛠️ 核心特性</a></li>
+<li><a href="#deploy">🐳 一、Docker 部署 NASTools</a><ul>
+<li><a href="#deploy-setup">1. 创建部署目录和 <code>docker-compose.yml</code> 文件 📁</a></li>
+<li><a href="#deploy-start">2. 拉取镜像并启动容器 🚀</a></li>
+</ul>
+</li>
+<li><a href="#usage">🚀 二、使用指南</a><ul>
+<li><a href="#usage-access">1. 访问 Web 界面 💻</a></li>
+<li><a href="#usage-config">2. 初始配置步骤 🎯</a></li>
+</ul>
+</li>
+<li><a href="#nginx">🌐 三、Nginx 反向代理配置</a><ul>
+<li><a href="#nginx-config">1. 创建 Nginx 配置文件 🔧</a></li>
+<li><a href="#nginx-reload">2. 测试并重载 Nginx 🔄</a></li>
+</ul>
+</li>
+<li><a href="#maintenance">🔧 四、容器维护命令</a><ul>
+<li><a href="#docker-compose">1. Docker Compose 命令 🐳</a></li>
+<li><a href="#docker">2. Docker 容器命令 📦</a></li>
+<li><a href="#docker-images">3. Docker 镜像管理 📀</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">🌟 启航媒体管理，探索无限可能</a> </li>
+</ul>
+<hr>
+<p><a id="project-intro"></a></p>
+<h2 id="🎯-项目简介"><a href="#🎯-项目简介" class="headerlink" title="🎯 项目简介"></a>🎯 项目简介</h2><ul>
+<li><strong>🐱 <code>GitHub</code> 项目地址：<a target="_blank" rel="noopener" href="https://github.com/Diluka/nas-tools-unlock">https://github.com/Diluka/nas-tools-unlock</a></strong></li>
+<li><strong>🐋 <code>Docker</code> 镜像地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/r/diluka/nas-tools">https://hub.docker.com/r/diluka/nas-tools</a></strong></li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://github.com/Diluka/nas-tools-unlock">NASTools</a></strong> 是一个完整的媒体管理解决方案，集成了多个工具来简化和自动化媒体文件的下载、整理、字幕获取和元数据刮削。包含 ChineseSubFinder、Jackett、NASTools 等核心组件，提供一站式的媒体管理体验。</p>
+<hr>
+<p><a id="features"></a></p>
+<h2 id="🛠️-核心特性"><a href="#🛠️-核心特性" class="headerlink" title="🛠️ 核心特性"></a>🛠️ 核心特性</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性类别</th>
+<th>功能描述</th>
+<th>优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>🔍 自动字幕下载</strong></td>
+<td>ChineseSubFinder 自动获取中文字幕</td>
+<td>提升媒体观看体验</td>
+</tr>
+<tr>
+<td><strong>🌐 强大索引功能</strong></td>
+<td>Jackett 提供丰富的 Torrent 索引</td>
+<td>支持多种资源站点</td>
+</tr>
+<tr>
+<td><strong>🤖 智能媒体管理</strong></td>
+<td>NASTools 自动化媒体整理和刮削</td>
+<td>简化媒体库管理</td>
+</tr>
+<tr>
+<td><strong>🎬 元数据刮削</strong></td>
+<td>自动获取影片信息、海报和字幕</td>
+<td>丰富媒体信息展示</td>
+</tr>
+<tr>
+<td><strong>⚡ 多工具集成</strong></td>
+<td>集成多个专业媒体工具</td>
+<td>一站式解决方案</td>
+</tr>
+<tr>
+<td><strong>🐳 容器化部署</strong></td>
+<td>Docker 简化安装和维护</td>
+<td>快速部署和升级</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="deploy"></a></p>
+<h2 id="🐳-一、Docker-部署-NASTools"><a href="#🐳-一、Docker-部署-NASTools" class="headerlink" title="🐳 一、Docker 部署 NASTools"></a>🐳 一、Docker 部署 NASTools</h2><p><a id="deploy-setup"></a></p>
+<h3 id="1-创建部署目录和-docker-compose-yml-文件-📁"><a href="#1-创建部署目录和-docker-compose-yml-文件-📁" class="headerlink" title="1. 创建部署目录和 docker-compose.yml 文件 📁"></a>1. 创建部署目录和 <code>docker-compose.yml</code> 文件 📁</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /mnt/mydisk/home/nastools &amp;&amp; <span class="built_in">cd</span> <span class="variable">$_</span> &amp;&amp; \</span><br><span class="line"><span class="built_in">cat</span> &gt; docker-compose.yml &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line"><span class="comment">## chinesesubfinder 字幕</span></span><br><span class="line">   chinesesubfinder:</span><br><span class="line">      image: allanpk716/chinesesubfinder:latest</span><br><span class="line">      container_name: chinesesubfinder</span><br><span class="line">      network_mode: bridge</span><br><span class="line">      restart: on-failure</span><br><span class="line">      ports:</span><br><span class="line">         - 19035:19035</span><br><span class="line">         - 19037:19037</span><br><span class="line">      volumes:</span><br><span class="line">         - ./chinesesubfinder:/config</span><br><span class="line">         - /vol2/1000/光影集:/media</span><br><span class="line">      environment:</span><br><span class="line">         - PUID=1026</span><br><span class="line">         - PGID=100</span><br><span class="line">         - PERMS=<span class="literal">true</span></span><br><span class="line">         - TZ=Asia/Shanghai</span><br><span class="line">         - UMASK=022</span><br><span class="line">      hostname: chinesesubfinder</span><br><span class="line">      logging:</span><br><span class="line">         driver: json-file</span><br><span class="line">         options:</span><br><span class="line">            max-size: 100m</span><br><span class="line"></span><br><span class="line"><span class="comment">## https://github.com/ChineseSubFinder/ChineseSubFinder/blob/master/docker/readme.md</span></span><br><span class="line"><span class="comment">## image: allanpk716/chinesesubfinder:latest-lite</span></span><br><span class="line"><span class="comment">## 电影的目录：/media/媒体库/华语电影</span></span><br><span class="line"><span class="comment">## 电影的目录：/media/媒体库/外语电影</span></span><br><span class="line"><span class="comment">## 电影的目录：/media/媒体库/动画电影</span></span><br><span class="line"><span class="comment">## 电视剧的目录：/media/媒体库/电视剧集</span></span><br><span class="line"><span class="comment">## chinesesubfinder获取密钥：https://secure.assrt.net/usercp.php</span></span><br><span class="line"><span class="comment">## 获取密钥用户名：mobufan  获取密钥密码：小名+生（全小写）</span></span><br><span class="line"><span class="comment">## 我的API密钥: E6cpCZ7KgGPXQFBQiH0ytoygDjEzDUrB</span></span><br><span class="line"><span class="comment">## 我的TMDB密钥：5e9c7ec3253a7b68a2035b09119ee969</span></span><br><span class="line"><span class="comment">## chinesesubfinder我的用户名：admin  我的密码：小名+生（全小写）</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## jackett 索引器</span></span><br><span class="line">   jackett:</span><br><span class="line">      image: linuxserver/jackett</span><br><span class="line">      container_name: jackett</span><br><span class="line">      network_mode: bridge</span><br><span class="line">      restart: on-failure</span><br><span class="line">      ports:</span><br><span class="line">         - 9117:9117</span><br><span class="line">      volumes:</span><br><span class="line">         - ./Jackett:/config/Jackett</span><br><span class="line">         - /vol2/1000/光影集/下载区:/downloads</span><br><span class="line">      environment:</span><br><span class="line">         - PUID=0</span><br><span class="line">         - PGID=0</span><br><span class="line">         - TZ=Asia/Shanghai</span><br><span class="line">         - AUTO_UPDATE=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## nastools 视频刮削器</span></span><br><span class="line">   nastools:</span><br><span class="line">      image: diluka/nas-tools:2.9.1</span><br><span class="line">      container_name: nastools</span><br><span class="line">      network_mode: bridge</span><br><span class="line">      restart: on-failure</span><br><span class="line">      ports:</span><br><span class="line">         - 3000:3000</span><br><span class="line">      volumes:</span><br><span class="line">         - ./config:/config</span><br><span class="line">         - ./config/hosts:/etc/hosts</span><br><span class="line">         - /vol2/1000/光影集:/media</span><br><span class="line">      environment:</span><br><span class="line">         - PUID=0</span><br><span class="line">         - PGID=0</span><br><span class="line">         - TZ=Asia/Shanghai</span><br><span class="line">         - NASTOOL_AUTO_UPDATE=<span class="literal">false</span></span><br><span class="line">      deploy:</span><br><span class="line">        resources:</span><br><span class="line">          limits:</span><br><span class="line">            memory: 2G          <span class="comment"># 💪 内存限制（根据需求调整）</span></span><br><span class="line">            cpus: <span class="string">&#x27;2.0&#x27;</span>         <span class="comment"># ⚡ CPU限制</span></span><br><span class="line">          reservations:</span><br><span class="line">            memory: 512M        <span class="comment"># 🛌 内存保留</span></span><br><span class="line">            cpus: <span class="string">&#x27;1.0&#x27;</span>         <span class="comment"># 🔋 CPU保留</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## ====== nadtools 配置 ====== ##</span></span><br><span class="line"><span class="comment">## TMDB密钥：973861c2fb241080063515bfe682a709</span></span><br><span class="line"><span class="comment">## nastools初始用户名：admin  初始密码：password</span></span><br><span class="line"><span class="comment">## nastools我的用户名：admin  我的密码：小名+生（全小写）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## ====== 设置---&gt;媒体库 ====== ##</span></span><br><span class="line"><span class="comment">##  === 电影 ===</span></span><br><span class="line"><span class="comment">## 电影的目录：/media/媒体库/华语电影</span></span><br><span class="line"><span class="comment">## 电影的目录：/media/媒体库/外语电影</span></span><br><span class="line"><span class="comment">##  === 电视剧 ===</span></span><br><span class="line"><span class="comment">## 电视剧的目录：/media/媒体库/电视剧集</span></span><br><span class="line"><span class="comment">##  === 动漫 ===</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 电影的目录：/media/媒体库/动画电影</span></span><br><span class="line"><span class="comment">## ====== 设置---&gt;目录同步 ====== ##</span></span><br><span class="line"><span class="comment">## 源目录：/media/整理区/华语电影---&gt;目的目录：/media/媒体库/华语电影</span></span><br><span class="line"><span class="comment">## 源目录：/media/整理区/外语电影---&gt;目的目录：/media/媒体库/外语电影</span></span><br><span class="line"><span class="comment">## 源目录：/media/整理区/动画电影---&gt;目的目录：/media/媒体库/动画电影</span></span><br><span class="line"><span class="comment">## 源目录：/media/整理区/电视剧集---&gt;目的目录：/media/媒体库/电视剧集</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># network_mode: bridge # 桥接网络</span></span><br><span class="line"><span class="comment"># restart: unless-stopped # 手动停止后不会自动重启，直到 Docker 守护进程重启</span></span><br><span class="line"><span class="comment"># restart: on-failure # 仅在失败时重启</span></span><br><span class="line"><span class="comment"># restart: always # 始终重启</span></span><br><span class="line"><span class="comment"># restart: no # 即容器不会被自动重启，任何情况下都需手动启动</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><a id="deploy-start"></a></p>
+<h3 id="2-拉取镜像并启动容器-🚀"><a href="#2-拉取镜像并启动容器-🚀" class="headerlink" title="2. 拉取镜像并启动容器 🚀"></a>2. 拉取镜像并启动容器 🚀</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="usage"></a></p>
+<h2 id="🚀-二、使用指南"><a href="#🚀-二、使用指南" class="headerlink" title="🚀 二、使用指南"></a>🚀 二、使用指南</h2><p><a id="usage-access"></a></p>
+<h3 id="1-访问-Web-界面-💻"><a href="#1-访问-Web-界面-💻" class="headerlink" title="1. 访问 Web 界面 💻"></a>1. 访问 Web 界面 💻</h3><ul>
+<li><strong>ChineseSubFinder</strong>: <code>http://localhost:19035</code></li>
+<li><strong>Jackett</strong>: <code>http://localhost:9117</code> </li>
+<li><strong>NASTools</strong>: <code>http://localhost:3000</code></li>
+</ul>
+<p><a id="usage-config"></a></p>
+<h3 id="2-初始配置步骤-🎯"><a href="#2-初始配置步骤-🎯" class="headerlink" title="2. 初始配置步骤 🎯"></a>2. 初始配置步骤 🎯</h3><ol>
+<li><p><strong>ChineseSubFinder 配置</strong>:</p>
+<ul>
+<li>访问 Web 界面</li>
+<li>设置管理员密码</li>
+<li>配置媒体路径和字幕源</li>
+</ul>
+</li>
+<li><p><strong>Jackett 配置</strong>:</p>
+<ul>
+<li>访问 Web 界面  </li>
+<li>添加和管理索引器</li>
+<li>获取 API 密钥</li>
+</ul>
+</li>
+<li><p><strong>NASTools 配置</strong>:</p>
+<ul>
+<li>访问 Web 界面</li>
+<li>默认账号: admin / password</li>
+<li>修改密码并配置各项设置</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><a id="nginx"></a></p>
+<h2 id="🌐-三、Nginx-反向代理配置"><a href="#🌐-三、Nginx-反向代理配置" class="headerlink" title="🌐 三、Nginx 反向代理配置"></a>🌐 三、Nginx 反向代理配置</h2><blockquote>
+<p><strong>说明</strong>: 如需通过域名访问，可配置 Nginx 反向代理</p>
+</blockquote>
+<p><a id="nginx-config"></a></p>
+<h3 id="1-创建-Nginx-配置文件-🔧"><a href="#1-创建-Nginx-配置文件-🔧" class="headerlink" title="1. 创建 Nginx 配置文件 🔧"></a>1. 创建 Nginx 配置文件 🔧</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /etc/nginx/conf.d &amp;&amp; \</span><br><span class="line"><span class="built_in">cat</span> &gt; /etc/nginx/conf.d/nastools.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># ChineseSubFinder 反向代理配置</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name sub.example.com;</span><br><span class="line">    </span><br><span class="line">    ssl_certificate /etc/nginx/ssl/cert.pem;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/key.pem;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:19035;</span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># NASTools 反向代理配置  </span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name nas.example.com;</span><br><span class="line">    </span><br><span class="line">    ssl_certificate /etc/nginx/ssl/cert.pem;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/key.pem;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:3000;</span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><a id="nginx-reload"></a></p>
+<h3 id="2-测试并重载-Nginx-🔄"><a href="#2-测试并重载-Nginx-🔄" class="headerlink" title="2. 测试并重载 Nginx 🔄"></a>2. 测试并重载 Nginx 🔄</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nginx -t &amp;&amp; <span class="built_in">sudo</span> systemctl reload nginx</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="maintenance"></a></p>
+<h2 id="🔧-四、容器维护命令"><a href="#🔧-四、容器维护命令" class="headerlink" title="🔧 四、容器维护命令"></a>🔧 四、容器维护命令</h2><p><a id="docker-compose"></a></p>
+<h3 id="1-Docker-Compose-命令-🐳"><a href="#1-Docker-Compose-命令-🐳" class="headerlink" title="1. Docker Compose 命令 🐳"></a>1. Docker Compose 命令 🐳</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入项目目录</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/nastools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止并删除容器</span></span><br><span class="line">docker-compose down</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取最新镜像</span></span><br><span class="line">docker-compose pull</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动容器</span></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line">docker-compose ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务日志</span></span><br><span class="line">docker-compose logs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跟踪服务日志</span></span><br><span class="line">docker-compose logs -f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 完整升级流程</span></span><br><span class="line">docker-compose down &amp;&amp; \</span><br><span class="line">docker-compose pull &amp;&amp; \</span><br><span class="line">docker-compose up -d &amp;&amp; \</span><br><span class="line">docker image prune -f</span><br></pre></td></tr></table></figure>
+<p><a id="docker"></a></p>
+<h3 id="2-Docker-容器命令-📦"><a href="#2-Docker-容器命令-📦" class="headerlink" title="2. Docker 容器命令 📦"></a>2. Docker 容器命令 📦</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有容器名称</span></span><br><span class="line">docker ps -a --format <span class="string">&quot;&#123;&#123;.Names&#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看运行中容器</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止/启动/重启容器</span></span><br><span class="line">docker stop chinesesubfinder jackett nastools</span><br><span class="line">docker start chinesesubfinder jackett nastools  </span><br><span class="line">docker restart chinesesubfinder jackett nastools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除容器</span></span><br><span class="line">docker <span class="built_in">rm</span> chinesesubfinder jackett nastools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入容器Shell</span></span><br><span class="line">docker <span class="built_in">exec</span> -it nastools sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器详情和资源使用</span></span><br><span class="line">docker inspect nastools</span><br><span class="line">docker stats nastools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器日志管理</span></span><br><span class="line">docker logs nastools</span><br><span class="line">docker logs -f nastools</span><br><span class="line">docker logs --<span class="built_in">tail</span> 100 nastools</span><br><span class="line">docker logs -t nastools</span><br></pre></td></tr></table></figure>
+<p><a id="docker-images"></a></p>
+<h3 id="3-Docker-镜像管理-📀"><a href="#3-Docker-镜像管理-📀" class="headerlink" title="3. Docker 镜像管理 📀"></a>3. Docker 镜像管理 📀</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">docker rmi allanpk716/chinesesubfinder:latest-lite linuxserver/jackett:latest diluka/nas-tools:2.9.1</span><br><span class="line">docker image prune -f</span><br><span class="line">docker image prune -a -f</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="conclusion"></a></p>
+<h2 id="🌟-启航媒体管理，探索无限可能"><a href="#🌟-启航媒体管理，探索无限可能" class="headerlink" title="🌟 启航媒体管理，探索无限可能"></a>🌟 启航媒体管理，探索无限可能</h2><p>通过本文档，你已经成功使用 Docker 部署了 NASTools 媒体管理全家桶，集成了 ChineseSubFinder、Jackett 和 NASTools 三大核心组件，构建了一套完整的媒体自动化管理解决方案。现在，你可以：</p>
+<p>🎬 <strong>智能管理</strong> 自动化完成媒体文件的下载、整理、字幕获取和元数据刮削，大幅提升媒体库管理效率<br>🔍 <strong>精准搜索</strong> 借助 Jackett 的强大索引功能，快速定位和获取各类媒体资源<br>📺 <strong>完美观影</strong> 通过 ChineseSubFinder 自动获取高质量中文字幕，享受无障碍的观影体验<br>🤖 <strong>全自动流程</strong> 从资源发现到整理归档，实现真正的一站式自动化媒体管理</p>
+<p>媒体是数字生活的精彩篇章，自动化是效率提升的关键。愿 NASTools 全家桶成为你媒体管理的得力助手，帮助你构建一个整洁、丰富、高效的媒体娱乐中心。</p>
+<p>从现在开始，解放双手，享受媒体——构建你智能化的数字娱乐生态吧！🚀</p>
+<hr>
+<p>📌 <strong>持续关注</strong>：建议定期检查各组件更新，获取最新功能与优化：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ChineseSubFinder/ChineseSubFinder">ChineseSubFinder 项目</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Jackett/Jackett">Jackett 项目</a>  </li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Diluka/nas-tools-unlock">NASTools 项目</a></li>
+</ul>
+<p>🐛 <strong>反馈与支持</strong>：使用中遇到问题或有建议，可前往各项目的 GitHub Issues 页面提出。</p>
+<p>祝你使用愉快，媒体管理高效！🎉</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/compose/">compose</a><a class="post-meta__tags" href="/tags/%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1/">媒体服务</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?3040" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/e85fa523.html" title="Linux 文件及文件夹管理命令大全 📁"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1938" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Linux 文件及文件夹管理命令大全 📁</div></div><div class="info-2"><div class="info-item-1">Linux 文件及文件夹管理命令大全 📁  🐧 Linux 文件与目录操作完全指南 掌握 Linux 文件和文件夹操作是系统管理的基础，本文整理了最常用的文件管理命令，帮助您高效地进行文件和目录操作。   📋 目录 📄 一、文件创建命令 1. 创建空文件 2. 创建文件并添加执行权限 3. 创建带有内容的文件 4. 追加内容到文件   📂 二、目录创建命令 1. 创建单个目录 2. 创建多级目录 3. 创建目录并设置权限 4. 创建多个目录   🔐 三、文件权限管理 1. 修改文件/目录权限 2. 递归修改权限 3. 添加执行权限 4. 移除执行权限 5. 查看文件权限 6. 更改文件所有者   🔧 四、文件操作命令 1. 文件重命名 2. 移动文件 3. 强制删除文件 4. 交互式删除文件 5. 查找文件 6. 查找并处理文件   🧹 五、清理与维护命令 1. 清空当前目录 2. 安全清空目录 3. 查看磁盘使用情况 4. 查看目录大小   📖 六、文件查看与编辑 1. 查看文件内容 2. 分页查看文件 3. 查看文件开头 4. 查看文件末尾 5....</div></div></div></a><a class="pagination-related" href="/posts/84831f5f.html" title="Proxmox VE 安装 iStoreOS 指南"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9396" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Proxmox VE 安装 iStoreOS 指南</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 安装 iStoreOS 指南 🖥️ 🌟 本文详细介绍了如何在 Proxmox VE (PVE) 虚拟化平台上安装和配置 iStoreOS（基于 OpenWRT），帮助你打造高效、稳定的家庭或企业软路由解决方案。  📋 目录 🌟 概述 ⚡ iStoreOS 特点与功能 🛠️ 安装前准备 🚀 安装步骤 1. 创建虚拟机 2. 下载 iStoreOS 镜像 3. 验证下载 4. 转换并导入磁盘 5. 配置虚拟机存储 6. 设置启动顺序 7. 启动并配置 iStoreOS 8. 网络配置 9. 重启应用配置   🔧 初始设置 ⚙️ 高级配置 性能优化 多网卡配置 备份配置   🛠️ 故障排除 🔒 安全加固 📊 监控和维护 🎯 使用技巧 ✅ 总结    🌟 概述iStoreOS 是基于 OpenWRT 开发的软路由系统，专为家庭和小型企业环境设计，提供了友好的用户界面和丰富的插件生态。结合 Proxmox VE 虚拟化平台，你可以灵活地部署和管理你的网络服务。   ⚡ iStoreOS 特点与功能 🖥️ 直观的 Web 管理界面：基于...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/ecdd8257.html" title="Docker 部署 Cloud-Saver 网盘影视转存系统 ☁️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2512" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Cloud-Saver 网盘影视转存系统 ☁️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Cloud-Saver 网盘影视转存系统 ☁️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Cloud-Saver 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Cloud-Saver 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航知识，探索无限     🎯 项目简介 🐱 GitHub 项目地址：https://github.com/jiangrui1994/CloudSaver 🐋 Docker 镜像地址：https://hub.docker.com/r/jiangrui1994/cloudsaver  Cloud-Saver...</div></div></div></a><a class="pagination-related" href="/posts/76def944.html" title="Docker 部署 Emby 开心版 amilys 大佬定制版"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8111" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Emby 开心版 amilys 大佬定制版</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Emby 开心版 amilys 大佬定制版 🎬  📋 目录导航 🎯 项目简介 ✨ 核心特性 🐳 一、Docker 部署 Emby 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Emby 1. 访问 Web 界面 💻 2. 初始设置指南 ⚙️   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🎬 启航影音，畅享无限     🎯 项目简介 🐱 GitHub 项目地址：https://github.com/amilys/emby-crx 🐋 Docker 镜像地址：https://hub.docker.com/r/amilys/embyserver  Emby...</div></div></div></a><a class="pagination-related" href="/posts/9abdd229.html" title="Docker 部署 Jellyfin 媒体服务器 🎬"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3417" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Jellyfin 媒体服务器 🎬</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Jellyfin 媒体服务器 🎬  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Jellyfin 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Jellyfin 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航影音，畅享无限     🎯 项目简介 🌐 Jellyfin 官网地址：https://jellyfin.org/ 🐱 GitHub 项目地址：https://github.com/jellyfin/jellyfin 🐋 Docker 镜像地址：https://hub.docker.com/r/jellyfin/jellyfin  Jellyfin...</div></div></div></a><a class="pagination-related" href="/posts/972788c3.html" title="Docker 部署 Media Server Tools 媒体服务器工具 🎬"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1726" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Media Server Tools 媒体服务器工具 🎬</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Media Server Tools 媒体服务器工具 🎬  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Media Server Tools 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 配置文件设置 ⚙️ 2. 服务管理 🔧   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟  启航媒体管理，探索无限可能     🎯 项目简介 🐱 GitHub 项目地址：https://github.com/sleikang/media_server_tools 🐋 Docker 镜像地址：https://hub.docker.com/r/sleikang/media_server_tools  Media Server...</div></div></div></a><a class="pagination-related" href="/posts/539fb730.html" title="Docker 部署 MoonTV 影视聚合播放器 🎬"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8813" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 MoonTV 影视聚合播放器 🎬</div></div><div class="info-2"><div class="info-item-1">Docker 部署 MoonTV 影视聚合播放器 🎬  📋 目录导航 🎯 项目简介 ✨ 核心特性 🐳 一、Docker 部署 MoonTV 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 MoonTV 1. 访问 Web 界面 💻 2. 主要功能 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航影视，畅享无限     🎯 项目简介 🌐 MoonTV 官网地址：https://tv.brace.fun/ 🐱 GitHub 项目地址：https://github.com/MoonTechLab/LunaTV  MoonTV 是一款开箱即用的跨平台影视聚合播放器，基于现代 Web...</div></div></div></a><a class="pagination-related" href="/posts/e866e2b1.html" title="Docker 部署 Plex 媒体服务器 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7165" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Plex 媒体服务器 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Plex 媒体服务器 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Plex 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Plex 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航媒体，娱乐无限     🎯 项目简介 🌐 Plex 官网地址：https://www.plex.tv/ 🐱 GitHub 项目地址：https://github.com/plexinc/pms-docker 🐋 Docker 镜像地址：https://hub.docker.com/r/plexinc/pms-docker  Plex...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker-%E9%83%A8%E7%BD%B2-NASTools-%E5%AA%92%E4%BD%93%E7%AE%A1%E7%90%86%E5%85%A8%E5%AE%B6%E6%A1%B6-%F0%9F%90%B3"><span class="toc-text">Docker 部署 NASTools 媒体管理全家桶 🐳</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%88%AA"><span class="toc-text">📋 目录导航</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-text">🎯 项目简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-text">🛠️ 核心特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%B3-%E4%B8%80%E3%80%81Docker-%E9%83%A8%E7%BD%B2-NASTools"><span class="toc-text">🐳 一、Docker 部署 NASTools</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E9%83%A8%E7%BD%B2%E7%9B%AE%E5%BD%95%E5%92%8C-docker-compose-yml-%E6%96%87%E4%BB%B6-%F0%9F%93%81"><span class="toc-text">1. 创建部署目录和 docker-compose.yml 文件 📁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8-%F0%9F%9A%80"><span class="toc-text">2. 拉取镜像并启动容器 🚀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="toc-text">🚀 二、使用指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AE%BF%E9%97%AE-Web-%E7%95%8C%E9%9D%A2-%F0%9F%92%BB"><span class="toc-text">1. 访问 Web 界面 💻</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4-%F0%9F%8E%AF"><span class="toc-text">2. 初始配置步骤 🎯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E4%B8%89%E3%80%81Nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE"><span class="toc-text">🌐 三、Nginx 反向代理配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%F0%9F%94%A7"><span class="toc-text">1. 创建 Nginx 配置文件 🔧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E5%B9%B6%E9%87%8D%E8%BD%BD-Nginx-%F0%9F%94%84"><span class="toc-text">2. 测试并重载 Nginx 🔄</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%9B%9B%E3%80%81%E5%AE%B9%E5%99%A8%E7%BB%B4%E6%8A%A4%E5%91%BD%E4%BB%A4"><span class="toc-text">🔧 四、容器维护命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Docker-Compose-%E5%91%BD%E4%BB%A4-%F0%9F%90%B3"><span class="toc-text">1. Docker Compose 命令 🐳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Docker-%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4-%F0%9F%93%A6"><span class="toc-text">2. Docker 容器命令 📦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Docker-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86-%F0%9F%93%80"><span class="toc-text">3. Docker 镜像管理 📀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E5%90%AF%E8%88%AA%E5%AA%92%E4%BD%93%E7%AE%A1%E7%90%86%EF%BC%8C%E6%8E%A2%E7%B4%A2%E6%97%A0%E9%99%90%E5%8F%AF%E8%83%BD"><span class="toc-text">🌟 启航媒体管理，探索无限可能</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>
