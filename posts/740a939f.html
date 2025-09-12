@@ -1,0 +1,1107 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Proxmox VE 导入现有磁盘镜像完整教程 🚀 | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Proxmox VE 导入现有磁盘镜像完整教程 🚀  本指南详细介绍如何在 PVE 中导入已有的磁盘镜像文件（qcow2&#x2F;vmdk&#x2F;raw），并将其附加到虚拟机。涵盖从准备、导入、配置到故障排除的全过程！💾   📖 导航目录 🌟 导入前准备 🔧 使用 qm importdisk 命令导入 ⚙️ 在 PVE 面板中配置磁盘 🔄 格式转换与处理 ⚠️ 注意事项与故障排除 💡 最佳实践与优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxmox VE 导入现有磁盘镜像完整教程 🚀">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/740a939f.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="Proxmox VE 导入现有磁盘镜像完整教程 🚀  本指南详细介绍如何在 PVE 中导入已有的磁盘镜像文件（qcow2&#x2F;vmdk&#x2F;raw），并将其附加到虚拟机。涵盖从准备、导入、配置到故障排除的全过程！💾   📖 导航目录 🌟 导入前准备 🔧 使用 qm importdisk 命令导入 ⚙️ 在 PVE 面板中配置磁盘 🔄 格式转换与处理 ⚠️ 注意事项与故障排除 💡 最佳实践与优">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?6227">
+<meta property="article:published_time" content="2025-09-12T07:33:13.000Z">
+<meta property="article:modified_time" content="2025-09-12T07:33:13.000Z">
+<meta property="article:author" content="墨不凡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?6227"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Proxmox VE 导入现有磁盘镜像完整教程 🚀",
+  "url": "https://www.meimolihan.eu.org/posts/740a939f.html",
+  "image": "https://api.mobufan.eu.org:666/pc?6227",
+  "datePublished": "2025-09-12T07:33:13.000Z",
+  "dateModified": "2025-09-12T07:33:13.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/740a939f.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Proxmox VE 导入现有磁盘镜像完整教程 🚀',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">125</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?6227);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">Proxmox VE 导入现有磁盘镜像完整教程 🚀</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Proxmox VE 导入现有磁盘镜像完整教程 🚀</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T07:33:13.000Z" title="发表于 2025-09-12 15:33:13">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T07:33:13.000Z" title="更新于 2025-09-12 15:33:13">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Proxmox-VE/">Proxmox VE</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 15:33:13&quot;}" hidden></div><h1 id="Proxmox-VE-导入现有磁盘镜像完整教程-🚀"><a href="#Proxmox-VE-导入现有磁盘镜像完整教程-🚀" class="headerlink" title="Proxmox VE 导入现有磁盘镜像完整教程 🚀"></a>Proxmox VE 导入现有磁盘镜像完整教程 🚀</h1><p><img src="https://file.meimolihan.eu.org/img/pve-02.webp" alt=""></p>
+<blockquote>
+<p>本指南详细介绍如何在 PVE 中导入已有的磁盘镜像文件（qcow2/vmdk/raw），并将其附加到虚拟机。涵盖从准备、导入、配置到故障排除的全过程！💾</p>
+</blockquote>
+<hr>
+<h2 id="📖-导航目录"><a href="#📖-导航目录" class="headerlink" title="📖 导航目录"></a>📖 导航目录</h2><ul>
+<li><a href="#preparation">🌟 导入前准备</a></li>
+<li><a href="#import-with-command">🔧 使用 qm importdisk 命令导入</a></li>
+<li><a href="#configure-in-ui">⚙️ 在 PVE 面板中配置磁盘</a></li>
+<li><a href="#format-conversion">🔄 格式转换与处理</a></li>
+<li><a href="#troubleshooting">⚠️ 注意事项与故障排除</a></li>
+<li><a href="#best-practices">💡 最佳实践与优化</a></li>
+<li><a href="#verification">🎯 验证导入结果</a></li>
+</ul>
+<hr>
+<p><a id="preparation"></a></p>
+<h2 id="🌟-一、导入前准备"><a href="#🌟-一、导入前准备" class="headerlink" title="🌟 一、导入前准备"></a>🌟 一、导入前准备</h2><p>在开始导入前，做好充分的准备工作可以避免很多常见问题。</p>
+<ol>
+<li><p><strong>检查现有镜像文件信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看镜像文件详细信息（格式、大小、虚拟大小等）</span></span><br><span class="line">qemu-img info /path/to/your-disk-image.qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查文件权限（确保 PVE 有读取权限）</span></span><br><span class="line"><span class="built_in">ls</span> -la /path/to/your-disk-image.*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证镜像完整性（特别是从外部来源获取的镜像）</span></span><br><span class="line">qemu-img check /path/to/your-disk-image.qcow2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>准备存储位置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看可用存储及其状态</span></span><br><span class="line">pvesm status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查存储空间是否充足</span></span><br><span class="line"><span class="built_in">df</span> -h /var/lib/vz/images/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看存储详细信息（类型、可用空间、内容类型）</span></span><br><span class="line">pvesm list &lt;storage-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>确定虚拟机ID和存储池</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出所有虚拟机及其ID</span></span><br><span class="line">qm list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定存储池的详细信息</span></span><br><span class="line">pvesm status &lt;storage-pool-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="import-with-command"></a></p>
+<h2 id="🔧-二、使用-qm-importdisk-命令导入"><a href="#🔧-二、使用-qm-importdisk-命令导入" class="headerlink" title="🔧 二、使用 qm importdisk 命令导入"></a>🔧 二、使用 qm importdisk 命令导入</h2><p><code>qm importdisk</code> 是 PVE 中导入磁盘镜像的主要命令，功能强大且灵活。</p>
+<h3 id="基本命令语法"><a href="#基本命令语法" class="headerlink" title="基本命令语法"></a>基本命令语法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk &lt;vmid&gt; &lt;image-path&gt; &lt;storage-pool&gt; --format=&lt;disk-format&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="参数说明表"><a href="#参数说明表" class="headerlink" title="参数说明表"></a>参数说明表</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;vmid&gt;</code></td>
+<td>虚拟机ID</td>
+<td><code>102</code></td>
+</tr>
+<tr>
+<td><code>&lt;image-path&gt;</code></td>
+<td>镜像文件路径</td>
+<td><code>/mnt/pve/NAS/images/ubuntu.qcow2</code></td>
+</tr>
+<tr>
+<td><code>&lt;storage-pool&gt;</code></td>
+<td>存储池名称</td>
+<td><code>NVME</code>, <code>local-lvm</code>, <code>SSD</code></td>
+</tr>
+<tr>
+<td><code>--format</code></td>
+<td>磁盘格式</td>
+<td><code>qcow2</code>, <code>vmdk</code>, <code>raw</code></td>
+</tr>
+<tr>
+<td><code>--storage-type</code></td>
+<td>存储类型</td>
+<td><code>lvmthin</code>, <code>zfspool</code>, <code>directory</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="实际导入示例"><a href="#实际导入示例" class="headerlink" title="实际导入示例"></a>实际导入示例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入 qcow2 格式镜像到本地存储</span></span><br><span class="line">qm importdisk 102 /mnt/pve/NAS/images/ubuntu-18.04.qcow2 local-lvm --format=qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入 vmdk 格式镜像到特定存储池</span></span><br><span class="line">qm importdisk 102 /mnt/pve/NAS/images/windows10.vmdk NVME --format=vmdk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入 raw 格式镜像（注意：raw 格式导入可能较快，但占用空间大）</span></span><br><span class="line">qm importdisk 102 /mnt/pve/NAS/images/debian11.raw SSD --format=raw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入时指定更多选项（详细输出、覆盖现有文件）</span></span><br><span class="line">qm importdisk 102 /path/to/image.qcow2 local-lvm --format=qcow2 --verbose --overwrite 1</span><br></pre></td></tr></table></figure>
+<h3 id="导入过程输出解析"><a href="#导入过程输出解析" class="headerlink" title="导入过程输出解析"></a>导入过程输出解析</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">importing disk &#x27;ubuntu-18.04.vmdk&#x27; to VM 102 ...</span><br><span class="line">Formatting &#x27;/nvme/images/102/vm-102-disk-1.qcow2&#x27;, fmt=qcow2 size=10737418240 cluster_size=65536 preallocation=metadata lazy_refcounts=off refcount_bits=16</span><br><span class="line">transferred: 0 bytes remaining: 10737418240 bytes total: 10737418240 bytes progression: 0.00 %</span><br><span class="line">...</span><br><span class="line">transferred: 10737418240 bytes remaining: 0 bytes total: 10737418240 bytes progression: 100.00 %</span><br><span class="line">Successfully imported disk as &#x27;unused1:NVME:102/vm-102-disk-1.qcow2&#x27;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>transferred</strong>: 已传输的数据量</li>
+<li><strong>remaining</strong>: 剩余待传输数据量</li>
+<li><strong>progression</strong>: 完成百分比</li>
+<li><strong>Successfully imported disk as</strong>: 导入成功后的磁盘标识符</li>
+</ul>
+<hr>
+<p><a id="configure-in-ui"></a></p>
+<h2 id="⚙️-三、在-PVE-面板中配置磁盘"><a href="#⚙️-三、在-PVE-面板中配置磁盘" class="headerlink" title="⚙️ 三、在 PVE 面板中配置磁盘"></a>⚙️ 三、在 PVE 面板中配置磁盘</h2><p>导入成功后，需要通过 Web 界面进行磁盘配置。</p>
+<ol>
+<li><p><strong>查看未使用磁盘</strong></p>
+<ul>
+<li>在 PVE Web 界面中，选择目标虚拟机</li>
+<li>进入”硬件”选项卡</li>
+<li>查找”未使用的磁盘”条目（通常位于列表底部）</li>
+</ul>
+</li>
+<li><p><strong>配置磁盘参数</strong></p>
+<ul>
+<li>双击”未使用的磁盘”条目，弹出配置对话框</li>
+<li>主要配置选项：<ul>
+<li><strong>总线/设备类型</strong>：<ul>
+<li><code>VirtIO Block</code> (推荐用于 Linux，性能最佳) ⚡</li>
+<li><code>SCSI</code> (兼容性好，适合 Windows)</li>
+<li><code>SATA</code> (通用性强)</li>
+<li><code>IDE</code> (仅用于旧系统兼容)</li>
+</ul>
+</li>
+<li><strong>缓存模式</strong>：<ul>
+<li><code>None</code> (默认，最安全)</li>
+<li><code>Write back</code> (性能更好，但断电可能丢失数据)</li>
+<li><code>Writethrough</code> (折中方案)</li>
+</ul>
+</li>
+<li><strong>其他选项</strong>：<ul>
+<li><code>IOThread</code> (高性能场景启用)</li>
+<li><code>SSD仿真</code> (当后端存储是SSD时启用)</li>
+<li><code>丢弃</code> (启用TRIM/discard支持)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>添加磁盘</strong></p>
+<ul>
+<li>点击”添加”按钮，磁盘将正式附加到虚拟机</li>
+<li>系统会自动更新虚拟机配置文件（<code>/etc/pve/qemu-server/&lt;vmid&gt;.conf</code>）</li>
+</ul>
+</li>
+<li><p><strong>调整启动顺序</strong>（如需要）</p>
+<ul>
+<li>如果导入的磁盘包含操作系统，可能需要调整启动顺序</li>
+<li>进入”选项”选项卡 → “引导顺序” → 调整磁盘顺序</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><a id="format-conversion"></a></p>
+<h2 id="🔄-四、格式转换与处理"><a href="#🔄-四、格式转换与处理" class="headerlink" title="🔄 四、格式转换与处理"></a>🔄 四、格式转换与处理</h2><p>不同格式的镜像文件可能需要先转换再导入。</p>
+<h3 id="1-使用-qemu-img-转换格式"><a href="#1-使用-qemu-img-转换格式" class="headerlink" title="1. 使用 qemu-img 转换格式"></a>1. 使用 qemu-img 转换格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># VMDK 转 QCOW2（常见于 VMware 虚拟机）</span></span><br><span class="line">qemu-img convert -f vmdk -O qcow2 source.vmdk target.qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># VDI 转 QCOW2（常见于 VirtualBox 虚拟机）</span></span><br><span class="line">qemu-img convert -f vdi -O qcow2 source.vdi target.qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># RAW 转 QCOW2</span></span><br><span class="line">qemu-img convert -f raw -O qcow2 source.raw target.qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># QCOW2 转 VMDK</span></span><br><span class="line">qemu-img convert -f qcow2 -O vmdk source.qcow2 target.vmdk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换时压缩镜像（节省空间）</span></span><br><span class="line">qemu-img convert -c -f vmdk -O qcow2 source.vmdk compressed.qcow2</span><br></pre></td></tr></table></figure>
+<h3 id="2-Web-界面在线转换"><a href="#2-Web-界面在线转换" class="headerlink" title="2. Web 界面在线转换"></a>2. Web 界面在线转换</h3><p>PVE 提供 Web 界面进行磁盘迁移和转换，无需停机：</p>
+<ol>
+<li>选择虚拟机 → “硬件” → 选择磁盘 → “磁盘操作” → “迁移”</li>
+<li>选择目标存储</li>
+<li>选择目标格式（qcow2/vmdk/raw）</li>
+<li>是否删除源磁盘（根据需求选择）</li>
+</ol>
+<h3 id="3-处理特殊镜像格式"><a href="#3-处理特殊镜像格式" class="headerlink" title="3. 处理特殊镜像格式"></a>3. 处理特殊镜像格式</h3><ul>
+<li><strong>OVA/OVF 格式</strong>：先解压获取 VMDK 文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf package.ova</span><br></pre></td></tr></table></figure></li>
+<li><strong>VHD/VHDX 格式</strong>：使用 qemu-img 转换<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert -f vhdx -O qcow2 source.vhdx target.qcow2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="⚠️-五、注意事项与故障排除"><a href="#⚠️-五、注意事项与故障排除" class="headerlink" title="⚠️ 五、注意事项与故障排除"></a>⚠️ 五、注意事项与故障排除</h2><h3 id="常见问题及解决方案"><a href="#常见问题及解决方案" class="headerlink" title="常见问题及解决方案"></a>常见问题及解决方案</h3><ol>
+<li><p><strong>权限问题</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确保镜像文件可读</span></span><br><span class="line"><span class="built_in">chmod</span> 644 /path/to/disk-image.qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用 NFS 存储，检查挂载选项和权限</span></span><br><span class="line"><span class="built_in">ls</span> -la /mnt/pve/NAS/images/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 PVE 存储配置</span></span><br><span class="line"><span class="built_in">cat</span> /etc/pve/storage.cfg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>空间不足</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查存储空间</span></span><br><span class="line"><span class="built_in">df</span> -h /var/lib/vz/images/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理临时文件</span></span><br><span class="line"><span class="built_in">rm</span> -f /var/tmp/qemu-import-*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扩展存储空间（如果是 LVM）</span></span><br><span class="line">lvextend -L +50G /dev/pve/data</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>导入失败</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看详细错误信息</span></span><br><span class="line">qm importdisk 102 image.qcow2 local-lvm --format=qcow2 --verbose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查系统日志</span></span><br><span class="line">journalctl -f -u pvedaemon</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查存储状态</span></span><br><span class="line">pvesm status</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>磁盘识别问题</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 强制刷新磁盘配置</span></span><br><span class="line">qm rescan --vmid 102</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新检测未使用磁盘</span></span><br><span class="line">qm disk rescan</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动添加磁盘到配置文件</span></span><br><span class="line">qm <span class="built_in">set</span> 102 --scsi1 /path/to/disk.qcow2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>性能问题</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果导入速度慢，尝试直接复制</span></span><br><span class="line"><span class="built_in">cp</span> source-image.qcow2 /var/lib/vz/images/102/</span><br><span class="line">qm <span class="built_in">set</span> 102 --scsi0 <span class="built_in">local</span>:102/vm-102-disk-0.qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调整缓存策略（性能与安全权衡）</span></span><br><span class="line">qm <span class="built_in">set</span> 102 --scsi0 <span class="built_in">local</span>:102/vm-102-disk-0.qcow2,cache=writeback</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Windows-虚拟机特别注意事项"><a href="#Windows-虚拟机特别注意事项" class="headerlink" title="Windows 虚拟机特别注意事项"></a>Windows 虚拟机特别注意事项</h3><ul>
+<li><strong>驱动兼容性</strong>：Windows 对硬件变化敏感，导入后可能需要重新安装驱动</li>
+<li><strong>磁盘控制器类型</strong>：导入前最好更改为 IDE，导入后再改为 VirtIO 并安装驱动</li>
+<li><strong>激活问题</strong>：硬件变化可能导致 Windows 需要重新激活</li>
+</ul>
+<hr>
+<p><a id="best-practices"></a></p>
+<h2 id="💡-六、最佳实践与优化"><a href="#💡-六、最佳实践与优化" class="headerlink" title="💡 六、最佳实践与优化"></a>💡 六、最佳实践与优化</h2><ol>
+<li><p><strong>镜像预处理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 压缩镜像大小（移除空白空间）</span></span><br><span class="line">qemu-img convert -c -O qcow2 source.qcow2 compressed.qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调整磁盘大小</span></span><br><span class="line">qemu-img resize source.qcow2 +10G</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查并修复镜像碎片</span></span><br><span class="line">qemu-img check -r all source.qcow2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>存储优化</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用性能更好的存储池</span></span><br><span class="line">qm importdisk 102 image.qcow2 NVME --format=qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用 SSD 特性（当后端存储是 SSD 时）</span></span><br><span class="line">qm <span class="built_in">set</span> 102 --scsi1 NVME:102/vm-102-disk-1.qcow2,ssd=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 IO 线程（高性能场景）</span></span><br><span class="line">qm <span class="built_in">set</span> 102 --scsi1 NVME:102/vm-102-disk-1.qcow2,iothread=1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>备份策略</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份原始镜像文件</span></span><br><span class="line"><span class="built_in">cp</span> /path/to/original-image.qcow2 /backup/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建导入记录</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;导入时间: <span class="subst">$(date)</span>&quot;</span> &gt;&gt; /backup/import-log.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;源文件: <span class="variable">$IMAGE_PATH</span>&quot;</span> &gt;&gt; /backup/import-log.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;目标VM: <span class="variable">$VMID</span>&quot;</span> &gt;&gt; /backup/import-log.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入后创建快照</span></span><br><span class="line">qm snapshot 102 post-import-clean</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>批量导入脚本</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 批量导入磁盘镜像脚本</span></span><br><span class="line">VM_ID=<span class="variable">$1</span></span><br><span class="line">IMAGE_DIR=<span class="variable">$2</span></span><br><span class="line">STORAGE_POOL=<span class="variable">$3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> image <span class="keyword">in</span> <span class="variable">$IMAGE_DIR</span>/*.&#123;qcow2,vmdk,raw&#125;; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -f <span class="string">&quot;<span class="variable">$image</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;正在导入: <span class="variable">$image</span>&quot;</span></span><br><span class="line">        format=<span class="string">&quot;<span class="variable">$&#123;image##*.&#125;</span>&quot;</span></span><br><span class="line">        qm importdisk <span class="variable">$VM_ID</span> <span class="string">&quot;<span class="variable">$image</span>&quot;</span> <span class="variable">$STORAGE_POOL</span> --format=<span class="variable">$format</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;成功导入: <span class="variable">$image</span>&quot;</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 成功导入 <span class="variable">$image</span> 到 VM <span class="variable">$VM_ID</span>&quot;</span> &gt;&gt; /var/log/pve-import.log</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;导入失败: <span class="variable">$image</span>&quot;</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 导入 <span class="variable">$image</span> 到 VM <span class="variable">$VM_ID</span> 失败&quot;</span> &gt;&gt; /var/log/pve-import.log</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="verification"></a></p>
+<h2 id="🎯-七、验证导入结果"><a href="#🎯-七、验证导入结果" class="headerlink" title="🎯 七、验证导入结果"></a>🎯 七、验证导入结果</h2><p>导入完成后，需要验证磁盘是否正确附加并可正常使用。</p>
+<ol>
+<li><p><strong>检查虚拟机配置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看虚拟机磁盘配置</span></span><br><span class="line">qm config 102</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查磁盘文件是否存在</span></span><br><span class="line"><span class="built_in">ls</span> -la /var/lib/vz/images/102/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证磁盘格式和大小</span></span><br><span class="line">qemu-img info /var/lib/vz/images/102/vm-102-disk-1.qcow2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>启动测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动虚拟机</span></span><br><span class="line">qm start 102</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控启动过程</span></span><br><span class="line">qm monitor 102</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看控制台输出</span></span><br><span class="line">qm terminal 102</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查虚拟机内磁盘识别情况</span></span><br><span class="line">qm guest <span class="built_in">exec</span> 102 lsblk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>性能测试</strong>（可选）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在虚拟机内测试磁盘性能</span></span><br><span class="line"><span class="comment"># 对于 Linux 系统:</span></span><br><span class="line">fio --filename=/dev/sdb --rw=<span class="built_in">read</span> --bs=4k --iodepth=64 --size=1G --name=<span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 dd 进行简单测试</span></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=./test.bin bs=1M count=1024 status=progress</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于 Windows 系统:</span></span><br><span class="line"><span class="comment"># 使用 CrystalDiskMark 或类似工具进行测试</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建基准快照</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入验证成功后创建基准快照</span></span><br><span class="line">qm snapshot 102 base-install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看快照列表</span></span><br><span class="line">qm listsnapshot 102</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>🚀 <strong>提示</strong>: 导入完成后，建议先创建虚拟机快照，然后再进行系统配置更改。对于生产环境，建议在非高峰时段进行导入操作，并确保有完整的备份。</p>
+</blockquote>
+<p>通过本指南，您应该能够成功将现有的磁盘镜像导入到 PVE 虚拟机中。如果在操作过程中遇到问题，请参考故障排除部分或查看系统日志获取更多信息。</p>
+</article><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?6227" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/8689ea58.html" title="FFmpeg 批处理脚本大全 🎬"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9484" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">FFmpeg 批处理脚本大全 🎬</div></div><div class="info-2"><div class="info-item-1">FFmpeg 批处理脚本大全 🎬 FFmpeg 下载地址：https://github.com/BtbN/FFmpeg-Builds/releases  🔧 使用前请将 ffmpeg.exe 放在目标文件同一目录下   ✨ 核心功能特点 🔄 格式转换：支持多种音视频格式互转，包括 MP4、TS、MKV 等常见格式 ✂️ 剪辑处理：精确去除片头片尾，添加淡入淡出效果 📸 画面捕获：灵活的视频截图功能，支持时间点截图和封面提取 🔍 元数据管理：查看和清理视频元数据信息 🚫 水印去除：精准定位并去除视频中的水印 🖼️ 封面添加：为视频文件添加自定义封面图片 📦 视频压缩：使用 H264/H265 编码高效压缩视频体积   📋 目录导航 📦 一、音视频格式转换 ✂️ 二、去片头片尾 🎞️ 三、淡入淡出 📸 四、视频截图 🔍 五、视频元数据 🚫 六、去水印 🖼️ 七、添加封面 📦 八、视频压缩    📦 一、音视频格式转换1. 🔄 双击-视频格式转换为MP4123456789101112@echo off &amp; setlocal...</div></div></div></a><a class="pagination-related" href="/posts/66ff2ce4.html" title="Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5321" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀</div></div><div class="info-2"><div class="info-item-1">Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀  本指南详细介绍如何为 PVE 中的 Windows 虚拟机下载和安装 VirtIO 驱动程序，以显著提升虚拟机的性能和功能完整性。让您的 Windows 虚拟机在 Proxmox VE 上飞起来！🚤   📖 导航目录 🌟 VirtIO 驱动简介 📥 VirtIO 驱动下载 🔧 驱动安装步骤 ⚙️ 配置与优化 🐛 常见问题解决 🔄 自动化脚本 💡 最佳实践 📊 性能对比    🌟 一、VirtIO 驱动简介VirtIO 是一种半虚拟化技术，它通过特定的驱动程序让虚拟机能够更高效地与宿主机硬件通信。与完全模拟硬件相比，VirtIO 能显著降低开销，提升性能。🎯 主要优势：  性能提升 ⚡: 磁盘 I/O 和网络吞吐量可获得数倍提升。 降低 CPU 占用 💾: 更高效的通信机制减少 CPU 资源消耗。 增强功能 🔧: 支持内存气球驱动、QEMU 客户机代理等高级功能。  核心驱动组件：  viostor - 存储控制器驱动（必备！否则安装时可能找不到磁盘） NetKVM -...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proxmox-VE-%E5%AF%BC%E5%85%A5%E7%8E%B0%E6%9C%89%E7%A3%81%E7%9B%98%E9%95%9C%E5%83%8F%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%F0%9F%9A%80"><span class="toc-text">Proxmox VE 导入现有磁盘镜像完整教程 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📖 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E4%B8%80%E3%80%81%E5%AF%BC%E5%85%A5%E5%89%8D%E5%87%86%E5%A4%87"><span class="toc-text">🌟 一、导入前准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8-qm-importdisk-%E5%91%BD%E4%BB%A4%E5%AF%BC%E5%85%A5"><span class="toc-text">🔧 二、使用 qm importdisk 命令导入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95"><span class="toc-text">基本命令语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E%E8%A1%A8"><span class="toc-text">参数说明表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%AF%BC%E5%85%A5%E7%A4%BA%E4%BE%8B"><span class="toc-text">实际导入示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%BF%87%E7%A8%8B%E8%BE%93%E5%87%BA%E8%A7%A3%E6%9E%90"><span class="toc-text">导入过程输出解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E4%B8%89%E3%80%81%E5%9C%A8-PVE-%E9%9D%A2%E6%9D%BF%E4%B8%AD%E9%85%8D%E7%BD%AE%E7%A3%81%E7%9B%98"><span class="toc-text">⚙️ 三、在 PVE 面板中配置磁盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E5%9B%9B%E3%80%81%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2%E4%B8%8E%E5%A4%84%E7%90%86"><span class="toc-text">🔄 四、格式转换与处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8-qemu-img-%E8%BD%AC%E6%8D%A2%E6%A0%BC%E5%BC%8F"><span class="toc-text">1. 使用 qemu-img 转换格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Web-%E7%95%8C%E9%9D%A2%E5%9C%A8%E7%BA%BF%E8%BD%AC%E6%8D%A2"><span class="toc-text">2. Web 界面在线转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%84%E7%90%86%E7%89%B9%E6%AE%8A%E9%95%9C%E5%83%8F%E6%A0%BC%E5%BC%8F"><span class="toc-text">3. 处理特殊镜像格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E4%BA%94%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E4%B8%8E%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">⚠️ 五、注意事项与故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">常见问题及解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%89%B9%E5%88%AB%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">Windows 虚拟机特别注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E5%85%AD%E3%80%81%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">💡 六、最佳实践与优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E4%B8%83%E3%80%81%E9%AA%8C%E8%AF%81%E5%AF%BC%E5%85%A5%E7%BB%93%E6%9E%9C"><span class="toc-text">🎯 七、验证导入结果</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>

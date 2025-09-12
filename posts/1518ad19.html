@@ -1,0 +1,1073 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>iStoreOS SSH 命令大全 🖥️ | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="iStoreOS SSH 命令大全 🖥️  本指南整理了 iStoreOS（基于 OpenWrt）的常用 SSH 命令，涵盖系统管理、软件包操作、文件管理、网络配置、故障排除等多个方面，帮助您高效管理路由器系统。  📑 目录导航 ⚡ 一、系统控制命令 📦 二、软件包管理 🖥️ 三、系统信息查询 🌐 四、网络管理命令 📁 五、文件管理命令 📝 六、文件编辑与操作 📂 七、目录操作命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iStoreOS SSH 命令大全 🖥️">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/1518ad19.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="iStoreOS SSH 命令大全 🖥️  本指南整理了 iStoreOS（基于 OpenWrt）的常用 SSH 命令，涵盖系统管理、软件包操作、文件管理、网络配置、故障排除等多个方面，帮助您高效管理路由器系统。  📑 目录导航 ⚡ 一、系统控制命令 📦 二、软件包管理 🖥️ 三、系统信息查询 🌐 四、网络管理命令 📁 五、文件管理命令 📝 六、文件编辑与操作 📂 七、目录操作命令">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?8737">
+<meta property="article:published_time" content="2025-09-12T01:06:36.000Z">
+<meta property="article:modified_time" content="2025-09-12T01:06:36.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="命令大全">
+<meta property="article:tag" content="istoreos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?8737"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "iStoreOS SSH 命令大全 🖥️",
+  "url": "https://www.meimolihan.eu.org/posts/1518ad19.html",
+  "image": "https://api.mobufan.eu.org:666/pc?8737",
+  "datePublished": "2025-09-12T01:06:36.000Z",
+  "dateModified": "2025-09-12T01:06:36.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/1518ad19.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'iStoreOS SSH 命令大全 🖥️',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">125</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?8737);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">iStoreOS SSH 命令大全 🖥️</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">iStoreOS SSH 命令大全 🖥️</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T01:06:36.000Z" title="发表于 2025-09-12 09:06:36">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T01:06:36.000Z" title="更新于 2025-09-12 09:06:36">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 09:06:36&quot;}" hidden></div><h1 id="iStoreOS-SSH-命令大全-🖥️"><a href="#iStoreOS-SSH-命令大全-🖥️" class="headerlink" title="iStoreOS SSH 命令大全 🖥️"></a>iStoreOS SSH 命令大全 🖥️</h1><p><img src="https://file.meimolihan.eu.org/img/istoreos-01.webp" alt=""></p>
+<blockquote>
+<p>本指南整理了 iStoreOS（基于 OpenWrt）的常用 SSH 命令，涵盖系统管理、软件包操作、文件管理、网络配置、故障排除等多个方面，帮助您高效管理路由器系统。</p>
+</blockquote>
+<h2 id="📑-目录导航"><a href="#📑-目录导航" class="headerlink" title="📑 目录导航"></a>📑 目录导航</h2><ul>
+<li><a href="#system-control">⚡ 一、系统控制命令</a></li>
+<li><a href="#package-management">📦 二、软件包管理</a></li>
+<li><a href="#system-info">🖥️ 三、系统信息查询</a></li>
+<li><a href="#network-management">🌐 四、网络管理命令</a></li>
+<li><a href="#file-management">📁 五、文件管理命令</a></li>
+<li><a href="#file-operations">📝 六、文件编辑与操作</a></li>
+<li><a href="#directory-operations">📂 七、目录操作命令</a></li>
+<li><a href="#permission-management">🔐 八、权限管理命令</a></li>
+<li><a href="#compression">🗜️ 九、压缩与解压命令</a></li>
+<li><a href="#process-management">🛠️ 十、进程管理命令</a></li>
+<li><a href="#log-management">🔍 十一、日志查看命令</a></li>
+<li><a href="#network-configuration">⚙️ 十二、网络配置管理</a></li>
+<li><a href="#docker-management">🐳 十三、Docker 容器管理</a></li>
+<li><a href="#troubleshooting">🔧 十四、故障排除命令</a></li>
+<li><a href="#important-notes">⚠️ 十五、重要注意事项</a></li>
+</ul>
+<hr>
+<p><a id="system-control"></a></p>
+<h2 id="⚡-一、系统控制命令"><a href="#⚡-一、系统控制命令" class="headerlink" title="⚡ 一、系统控制命令"></a>⚡ 一、系统控制命令</h2><h3 id="1-立即关机"><a href="#1-立即关机" class="headerlink" title="1. 立即关机"></a>1. 立即关机</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">halt</span><br><span class="line"><span class="comment"># 🛑 立即关闭系统</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-重启系统"><a href="#2-重启系统" class="headerlink" title="2. 重启系统"></a>2. 重启系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br><span class="line"><span class="comment"># 🔄 立即重启系统</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-清空终端屏幕"><a href="#3-清空终端屏幕" class="headerlink" title="3. 清空终端屏幕"></a>3. 清空终端屏幕</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line"><span class="comment"># 🧹 清空当前终端窗口内容</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-查看系统运行时间"><a href="#4-查看系统运行时间" class="headerlink" title="4. 查看系统运行时间"></a>4. 查看系统运行时间</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uptime</span></span><br><span class="line"><span class="comment"># ⏰ 显示系统运行时间和负载</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-查看系统版本信息"><a href="#5-查看系统版本信息" class="headerlink" title="5. 查看系统版本信息"></a>5. 查看系统版本信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/openwrt_release</span><br><span class="line"><span class="comment"># 🏷️ 显示 OpenWrt 版本信息</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="package-management"></a></p>
+<h2 id="📦-二、软件包管理"><a href="#📦-二、软件包管理" class="headerlink" title="📦 二、软件包管理"></a>📦 二、软件包管理</h2><h3 id="1-更新软件包索引"><a href="#1-更新软件包索引" class="headerlink" title="1. 更新软件包索引"></a>1. 更新软件包索引</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line"><span class="comment"># 🔄 更新可用软件包列表</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-安装软件包"><a href="#2-安装软件包" class="headerlink" title="2. 安装软件包"></a>2. 安装软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">opkg install [软件包名]</span><br><span class="line"><span class="comment"># 📦 安装指定软件包</span></span><br><span class="line"><span class="comment"># 示例：opkg install nano</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-卸载软件包"><a href="#3-卸载软件包" class="headerlink" title="3. 卸载软件包"></a>3. 卸载软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg remove [软件包名]</span><br><span class="line"><span class="comment"># 🗑️ 卸载指定软件包</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-列出所有可用软件包"><a href="#4-列出所有可用软件包" class="headerlink" title="4. 列出所有可用软件包"></a>4. 列出所有可用软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg list</span><br><span class="line"><span class="comment"># 📋 显示所有可安装的软件包</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-搜索软件包"><a href="#5-搜索软件包" class="headerlink" title="5. 搜索软件包"></a>5. 搜索软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg list | grep [关键词]</span><br><span class="line"><span class="comment"># 🔍 按关键词搜索软件包</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-查看已安装软件包"><a href="#6-查看已安装软件包" class="headerlink" title="6. 查看已安装软件包"></a>6. 查看已安装软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg list-installed</span><br><span class="line"><span class="comment"># 📊 显示所有已安装的软件包</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-安装Cpolar内网穿透软件"><a href="#7-安装Cpolar内网穿透软件" class="headerlink" title="7. 安装Cpolar内网穿透软件"></a>7. 安装Cpolar内网穿透软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载公钥</span></span><br><span class="line">wget -O cpolar-public.key http://openwrt.cpolar.com/releases/public.key</span><br><span class="line"><span class="comment"># 添加公钥</span></span><br><span class="line">opkg-key add cpolar-public.key</span><br><span class="line"><span class="comment"># 添加Cpolar的opkg仓库源</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;src/gz cpolar_packages http://openwrt.cpolar.com/releases/packages/<span class="subst">$(. /etc/openwrt_release ; echo $DISTRIB_ARCH)</span>&quot;</span> &gt;&gt; /etc/opkg/customfeeds.conf</span><br><span class="line"><span class="comment"># 更新仓库</span></span><br><span class="line">opkg update</span><br><span class="line"><span class="comment"># 安装Cpolar</span></span><br><span class="line">opkg install cpolar</span><br><span class="line">opkg install luci-app-cpolar</span><br><span class="line">opkg install luci-i18n-cpolar-zh-cn</span><br></pre></td></tr></table></figure>
+<p><em>适用于配置公网远程访问iStoreOS</em></p>
+<hr>
+<p><a id="system-info"></a></p>
+<h2 id="🖥️-三、系统信息查询"><a href="#🖥️-三、系统信息查询" class="headerlink" title="🖥️ 三、系统信息查询"></a>🖥️ 三、系统信息查询</h2><h3 id="1-查看系统配置"><a href="#1-查看系统配置" class="headerlink" title="1. 查看系统配置"></a>1. 查看系统配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uci show</span><br><span class="line"><span class="comment"># ⚙️ 显示所有 UCI 配置</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-查询-CPU-架构"><a href="#2-查询-CPU-架构" class="headerlink" title="2. 查询 CPU 架构"></a>2. 查询 CPU 架构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -m</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="built_in">cat</span> /etc/os-release | grep ARCH</span><br><span class="line"><span class="comment"># 🔧 显示系统架构信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看内存使用情况"><a href="#3-查看内存使用情况" class="headerlink" title="3. 查看内存使用情况"></a>3. 查看内存使用情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">free -h</span><br><span class="line"><span class="comment"># 💾 以人类可读格式显示内存使用</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-查看磁盘使用情况"><a href="#4-查看磁盘使用情况" class="headerlink" title="4. 查看磁盘使用情况"></a>4. 查看磁盘使用情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h</span><br><span class="line"><span class="comment"># 💽 显示磁盘空间使用情况</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-查看内核版本"><a href="#5-查看内核版本" class="headerlink" title="5. 查看内核版本"></a>5. 查看内核版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line"><span class="comment"># 🔍 显示系统内核版本和架构信息</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="network-management"></a></p>
+<h2 id="🌐-四、网络管理命令"><a href="#🌐-四、网络管理命令" class="headerlink" title="🌐 四、网络管理命令"></a>🌐 四、网络管理命令</h2><h3 id="1-查看网络接口信息"><a href="#1-查看网络接口信息" class="headerlink" title="1. 查看网络接口信息"></a>1. 查看网络接口信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br><span class="line"><span class="comment"># 🌐 显示所有网络接口状态</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-测试网络连通性"><a href="#2-测试网络连通性" class="headerlink" title="2. 测试网络连通性"></a>2. 测试网络连通性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ping -c 4 google.com</span><br><span class="line"><span class="comment"># 📡 测试到 Google 的网络连接</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看路由表"><a href="#3-查看路由表" class="headerlink" title="3. 查看路由表"></a>3. 查看路由表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route -n</span><br><span class="line"><span class="comment"># 🗺️ 显示系统路由表</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-查看网络连接状态"><a href="#4-查看网络连接状态" class="headerlink" title="4. 查看网络连接状态"></a>4. 查看网络连接状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -tuln</span><br><span class="line"><span class="comment"># 🔌 显示所有网络连接和监听端口</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-重启网络服务"><a href="#5-重启网络服务" class="headerlink" title="5. 重启网络服务"></a>5. 重启网络服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/network restart</span><br><span class="line"><span class="comment"># 🔄 重启网络配置</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-查看网络接口详细配置"><a href="#6-查看网络接口详细配置" class="headerlink" title="6. 查看网络接口详细配置"></a>6. 查看网络接口详细配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr show</span><br><span class="line"><span class="comment"># 🔧 显示网络接口的详细配置信息</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="file-management"></a></p>
+<h2 id="📁-五、文件管理命令"><a href="#📁-五、文件管理命令" class="headerlink" title="📁 五、文件管理命令"></a>📁 五、文件管理命令</h2><h3 id="1-下载文件"><a href="#1-下载文件" class="headerlink" title="1. 下载文件"></a>1. 下载文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://example.com/file.img.gz</span><br><span class="line"><span class="comment"># 📥 从网络下载文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-查看目录结构"><a href="#2-查看目录结构" class="headerlink" title="2. 查看目录结构"></a>2. 查看目录结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /</span><br><span class="line"><span class="comment"># 📂 查看根目录内容</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看详细目录列表"><a href="#3-查看详细目录列表" class="headerlink" title="3. 查看详细目录列表"></a>3. 查看详细目录列表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la</span><br><span class="line"><span class="comment"># 📋 显示详细文件列表（包括隐藏文件）</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-查看磁盘分区"><a href="#4-查看磁盘分区" class="headerlink" title="4. 查看磁盘分区"></a>4. 查看磁盘分区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l</span><br><span class="line"><span class="comment"># 💾 显示磁盘分区信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-删除文件或目录"><a href="#5-删除文件或目录" class="headerlink" title="5. 删除文件或目录"></a>5. 删除文件或目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /mnt/sata1-1/test11</span><br><span class="line"><span class="comment"># 🗑️ 强制删除文件或目录（谨慎使用！）</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-安全删除（确认提示）"><a href="#6-安全删除（确认提示）" class="headerlink" title="6. 安全删除（确认提示）"></a>6. 安全删除（确认提示）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -i filename</span><br><span class="line"><span class="comment"># ❓ 删除前确认</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-查看文件大小"><a href="#7-查看文件大小" class="headerlink" title="7. 查看文件大小"></a>7. 查看文件大小</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh filename</span><br><span class="line"><span class="comment"># 📊 显示文件或目录的大小</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="file-operations"></a></p>
+<h2 id="📝-六、文件编辑与操作"><a href="#📝-六、文件编辑与操作" class="headerlink" title="📝 六、文件编辑与操作"></a>📝 六、文件编辑与操作</h2><h3 id="1-使用-vi-编辑文件"><a href="#1-使用-vi-编辑文件" class="headerlink" title="1. 使用 vi 编辑文件"></a>1. 使用 vi 编辑文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /mnt/sata1-1/test.txt</span><br><span class="line"><span class="comment"># ✏️ 使用 vi 编辑器修改文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-使用-nano-编辑文件（如已安装）"><a href="#2-使用-nano-编辑文件（如已安装）" class="headerlink" title="2. 使用 nano 编辑文件（如已安装）"></a>2. 使用 nano 编辑文件（如已安装）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /mnt/sata1-1/test.txt</span><br><span class="line"><span class="comment"># ✏️ 使用 nano 编辑器（更友好）</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-文件重命名"><a href="#3-文件重命名" class="headerlink" title="3. 文件重命名"></a>3. 文件重命名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> test1 test2</span><br><span class="line"><span class="comment"># 🔄 将 test1 重命名为 test2</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-移动文件"><a href="#4-移动文件" class="headerlink" title="4. 移动文件"></a>4. 移动文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> file.txt /new/location/</span><br><span class="line"><span class="comment"># 🚚 移动文件到新位置</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-复制文件"><a href="#5-复制文件" class="headerlink" title="5. 复制文件"></a>5. 复制文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> file.txt backup.txt</span><br><span class="line"><span class="comment"># 📋 创建文件副本</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-查看文件内容"><a href="#6-查看文件内容" class="headerlink" title="6. 查看文件内容"></a>6. 查看文件内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> filename</span><br><span class="line"><span class="comment"># 👀 显示文件全部内容</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-分页查看文件内容"><a href="#7-分页查看文件内容" class="headerlink" title="7. 分页查看文件内容"></a>7. 分页查看文件内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">less filename</span><br><span class="line"><span class="comment"># 📄 分页显示文件内容</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="directory-operations"></a></p>
+<h2 id="📂-七、目录操作命令"><a href="#📂-七、目录操作命令" class="headerlink" title="📂 七、目录操作命令"></a>📂 七、目录操作命令</h2><h3 id="1-创建单个目录"><a href="#1-创建单个目录" class="headerlink" title="1. 创建单个目录"></a>1. 创建单个目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -v test1</span><br><span class="line"><span class="comment"># 📁 创建目录并显示操作信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-创建多级目录"><a href="#2-创建多级目录" class="headerlink" title="2. 创建多级目录"></a>2. 创建多级目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /overlay/home/web/web03</span><br><span class="line"><span class="comment"># 🌳 递归创建多级目录结构</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-同时创建多个目录"><a href="#3-同时创建多个目录" class="headerlink" title="3. 同时创建多个目录"></a>3. 同时创建多个目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -v /mnt/-1/123 /mnt/-1/abc</span><br><span class="line"><span class="comment"># 📂 一次性创建多个目录</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-切换工作目录"><a href="#4-切换工作目录" class="headerlink" title="4. 切换工作目录"></a>4. 切换工作目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/-1</span><br><span class="line"><span class="comment"># 📁 切换到指定目录</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-返回上级目录"><a href="#5-返回上级目录" class="headerlink" title="5. 返回上级目录"></a>5. 返回上级目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"><span class="comment"># ↩️ 返回上一级目录</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-返回家目录"><a href="#6-返回家目录" class="headerlink" title="6. 返回家目录"></a>6. 返回家目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="comment"># 🏠 返回当前用户的家目录</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-显示当前工作目录"><a href="#7-显示当前工作目录" class="headerlink" title="7. 显示当前工作目录"></a>7. 显示当前工作目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br><span class="line"><span class="comment"># 📍 显示当前所在目录的完整路径</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="permission-management"></a></p>
+<h2 id="🔐-八、权限管理命令"><a href="#🔐-八、权限管理命令" class="headerlink" title="🔐 八、权限管理命令"></a>🔐 八、权限管理命令</h2><h3 id="1-修改文件权限"><a href="#1-修改文件权限" class="headerlink" title="1. 修改文件权限"></a>1. 修改文件权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 0755 test.txt</span><br><span class="line"><span class="comment"># 🔧 设置文件权限为 0755 (rwxr-xr-x)</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-修改目录权限（递归）"><a href="#2-修改目录权限（递归）" class="headerlink" title="2. 修改目录权限（递归）"></a>2. 修改目录权限（递归）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> -R 755 directory/</span><br><span class="line"><span class="comment"># 🔄 递归修改目录内所有文件权限</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-修改文件所有者"><a href="#3-修改文件所有者" class="headerlink" title="3. 修改文件所有者"></a>3. 修改文件所有者</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> root:root file.txt</span><br><span class="line"><span class="comment"># 👤 修改文件所有者和组</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-查看文件权限"><a href="#4-查看文件权限" class="headerlink" title="4. 查看文件权限"></a>4. 查看文件权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -l file.txt</span><br><span class="line"><span class="comment"># 👀 显示文件详细权限信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-修改目录所有者（递归）"><a href="#5-修改目录所有者（递归）" class="headerlink" title="5. 修改目录所有者（递归）"></a>5. 修改目录所有者（递归）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R user:group directory/</span><br><span class="line"><span class="comment"># 🔄 递归修改目录内所有文件的所有者</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="compression"></a></p>
+<h2 id="🗜️-九、压缩与解压命令"><a href="#🗜️-九、压缩与解压命令" class="headerlink" title="🗜️ 九、压缩与解压命令"></a>🗜️ 九、压缩与解压命令</h2><h3 id="1-批量压缩目录"><a href="#1-批量压缩目录" class="headerlink" title="1. 批量压缩目录"></a>1. 批量压缩目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 压缩当前目录下所有文件夹到指定位置</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">dir</span> <span class="keyword">in</span> */; <span class="keyword">do</span> tar -czvf <span class="string">&quot;/mnt/-1/Backup/<span class="variable">$&#123;dir%/&#125;</span>.tar.gz&quot;</span> <span class="string">&quot;<span class="variable">$dir</span>&quot;</span>; <span class="keyword">done</span></span><br><span class="line"><span class="comment"># 📦 每个文件夹单独压缩为 .tar.gz 文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-批量解压文件"><a href="#2-批量解压文件" class="headerlink" title="2. 批量解压文件"></a>2. 批量解压文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压所有 .tar.gz 文件到指定目录</span></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> *.tar.gz; <span class="keyword">do</span> tar -xzvf <span class="string">&quot;<span class="variable">$file</span>&quot;</span> -C /mnt/-1/Home; <span class="keyword">done</span></span><br><span class="line"><span class="comment"># 📤 批量解压到目标目录</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-单个文件压缩"><a href="#3-单个文件压缩" class="headerlink" title="3. 单个文件压缩"></a>3. 单个文件压缩</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -czvf backup.tar.gz /path/to/directory</span><br><span class="line"><span class="comment"># 📦 压缩指定目录</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-单个文件解压"><a href="#4-单个文件解压" class="headerlink" title="4. 单个文件解压"></a>4. 单个文件解压</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf backup.tar.gz -C /target/directory</span><br><span class="line"><span class="comment"># 📤 解压到指定目录</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-创建zip压缩包"><a href="#5-创建zip压缩包" class="headerlink" title="5. 创建zip压缩包"></a>5. 创建zip压缩包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip -r backup.zip directory/</span><br><span class="line"><span class="comment"># 📦 创建zip格式压缩包</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-解压zip文件"><a href="#6-解压zip文件" class="headerlink" title="6. 解压zip文件"></a>6. 解压zip文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip backup.zip</span><br><span class="line"><span class="comment"># 📤 解压zip格式压缩包</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="process-management"></a></p>
+<h2 id="🛠️-十、进程管理命令"><a href="#🛠️-十、进程管理命令" class="headerlink" title="🛠️ 十、进程管理命令"></a>🛠️ 十、进程管理命令</h2><h3 id="1-查看运行中的进程"><a href="#1-查看运行中的进程" class="headerlink" title="1. 查看运行中的进程"></a>1. 查看运行中的进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps aux</span><br><span class="line"><span class="comment"># 📊 显示所有运行中的进程</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-实时监控进程"><a href="#2-实时监控进程" class="headerlink" title="2. 实时监控进程"></a>2. 实时监控进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">top</span><br><span class="line"><span class="comment"># 📈 实时显示系统进程和资源使用</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-结束进程"><a href="#3-结束进程" class="headerlink" title="3. 结束进程"></a>3. 结束进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> [PID]</span><br><span class="line"><span class="comment"># 🛑 结束指定进程ID的进程</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-强制结束进程"><a href="#4-强制结束进程" class="headerlink" title="4. 强制结束进程"></a>4. 强制结束进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 [PID]</span><br><span class="line"><span class="comment"># 💥 强制结束顽固进程</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-根据进程名结束进程"><a href="#5-根据进程名结束进程" class="headerlink" title="5. 根据进程名结束进程"></a>5. 根据进程名结束进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pkill process_name</span><br><span class="line"><span class="comment"># 🔍 根据进程名称结束进程</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-查看进程树"><a href="#6-查看进程树" class="headerlink" title="6. 查看进程树"></a>6. 查看进程树</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pstree</span><br><span class="line"><span class="comment"># 🌳 以树状图显示进程关系</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="log-management"></a></p>
+<h2 id="🔍-十一、日志查看命令"><a href="#🔍-十一、日志查看命令" class="headerlink" title="🔍 十一、日志查看命令"></a>🔍 十一、日志查看命令</h2><h3 id="1-查看系统日志"><a href="#1-查看系统日志" class="headerlink" title="1. 查看系统日志"></a>1. 查看系统日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logread</span><br><span class="line"><span class="comment"># 📝 显示系统日志</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-实时监控日志"><a href="#2-实时监控日志" class="headerlink" title="2. 实时监控日志"></a>2. 实时监控日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logread -f</span><br><span class="line"><span class="comment"># 🔍 实时跟踪系统日志</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看内核日志"><a href="#3-查看内核日志" class="headerlink" title="3. 查看内核日志"></a>3. 查看内核日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmesg</span><br><span class="line"><span class="comment"># ⚙️ 显示内核环形缓冲区消息</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-查看特定服务的日志"><a href="#4-查看特定服务的日志" class="headerlink" title="4. 查看特定服务的日志"></a>4. 查看特定服务的日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logread | grep service_name</span><br><span class="line"><span class="comment"># 🔎 筛选特定服务的日志</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-查看系统启动日志"><a href="#5-查看系统启动日志" class="headerlink" title="5. 查看系统启动日志"></a>5. 查看系统启动日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep <span class="string">&quot;Starting&quot;</span></span><br><span class="line"><span class="comment"># 🔧 查看系统启动过程中的日志</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="network-configuration"></a></p>
+<h2 id="⚙️-十二、网络配置管理"><a href="#⚙️-十二、网络配置管理" class="headerlink" title="⚙️ 十二、网络配置管理"></a>⚙️ 十二、网络配置管理</h2><h3 id="1-修改网络配置"><a href="#1-修改网络配置" class="headerlink" title="1. 修改网络配置"></a>1. 修改网络配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/config/network</span><br><span class="line"><span class="comment"># ✏️ 编辑网络配置文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-重启网络接口"><a href="#2-重启网络接口" class="headerlink" title="2. 重启网络接口"></a>2. 重启网络接口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifdown lan &amp;&amp; ifup lan</span><br><span class="line"><span class="comment"># 🔄 重启LAN接口</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看防火墙配置"><a href="#3-查看防火墙配置" class="headerlink" title="3. 查看防火墙配置"></a>3. 查看防火墙配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uci show firewall</span><br><span class="line"><span class="comment"># 🔥 显示防火墙配置</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-重启防火墙"><a href="#4-重启防火墙" class="headerlink" title="4. 重启防火墙"></a>4. 重启防火墙</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/firewall restart</span><br><span class="line"><span class="comment"># 🔄 重启防火墙服务</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-查看DNS配置"><a href="#5-查看DNS配置" class="headerlink" title="5. 查看DNS配置"></a>5. 查看DNS配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/resolv.conf</span><br><span class="line"><span class="comment"># 🌐 显示DNS解析配置</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-网络测试"><a href="#6-网络测试" class="headerlink" title="6. 网络测试"></a>6. 网络测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">traceroute google.com</span><br><span class="line"><span class="comment"># 🗺️ 跟踪到目标地址的网络路径</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="docker-management"></a></p>
+<h2 id="🐳-十三、Docker-容器管理"><a href="#🐳-十三、Docker-容器管理" class="headerlink" title="🐳 十三、Docker 容器管理"></a>🐳 十三、Docker 容器管理</h2><h3 id="1-查看Docker版本"><a href="#1-查看Docker版本" class="headerlink" title="1. 查看Docker版本"></a>1. 查看Docker版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br><span class="line"><span class="comment"># 🔍 显示Docker版本信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-查看运行中的容器"><a href="#2-查看运行中的容器" class="headerlink" title="2. 查看运行中的容器"></a>2. 查看运行中的容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br><span class="line"><span class="comment"># 📊 显示运行中的容器</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看所有容器"><a href="#3-查看所有容器" class="headerlink" title="3. 查看所有容器"></a>3. 查看所有容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br><span class="line"><span class="comment"># 📋 显示所有容器（包括停止的）</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4. 启动容器"></a>4. 启动容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start [容器名]</span><br><span class="line"><span class="comment"># 🚀 启动指定容器</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-停止容器"><a href="#5-停止容器" class="headerlink" title="5. 停止容器"></a>5. 停止容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker stop [容器名]</span><br><span class="line"><span class="comment"># 🛑 停止指定容器</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-查看容器日志"><a href="#6-查看容器日志" class="headerlink" title="6. 查看容器日志"></a>6. 查看容器日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker logs [容器名]</span><br><span class="line"><span class="comment"># 📝 查看容器日志</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-进入容器终端"><a href="#7-进入容器终端" class="headerlink" title="7. 进入容器终端"></a>7. 进入容器终端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it [容器名] /bin/bash</span><br><span class="line"><span class="comment"># 🔍 进入运行中的容器</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🔧-十四、故障排除命令"><a href="#🔧-十四、故障排除命令" class="headerlink" title="🔧 十四、故障排除命令"></a>🔧 十四、故障排除命令</h2><h3 id="1-查看系统服务状态"><a href="#1-查看系统服务状态" class="headerlink" title="1. 查看系统服务状态"></a>1. 查看系统服务状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/[服务名] status</span><br><span class="line"><span class="comment"># 🔍 检查特定服务状态</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-测试端口连通性"><a href="#2-测试端口连通性" class="headerlink" title="2. 测试端口连通性"></a>2. 测试端口连通性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -zv localhost 80</span><br><span class="line"><span class="comment"># 🧪 测试本地端口是否开放</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看系统负载"><a href="#3-查看系统负载" class="headerlink" title="3. 查看系统负载"></a>3. 查看系统负载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w</span><br><span class="line"><span class="comment"># 📈 显示系统负载和登录用户</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-检查磁盘错误"><a href="#4-检查磁盘错误" class="headerlink" title="4. 检查磁盘错误"></a>4. 检查磁盘错误</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fsck /dev/sda1</span><br><span class="line"><span class="comment"># 🔧 检查并修复文件系统错误</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-查看硬件信息"><a href="#5-查看硬件信息" class="headerlink" title="5. 查看硬件信息"></a>5. 查看硬件信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br><span class="line"><span class="comment"># 🔍 显示PCI设备信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-查看USB设备"><a href="#6-查看USB设备" class="headerlink" title="6. 查看USB设备"></a>6. 查看USB设备</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br><span class="line"><span class="comment"># 🔌 显示连接的USB设备</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-内存检测"><a href="#7-内存检测" class="headerlink" title="7. 内存检测"></a>7. 内存检测</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/meminfo</span><br><span class="line"><span class="comment"># 💾 显示详细内存信息</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="important-notes"></a></p>
+<h2 id="⚠️-十五、重要注意事项"><a href="#⚠️-十五、重要注意事项" class="headerlink" title="⚠️ 十五、重要注意事项"></a>⚠️ 十五、重要注意事项</h2><ol>
+<li><strong>谨慎使用 <code>rm -rf</code></strong>：这个命令会永久删除文件，无法恢复</li>
+<li><strong>备份重要配置</strong>：修改重要文件前先备份</li>
+<li><strong>了解命令作用</strong>：不确定的命令先查询文档再执行</li>
+<li><strong>使用 Tab 补全</strong>：减少输入错误，提高效率</li>
+<li><strong>定期更新系统</strong>：保持系统安全和稳定</li>
+<li><strong>修改网络配置前备份</strong>：避免网络连接中断</li>
+<li><strong>注意权限管理</strong>：谨慎使用 <code>chmod</code> 和 <code>chown</code> 命令</li>
+<li><strong>关注系统日志</strong>：定期检查日志发现潜在问题</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 系统更新示例</span></span><br><span class="line">opkg update &amp;&amp; opkg upgrade</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置文件备份示例</span></span><br><span class="line"><span class="built_in">cp</span> /etc/config/network /etc/config/network.backup</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>🎯 掌握这些命令将让您能够高效地管理和维护 iStoreOS 系统。建议先在不重要的环境中练习，熟悉后再在生产环境中使用。记得定期备份重要配置，谨慎执行可能影响系统稳定性的命令。</p>
+</blockquote>
+<h2 id="💡-实用技巧"><a href="#💡-实用技巧" class="headerlink" title="💡 实用技巧"></a>💡 实用技巧</h2><ol>
+<li><p><strong>使用命令历史</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">history</span></span><br><span class="line"><span class="comment"># 📚 查看之前执行过的命令</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>命令别名设置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> ll=<span class="string">&#x27;ls -la&#x27;</span></span><br><span class="line"><span class="comment"># 🔧 创建命令别名简化操作</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>后台运行命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> <span class="built_in">command</span> &amp;</span><br><span class="line"><span class="comment"># 📻 在后台运行命令即使退出终端也不中断</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>定时任务管理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"><span class="comment"># ⏰ 编辑定时任务</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>系统资源监控</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">htop</span><br><span class="line"><span class="comment"># 📊 更直观的系统监控工具（如已安装）</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>希望这份全面的 iStoreOS SSH 命令指南能帮助您更有效地管理系统！🖥️🚀</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">命令大全</a><a class="post-meta__tags" href="/tags/istoreos/">istoreos</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?8737" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/eedce50.html" title="ESXi 硬盘直通配置指南 🖥️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1718" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">ESXi 硬盘直通配置指南 🖥️</div></div><div class="info-2"><div class="info-item-1">ESXi 硬盘直通配置指南 🖥️  通过 ESXi 的硬盘直通（Passthrough）功能，虚拟机可以直接访问物理硬盘，既能显著提升存储性能，又能确保更好的兼容性。本指南将详细介绍两种主流配置方法：PCIe 控制器直通和 RDM 直通，助你高效、安全地完成设置。  📋 导航目录 🧰 前期准备 🔧 配置 PCIe 控制器直通 💽 配置 RDM 直通 ⚠️ 重要注意事项与故障排除 📊 方案对比与选择 💎 总结与建议   🧰 前期准备在开始配置前，请务必完成以下准备工作，以确保过程顺利且安全：  启用 BIOS 中的虚拟化支持 📟  进入主板 BIOS 设置，开启 VT-d（Intel 平台）或 AMD-V（AMD 平台）功能，这是硬件直通的基础。   备份重要数据 💾  直通操作涉及底层硬件访问，配置错误可能导致数据丢失，请提前备份所有关键数据。   确认硬件兼容性 ✅  并非所有硬件都支持直通，建议查阅 VMware 官方兼容性指南 确认你的设备是否兼容。   规划系统安装位置 🗂️  如果打算直通主板上的 SATA 控制器，ESXi...</div></div></div></a><a class="pagination-related" href="/posts/2bb85992.html" title="Docker 命令大全 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7916" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Docker 命令大全 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 命令大全 🐳 目录 📚 ✨ Docker 简介 📦 一、安装与卸载 🔍 二、基本信息与版本 🐋 三、容器管理 🖥️ 四、容器操作 🏞️ 五、镜像管理 🌐 六、网络管理 💾 七、数据卷管理 🛠️ 八、Docker Compose 命令 🧹 九、清理与维护 🔐 十、安全相关 💡 十一、实用技巧与示例 🚨 十二、注意事项 📚 十三、学习资源   ✨ Docker 简介Docker 是一个开源的容器化平台，允许开发者将应用程序及其依赖打包到轻量级、可移植的容器中。这些容器可以在任何支持 Docker 的系统中运行，确保环境一致性并简化部署流程。 🎯 Docker 的核心优势： 环境一致性：开发、测试、生产环境完全一致 快速部署：秒级启动和停止容器 资源隔离：每个容器拥有独立的运行环境 易于扩展：快速复制和扩展容器实例 版本控制：镜像版本管理，轻松回滚  🔧 Docker 核心组件： Docker Engine：核心容器运行时 Docker Images：只读模板，用于创建容器 Docker...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/2bb85992.html" title="Docker 命令大全 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7916" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 命令大全 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 命令大全 🐳 目录 📚 ✨ Docker 简介 📦 一、安装与卸载 🔍 二、基本信息与版本 🐋 三、容器管理 🖥️ 四、容器操作 🏞️ 五、镜像管理 🌐 六、网络管理 💾 七、数据卷管理 🛠️ 八、Docker Compose 命令 🧹 九、清理与维护 🔐 十、安全相关 💡 十一、实用技巧与示例 🚨 十二、注意事项 📚 十三、学习资源   ✨ Docker 简介Docker 是一个开源的容器化平台，允许开发者将应用程序及其依赖打包到轻量级、可移植的容器中。这些容器可以在任何支持 Docker 的系统中运行，确保环境一致性并简化部署流程。 🎯 Docker 的核心优势： 环境一致性：开发、测试、生产环境完全一致 快速部署：秒级启动和停止容器 资源隔离：每个容器拥有独立的运行环境 易于扩展：快速复制和扩展容器实例 版本控制：镜像版本管理，轻松回滚  🔧 Docker 核心组件： Docker Engine：核心容器运行时 Docker Images：只读模板，用于创建容器 Docker...</div></div></div></a><a class="pagination-related" href="/posts/3f2e65d4.html" title="ESXi 虚拟机管理命令大全 ⚡"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4776" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">ESXi 虚拟机管理命令大全 ⚡</div></div><div class="info-2"><div class="info-item-1">ESXi 虚拟机管理命令大全 ⚡  🖥️ 掌握ESXi命令行管理，轻松掌控虚拟机生命周期   目录 📚 🔍 一、虚拟机信息查询 ⚡ 二、电源管理操作 📊 三、状态监控与诊断 🔧 四、高级管理命令 🛠️ 五、配置与维护 ⚠️ 六、注意事项 💡 七、实用技巧 🎯 八、批量操作脚本 🚀 九、性能优化    🔍 一、虚拟机信息查询📋 获取所有虚拟机列表用途: 显示ESXi主机上所有虚拟机的详细信息 12345678# 获取完整虚拟机列表vim-cmd vmsvc/getallvms# 格式化输出（更易读）vim-cmd vmsvc/getallvms | awk &#x27;&#123;printf &quot;%-4s %-30s %-20s %-15s %-10s\n&quot;, $1, $2, $3, $4, $5&#125;&#x27;# 仅显示虚拟机ID和名称vim-cmd vmsvc/getallvms | awk &#x27;&#123;print $1 &quot; &quot; $2&#125;&#x27; | grep -v...</div></div></div></a><a class="pagination-related" href="/posts/a499d9.html" title="Linux 命令大全 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5703" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Linux 命令大全 🐧</div></div><div class="info-2"><div class="info-item-1">Linux 命令大全 🐧  简洁高效的 Linux 命令手册，涵盖日常操作、用户管理、系统监控和网络配置，助你快速上手终端操作！   ✨ 特点与功能介绍Linux 是一种自由开源的类 Unix 操作系统，广泛应用于服务器、嵌入式设备及开发环境中。其强大的命令行工具为用户提供了高效、灵活的操作方式。本文整理了常用的 Linux 命令，涵盖文件操作、用户管理、系统监控和网络配置等方面，适合初学者和有一定经验的用户查阅使用。  🧭 一、通用命令1. 打印或设置系统日期和时间 📅1date 2. 查看或设置终端控制字符（如 Ctrl-C, Ctrl-D, Ctrl-Z 等）⌨️1stty -a  3. 修改当前用户密码 🔒1passwd 4. 用户登录与注销 🔐12login    # 登录logout   # 注销（注意：原文中的 &quot;1ogout&quot; 应为 &quot;logout&quot;） 5. 显示当前工作目录 📂1pwd 6. 查看文件内容 📄1234more     # 分页显示文件内容less     #...</div></div></div></a><a class="pagination-related" href="/posts/b41427f.html" title="Windows 常用批处理命令大全 🪟"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6917" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Windows 常用批处理命令大全 🪟</div></div><div class="info-2"><div class="info-item-1">Windows 常用批处理命令大全 🪟  全面整理 Windows 系统日常管理和维护的批处理脚本，提高工作效率！本指南涵盖文件操作、网络配置、系统优化等实用技巧。🪟   📖 导航目录 🌟 批处理简介 📁 文件与目录操作 🌐 网络相关命令 🎨 系统界面优化 ⚡ 系统电源管理 🛠️ 系统维护命令 👥 用户账户管理 💡 实用技巧与提示 🚀 高级批处理技巧    🌟 批处理文件简介批处理文件（.bat 或 .cmd）是 Windows 系统中用于自动执行任务的脚本文件，可以批量处理命令，提高系统管理效率。✨ 主要优势：  自动化 🤖: 批量执行重复任务，节省时间 灵活性 🔧: 可组合各种系统命令和程序 强大功能 ⚡: 支持变量、条件判断、循环等编程元素 系统集成 🖥️: 直接调用 Windows 系统工具和命令  基本结构：1234@echo offREM 这是一条注释echo 欢迎使用批处理脚本！pause   📁 一、文件与目录操作1. 创建多级目录 📂1234@echo offmd &quot;D:\Installation...</div></div></div></a><a class="pagination-related" href="/posts/6a9c41c2.html" title="iStoreOS NFS 配置与管理指南 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6909" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">iStoreOS NFS 配置与管理指南 🚀</div></div><div class="info-2"><div class="info-item-1">iStoreOS NFS 配置与管理指南 🚀  一份详细且生动的指南，帮助您在 iStoreOS 上轻松配置和管理 NFS 共享！   📖 导航目录 ✨ 特点与功能 📦 安装 NFS 软件包 ⚙️ NFS 服务端配置 🖥️ SSH 命令行配置 🌐 Web 界面配置   🔗 NFS 客户端配置 ⏳ 临时挂载 🔧 永久挂载   🛠️ 管理命令 📊 监控脚本 🐛 故障排除 🔒 安全建议    ✨ 特点与功能iStoreOS 提供了强大且灵活的 NFS（Network File System）支持，使您能够：  🗂️ 轻松共享文件：在局域网内多设备间快速共享文件和目录 ⚡ 高速传输：NFS 协议为 Linux/Unix 系统提供高效的文件访问性能 🔧 简单配置：通过 SSH 命令行或直观的 Web 界面两种方式配置 🛡️ 权限控制：可精细设置访问权限和客户端限制 📱 多设备兼容：支持与各种 Linux 发行版、macOS 和 Windows（需安装NFS客户端）共享文件 🔄 持久化挂载：支持开机自动挂载，确保服务长期稳定运行    📦 安装 NFS...</div></div></div></a><a class="pagination-related" href="/posts/f4b1dbdb.html" title="iStoreOS Docker 目录迁移完全指南 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4749" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">iStoreOS Docker 目录迁移完全指南 🐳</div></div><div class="info-2"><div class="info-item-1">iStoreOS Docker 目录迁移完全指南 🐳  本指南详细介绍如何将 iStoreOS 的 Docker 数据目录迁移到新的存储位置，释放系统分区空间并提高存储灵活性。通过本指南，您可以轻松完成 Docker 数据迁移，确保服务无缝切换！🚀   📖 导航目录 ✨ 迁移优势 ⚡ 快速开始 ⚠️ 迁移前准备 🚀 迁移步骤 🔧 高级配置选项 🐛 故障排除 💡 最佳实践建议 ✅ 验证清单    ✨ 迁移优势将 Docker 目录迁移到专用存储位置可以带来以下好处：  💾 释放系统空间：避免 Docker 占用宝贵的系统分区空间 🚀 提升性能：将数据存储在更快的存储设备上（如 SSD） 📈 扩展性增强：轻松扩展存储容量而不影响系统分区 🔄 备份更方便：独立存储位置使备份和恢复更简单 🛡️ 系统稳定性：防止 Docker 数据增长导致系统分区爆满 📊 管理更清晰：Docker 数据与系统文件分离，管理更便捷    ⚡ 快速开始基本迁移命令概览1234567891011121314151617# 停止 Docker 服务/etc/init.d/dockerd...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iStoreOS-SSH-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8-%F0%9F%96%A5%EF%B8%8F"><span class="toc-text">iStoreOS SSH 命令大全 🖥️</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%91-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%88%AA"><span class="toc-text">📑 目录导航</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E4%B8%80%E3%80%81%E7%B3%BB%E7%BB%9F%E6%8E%A7%E5%88%B6%E5%91%BD%E4%BB%A4"><span class="toc-text">⚡ 一、系统控制命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AB%8B%E5%8D%B3%E5%85%B3%E6%9C%BA"><span class="toc-text">1. 立即关机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%87%8D%E5%90%AF%E7%B3%BB%E7%BB%9F"><span class="toc-text">2. 重启系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B8%85%E7%A9%BA%E7%BB%88%E7%AB%AF%E5%B1%8F%E5%B9%95"><span class="toc-text">3. 清空终端屏幕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="toc-text">4. 查看系统运行时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-text">5. 查看系统版本信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E4%BA%8C%E3%80%81%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-text">📦 二、软件包管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9B%B4%E6%96%B0%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%B4%A2%E5%BC%95"><span class="toc-text">1. 更新软件包索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text">2. 安装软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%B8%E8%BD%BD%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text">3. 卸载软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E5%8F%AF%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text">4. 列出所有可用软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%90%9C%E7%B4%A2%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text">5. 搜索软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text">6. 查看已安装软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%AE%89%E8%A3%85Cpolar%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%BD%AF%E4%BB%B6"><span class="toc-text">7. 安装Cpolar内网穿透软件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8F-%E4%B8%89%E3%80%81%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2"><span class="toc-text">🖥️ 三、系统信息查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><span class="toc-text">1. 查看系统配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E8%AF%A2-CPU-%E6%9E%B6%E6%9E%84"><span class="toc-text">2. 查询 CPU 架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="toc-text">3. 查看内存使用情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="toc-text">4. 查看磁盘使用情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-text">5. 查看内核版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E5%9B%9B%E3%80%81%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">🌐 四、网络管理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E4%BF%A1%E6%81%AF"><span class="toc-text">1. 查看网络接口信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-text">2. 测试网络连通性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E8%B7%AF%E7%94%B1%E8%A1%A8"><span class="toc-text">3. 查看路由表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81"><span class="toc-text">4. 查看网络连接状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%87%8D%E5%90%AF%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1"><span class="toc-text">5. 重启网络服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE"><span class="toc-text">6. 查看网络接口详细配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E4%BA%94%E3%80%81%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">📁 五、文件管理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="toc-text">1. 下载文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">2. 查看目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E8%AF%A6%E7%BB%86%E7%9B%AE%E5%BD%95%E5%88%97%E8%A1%A8"><span class="toc-text">3. 查看详细目录列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-text">4. 查看磁盘分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95"><span class="toc-text">5. 删除文件或目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AE%89%E5%85%A8%E5%88%A0%E9%99%A4%EF%BC%88%E7%A1%AE%E8%AE%A4%E6%8F%90%E7%A4%BA%EF%BC%89"><span class="toc-text">6. 安全删除（确认提示）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="toc-text">7. 查看文件大小</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%85%AD%E3%80%81%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91%E4%B8%8E%E6%93%8D%E4%BD%9C"><span class="toc-text">📝 六、文件编辑与操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8-vi-%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6"><span class="toc-text">1. 使用 vi 编辑文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8-nano-%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%EF%BC%88%E5%A6%82%E5%B7%B2%E5%AE%89%E8%A3%85%EF%BC%89"><span class="toc-text">2. 使用 nano 编辑文件（如已安装）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%87%E4%BB%B6%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-text">3. 文件重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-text">4. 移动文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-text">5. 复制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-text">6. 查看文件内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%88%86%E9%A1%B5%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-text">7. 分页查看文件内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%82-%E4%B8%83%E3%80%81%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="toc-text">📂 七、目录操作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%8D%95%E4%B8%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">1. 创建单个目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E5%A4%9A%E7%BA%A7%E7%9B%AE%E5%BD%95"><span class="toc-text">2. 创建多级目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%90%8C%E6%97%B6%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">3. 同时创建多个目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%87%E6%8D%A2%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="toc-text">4. 切换工作目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%BF%94%E5%9B%9E%E4%B8%8A%E7%BA%A7%E7%9B%AE%E5%BD%95"><span class="toc-text">5. 返回上级目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%BF%94%E5%9B%9E%E5%AE%B6%E7%9B%AE%E5%BD%95"><span class="toc-text">6. 返回家目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="toc-text">7. 显示当前工作目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%90-%E5%85%AB%E3%80%81%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">🔐 八、权限管理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-text">1. 修改文件权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%EF%BC%88%E9%80%92%E5%BD%92%EF%BC%89"><span class="toc-text">2. 修改目录权限（递归）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%89%80%E6%9C%89%E8%80%85"><span class="toc-text">3. 修改文件所有者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-text">4. 查看文件权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E6%89%80%E6%9C%89%E8%80%85%EF%BC%88%E9%80%92%E5%BD%92%EF%BC%89"><span class="toc-text">5. 修改目录所有者（递归）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%97%9C%EF%B8%8F-%E4%B9%9D%E3%80%81%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4"><span class="toc-text">🗜️ 九、压缩与解压命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%B9%E9%87%8F%E5%8E%8B%E7%BC%A9%E7%9B%AE%E5%BD%95"><span class="toc-text">1. 批量压缩目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%B9%E9%87%8F%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6"><span class="toc-text">2. 批量解压文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9"><span class="toc-text">3. 单个文件压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E8%A7%A3%E5%8E%8B"><span class="toc-text">4. 单个文件解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%88%9B%E5%BB%BAzip%E5%8E%8B%E7%BC%A9%E5%8C%85"><span class="toc-text">5. 创建zip压缩包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%A7%A3%E5%8E%8Bzip%E6%96%87%E4%BB%B6"><span class="toc-text">6. 解压zip文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E5%8D%81%E3%80%81%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">🛠️ 十、进程管理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="toc-text">1. 查看运行中的进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B"><span class="toc-text">2. 实时监控进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BB%93%E6%9D%9F%E8%BF%9B%E7%A8%8B"><span class="toc-text">3. 结束进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BC%BA%E5%88%B6%E7%BB%93%E6%9D%9F%E8%BF%9B%E7%A8%8B"><span class="toc-text">4. 强制结束进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%A0%B9%E6%8D%AE%E8%BF%9B%E7%A8%8B%E5%90%8D%E7%BB%93%E6%9D%9F%E8%BF%9B%E7%A8%8B"><span class="toc-text">5. 根据进程名结束进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E6%A0%91"><span class="toc-text">6. 查看进程树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E5%8D%81%E4%B8%80%E3%80%81%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4"><span class="toc-text">🔍 十一、日志查看命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E6%97%A5%E5%BF%97"><span class="toc-text">1. 查看系统日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97"><span class="toc-text">2. 实时监控日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E5%86%85%E6%A0%B8%E6%97%A5%E5%BF%97"><span class="toc-text">3. 查看内核日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E7%89%B9%E5%AE%9A%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%97%A5%E5%BF%97"><span class="toc-text">4. 查看特定服务的日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%97%A5%E5%BF%97"><span class="toc-text">5. 查看系统启动日志</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E5%8D%81%E4%BA%8C%E3%80%81%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="toc-text">⚙️ 十二、网络配置管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-text">1. 修改网络配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%87%8D%E5%90%AF%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3"><span class="toc-text">2. 重启网络接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE"><span class="toc-text">3. 查看防火墙配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%87%8D%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">4. 重启防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8BDNS%E9%85%8D%E7%BD%AE"><span class="toc-text">5. 查看DNS配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95"><span class="toc-text">6. 网络测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%B3-%E5%8D%81%E4%B8%89%E3%80%81Docker-%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-text">🐳 十三、Docker 容器管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8BDocker%E7%89%88%E6%9C%AC"><span class="toc-text">1. 查看Docker版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="toc-text">2. 查看运行中的容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%AE%B9%E5%99%A8"><span class="toc-text">3. 查看所有容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8"><span class="toc-text">4. 启动容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8"><span class="toc-text">5. 停止容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97"><span class="toc-text">6. 查看容器日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8%E7%BB%88%E7%AB%AF"><span class="toc-text">7. 进入容器终端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%8D%81%E5%9B%9B%E3%80%81%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4%E5%91%BD%E4%BB%A4"><span class="toc-text">🔧 十四、故障排除命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="toc-text">1. 查看系统服务状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E7%AB%AF%E5%8F%A3%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-text">2. 测试端口连通性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E8%B4%9F%E8%BD%BD"><span class="toc-text">3. 查看系统负载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A3%80%E6%9F%A5%E7%A3%81%E7%9B%98%E9%94%99%E8%AF%AF"><span class="toc-text">4. 检查磁盘错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-text">5. 查看硬件信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8BUSB%E8%AE%BE%E5%A4%87"><span class="toc-text">6. 查看USB设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%86%85%E5%AD%98%E6%A3%80%E6%B5%8B"><span class="toc-text">7. 内存检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E5%8D%81%E4%BA%94%E3%80%81%E9%87%8D%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">⚠️ 十五、重要注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="toc-text">💡 实用技巧</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>

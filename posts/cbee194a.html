@@ -1,0 +1,1049 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Docker 部署 Halo 博客系统 ✨ | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Docker 部署 Halo 博客系统 ✨    📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Halo 博客 1. 创建目录并编写 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Halo 博客 1. 首次访问设置 🎯 2. 功能特性 ✨   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 部署 Halo 博客系统 ✨">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/cbee194a.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="Docker 部署 Halo 博客系统 ✨    📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Halo 博客 1. 创建目录并编写 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Halo 博客 1. 首次访问设置 🎯 2. 功能特性 ✨   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?9785">
+<meta property="article:published_time" content="2025-09-12T02:35:25.000Z">
+<meta property="article:modified_time" content="2025-09-12T02:35:25.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="compose">
+<meta property="article:tag" content="halo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?9785"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Docker 部署 Halo 博客系统 ✨",
+  "url": "https://www.meimolihan.eu.org/posts/cbee194a.html",
+  "image": "https://api.mobufan.eu.org:666/pc?9785",
+  "datePublished": "2025-09-12T02:35:25.000Z",
+  "dateModified": "2025-09-12T02:35:25.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/cbee194a.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Docker 部署 Halo 博客系统 ✨',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">125</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?9785);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">Docker 部署 Halo 博客系统 ✨</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Docker 部署 Halo 博客系统 ✨</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T02:35:25.000Z" title="发表于 2025-09-12 10:35:25">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T02:35:25.000Z" title="更新于 2025-09-12 10:35:25">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Docker/">Docker</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 10:35:25&quot;}" hidden></div><h1 id="Docker-部署-Halo-博客系统-✨"><a href="#Docker-部署-Halo-博客系统-✨" class="headerlink" title="Docker 部署 Halo 博客系统 ✨"></a>Docker 部署 Halo 博客系统 ✨</h1><p><img src="https://file.meimolihan.eu.org/img/halo-01.webp" alt="Halo Banner"></p>
+<video src="https://blog.mobufan.eu.org:666/video/halo-2.0.mp4" controls="controls" width="650" height="400"></video>
+
+<hr>
+<h2 id="📋-目录导航"><a href="#📋-目录导航" class="headerlink" title="📋 目录导航"></a>📋 目录导航</h2><ul>
+<li><a href="#project-intro">🎯 项目简介</a></li>
+<li><a href="#features">🛠️ 核心特性</a></li>
+<li><a href="#deploy">🐳 一、Docker 部署 Halo 博客</a><ul>
+<li><a href="#deploy-setup">1. 创建目录并编写 <code>docker-compose.yml</code> 文件 📁</a></li>
+<li><a href="#deploy-start">2. 拉取镜像并启动容器 🚀</a></li>
+</ul>
+</li>
+<li><a href="#usage">🚀 二、使用 Halo 博客</a><ul>
+<li><a href="#usage-setup">1. 首次访问设置 🎯</a></li>
+<li><a href="#usage-features">2. 功能特性 ✨</a></li>
+</ul>
+</li>
+<li><a href="#nginx">🌐 三、Nginx 反向代理配置</a><ul>
+<li><a href="#nginx-config">1. 创建 Nginx 配置文件 🔧</a></li>
+<li><a href="#nginx-reload">2. 测试并重载 Nginx 🔄</a></li>
+</ul>
+</li>
+<li><a href="#maintenance">🔧 四、容器维护命令</a><ul>
+<li><a href="#docker-compose">1. Docker Compose 命令 🐳</a></li>
+<li><a href="#docker">2. Docker 容器命令 📦</a></li>
+<li><a href="#docker-images">3. Docker 镜像管理 📀</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">🌟 启航创作，连接世界</a> </li>
+</ul>
+<hr>
+<p><a id="project-intro"></a></p>
+<h2 id="🎯-项目简介"><a href="#🎯-项目简介" class="headerlink" title="🎯 项目简介"></a>🎯 项目简介</h2><ul>
+<li><strong>🌐 <code>Halo</code> 官网地址：<a target="_blank" rel="noopener" href="https://www.halo.run/">https://www.halo.run/</a></strong></li>
+<li><strong>🐱 <code>GitHub</code> 项目地址：<a target="_blank" rel="noopener" href="https://github.com/halo-dev">https://github.com/halo-dev</a></strong></li>
+<li><strong>🐋 <code>Docker</code> 镜像地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/r/halohub/halo">https://hub.docker.com/r/halohub/halo</a></strong></li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://www.halo.run/">Halo</a></strong> 是一款现代化的开源博客/CMS 系统，基于 Java 和 Spring Boot 构建。它提供了丰富的主题和插件生态系统，让用户可以轻松创建和管理自己的网站。</p>
+<hr>
+<p><a id="features"></a></p>
+<h2 id="🛠️-核心特性"><a href="#🛠️-核心特性" class="headerlink" title="🛠️ 核心特性"></a>🛠️ 核心特性</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性类别</th>
+<th>功能描述</th>
+<th>优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>🎨 主题系统</strong></td>
+<td>丰富的主题选择</td>
+<td>支持自定义设计，满足个性化需求</td>
+</tr>
+<tr>
+<td><strong>🔌 插件生态</strong></td>
+<td>功能扩展灵活</td>
+<td>社区插件丰富，满足各种需求</td>
+</tr>
+<tr>
+<td><strong>📝 编辑器</strong></td>
+<td>富文本和Markdown支持</td>
+<td>强大的内容编辑体验</td>
+</tr>
+<tr>
+<td><strong>👥 用户管理</strong></td>
+<td>多用户权限控制</td>
+<td>支持团队协作和权限管理</td>
+</tr>
+<tr>
+<td><strong>📊 数据统计</strong></td>
+<td>访问统计和分析</td>
+<td>提供详细的数据分析报告</td>
+</tr>
+<tr>
+<td><strong>🔍 SEO 优化</strong></td>
+<td>内置SEO功能</td>
+<td>提升搜索引擎排名和可见度</td>
+</tr>
+<tr>
+<td><strong>🌐 响应式设计</strong></td>
+<td>多端适配</td>
+<td>在手机、平板和电脑上均有良好体验</td>
+</tr>
+<tr>
+<td><strong>🐳 Docker 部署</strong></td>
+<td>容器化部署</td>
+<td>简单便捷，易于维护和升级</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a id="deploy"></a></p>
+<h2 id="🐳-一、Docker-部署-Halo-博客"><a href="#🐳-一、Docker-部署-Halo-博客" class="headerlink" title="🐳 一、Docker 部署 Halo 博客"></a>🐳 一、Docker 部署 Halo 博客</h2><p><a id="deploy-setup"></a></p>
+<h3 id="1-创建目录并编写-docker-compose-yml-文件-📁"><a href="#1-创建目录并编写-docker-compose-yml-文件-📁" class="headerlink" title="1. 创建目录并编写 docker-compose.yml 文件 📁"></a>1. 创建目录并编写 <code>docker-compose.yml</code> 文件 📁</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /mnt/mydisk/home/halo &amp;&amp; <span class="built_in">cd</span> <span class="variable">$_</span> &amp;&amp; \</span><br><span class="line"><span class="built_in">cat</span> &gt; docker-compose.yml &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">services:</span><br><span class="line">  halo:</span><br><span class="line">    container_name: halo</span><br><span class="line">    image: halohub/halo:2</span><br><span class="line">    restart: always</span><br><span class="line">    depends_on:</span><br><span class="line">      halodb:</span><br><span class="line">        condition: service_healthy</span><br><span class="line">    networks:</span><br><span class="line">      halo_network:</span><br><span class="line">    volumes:</span><br><span class="line">      - ./config/halo2:/root/.halo2</span><br><span class="line">    ports:</span><br><span class="line">      - 8090:8090</span><br><span class="line">    healthcheck:</span><br><span class="line">      <span class="built_in">test</span>:</span><br><span class="line">        - CMD</span><br><span class="line">        - curl</span><br><span class="line">        - -f</span><br><span class="line">        - http://localhost:8090/actuator/health/readiness</span><br><span class="line">      interval: 30s</span><br><span class="line">      <span class="built_in">timeout</span>: 5s</span><br><span class="line">      retries: 5</span><br><span class="line">      start_period: 30s</span><br><span class="line">    <span class="built_in">command</span>:</span><br><span class="line">      - --spring.r2dbc.url=r2dbc:pool:mysql://halodb:3306/halo</span><br><span class="line">      - --spring.r2dbc.username=root</span><br><span class="line">      - --spring.r2dbc.password=o#DwN&amp;JSa56  <span class="comment"># ⚠️ 请修改为强密码</span></span><br><span class="line">      - --spring.sql.init.platform=mysql</span><br><span class="line">      - --halo.external-url=https://www.mobufan.xyz:4443  <span class="comment"># ⚠️ 修改为你的域名</span></span><br><span class="line"></span><br><span class="line">  halodb:</span><br><span class="line">    container_name: halodb</span><br><span class="line">    image: mysql:8.3.0</span><br><span class="line">    restart: always</span><br><span class="line">    networks:</span><br><span class="line">      halo_network:</span><br><span class="line">    <span class="built_in">command</span>:</span><br><span class="line">      - --default-authentication-plugin=caching_sha2_password</span><br><span class="line">      - --character-set-server=utf8mb4</span><br><span class="line">      - --collation-server=utf8mb4_general_ci</span><br><span class="line">      - --explicit_defaults_for_timestamp=<span class="literal">true</span></span><br><span class="line">    volumes:</span><br><span class="line">      - ./config/mysql:/var/lib/mysql</span><br><span class="line">      - ./config/mysqlBackup:/data/mysqlBackup</span><br><span class="line">    ports:</span><br><span class="line">      - 3306:3306</span><br><span class="line">    healthcheck:</span><br><span class="line">      <span class="built_in">test</span>:</span><br><span class="line">        - CMD</span><br><span class="line">        - mysqladmin</span><br><span class="line">        - ping</span><br><span class="line">        - -h</span><br><span class="line">        - 127.0.0.1</span><br><span class="line">        - --silent</span><br><span class="line">      interval: 3s</span><br><span class="line">      retries: 5</span><br><span class="line">      start_period: 30s</span><br><span class="line">    environment:</span><br><span class="line">      - MYSQL_ROOT_PASSWORD=o#DwN&amp;JSa56  <span class="comment"># ⚠️ 请修改为强密码</span></span><br><span class="line">      - MYSQL_DATABASE=halo</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  halo_network:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Halo博客_后台地址：http://10.10.10.245:8090/console</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><a id="deploy-start"></a></p>
+<h3 id="2-拉取镜像并启动容器-🚀"><a href="#2-拉取镜像并启动容器-🚀" class="headerlink" title="2. 拉取镜像并启动容器 🚀"></a>2. 拉取镜像并启动容器 🚀</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="usage"></a></p>
+<h2 id="🚀-二、使用-Halo-博客"><a href="#🚀-二、使用-Halo-博客" class="headerlink" title="🚀 二、使用 Halo 博客"></a>🚀 二、使用 Halo 博客</h2><p><a id="usage-setup"></a></p>
+<h3 id="1-首次访问设置-🎯"><a href="#1-首次访问设置-🎯" class="headerlink" title="1. 首次访问设置 🎯"></a>1. 首次访问设置 🎯</h3><ol>
+<li>打开浏览器访问: <a target="_blank" rel="noopener" href="http://你的服务器IP:8090/console">http://你的服务器IP:8090/console</a></li>
+<li>按照页面提示完成初始设置：<ul>
+<li>创建管理员账户</li>
+<li>设置博客基本信息</li>
+<li>选择初始主题</li>
+</ul>
+</li>
+</ol>
+<p><a id="usage-features"></a></p>
+<h3 id="2-功能特性-✨"><a href="#2-功能特性-✨" class="headerlink" title="2. 功能特性 ✨"></a>2. 功能特性 ✨</h3><ul>
+<li>🎨 <strong>主题系统</strong>: 丰富的主题选择，支持自定义</li>
+<li>🔌 <strong>插件生态</strong>: 扩展功能，满足各种需求</li>
+<li>📝 <strong>编辑器</strong>: 强大的富文本和Markdown编辑器</li>
+<li>👥 <strong>用户管理</strong>: 多用户支持，权限控制</li>
+<li>📊 <strong>数据统计</strong>: 访问统计和内容分析</li>
+<li>🔍 <strong>SEO 优化</strong>: 内置SEO功能，提升搜索引擎排名</li>
+</ul>
+<hr>
+<p><a id="nginx"></a></p>
+<h2 id="🌐-三、Nginx-反向代理配置"><a href="#🌐-三、Nginx-反向代理配置" class="headerlink" title="🌐 三、Nginx 反向代理配置"></a>🌐 三、Nginx 反向代理配置</h2><blockquote>
+<p><strong>访问地址示例：<a target="_blank" rel="noopener" href="https://halo.example.com:666">https://halo.example.com:666</a></strong></p>
+</blockquote>
+<p><a id="nginx-config"></a></p>
+<h3 id="1-创建-Nginx-配置文件-🔧"><a href="#1-创建-Nginx-配置文件-🔧" class="headerlink" title="1. 创建 Nginx 配置文件 🔧"></a>1. 创建 Nginx 配置文件 🔧</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /etc/nginx/conf.d &amp;&amp; \</span><br><span class="line"><span class="built_in">cat</span> &gt; /etc/nginx/conf.d/halo.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 666 ssl;</span><br><span class="line">    listen [::]:666 ssl;</span><br><span class="line">    server_name halo.example.com;   <span class="comment"># 替换为你的域名</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># SSL 证书</span></span><br><span class="line">    ssl_certificate /etc/nginx/keyfile/cert.pem;</span><br><span class="line">    ssl_certificate_key /etc/nginx/keyfile/key.pem;</span><br><span class="line">    ssl_protocols TLSv1.2 TLSv1.3;</span><br><span class="line">    ssl_prefer_server_ciphers off;</span><br><span class="line">    ssl_ciphers ECDHE+AESGCM:ECDHE+CHACHA20:!aNULL:!MD5;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 安全头部</span></span><br><span class="line">    add_header X-Frame-Options DENY;</span><br><span class="line">    add_header X-Content-Type-Options nosniff;</span><br><span class="line">    add_header X-XSS-Protection <span class="string">&quot;1; mode=block&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 文件大小限制</span></span><br><span class="line">    client_max_body_size 100M;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8090;</span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_buffering off;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># WebSocket 支持</span></span><br><span class="line">        proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">        proxy_set_header Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 错误页</span></span><br><span class="line">    error_page 404 500 502 503 504 /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><a id="nginx-reload"></a></p>
+<h3 id="2-测试并重载-Nginx-🔄"><a href="#2-测试并重载-Nginx-🔄" class="headerlink" title="2. 测试并重载 Nginx 🔄"></a>2. 测试并重载 Nginx 🔄</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nginx -t &amp;&amp; <span class="built_in">sudo</span> systemctl reload nginx</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="maintenance"></a></p>
+<h2 id="🔧-四、容器维护命令"><a href="#🔧-四、容器维护命令" class="headerlink" title="🔧 四、容器维护命令"></a>🔧 四、容器维护命令</h2><p><a id="docker-compose"></a></p>
+<h3 id="1-Docker-Compose-命令-🐳"><a href="#1-Docker-Compose-命令-🐳" class="headerlink" title="1. Docker Compose 命令 🐳"></a>1. Docker Compose 命令 🐳</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入项目目录</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/halo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止并删除容器</span></span><br><span class="line">docker-compose down</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取最新镜像</span></span><br><span class="line">docker-compose pull</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动容器</span></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line">docker-compose ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务日志</span></span><br><span class="line">docker-compose logs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跟踪服务日志</span></span><br><span class="line">docker-compose logs -f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 完整升级流程</span></span><br><span class="line">docker-compose down &amp;&amp; \</span><br><span class="line">docker-compose pull &amp;&amp; \</span><br><span class="line">docker-compose up -d &amp;&amp; \</span><br><span class="line">docker image prune -f</span><br></pre></td></tr></table></figure>
+<p><a id="docker"></a></p>
+<h3 id="2-Docker-容器命令-📦"><a href="#2-Docker-容器命令-📦" class="headerlink" title="2. Docker 容器命令 📦"></a>2. Docker 容器命令 📦</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看运行中容器</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止/启动/重启容器</span></span><br><span class="line">docker stop halo halodb</span><br><span class="line">docker start halo halodb  </span><br><span class="line">docker restart halo halodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除容器</span></span><br><span class="line">docker <span class="built_in">rm</span> halo halodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入容器Shell</span></span><br><span class="line">docker <span class="built_in">exec</span> -it halo sh</span><br><span class="line">docker <span class="built_in">exec</span> -it halo bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器日志</span></span><br><span class="line">docker logs halo</span><br><span class="line">docker logs halodb</span><br><span class="line">docker logs -f halo</span><br><span class="line">docker logs --<span class="built_in">tail</span> 50 halodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控资源使用</span></span><br><span class="line">docker stats halo halodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器详情</span></span><br><span class="line">docker inspect halo</span><br></pre></td></tr></table></figure>
+<p><a id="docker-images"></a></p>
+<h3 id="3-Docker-镜像管理-📀"><a href="#3-Docker-镜像管理-📀" class="headerlink" title="3. Docker 镜像管理 📀"></a>3. Docker 镜像管理 📀</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">docker rmi halohub/halo:2.20.12 mysql:8.3.0</span><br><span class="line">docker image prune -f</span><br><span class="line">docker image prune -a -f</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="conclusion"></a></p>
+<h2 id="🌟-启航创作，连接世界"><a href="#🌟-启航创作，连接世界" class="headerlink" title="🌟 启航创作，连接世界"></a>🌟 启航创作，连接世界</h2><p>通过本文档，你已经成功使用 Docker 部署了 Halo 博客系统，并借助 Nginx 反向代理实现了安全便捷的远程访问。现在，你可以：</p>
+<p>✍️ <strong>自由表达</strong> 书写所想、记录生活、分享知识，打造属于你自己的内容天地<br>🎨 <strong>个性定制</strong> 借助丰富的主题与插件，构建独一无二的博客风格与功能<br>🌍 <strong>广泛传播</strong> 通过多端适配与SEO优化，让你的内容被更多人发现与认可<br>🤝 <strong>互动交流</strong> 开放评论与订阅功能，与读者建立更深度的连接与对话</p>
+<p>博客不仅是记录的工具，更是思想的载体和连接的桥梁。愿 Halo 成为你畅所欲言、展示自我的最佳伙伴，陪伴你在每一个创作的时刻和分享的瞬间。</p>
+<p>从现在开始，发布你的第一篇博客，向世界发出你的声音吧！🚀</p>
+<hr>
+<p>📌 <strong>持续关注</strong>：建议订阅 <a target="_blank" rel="noopener" href="https://www.halo.run/">Halo 官方更新</a>，及时获取新功能与主题插件。<br>🐛 <strong>反馈与支持</strong>：使用中如有问题或建议，可前往 <a target="_blank" rel="noopener" href="https://github.com/halo-dev/halo/issues">GitHub Issues</a> 提出。</p>
+<p>祝你写作愉快，博客有成！🎉</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/compose/">compose</a><a class="post-meta__tags" href="/tags/halo/">halo</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?9785" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/2b81833a.html" title="CentOS 配置 SSH 服务指南 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2421" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CentOS 配置 SSH 服务指南 🔐</div></div><div class="info-2"><div class="info-item-1">CentOS 配置 SSH 服务指南 🔐  📋 目录导航 🌟 简介 🔧 一、安装和更新 SSH 服务 ⚙️ 二、配置 SSH 服务器 🛡️ 三、增强 SSH 安全性（推荐） 🔍 四、验证配置 💡 五、高级配置选项 🚨 六、故障排除 📊 七、SSH 配置参数说明 🔒 八、安全最佳实践    🌟 简介本指南将帮助您在 CentOS 系统上配置 SSH 服务器，提高安全性和连接稳定性。   🔧 一、安装和更新 SSH 服务1. 📦 更新系统并安装 OpenSSH 服务器1yum -y update &amp;&amp; yum install -y openssl openssh-server 2. 📝 查看 SSH 配置文件1cat /etc/ssh/sshd_config   ⚙️ 二、配置 SSH 服务器1. ⚡ 修改 SSH 配置文件并重启服务12345# 备份原配置文件并应用修改sed -i.bak -e &#x27;/Port 22/ a Port 22&#x27; -e &#x27;/PermitRootLogin/ a...</div></div></div></a><a class="pagination-related" href="/posts/10a4672e.html" title="Docker 部署 Sun-Panel 导航页 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7729" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Docker 部署 Sun-Panel 导航页 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Sun-Panel 导航页 🐳 📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Sun-Panel 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Sun-Panel 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航导航，探索无限    🎯 项目简介 🌐 Sun-Panel 官网地址：https://doc.sun-panel.top/zh_cn 🐱 GitHub 项目地址：https://github.com/hslr-s/sun-panel 🐋 Docker...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/2af5ab44.html" title="Docker Compose 完全安装指南 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5219" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker Compose 完全安装指南 🐳</div></div><div class="info-2"><div class="info-item-1">Docker Compose 完全安装指南 🐳  本文详细介绍了如何在不同架构的 Linux 系统上安装 Docker Compose，包括 x86_64 和 ARM 架构，并提供国内外镜像源的选择。  目录 📚 ✨ Docker Compose 简介 🚀 一、Linux x86_64 架构安装 🍓 二、iStoreOS (ARM 架构) 安装 🔍 三、验证安装 ⚙️ 四、高级配置和优化 🔧 五、故障排除 📊 六、版本管理 🎯 总结 🌟 温馨提示   ✨ Docker Compose 简介Docker Compose 是一个用于定义和运行多容器 Docker 应用程序的工具。通过一个 YAML 文件配置应用服务，就可以使用单个命令创建并启动所有服务。 🌟 主要特性 🚀 简化多容器应用部署：使用简单的 YAML 文件定义复杂的多容器应用 🔄 环境隔离：支持为不同环境（开发、测试、生产）创建独立的配置 📦 服务依赖管理：自动处理服务之间的依赖关系和启动顺序 ⚡ 快速扩展：轻松扩展服务的实例数量 🔧 开发效率：提供热重载、日志聚合等开发友好功能 🌐...</div></div></div></a><a class="pagination-related" href="/posts/aedd70fd.html" title="Docker 部署 AdGuard Home 广告拦截器 🛡️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?272" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 AdGuard Home 广告拦截器 🛡️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 AdGuard Home 广告拦截器 🛡️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 AdGuard Home 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 AdGuard Home 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航无广告网络，探索纯净体验     🎯 项目简介 🌐 AdGuard Home 官网地址：https://adguard.com/zh_cn/ 🐱 GitHub 项目地址：https://github.com/AdguardTeam/AdGuardHome 🐋 Docker...</div></div></div></a><a class="pagination-related" href="/posts/eaa4f229.html" title="Docker 部署 1Panel 服务器管理面板 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4639" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 1Panel 服务器管理面板 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 1Panel 服务器管理面板 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 1Panel 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航服务器管理，探索无限可能     🎯 项目简介 🌐 1Panel 官网地址：https://1panel.cn/ 🐱 GitHub 项目地址：https://github.com/okxlin/docker-1panel 🐋 Docker 镜像地址：https://hub.docker.com/r/moelin/1panel  1Panel 是一个现代化的、开源的...</div></div></div></a><a class="pagination-related" href="/posts/47582bb4.html" title="Docker 部署 Caddy Web 服务器 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1633" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Caddy Web 服务器 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Caddy Web 服务器完全指南 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Caddy 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Caddy 1. 访问 Web 界面 💻 2. 基本配置步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航 Web 服务，探索无限     🎯 项目简介Caddy 是一款现代化的开源 Web 服务器，以其简单的配置、自动 HTTPS 和出色的性能而闻名。通过 Docker 部署 Caddy，您可以轻松搭建一个功能强大的 Web 服务器，支持静态网站、反向代理、负载均衡等多种功能。 Caddy 采用 Go 语言编写，可用于静态资源托管和反向代理，默认启用...</div></div></div></a><a class="pagination-related" href="/posts/aef2da62.html" title="Docker 部署 DPanel 容器管理面板 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7412" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 DPanel 容器管理面板 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 DPanel 容器管理面板 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 DPanel 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 DPanel 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航管理，掌控无限     🎯 项目简介 🌐 DPanel 官网地址：https://dpanel.cc/ 🐱 GitHub 项目地址：https://github.com/donknap/dpanel 🐋 Docker 镜像地址：https://hub.docker.com/r/dpanel/dpanel  DPanel 是一个轻量级的 Docker...</div></div></div></a><a class="pagination-related" href="/posts/c16a218b.html" title="Docker 部署 Cloudreve 个人网盘 🗂️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8253" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Cloudreve 个人网盘 🗂️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Cloudreve 个人网盘 🗂️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Cloudreve 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航个人云存储，探索无限可能     🎯 项目简介 🌐 Cloudreve 官网地址：https://cloudreve.org 🐱 GitHub 项目地址：https://github.com/cloudreve/cloudreve 🐋 Docker...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker-%E9%83%A8%E7%BD%B2-Halo-%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F-%E2%9C%A8"><span class="toc-text">Docker 部署 Halo 博客系统 ✨</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%88%AA"><span class="toc-text">📋 目录导航</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-text">🎯 项目简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-text">🛠️ 核心特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%B3-%E4%B8%80%E3%80%81Docker-%E9%83%A8%E7%BD%B2-Halo-%E5%8D%9A%E5%AE%A2"><span class="toc-text">🐳 一、Docker 部署 Halo 博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%B9%B6%E7%BC%96%E5%86%99-docker-compose-yml-%E6%96%87%E4%BB%B6-%F0%9F%93%81"><span class="toc-text">1. 创建目录并编写 docker-compose.yml 文件 📁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8-%F0%9F%9A%80"><span class="toc-text">2. 拉取镜像并启动容器 🚀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8-Halo-%E5%8D%9A%E5%AE%A2"><span class="toc-text">🚀 二、使用 Halo 博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A6%96%E6%AC%A1%E8%AE%BF%E9%97%AE%E8%AE%BE%E7%BD%AE-%F0%9F%8E%AF"><span class="toc-text">1. 首次访问设置 🎯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7-%E2%9C%A8"><span class="toc-text">2. 功能特性 ✨</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E4%B8%89%E3%80%81Nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE"><span class="toc-text">🌐 三、Nginx 反向代理配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%F0%9F%94%A7"><span class="toc-text">1. 创建 Nginx 配置文件 🔧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E5%B9%B6%E9%87%8D%E8%BD%BD-Nginx-%F0%9F%94%84"><span class="toc-text">2. 测试并重载 Nginx 🔄</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%9B%9B%E3%80%81%E5%AE%B9%E5%99%A8%E7%BB%B4%E6%8A%A4%E5%91%BD%E4%BB%A4"><span class="toc-text">🔧 四、容器维护命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Docker-Compose-%E5%91%BD%E4%BB%A4-%F0%9F%90%B3"><span class="toc-text">1. Docker Compose 命令 🐳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Docker-%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4-%F0%9F%93%A6"><span class="toc-text">2. Docker 容器命令 📦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Docker-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86-%F0%9F%93%80"><span class="toc-text">3. Docker 镜像管理 📀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E5%90%AF%E8%88%AA%E5%88%9B%E4%BD%9C%EF%BC%8C%E8%BF%9E%E6%8E%A5%E4%B8%96%E7%95%8C"><span class="toc-text">🌟 启航创作，连接世界</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>

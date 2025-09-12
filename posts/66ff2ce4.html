@@ -1,0 +1,1147 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀 | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀  本指南详细介绍如何为 PVE 中的 Windows 虚拟机下载和安装 VirtIO 驱动程序，以显著提升虚拟机的性能和功能完整性。让您的 Windows 虚拟机在 Proxmox VE 上飞起来！🚤   📖 导航目录 🌟 VirtIO 驱动简介 📥 VirtIO 驱动下载 🔧 驱动安装步骤 ⚙️ 配置与优化 �">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/66ff2ce4.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀  本指南详细介绍如何为 PVE 中的 Windows 虚拟机下载和安装 VirtIO 驱动程序，以显著提升虚拟机的性能和功能完整性。让您的 Windows 虚拟机在 Proxmox VE 上飞起来！🚤   📖 导航目录 🌟 VirtIO 驱动简介 📥 VirtIO 驱动下载 🔧 驱动安装步骤 ⚙️ 配置与优化 �">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?5321">
+<meta property="article:published_time" content="2025-09-12T07:34:51.000Z">
+<meta property="article:modified_time" content="2025-09-12T07:34:51.000Z">
+<meta property="article:author" content="墨不凡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?5321"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀",
+  "url": "https://www.meimolihan.eu.org/posts/66ff2ce4.html",
+  "image": "https://api.mobufan.eu.org:666/pc?5321",
+  "datePublished": "2025-09-12T07:34:51.000Z",
+  "dateModified": "2025-09-12T07:34:51.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/66ff2ce4.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">125</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?5321);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T07:34:51.000Z" title="发表于 2025-09-12 15:34:51">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T07:34:51.000Z" title="更新于 2025-09-12 15:34:51">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Proxmox-VE/">Proxmox VE</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 15:34:51&quot;}" hidden></div><h1 id="Proxmox-VE-Windows-虚拟机-VirtIO-驱动配置-🚀"><a href="#Proxmox-VE-Windows-虚拟机-VirtIO-驱动配置-🚀" class="headerlink" title="Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀"></a>Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀</h1><p><img src="https://file.meimolihan.eu.org/img/pve-02.webp" alt=""></p>
+<blockquote>
+<p>本指南详细介绍如何为 PVE 中的 Windows 虚拟机下载和安装 VirtIO 驱动程序，以显著提升虚拟机的性能和功能完整性。让您的 Windows 虚拟机在 Proxmox VE 上飞起来！🚤</p>
+</blockquote>
+<hr>
+<h2 id="📖-导航目录"><a href="#📖-导航目录" class="headerlink" title="📖 导航目录"></a>📖 导航目录</h2><ul>
+<li><a href="#intro">🌟 VirtIO 驱动简介</a></li>
+<li><a href="#download">📥 VirtIO 驱动下载</a></li>
+<li><a href="#installation">🔧 驱动安装步骤</a></li>
+<li><a href="#configuration">⚙️ 配置与优化</a></li>
+<li><a href="#troubleshooting">🐛 常见问题解决</a></li>
+<li><a href="#automation">🔄 自动化脚本</a></li>
+<li><a href="#best-practices">💡 最佳实践</a></li>
+<li><a href="#performance">📊 性能对比</a></li>
+</ul>
+<hr>
+<p><a id="intro"></a></p>
+<h2 id="🌟-一、VirtIO-驱动简介"><a href="#🌟-一、VirtIO-驱动简介" class="headerlink" title="🌟 一、VirtIO 驱动简介"></a>🌟 一、VirtIO 驱动简介</h2><p>VirtIO 是一种<strong>半虚拟化技术</strong>，它通过特定的驱动程序让虚拟机能够更高效地与宿主机硬件通信。与完全模拟硬件相比，VirtIO 能显著降低开销，提升性能。🎯</p>
+<p><strong>主要优势：</strong></p>
+<ul>
+<li><strong>性能提升</strong> ⚡: 磁盘 I/O 和网络吞吐量可获得数倍提升。</li>
+<li><strong>降低 CPU 占用</strong> 💾: 更高效的通信机制减少 CPU 资源消耗。</li>
+<li><strong>增强功能</strong> 🔧: 支持内存气球驱动、QEMU 客户机代理等高级功能。</li>
+</ul>
+<p><strong>核心驱动组件：</strong></p>
+<ul>
+<li><strong>viostor</strong> - 存储控制器驱动（必备！否则安装时可能找不到磁盘）</li>
+<li><strong>NetKVM</strong> - 网络适配器驱动（安装后才能获得网络连接）</li>
+<li><strong>balloon</strong> - 内存气球驱动（允许动态调整内存）</li>
+<li><strong>viorng</strong> - 随机数生成器驱动（增强安全性）</li>
+<li><strong>qxldod</strong> - QXL 显示驱动（改善图形体验）</li>
+<li><strong>Guest-agent</strong> - 客户机代理（支持优雅关机等操作）</li>
+</ul>
+<hr>
+<p><a id="download"></a></p>
+<h2 id="📥-二、VirtIO-驱动下载"><a href="#📥-二、VirtIO-驱动下载" class="headerlink" title="📥 二、VirtIO 驱动下载"></a>📥 二、VirtIO 驱动下载</h2><h3 id="国内加速下载地址（推荐）"><a href="#国内加速下载地址（推荐）" class="headerlink" title="国内加速下载地址（推荐）"></a>国内加速下载地址（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 中国科学技术大学镜像站（国内访问速度快）</span></span><br><span class="line">https://mirrors.ustc.edu.cn/fedora/groups/virt/virtio-win/direct-downloads/archive-virtio/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清华大学镜像站</span></span><br><span class="line">https://mirrors.tuna.tsinghua.edu.cn/fedora/groups/virt/virtio-win/direct-downloads/archive-virtio/</span><br></pre></td></tr></table></figure>
+<h3 id="下载最新或特定版本"><a href="#下载最新或特定版本" class="headerlink" title="下载最新或特定版本"></a>下载最新或特定版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 wget 下载最新版本（推荐）</span></span><br><span class="line">wget https://mirrors.ustc.edu.cn/fedora/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-latest.iso</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载特定版本（适用于需要版本锁定的生产环境）</span></span><br><span class="line">wget https://mirrors.ustc.edu.cn/fedora/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240.iso</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 curl 下载</span></span><br><span class="line">curl -L -o virtio-win.iso https://mirrors.ustc.edu.cn/fedora/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-latest.iso</span><br></pre></td></tr></table></figure>
+<h3 id="官方源（备用）"><a href="#官方源（备用）" class="headerlink" title="官方源（备用）"></a>官方源（备用）</h3><p>如果国内镜像站不可用，可以从官方源下载：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Fedora 官方源（可能较慢）</span></span><br><span class="line">https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用 GitHub 发布页</span></span><br><span class="line">https://github.com/virtio-win/virtio-win-pkg-scripts</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>💡 提示</strong>: 建议定期更新 VirtIO 驱动以获取性能改进和新功能，但生产环境建议测试后再升级。</p>
+</blockquote>
+<hr>
+<p><a id="installation"></a></p>
+<h2 id="🔧-三、驱动安装步骤"><a href="#🔧-三、驱动安装步骤" class="headerlink" title="🔧 三、驱动安装步骤"></a>🔧 三、驱动安装步骤</h2><h3 id="1-上传驱动镜像到-PVE"><a href="#1-上传驱动镜像到-PVE" class="headerlink" title="1. 上传驱动镜像到 PVE"></a>1. 上传驱动镜像到 PVE</h3><p>下载完成后，需要将 ISO 文件上传到 PVE 服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上传到 PVE 的 ISO 存储目录</span></span><br><span class="line"><span class="built_in">cp</span> virtio-win-latest.iso /var/lib/vz/template/iso/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 SCP 从本地计算机上传</span></span><br><span class="line">scp virtio-win-latest.iso root@pve-server:/var/lib/vz/template/iso/</span><br></pre></td></tr></table></figure>
+<h3 id="2-创建虚拟机并挂载驱动镜像"><a href="#2-创建虚拟机并挂载驱动镜像" class="headerlink" title="2. 创建虚拟机并挂载驱动镜像"></a>2. 创建虚拟机并挂载驱动镜像</h3><p>在 PVE 中创建 Windows 虚拟机时，需要注意以下关键配置：</p>
+<ul>
+<li><strong>操作系统</strong>: 选择正确的 Windows 版本（如 Windows 11/2022/2025）</li>
+<li><strong>SCSI 控制器</strong>: 选择 <strong>VirtIO SCSI single</strong>（性能更好）或 <strong>VirtIO Block</strong></li>
+<li><strong>磁盘缓存</strong>: 设置为 <strong>Write back</strong> 以获得最佳性能（但 “No cache” 默认值更安全）</li>
+<li><strong>网络模型</strong>: 选择 <strong>VirtIO (半虚拟化)</strong></li>
+<li><strong>CPU 类型</strong>: 选择 <strong>host</strong> 以获得更好的性能</li>
+</ul>
+<p>创建虚拟机后，添加 VirtIO 驱动镜像：</p>
+<ol>
+<li>在 PVE Web 界面中选择 Windows 虚拟机</li>
+<li>进入”硬件”选项卡</li>
+<li>点击”添加” → “CD/DVD 驱动器”</li>
+<li>选择已上传的 virtio-win ISO 文件</li>
+<li>总线类型建议选择 <strong>IDE</strong> 或 <strong>SATA</strong></li>
+<li>勾选”CD/DVD”启动（仅在安装驱动时需要）</li>
+</ol>
+<p><strong>或者使用命令行</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm <span class="built_in">set</span> &lt;VMID&gt; --ide2 <span class="built_in">local</span>:iso/virtio-win-latest.iso,media=cdrom</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-Windows-安装过程中的驱动加载"><a href="#3-Windows-安装过程中的驱动加载" class="headerlink" title="3. Windows 安装过程中的驱动加载"></a>3. Windows 安装过程中的驱动加载</h3><p>安装 Windows 时，<strong>最关键的一步是加载 viostor 存储驱动</strong>，否则可能看不到可用磁盘：</p>
+<ol>
+<li>启动 Windows 安装过程</li>
+<li>当出现”你想将 Windows 安装在哪里?”界面时，如果看不到磁盘，点击”<strong>加载驱动程序</strong>“</li>
+<li>点击”<strong>浏览</strong>“并选择 VirtIO 驱动光盘</li>
+<li>根据你的 Windows 版本和架构选择合适的路径：<ul>
+<li>Windows 10/11/2022/2025: <code>E:\vioscsi\2k25\amd64</code> 或 <code>E:\vioscsi\win10\amd64</code></li>
+<li>Windows 7/2008: <code>E:\vioscsi\win7\amd64</code></li>
+<li>（注意：驱动器盘符 E: 可能因配置而异）</li>
+</ul>
+</li>
+<li>选择”<strong>Red Hat VirtIO SCSI pass-through controller</strong>“并点击”下一步”</li>
+<li>现在应该能看到你的磁盘了，继续完成 Windows 安装</li>
+</ol>
+<h3 id="4-系统安装后的驱动安装"><a href="#4-系统安装后的驱动安装" class="headerlink" title="4. 系统安装后的驱动安装"></a>4. 系统安装后的驱动安装</h3><p>Windows 安装完成后，可能还需要安装其他 VirtIO 驱动：</p>
+<ol>
+<li><p><strong>打开设备管理器</strong>：</p>
+<ul>
+<li>右击开始菜单 → 设备管理器</li>
+<li>或运行 <code>devmgmt.msc</code></li>
+</ul>
+</li>
+<li><p><strong>检查未识别的设备</strong>：</p>
+<ul>
+<li>查看”其他设备”中是否有带黄色感叹号的设备</li>
+<li>常见需要手动安装的驱动包括：<ul>
+<li><strong>以太网控制器</strong> → NetKVM 驱动</li>
+<li><strong>PCI 设备</strong> → 可能是 viorng 或 balloon 驱动</li>
+<li><strong>SCSI 控制器</strong> → viostor 驱动（如果安装时未完全加载）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>更新驱动程序</strong>：</p>
+<ul>
+<li>右击未知设备 → “更新驱动程序”</li>
+<li>选择”浏览我的电脑以查找驱动程序”</li>
+<li>路径选择 VirtIO 光盘对应架构目录：<ul>
+<li>64位系统: <code>E:\drivers\amd64\[驱动类型]\[系统版本]</code> 或 <code>E:\amd64</code></li>
+<li>32位系统: <code>E:\drivers\x86\[驱动类型]\[系统版本]</code> 或 <code>E:\x86</code></li>
+</ul>
+</li>
+<li>安装所有必要驱动</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-使用-MSI-安装包（替代方法）"><a href="#5-使用-MSI-安装包（替代方法）" class="headerlink" title="5. 使用 MSI 安装包（替代方法）"></a>5. 使用 MSI 安装包（替代方法）</h3><p>VirtIO 驱动光盘包含自动安装包，可以一次性安装所有驱动：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 以管理员身份运行命令提示符</span><br><span class="line"># 安装所有驱动（<span class="number">64</span>位系统）</span><br><span class="line">msiexec /i E:\virtio-win_amd64.msi /passive /norestart</span><br><span class="line"></span><br><span class="line"># 或指定安装组件</span><br><span class="line">msiexec /i E:\virtio-win_amd64.msi ADDLOCAL=ALL /passive</span><br><span class="line"></span><br><span class="line"># 也可以直接运行光盘根目录下的 MSI 安装程序</span><br></pre></td></tr></table></figure>
+<h3 id="6-安装-QEMU-客户机代理"><a href="#6-安装-QEMU-客户机代理" class="headerlink" title="6. 安装 QEMU 客户机代理"></a>6. 安装 QEMU 客户机代理</h3><p>QEMU 客户机代理提供额外功能，如正常关机和性能监控：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 在 Windows 中运行安装程序</span><br><span class="line"><span class="function">E:\<span class="title">guest</span>-<span class="title">agent</span>\<span class="title">qemu</span>-<span class="title">ga</span>-<span class="title">x86_64.msi</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"># 或使用 <span class="title">Chocolatey</span> (如果已安装)</span></span><br><span class="line"><span class="function"><span class="title">choco</span> <span class="title">install</span> <span class="title">qemu</span>-<span class="title">guest</span>-<span class="title">agent</span></span></span><br></pre></td></tr></table></figure>
+<p>在 PVE 中启用代理：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm <span class="built_in">set</span> &lt;VMID&gt; --agent enabled=1</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><a id="configuration"></a></p>
+<h2 id="⚙️-四、配置与优化"><a href="#⚙️-四、配置与优化" class="headerlink" title="⚙️ 四、配置与优化"></a>⚙️ 四、配置与优化</h2><h3 id="1-修改虚拟机配置"><a href="#1-修改虚拟机配置" class="headerlink" title="1. 修改虚拟机配置"></a>1. 修改虚拟机配置</h3><p>为了提高性能和功能完整性，建议优化虚拟机配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 VirtIO 磁盘（性能更好）</span></span><br><span class="line">qm <span class="built_in">set</span> &lt;VMID&gt; --virtio0 local-lvm:32,format=qcow2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 VirtIO 网络适配器</span></span><br><span class="line">qm <span class="built_in">set</span> &lt;VMID&gt; --net0 virtio,bridge=vmbr0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用 QEMU 客户机代理</span></span><br><span class="line">qm <span class="built_in">set</span> &lt;VMID&gt; --agent enabled=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置内存气球驱动（允许动态调整内存）</span></span><br><span class="line">qm <span class="built_in">set</span> &lt;VMID&gt; --balloon 1024</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 SPICE 显示（改善图形性能）</span></span><br><span class="line">qm <span class="built_in">set</span> &lt;VMID&gt; --vga qxl</span><br></pre></td></tr></table></figure>
+<h3 id="2-验证驱动安装"><a href="#2-验证驱动安装" class="headerlink" title="2. 验证驱动安装"></a>2. 验证驱动安装</h3><p>安装完成后，检查驱动是否正常工作：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 VirtIO 驱动状态</span></span><br><span class="line"><span class="built_in">Get-WindowsDriver</span> <span class="literal">-Online</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.Provider <span class="operator">-like</span> <span class="string">&quot;*Red Hat*&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查设备状态</span></span><br><span class="line"><span class="built_in">Get-PnpDevice</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.Manufacturer <span class="operator">-like</span> <span class="string">&quot;*Red Hat*&quot;</span>&#125; | <span class="built_in">Format-Table</span> FriendlyName, Status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查网络适配器</span></span><br><span class="line"><span class="built_in">Get-NetAdapter</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.InterfaceDescription <span class="operator">-like</span> <span class="string">&quot;*VirtIO*&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查磁盘控制器</span></span><br><span class="line"><span class="built_in">Get-Disk</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.FriendlyName <span class="operator">-like</span> <span class="string">&quot;*VirtIO*&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🐛-五、常见问题解决"><a href="#🐛-五、常见问题解决" class="headerlink" title="🐛 五、常见问题解决"></a>🐛 五、常见问题解决</h2><h3 id="1-驱动签名问题（Windows-10-11）"><a href="#1-驱动签名问题（Windows-10-11）" class="headerlink" title="1. 驱动签名问题（Windows 10/11）"></a>1. 驱动签名问题（Windows 10/11）</h3><p>现代 Windows 版本要求驱动具有有效数字签名，可能会阻止未签名的 VirtIO 驱动：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 临时禁用驱动签名强制（重启后有效）</span></span><br><span class="line"><span class="comment"># 方法一：启动时按 F8 或 Shift+F8 选择&quot;禁用驱动签名强制&quot;</span></span><br><span class="line"><span class="comment"># 方法二：在管理员 PowerShell 中：</span></span><br><span class="line">bcdedit /<span class="built_in">set</span> testsigning on</span><br><span class="line">shutdown /<span class="built_in">r</span> /t <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装后恢复驱动签名强制</span></span><br><span class="line">bcdedit /<span class="built_in">set</span> testsigning off</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：某些 VirtIO 驱动版本已有有效签名，可能不需要此步骤</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-驱动无法安装或无法识别设备"><a href="#2-驱动无法安装或无法识别设备" class="headerlink" title="2. 驱动无法安装或无法识别设备"></a>2. 驱动无法安装或无法识别设备</h3><p>如果设备管理器中没有显示未知设备，或者驱动无法安装：</p>
+<ol>
+<li><p><strong>确保正确加载驱动光盘</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 PVE 中光盘是否已连接</span></span><br><span class="line">qm config &lt;VMID&gt; | grep ide2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 pnputil 强制安装</strong>：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 以管理员身份打开命令提示符</span><br><span class="line"># 安装所有 INF 驱动</span><br><span class="line">pnputil /add-driver E:\drivers\amd64\*.inf /install</span><br><span class="line"></span><br><span class="line"># 或安装特定驱动</span><br><span class="line">pnputil /add-driver E:\drivers\amd64\netkvm.inf /install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>检查系统架构匹配</strong>：确保下载的驱动架构（x86/amd64）与 Windows 版本匹配</p>
+</li>
+</ol>
+<h3 id="3-网络驱动问题"><a href="#3-网络驱动问题" class="headerlink" title="3. 网络驱动问题"></a>3. 网络驱动问题</h3><p>安装 NetKVM 驱动后网络仍不正常：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 禁用再启用网络适配器</span></span><br><span class="line"><span class="built_in">Get-NetAdapter</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.InterfaceDescription <span class="operator">-like</span> <span class="string">&quot;*VirtIO*&quot;</span>&#125; | <span class="built_in">Disable-NetAdapter</span> <span class="literal">-Confirm</span>:<span class="variable">$false</span></span><br><span class="line"><span class="built_in">Start-Sleep</span> <span class="literal">-Seconds</span> <span class="number">5</span></span><br><span class="line"><span class="built_in">Get-NetAdapter</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.InterfaceDescription <span class="operator">-like</span> <span class="string">&quot;*VirtIO*&quot;</span>&#125; | <span class="built_in">Enable-NetAdapter</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查网络配置</span></span><br><span class="line"><span class="built_in">Get-NetIPConfiguration</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.InterfaceDescription <span class="operator">-like</span> <span class="string">&quot;*VirtIO*&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果需要，手动设置 IP 地址</span></span><br><span class="line"><span class="built_in">New-NetIPAddress</span> <span class="literal">-InterfaceAlias</span> <span class="string">&quot;Ethernet&quot;</span> <span class="literal">-IPAddress</span> <span class="string">&quot;192.168.1.100&quot;</span> <span class="literal">-PrefixLength</span> <span class="number">24</span> <span class="literal">-DefaultGateway</span> <span class="string">&quot;192.168.1.1&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-性能问题"><a href="#4-性能问题" class="headerlink" title="4. 性能问题"></a>4. 性能问题</h3><p>如果性能不如预期：</p>
+<ol>
+<li><strong>检查磁盘缓存设置</strong>：在 PVE 中设置为 Write back（性能更好）或 None（更安全）</li>
+<li><strong>确认 VirtIO 驱动正常加载</strong>：检查设备管理器中没有黄色感叹号</li>
+<li><strong>调整磁盘 IO 参数</strong>：在 PVE 中设置 iothread 和 cache</li>
+<li><strong>检查内存分配</strong>：确保 balloon 驱动正常工作，允许动态内存调整</li>
+</ol>
+<hr>
+<p><a id="automation"></a></p>
+<h2 id="🔄-六、自动化脚本"><a href="#🔄-六、自动化脚本" class="headerlink" title="🔄 六、自动化脚本"></a>🔄 六、自动化脚本</h2><h3 id="1-自动下载脚本（PVE-端）"><a href="#1-自动下载脚本（PVE-端）" class="headerlink" title="1. 自动下载脚本（PVE 端）"></a>1. 自动下载脚本（PVE 端）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 自动下载最新 VirtIO 驱动</span></span><br><span class="line">MIRROR=<span class="string">&quot;https://mirrors.ustc.edu.cn/fedora/groups/virt/virtio-win/direct-downloads/archive-virtio&quot;</span></span><br><span class="line">ISO_DIR=<span class="string">&quot;/var/lib/vz/template/iso&quot;</span></span><br><span class="line">LOG_FILE=<span class="string">&quot;/var/log/virtio-update.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 开始检查 VirtIO 驱动更新&quot;</span> | <span class="built_in">tee</span> -a <span class="variable">$LOG_FILE</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取最新版本号</span></span><br><span class="line">LATEST_VERSION=$(curl -s <span class="variable">$MIRROR</span>/ | grep -oP <span class="string">&#x27;virtio-win-\K\d+\.\d+\.\d+&#x27;</span> | <span class="built_in">sort</span> -V | <span class="built_in">tail</span> -1)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$LATEST_VERSION</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 无法获取最新版本号&quot;</span> | <span class="built_in">tee</span> -a <span class="variable">$LOG_FILE</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查是否已下载最新版本</span></span><br><span class="line"><span class="keyword">if</span> [ -f <span class="string">&quot;<span class="variable">$ISO_DIR</span>/virtio-win-<span class="variable">$LATEST_VERSION</span>.iso&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 已是最新版本: <span class="variable">$LATEST_VERSION</span>&quot;</span> | <span class="built_in">tee</span> -a <span class="variable">$LOG_FILE</span></span><br><span class="line">    <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 发现新版本: <span class="variable">$LATEST_VERSION</span>，开始下载...&quot;</span> | <span class="built_in">tee</span> -a <span class="variable">$LOG_FILE</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载新版本</span></span><br><span class="line">wget -q --show-progress -O <span class="variable">$ISO_DIR</span>/virtio-win-<span class="variable">$LATEST_VERSION</span>.iso <span class="variable">$MIRROR</span>/virtio-win-<span class="variable">$LATEST_VERSION</span>.iso</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 下载成功: virtio-win-<span class="variable">$LATEST_VERSION</span>.iso&quot;</span> | <span class="built_in">tee</span> -a <span class="variable">$LOG_FILE</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 更新最新版本符号链接</span></span><br><span class="line">    <span class="built_in">ln</span> -sf <span class="variable">$ISO_DIR</span>/virtio-win-<span class="variable">$LATEST_VERSION</span>.iso <span class="variable">$ISO_DIR</span>/virtio-win-latest.iso</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 保留旧版本（保留最近3个版本）</span></span><br><span class="line">    <span class="built_in">ls</span> -t <span class="variable">$ISO_DIR</span>/virtio-win-* | <span class="built_in">tail</span> -n +4 | xargs <span class="built_in">rm</span> -f</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 更新完成&quot;</span> | <span class="built_in">tee</span> -a <span class="variable">$LOG_FILE</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span>: 下载失败&quot;</span> | <span class="built_in">tee</span> -a <span class="variable">$LOG_FILE</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-驱动安装检查脚本（Windows-端）"><a href="#2-驱动安装检查脚本（Windows-端）" class="headerlink" title="2. 驱动安装检查脚本（Windows 端）"></a>2. 驱动安装检查脚本（Windows 端）</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Windows 驱动检查脚本</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test-VirtIODrivers</span></span> &#123;</span><br><span class="line">    <span class="variable">$results</span> = <span class="selector-tag">@</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 检查存储驱动</span></span><br><span class="line">    <span class="variable">$storage</span> = <span class="built_in">Get-Disk</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.FriendlyName <span class="operator">-like</span> <span class="string">&quot;*VirtIO*&quot;</span>&#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$storage</span>) &#123;</span><br><span class="line">        <span class="variable">$results</span> += [<span class="type">PSCustomObject</span>]<span class="selector-tag">@</span>&#123;</span><br><span class="line">            Component = <span class="string">&quot;存储控制器&quot;</span></span><br><span class="line">            Status = <span class="string">&quot;已安装&quot;</span></span><br><span class="line">            Details = <span class="variable">$storage</span>.FriendlyName</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$results</span> += [<span class="type">PSCustomObject</span>]<span class="selector-tag">@</span>&#123;</span><br><span class="line">            Component = <span class="string">&quot;存储控制器&quot;</span></span><br><span class="line">            Status = <span class="string">&quot;未安装&quot;</span></span><br><span class="line">            Details = <span class="string">&quot;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 检查网络驱动</span></span><br><span class="line">    <span class="variable">$network</span> = <span class="built_in">Get-NetAdapter</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.InterfaceDescription <span class="operator">-like</span> <span class="string">&quot;*VirtIO*&quot;</span>&#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$network</span>) &#123;</span><br><span class="line">        <span class="variable">$results</span> += [<span class="type">PSCustomObject</span>]<span class="selector-tag">@</span>&#123;</span><br><span class="line">            Component = <span class="string">&quot;网络适配器&quot;</span></span><br><span class="line">            Status = <span class="string">&quot;已安装&quot;</span></span><br><span class="line">            Details = <span class="variable">$network</span>.InterfaceDescription</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$results</span> += [<span class="type">PSCustomObject</span>]<span class="selector-tag">@</span>&#123;</span><br><span class="line">            Component = <span class="string">&quot;网络适配器&quot;</span></span><br><span class="line">            Status = <span class="string">&quot;未安装&quot;</span></span><br><span class="line">            Details = <span class="string">&quot;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 检查气球驱动</span></span><br><span class="line">    <span class="variable">$balloon</span> = <span class="built_in">Get-PnpDevice</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.FriendlyName <span class="operator">-like</span> <span class="string">&quot;*Balloon*&quot;</span>&#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$balloon</span>) &#123;</span><br><span class="line">        <span class="variable">$results</span> += [<span class="type">PSCustomObject</span>]<span class="selector-tag">@</span>&#123;</span><br><span class="line">            Component = <span class="string">&quot;内存气球驱动&quot;</span></span><br><span class="line">            Status = <span class="string">&quot;已安装&quot;</span></span><br><span class="line">            Details = <span class="variable">$balloon</span>.FriendlyName</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$results</span> += [<span class="type">PSCustomObject</span>]<span class="selector-tag">@</span>&#123;</span><br><span class="line">            Component = <span class="string">&quot;内存气球驱动&quot;</span></span><br><span class="line">            Status = <span class="string">&quot;未安装&quot;</span></span><br><span class="line">            Details = <span class="string">&quot;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 显示结果</span></span><br><span class="line">    <span class="variable">$results</span> | <span class="built_in">Format-Table</span> <span class="literal">-AutoSize</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 总结</span></span><br><span class="line">    <span class="variable">$installed</span> = (<span class="variable">$results</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.Status <span class="operator">-eq</span> <span class="string">&quot;已安装&quot;</span>&#125;).Count</span><br><span class="line">    <span class="variable">$total</span> = <span class="variable">$results</span>.Count</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;驱动安装状态: <span class="variable">$installed</span>/<span class="variable">$total</span>&quot;</span> <span class="literal">-ForegroundColor</span> <span class="variable">$</span>(<span class="keyword">if</span> (<span class="variable">$installed</span> <span class="operator">-eq</span> <span class="variable">$total</span>) &#123;<span class="string">&quot;Green&quot;</span>&#125; <span class="keyword">else</span> &#123;<span class="string">&quot;Yellow&quot;</span>&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$installed</span> <span class="operator">-ne</span> <span class="variable">$total</span>) &#123;</span><br><span class="line">        <span class="built_in">Write-Host</span> <span class="string">&quot;建议安装缺失的驱动以获取最佳性能&quot;</span> <span class="literal">-ForegroundColor</span> Red</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行检查</span></span><br><span class="line"><span class="built_in">Test-VirtIODrivers</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="best-practices"></a></p>
+<h2 id="💡-七、最佳实践"><a href="#💡-七、最佳实践" class="headerlink" title="💡 七、最佳实践"></a>💡 七、最佳实践</h2><h3 id="1-驱动版本管理"><a href="#1-驱动版本管理" class="headerlink" title="1. 驱动版本管理"></a>1. 驱动版本管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保留多个版本以备回滚</span></span><br><span class="line"><span class="comment"># 定期清理旧版本（保留最近5个版本）</span></span><br><span class="line"><span class="built_in">ls</span> -t /var/lib/vz/template/iso/virtio-win-* | <span class="built_in">tail</span> -n +6 | xargs <span class="built_in">rm</span> -f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建版本符号链接</span></span><br><span class="line"><span class="built_in">ln</span> -sf /var/lib/vz/template/iso/virtio-win-0.1.240.iso /var/lib/vz/template/iso/virtio-win-production.iso</span><br></pre></td></tr></table></figure>
+<h3 id="2-集成驱动到-Windows-安装镜像"><a href="#2-集成驱动到-Windows-安装镜像" class="headerlink" title="2. 集成驱动到 Windows 安装镜像"></a>2. 集成驱动到 Windows 安装镜像</h3><p>对于需要频繁部署的环境，可以考虑将 VirtIO 驱动集成到 Windows 安装镜像中：</p>
+<ol>
+<li>使用 <strong>DISM</strong> 工具将驱动注入 Windows 镜像</li>
+<li>或者使用 <strong>Windows Assessment and Deployment Kit (ADK)</strong> 创建集成驱动的安装镜像</li>
+<li>第三方工具如 <strong>Driver注入工具</strong> 也可以简化此过程</li>
+</ol>
+<h3 id="3-备份与恢复"><a href="#3-备份与恢复" class="headerlink" title="3. 备份与恢复"></a>3. 备份与恢复</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导出已安装的驱动（便于迁移或恢复）</span></span><br><span class="line"><span class="built_in">Export-WindowsDriver</span> <span class="literal">-Online</span> <span class="literal">-Destination</span> D:\DriversBackup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份驱动配置</span></span><br><span class="line"><span class="built_in">Get-WindowsDriver</span> <span class="literal">-Online</span> | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.Provider <span class="operator">-like</span> <span class="string">&quot;*Red Hat*&quot;</span>&#125; | <span class="built_in">Export-Clixml</span> <span class="literal">-Path</span> <span class="string">&quot;D:\VirtIO-Drivers.xml&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-监控与维护"><a href="#4-监控与维护" class="headerlink" title="4. 监控与维护"></a>4. 监控与维护</h3><ul>
+<li><strong>定期检查驱动更新</strong>：订阅 virtio-win 的 GitHub 发布页或邮件列表</li>
+<li><strong>监控虚拟机性能</strong>：确认 VirtIO 驱动正常工作并提供预期性能提升</li>
+<li><strong>测试新版本</strong>：在生产环境部署前，在测试环境验证新版本驱动</li>
+</ul>
+<hr>
+<p><a id="performance"></a></p>
+<h2 id="📊-八、性能对比"><a href="#📊-八、性能对比" class="headerlink" title="📊 八、性能对比"></a>📊 八、性能对比</h2><h3 id="启用-VirtIO-前后的性能提升"><a href="#启用-VirtIO-前后的性能提升" class="headerlink" title="启用 VirtIO 前后的性能提升"></a>启用 VirtIO 前后的性能提升</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>传统模拟</th>
+<th>VirtIO</th>
+<th>提升幅度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>磁盘 I/O</strong></td>
+<td>IDE: ~100 MB/s</td>
+<td>VirtIO: ~500 MB/s</td>
+<td>5倍</td>
+<td>顺序读写性能大幅提升</td>
+</tr>
+<tr>
+<td><strong>网络吞吐</strong></td>
+<td>E1000: ~5 Gbps</td>
+<td>VirtIO: ~20 Gbps</td>
+<td>4倍</td>
+<td>网络吞吐量显著增加</td>
+</tr>
+<tr>
+<td><strong>CPU 占用</strong></td>
+<td>较高</td>
+<td>较低</td>
+<td>减少 30-50%</td>
+<td>更高效的通信机制降低CPU使用</td>
+</tr>
+<tr>
+<td><strong>内存效率</strong></td>
+<td>一般</td>
+<td>支持气球驱动</td>
+<td>更高效</td>
+<td>允许动态内存调整，提高宿主内存利用率</td>
+</tr>
+<tr>
+<td><strong>启动时间</strong></td>
+<td>较慢</td>
+<td>较快</td>
+<td>减少 20-30%</td>
+<td>驱动优化加速系统启动</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>🚀 重要提示</strong>: 对于生产环境的 Windows 虚拟机，强烈建议使用 VirtIO 驱动以获得最佳性能。性能提升幅度可能因具体硬件配置和工作负载而异。</p>
+</blockquote>
+<h3 id="性能优化建议"><a href="#性能优化建议" class="headerlink" title="性能优化建议"></a>性能优化建议</h3><ol>
+<li><p><strong>磁盘配置</strong>：</p>
+<ul>
+<li>使用 VirtIO SCSI 而不是 VirtIO Block（支持更多功能和更好性能）</li>
+<li>启用 IO 线程（iothread=1）</li>
+<li>根据工作负载选择合适的缓存模式（Write back 用于性能，None 用于数据安全）</li>
+</ul>
+</li>
+<li><p><strong>网络配置</strong>：</p>
+<ul>
+<li>使用多队列 VirtIO 网络（multi_vnet=on）</li>
+<li>调整队列大小以适应高吞吐量需求</li>
+</ul>
+</li>
+<li><p><strong>内存管理</strong>：</p>
+<ul>
+<li>确保 balloon 驱动正确安装和运行</li>
+<li>监控内存气球效果，避免过度膨胀影响性能</li>
+</ul>
+</li>
+<li><p><strong>监控与调优</strong>：</p>
+<ul>
+<li>定期检查性能指标，确认 VirtIO 驱动正常工作</li>
+<li>根据实际工作负载调整配置参数</li>
+</ul>
+</li>
+</ol>
+<p>通过本指南，您应该能够成功为 PVE 中的 Windows 虚拟机配置 VirtIO 驱动，并获得显著的性能提升。如果在安装过程中遇到问题，请参考故障排除部分或查看相关日志文件。</p>
+</article><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?5321" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/740a939f.html" title="Proxmox VE 导入现有磁盘镜像完整教程 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6227" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Proxmox VE 导入现有磁盘镜像完整教程 🚀</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 导入现有磁盘镜像完整教程 🚀  本指南详细介绍如何在 PVE 中导入已有的磁盘镜像文件（qcow2/vmdk/raw），并将其附加到虚拟机。涵盖从准备、导入、配置到故障排除的全过程！💾   📖 导航目录 🌟 导入前准备 🔧 使用 qm importdisk 命令导入 ⚙️ 在 PVE 面板中配置磁盘 🔄 格式转换与处理 ⚠️ 注意事项与故障排除 💡 最佳实践与优化 🎯 验证导入结果    🌟 一、导入前准备在开始导入前，做好充分的准备工作可以避免很多常见问题。  检查现有镜像文件信息 12345678# 查看镜像文件详细信息（格式、大小、虚拟大小等）qemu-img info /path/to/your-disk-image.qcow2# 检查文件权限（确保 PVE 有读取权限）ls -la /path/to/your-disk-image.*# 验证镜像完整性（特别是从外部来源获取的镜像）qemu-img check /path/to/your-disk-image.qcow2  准备存储位置 12345678#...</div></div></div></a><a class="pagination-related" href="/posts/c4742c8f.html" title="使用 acme.sh 和阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3852" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">使用 acme.sh 和阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐</div></div><div class="info-2"><div class="info-item-1">使用 acme.sh 和 阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐  📋 目录 🌰 简介与特点 📦 安装 acme.sh 🔑 配置阿里云 DNS API 🖋️ 申请泛域名证书 📁 安装与部署证书 ⚙️ Nginx 配置示例 🔄 自动续期管理 🐛 故障排除 📊 多域名管理 🔒 安全最佳实践 🗑️ 卸载与清理 💡 高级用法 🎯 总结与提示    🌰 简介与特点acme.sh 是一个纯 Shell 语言编写的 ACME 协议客户端，专为从 Let’s Encrypt 等证书颁发机构（CA）自动获取和更新 SSL/TLS 证书而设计。它支持泛域名证书（Wildcard Certificate），这意味着一个证书可以保护一个域名及其所有子域名（如 *.example.com），非常适合拥有多个子域名的场景。 主要特性与优势：  完全免费与自动化：依托 Let’s Encrypt 和 ZeroSSL 等服务，提供免费的泛域名证书，并自动化申请和续期流程。 强大的兼容性：支持众多的 DNS 提供商 API，通过阿里云 DNS API...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proxmox-VE-Windows-%E8%99%9A%E6%8B%9F%E6%9C%BA-VirtIO-%E9%A9%B1%E5%8A%A8%E9%85%8D%E7%BD%AE-%F0%9F%9A%80"><span class="toc-text">Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📖 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E4%B8%80%E3%80%81VirtIO-%E9%A9%B1%E5%8A%A8%E7%AE%80%E4%BB%8B"><span class="toc-text">🌟 一、VirtIO 驱动简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A5-%E4%BA%8C%E3%80%81VirtIO-%E9%A9%B1%E5%8A%A8%E4%B8%8B%E8%BD%BD"><span class="toc-text">📥 二、VirtIO 驱动下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BD%E5%86%85%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">国内加速下载地址（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%9C%80%E6%96%B0%E6%88%96%E7%89%B9%E5%AE%9A%E7%89%88%E6%9C%AC"><span class="toc-text">下载最新或特定版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E6%BA%90%EF%BC%88%E5%A4%87%E7%94%A8%EF%BC%89"><span class="toc-text">官方源（备用）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E4%B8%89%E3%80%81%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-text">🔧 三、驱动安装步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8A%E4%BC%A0%E9%A9%B1%E5%8A%A8%E9%95%9C%E5%83%8F%E5%88%B0-PVE"><span class="toc-text">1. 上传驱动镜像到 PVE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E6%8C%82%E8%BD%BD%E9%A9%B1%E5%8A%A8%E9%95%9C%E5%83%8F"><span class="toc-text">2. 创建虚拟机并挂载驱动镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E9%A9%B1%E5%8A%A8%E5%8A%A0%E8%BD%BD"><span class="toc-text">3. Windows 安装过程中的驱动加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-text">4. 系统安装后的驱动安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BD%BF%E7%94%A8-MSI-%E5%AE%89%E8%A3%85%E5%8C%85%EF%BC%88%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-text">5. 使用 MSI 安装包（替代方法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AE%89%E8%A3%85-QEMU-%E5%AE%A2%E6%88%B7%E6%9C%BA%E4%BB%A3%E7%90%86"><span class="toc-text">6. 安装 QEMU 客户机代理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E5%9B%9B%E3%80%81%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">⚙️ 四、配置与优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-text">1. 修改虚拟机配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%AA%8C%E8%AF%81%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-text">2. 验证驱动安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%9B-%E4%BA%94%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-text">🐛 五、常见问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A9%B1%E5%8A%A8%E7%AD%BE%E5%90%8D%E9%97%AE%E9%A2%98%EF%BC%88Windows-10-11%EF%BC%89"><span class="toc-text">1. 驱动签名问题（Windows 10&#x2F;11）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A9%B1%E5%8A%A8%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85%E6%88%96%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB%E8%AE%BE%E5%A4%87"><span class="toc-text">2. 驱动无法安装或无法识别设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8%E9%97%AE%E9%A2%98"><span class="toc-text">3. 网络驱动问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="toc-text">4. 性能问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E5%85%AD%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC"><span class="toc-text">🔄 六、自动化脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%87%AA%E5%8A%A8%E4%B8%8B%E8%BD%BD%E8%84%9A%E6%9C%AC%EF%BC%88PVE-%E7%AB%AF%EF%BC%89"><span class="toc-text">1. 自动下载脚本（PVE 端）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85%E6%A3%80%E6%9F%A5%E8%84%9A%E6%9C%AC%EF%BC%88Windows-%E7%AB%AF%EF%BC%89"><span class="toc-text">2. 驱动安装检查脚本（Windows 端）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E4%B8%83%E3%80%81%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">💡 七、最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A9%B1%E5%8A%A8%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-text">1. 驱动版本管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9B%86%E6%88%90%E9%A9%B1%E5%8A%A8%E5%88%B0-Windows-%E5%AE%89%E8%A3%85%E9%95%9C%E5%83%8F"><span class="toc-text">2. 集成驱动到 Windows 安装镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-text">3. 备份与恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%9B%91%E6%8E%A7%E4%B8%8E%E7%BB%B4%E6%8A%A4"><span class="toc-text">4. 监控与维护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E5%85%AB%E3%80%81%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94"><span class="toc-text">📊 八、性能对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E7%94%A8-VirtIO-%E5%89%8D%E5%90%8E%E7%9A%84%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87"><span class="toc-text">启用 VirtIO 前后的性能提升</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-text">性能优化建议</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>

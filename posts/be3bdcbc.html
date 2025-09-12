@@ -1,0 +1,999 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Debian/Ubuntu 手动配置 Samba 共享 📁 | 凡凡小站🍁</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Debian&#x2F;Ubuntu 手动配置 Samba 共享 📁  目录 📚 ✨ Samba 简介与优势 🚀 一、Samba 基础配置 🖥️ 二、Debian 作为 Samba 服务端配置 💻 三、Debian 作为 Samba 客户端配置 🔍 四、Samba 服务验证和测试 🔧 五、Samba 服务管理 🐛 六、故障排除和调试 ⚙️ 七、高级配置选项 🔒 八、安全加固建议 🚀 九、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debian&#x2F;Ubuntu 手动配置 Samba 共享 📁">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/be3bdcbc.html">
+<meta property="og:site_name" content="凡凡小站🍁">
+<meta property="og:description" content="Debian&#x2F;Ubuntu 手动配置 Samba 共享 📁  目录 📚 ✨ Samba 简介与优势 🚀 一、Samba 基础配置 🖥️ 二、Debian 作为 Samba 服务端配置 💻 三、Debian 作为 Samba 客户端配置 🔍 四、Samba 服务验证和测试 🔧 五、Samba 服务管理 🐛 六、故障排除和调试 ⚙️ 七、高级配置选项 🔒 八、安全加固建议 🚀 九、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?8576">
+<meta property="article:published_time" content="2025-09-12T01:39:18.000Z">
+<meta property="article:modified_time" content="2025-09-12T01:39:18.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="samba">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="debian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?8576"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Debian/Ubuntu 手动配置 Samba 共享 📁",
+  "url": "https://www.meimolihan.eu.org/posts/be3bdcbc.html",
+  "image": "https://api.mobufan.eu.org:666/pc?8576",
+  "datePublished": "2025-09-12T01:39:18.000Z",
+  "dateModified": "2025-09-12T01:39:18.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/be3bdcbc.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Debian/Ubuntu 手动配置 Samba 共享 📁',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/页面美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">125</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?8576);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a><a class="nav-page-title" href="/"><span class="site-name">Debian/Ubuntu 手动配置 Samba 共享 📁</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Debian/Ubuntu 手动配置 Samba 共享 📁</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T01:39:18.000Z" title="发表于 2025-09-12 09:39:18">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T01:39:18.000Z" title="更新于 2025-09-12 09:39:18">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><!-- butterfly文章顶部添加波浪效果，开始--><!--section.main-hero-waves-area.waves-area--><!--  svg.waves-svg(xmlns='http://www.w3.org/2000/svg', xlink='http://www.w3.org/1999/xlink', viewBox='0 24 150 28', preserveAspectRatio='none', shape-rendering='auto')--><!--    defs--><!--      path#gentle-wave(d='M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z')--><!--    g.parallax--><!--      use(href='#gentle-wave', x='48', y='0')--><!--      use(href='#gentle-wave', x='48', y='3')--><!--      use(href='#gentle-wave', x='48', y='5')--><!--      use(href='#gentle-wave', x='48', y='7')--><!-- butterfly文章顶部添加波浪效果，结束--></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 09:39:18&quot;}" hidden></div><h1 id="Debian-Ubuntu-手动配置-Samba-共享-📁"><a href="#Debian-Ubuntu-手动配置-Samba-共享-📁" class="headerlink" title="Debian/Ubuntu 手动配置 Samba 共享 📁"></a>Debian/Ubuntu 手动配置 Samba 共享 📁</h1><p><img src="https://file.meimolihan.eu.org/img/debian-01.webp" alt="Debian Samba 配置"></p>
+<hr>
+<h2 id="目录-📚"><a href="#目录-📚" class="headerlink" title="目录 📚"></a>目录 📚</h2><ul>
+<li><a href="#introduction">✨ Samba 简介与优势</a></li>
+<li><a href="#basic-config">🚀 一、Samba 基础配置</a></li>
+<li><a href="#server-config">🖥️ 二、Debian 作为 Samba 服务端配置</a></li>
+<li><a href="#client-config">💻 三、Debian 作为 Samba 客户端配置</a></li>
+<li><a href="#verification">🔍 四、Samba 服务验证和测试</a></li>
+<li><a href="#service-management">🔧 五、Samba 服务管理</a></li>
+<li><a href="#troubleshooting">🐛 六、故障排除和调试</a></li>
+<li><a href="#advanced-config">⚙️ 七、高级配置选项</a></li>
+<li><a href="#security">🔒 八、安全加固建议</a></li>
+<li><a href="#performance">🚀 九、性能优化建议</a></li>
+<li><a href="#backup-recovery">💾 十、备份和恢复</a></li>
+<li><a href="#summary">📊 总结</a></li>
+</ul>
+<hr>
+<p><a id="introduction"></a></p>
+<h2 id="✨-Samba-简介与优势"><a href="#✨-Samba-简介与优势" class="headerlink" title="✨ Samba 简介与优势"></a>✨ Samba 简介与优势</h2><p>Samba 是一个开源的软件套件，提供了在 Linux/Unix 系统上与 Windows 系统进行文件和打印机共享的服务。在 Debian 系统上配置 Samba 可以让您轻松实现跨平台文件共享，特别适合在混合操作系统环境中使用。</p>
+<p><strong>主要优势：</strong></p>
+<ul>
+<li>🌐 <strong>跨平台兼容</strong>：完美支持 Linux 与 Windows 系统间的文件共享</li>
+<li>🔒 <strong>安全认证</strong>：支持用户认证和权限控制，保障数据安全</li>
+<li>👥 <strong>多用户支持</strong>：支持多个用户和组权限管理</li>
+<li>📊 <strong>高性能传输</strong>：提供高效稳定的文件传输服务</li>
+<li>🛡️ <strong>协议兼容</strong>：完全兼容 SMB/CIFS 协议</li>
+<li>⚡ <strong>配置灵活</strong>：支持丰富的配置选项和自定义设置</li>
+</ul>
+<hr>
+<p><a id="basic-config"></a></p>
+<h2 id="🚀-一、Samba-基础配置"><a href="#🚀-一、Samba-基础配置" class="headerlink" title="🚀 一、Samba 基础配置"></a>🚀 一、Samba 基础配置</h2><h3 id="1-安装-Samba-并设置开机自启"><a href="#1-安装-Samba-并设置开机自启" class="headerlink" title="1. 安装 Samba 并设置开机自启"></a>1. 安装 Samba 并设置开机自启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新软件包列表并安装 Samba</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get update &amp;&amp; <span class="built_in">sudo</span> apt install samba -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 Samba 服务开机自启</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 Samba 服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查服务状态</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status smbd</span><br></pre></td></tr></table></figure>
+<h3 id="2-创建-Samba-用户并设置密码"><a href="#2-创建-Samba-用户并设置密码" class="headerlink" title="2. 创建 Samba 用户并设置密码"></a>2. 创建 Samba 用户并设置密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建系统用户（如果尚未存在）</span></span><br><span class="line"><span class="built_in">sudo</span> useradd -m admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 Samba 密码（与系统密码分开管理）</span></span><br><span class="line"><span class="built_in">sudo</span> smbpasswd -a admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已创建的 Samba 用户</span></span><br><span class="line"><span class="built_in">sudo</span> pdbedit -L</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="server-config"></a></p>
+<h2 id="🖥️-二、Debian-Ubuntu-作为-Samba-服务端配置"><a href="#🖥️-二、Debian-Ubuntu-作为-Samba-服务端配置" class="headerlink" title="🖥️ 二、Debian/Ubuntu 作为 Samba 服务端配置"></a>🖥️ 二、Debian/Ubuntu 作为 Samba 服务端配置</h2><h3 id="1-备份原始配置文件"><a href="#1-备份原始配置文件" class="headerlink" title="1. 备份原始配置文件"></a>1. 备份原始配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份原始 Samba 配置文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/samba/smb.conf /etc/samba/smb.conf.bak</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看备份文件</span></span><br><span class="line"><span class="built_in">ls</span> -la /etc/samba/smb.conf*</span><br></pre></td></tr></table></figure>
+<h3 id="2-方法一：覆盖式配置（推荐）"><a href="#2-方法一：覆盖式配置（推荐）" class="headerlink" title="2. 方法一：覆盖式配置（推荐）"></a>2. 方法一：覆盖式配置（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建共享目录和 Samba 配置文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -pm 755 /mnt &amp;&amp; \</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[global]</span><br><span class="line">    workgroup = WORKGROUP</span><br><span class="line">    server string = Samba on Debian</span><br><span class="line">    netbios name = Debian</span><br><span class="line">    security = user</span><br><span class="line">    map to guest = Bad User</span><br><span class="line">    unix charset = UTF-8</span><br><span class="line">    socket options = IPTOS_LOWDELAY TCP_NODELAY</span><br><span class="line">    server min protocol = NT1</span><br><span class="line">    load printers = No</span><br><span class="line">    printing = bsd</span><br><span class="line">    veto files = /Thumbs.db/.DS_Store/._.DS_Store/.apdisk/</span><br><span class="line">    delete veto files = <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line">[Debian]</span><br><span class="line">    comment = Debian Samba Share</span><br><span class="line">    path = /mnt</span><br><span class="line">    browseable = <span class="built_in">yes</span></span><br><span class="line">    writable = <span class="built_in">yes</span></span><br><span class="line">    <span class="built_in">read</span> only = no</span><br><span class="line">    create mask = 0777</span><br><span class="line">    directory mask = 0777</span><br><span class="line">    guest ok = no</span><br><span class="line">    force user = root</span><br><span class="line">    force group = root</span><br><span class="line">    admin <span class="built_in">users</span> = admin</span><br><span class="line">    valid <span class="built_in">users</span> = admin,root</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Samba 服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务器 IP 地址</span></span><br><span class="line">hostname -I</span><br></pre></td></tr></table></figure>
+<h3 id="3-方法二：追加式配置"><a href="#3-方法二：追加式配置" class="headerlink" title="3. 方法二：追加式配置"></a>3. 方法二：追加式配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建共享目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -pm 755 /mnt &amp;&amp; \</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[Debian]</span><br><span class="line">    comment = Debian Samba Share</span><br><span class="line">    path = /mnt</span><br><span class="line">    browseable = <span class="built_in">yes</span></span><br><span class="line">    writable = <span class="built_in">yes</span></span><br><span class="line">    <span class="built_in">read</span> only = no</span><br><span class="line">    create mask = 0777</span><br><span class="line">    directory mask = 0777</span><br><span class="line">    guest ok = no</span><br><span class="line">    force user = root</span><br><span class="line">    force group = root</span><br><span class="line">    admin <span class="built_in">users</span> = admin</span><br><span class="line">    valid <span class="built_in">users</span> = admin,root</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置目录所有权</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> admin:admin /mnt/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Samba 服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务器 IP 地址</span></span><br><span class="line">ip  -o  -4  addr  show  scope  global  |  awk  <span class="string">&#x27;&#123;print $4&#125;&#x27;</span>  |  <span class="built_in">cut</span>  -d<span class="string">&#x27;/&#x27;</span>  -f1  |  <span class="built_in">head</span>  -n1</span><br></pre></td></tr></table></figure>
+<h3 id="4-方法三：一键配置脚本"><a href="#4-方法三：一键配置脚本" class="headerlink" title="4. 方法三：一键配置脚本"></a>4. 方法三：一键配置脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一键配置脚本</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /root/smb.sh &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Samba</span></span><br><span class="line">apt update &amp;&amp; apt install samba -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建共享目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -pm 777 /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 追加共享配置</span></span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; /etc/samba/smb.conf &lt;&lt;<span class="string">&#x27;MYENDMARK&#x27;</span></span><br><span class="line">[Debian]</span><br><span class="line">    comment = Samba Share</span><br><span class="line">    path = /mnt</span><br><span class="line">    guest ok = no</span><br><span class="line">    <span class="built_in">read</span> only = no</span><br><span class="line">    writable = <span class="built_in">yes</span></span><br><span class="line">    available = <span class="built_in">yes</span></span><br><span class="line">    browseable = <span class="built_in">yes</span></span><br><span class="line">    force user = root</span><br><span class="line">    force group = root</span><br><span class="line">    create mask = 0777</span><br><span class="line">    directory mask = 0777</span><br><span class="line">    fruit:encoding = native</span><br><span class="line">    fruit:metadata = stream</span><br><span class="line">    fruit:veto_appledouble = no</span><br><span class="line">    password required = <span class="built_in">yes</span></span><br><span class="line">    vfs objects = catia fruit streams_xattr</span><br><span class="line">    force user = admin,root</span><br><span class="line">    force group = admin,root</span><br><span class="line">    valid <span class="built_in">users</span> = admin,root</span><br><span class="line">MYENDMARK</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建用户并设置密码</span></span><br><span class="line">useradd admin 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line">(<span class="built_in">echo</span> <span class="string">&quot;your_password&quot;</span>; <span class="built_in">echo</span> <span class="string">&quot;your_password&quot;</span>) | smbpasswd -a -s admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Samba 服务</span></span><br><span class="line">systemctl restart smbd</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Samba 配置完成!&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;共享名: Debian&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;用户名: admin&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;密码: your_password&quot;</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置脚本权限并执行</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /root/smb.sh</span><br><span class="line"><span class="built_in">sudo</span> bash /root/smb.sh</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="client-config"></a></p>
+<h2 id="💻-三、Debian-Ubuntu-作为-Samba-客户端配置"><a href="#💻-三、Debian-Ubuntu-作为-Samba-客户端配置" class="headerlink" title="💻 三、Debian/Ubuntu 作为 Samba 客户端配置"></a>💻 三、Debian/Ubuntu 作为 Samba 客户端配置</h2><h3 id="1-配置-Samba-客户端挂载"><a href="#1-配置-Samba-客户端挂载" class="headerlink" title="1. 配置 Samba 客户端挂载"></a>1. 配置 Samba 客户端挂载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 Samba 客户端工具</span></span><br><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; <span class="built_in">sudo</span> apt install samba-client cifs-utils -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建本地挂载点</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /mnt/ARS2-SMB</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置自动挂载</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;//10.10.10.251/ARS2 /mnt/ARS2-SMB cifs username=root,password=your_password,uid=0,gid=0,file_mode=0777,dir_mode=0777 0 0&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试挂载</span></span><br><span class="line"><span class="built_in">sudo</span> mount -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证挂载结果</span></span><br><span class="line"><span class="built_in">df</span> -hT | grep cifs</span><br></pre></td></tr></table></figure>
+<h3 id="2-手动挂载-Samba-共享"><a href="#2-手动挂载-Samba-共享" class="headerlink" title="2. 手动挂载 Samba 共享"></a>2. 手动挂载 Samba 共享</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 手动挂载 Samba 共享</span></span><br><span class="line"><span class="built_in">sudo</span> mount -t cifs -o username=root,password=yifan0719 //10.10.10.251/ARS2 /mnt/ARS2-SMB</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看挂载内容</span></span><br><span class="line"><span class="built_in">ls</span> -la /mnt/ARS2-SMB/</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="verification"></a></p>
+<h2 id="🔍-四、Samba-服务验证和测试"><a href="#🔍-四、Samba-服务验证和测试" class="headerlink" title="🔍 四、Samba 服务验证和测试"></a>🔍 四、Samba 服务验证和测试</h2><h3 id="1-安装-Samba-客户端工具"><a href="#1-安装-Samba-客户端工具" class="headerlink" title="1. 安装 Samba 客户端工具"></a>1. 安装 Samba 客户端工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 smbclient</span></span><br><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; <span class="built_in">sudo</span> apt install smbclient -y</span><br></pre></td></tr></table></figure>
+<h3 id="2-测试-Samba-连接"><a href="#2-测试-Samba-连接" class="headerlink" title="2. 测试 Samba 连接"></a>2. 测试 Samba 连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试 Samba 共享连接</span></span><br><span class="line">smbclient //10.10.10.245/Debian -U admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 匿名查看 Samba 共享信息</span></span><br><span class="line">smbclient -L //10.10.10.246 -N</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 smbclient 中执行命令示例</span></span><br><span class="line"><span class="comment"># ls - 列出共享文件</span></span><br><span class="line"><span class="comment"># get filename - 下载文件</span></span><br><span class="line"><span class="comment"># put filename - 上传文件</span></span><br><span class="line"><span class="comment"># exit - 退出</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看和管理-Samba-用户"><a href="#3-查看和管理-Samba-用户" class="headerlink" title="3. 查看和管理 Samba 用户"></a>3. 查看和管理 Samba 用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出所有 Samba 用户</span></span><br><span class="line"><span class="built_in">sudo</span> pdbedit -L</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 root 用户到 Samba</span></span><br><span class="line"><span class="built_in">sudo</span> smbpasswd -a root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除 Samba 用户</span></span><br><span class="line"><span class="built_in">sudo</span> smbpasswd -x username</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用/禁用用户</span></span><br><span class="line"><span class="built_in">sudo</span> smbpasswd -e username  <span class="comment"># 启用</span></span><br><span class="line"><span class="built_in">sudo</span> smbpasswd -d username  <span class="comment"># 禁用</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="service-management"></a></p>
+<h2 id="🔧-五、Samba-服务管理"><a href="#🔧-五、Samba-服务管理" class="headerlink" title="🔧 五、Samba 服务管理"></a>🔧 五、Samba 服务管理</h2><h3 id="1-服务管理命令"><a href="#1-服务管理命令" class="headerlink" title="1. 服务管理命令"></a>1. 服务管理命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 Samba 服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl start smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 Samba 服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl stop smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Samba 服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置开机自启</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> smbd</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置重新加载"><a href="#2-配置重新加载" class="headerlink" title="2. 配置重新加载"></a>2. 配置重新加载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试配置文件语法</span></span><br><span class="line">testparm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置而不重启服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl reload smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查配置语法</span></span><br><span class="line"><span class="built_in">sudo</span> testparm -s</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🐛-六、故障排除和调试"><a href="#🐛-六、故障排除和调试" class="headerlink" title="🐛 六、故障排除和调试"></a>🐛 六、故障排除和调试</h2><h3 id="1-日志查看"><a href="#1-日志查看" class="headerlink" title="1. 日志查看"></a>1. 日志查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 Samba 日志</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tail</span> -f /var/log/samba/log.smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看最近连接</span></span><br><span class="line"><span class="built_in">sudo</span> smbstatus</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看详细连接信息</span></span><br><span class="line"><span class="built_in">sudo</span> smbstatus -v</span><br></pre></td></tr></table></figure>
+<h3 id="2-网络诊断"><a href="#2-网络诊断" class="headerlink" title="2. 网络诊断"></a>2. 网络诊断</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查端口开放情况</span></span><br><span class="line"><span class="built_in">sudo</span> netstat -tulnp | grep smb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试网络连通性</span></span><br><span class="line">ping 10.10.10.251</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查防火墙设置</span></span><br><span class="line"><span class="built_in">sudo</span> ufw status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查端口访问</span></span><br><span class="line">telnet 10.10.10.251 445</span><br></pre></td></tr></table></figure>
+<h3 id="3-权限检查"><a href="#3-权限检查" class="headerlink" title="3. 权限检查"></a>3. 权限检查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查目录权限</span></span><br><span class="line"><span class="built_in">ls</span> -la /mnt/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 SELinux 状态（如果启用）</span></span><br><span class="line">getenforce</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 AppArmor 状态</span></span><br><span class="line"><span class="built_in">sudo</span> aa-status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查文件系统权限</span></span><br><span class="line"><span class="built_in">sudo</span> namei -l /mnt/</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="advanced-config"></a></p>
+<h2 id="⚙️-七、高级配置选项"><a href="#⚙️-七、高级配置选项" class="headerlink" title="⚙️ 七、高级配置选项"></a>⚙️ 七、高级配置选项</h2><h3 id="1-多共享配置"><a href="#1-多共享配置" class="headerlink" title="1. 多共享配置"></a>1. 多共享配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置多个共享目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[Documents]</span><br><span class="line">    comment = Important Documents</span><br><span class="line">    path = /mnt/documents</span><br><span class="line">    browseable = <span class="built_in">yes</span></span><br><span class="line">    writable = <span class="built_in">yes</span></span><br><span class="line">    valid <span class="built_in">users</span> = @staff</span><br><span class="line"></span><br><span class="line">[Media]</span><br><span class="line">    comment = Media Files</span><br><span class="line">    path = /mnt/media</span><br><span class="line">    browseable = <span class="built_in">yes</span></span><br><span class="line">    writable = <span class="built_in">yes</span></span><br><span class="line">    guest ok = <span class="built_in">yes</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建对应的目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /mnt/documents /mnt/media</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 755 /mnt/documents /mnt/media</span><br></pre></td></tr></table></figure>
+<h3 id="2-用户组权限管理"><a href="#2-用户组权限管理" class="headerlink" title="2. 用户组权限管理"></a>2. 用户组权限管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建用户组</span></span><br><span class="line"><span class="built_in">sudo</span> addgroup staff</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加用户到组</span></span><br><span class="line"><span class="built_in">sudo</span> usermod -aG staff admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置组权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[Staff]</span><br><span class="line">    comment = Staff Only</span><br><span class="line">    path = /mnt/staff</span><br><span class="line">    browseable = <span class="built_in">yes</span></span><br><span class="line">    writable = <span class="built_in">yes</span></span><br><span class="line">    valid <span class="built_in">users</span> = @staff</span><br><span class="line">    force group = staff</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建目录并设置权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /mnt/staff</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chgrp</span> staff /mnt/staff</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 775 /mnt/staff</span><br></pre></td></tr></table></figure>
+<h3 id="3-访问控制列表"><a href="#3-访问控制列表" class="headerlink" title="3. 访问控制列表"></a>3. 访问控制列表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 ACL 工具</span></span><br><span class="line"><span class="built_in">sudo</span> apt install acl -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置目录 ACL</span></span><br><span class="line"><span class="built_in">sudo</span> setfacl -R -m g:staff:rwx /mnt/staff</span><br><span class="line"><span class="built_in">sudo</span> setfacl -R -d -m g:staff:rwx /mnt/staff</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证 ACL 设置</span></span><br><span class="line">getfacl /mnt/staff</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="security"></a></p>
+<h2 id="🔒-八、安全加固建议"><a href="#🔒-八、安全加固建议" class="headerlink" title="🔒 八、安全加固建议"></a>🔒 八、安全加固建议</h2><h3 id="1-网络安全配置"><a href="#1-网络安全配置" class="headerlink" title="1. 网络安全配置"></a>1. 网络安全配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制访问IP范围</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">hosts allow = 127.0.0.1 10.10.10.0/24</span><br><span class="line">hosts deny = 0.0.0.0/0</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁用不需要的协议</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">server min protocol = SMB2</span><br><span class="line">server max protocol = SMB3</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="2-认证安全"><a href="#2-认证安全" class="headerlink" title="2. 认证安全"></a>2. 认证安全</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用加密密码</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">encrypt passwords = <span class="built_in">yes</span></span><br><span class="line">smb passwd file = /etc/samba/private/smbpasswd</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建安全的密码文件目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/samba/private</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 700 /etc/samba/private</span><br></pre></td></tr></table></figure>
+<h3 id="3-定期审计"><a href="#3-定期审计" class="headerlink" title="3. 定期审计"></a>3. 定期审计</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建审计脚本</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /usr/local/bin/samba_audit.sh &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=== Samba 安全审计 ===&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;日期: <span class="subst">$(date)</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;当前连接:&quot;</span></span><br><span class="line">smbstatus -b</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;用户列表:&quot;</span></span><br><span class="line">pdbedit -L -v</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;共享状态:&quot;</span></span><br><span class="line">testparm -s --parameter-name=<span class="string">&quot;security&quot;</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/samba_audit.sh</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="performance"></a></p>
+<h2 id="🚀-九、性能优化建议"><a href="#🚀-九、性能优化建议" class="headerlink" title="🚀 九、性能优化建议"></a>🚀 九、性能优化建议</h2><h3 id="1-缓存和缓冲区优化"><a href="#1-缓存和缓冲区优化" class="headerlink" title="1. 缓存和缓冲区优化"></a>1. 缓存和缓冲区优化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 性能优化设置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">socket options = TCP_NODELAY IPTOS_LOWDELAY</span><br><span class="line"><span class="built_in">read</span> raw = <span class="built_in">yes</span></span><br><span class="line">write raw = <span class="built_in">yes</span></span><br><span class="line">max xmit = 65535</span><br><span class="line">getwd cache = <span class="built_in">yes</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="2-日志优化"><a href="#2-日志优化" class="headerlink" title="2. 日志优化"></a>2. 日志优化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制日志大小</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="built_in">log</span> level = 1</span><br><span class="line"><span class="built_in">log</span> file = /var/log/samba/log.%m</span><br><span class="line">max <span class="built_in">log</span> size = 50</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置日志轮转</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/logrotate.d/samba &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">/var/log/samba/*.<span class="built_in">log</span> &#123;</span><br><span class="line">    missingok</span><br><span class="line">    notifempty</span><br><span class="line">    copytruncate</span><br><span class="line">    size 10M</span><br><span class="line">    rotate 5</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="3-资源限制"><a href="#3-资源限制" class="headerlink" title="3. 资源限制"></a>3. 资源限制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置最大连接数</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/samba/smb.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">max connections = 100</span><br><span class="line">max disk size = 1000</span><br><span class="line">max open files = 16384</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="backup-recovery"></a></p>
+<h2 id="💾-十、备份和恢复"><a href="#💾-十、备份和恢复" class="headerlink" title="💾 十、备份和恢复"></a>💾 十、备份和恢复</h2><h3 id="1-配置备份"><a href="#1-配置备份" class="headerlink" title="1. 配置备份"></a>1. 配置备份</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建备份目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /backup/samba</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份 Samba 配置文件</span></span><br><span class="line"><span class="built_in">sudo</span> tar -czf /backup/samba/samba_config_$(<span class="built_in">date</span> +%Y%m%d).tar.gz \</span><br><span class="line">    /etc/samba/smb.conf \</span><br><span class="line">    /etc/samba/smb.conf.bak</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份用户数据库</span></span><br><span class="line"><span class="built_in">sudo</span> tar -czf /backup/samba/samba_users_$(<span class="built_in">date</span> +%Y%m%d).tar.gz \</span><br><span class="line">    /var/lib/samba/private/passdb.tdb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建定期备份任务</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;0 2 * * * root tar -czf /backup/samba/samba_config_<span class="subst">$(date +\%Y\%m\%d)</span>.tar.gz /etc/samba/smb.conf /etc/samba/smb.conf.bak&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/crontab</span><br></pre></td></tr></table></figure>
+<h3 id="2-快速恢复脚本"><a href="#2-快速恢复脚本" class="headerlink" title="2. 快速恢复脚本"></a>2. 快速恢复脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建恢复脚本</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /usr/local/bin/samba_recovery.sh &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 恢复配置文件</span></span><br><span class="line">tar -xzf /backup/samba/samba_config_$(<span class="built_in">date</span> +%Y%m%d).tar.gz -C /</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Samba 服务</span></span><br><span class="line">systemctl restart smbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证服务状态</span></span><br><span class="line">systemctl status smbd</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/samba_recovery.sh</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="summary"></a></p>
+<h2 id="📊-总结"><a href="#📊-总结" class="headerlink" title="📊 总结"></a>📊 总结</h2><p>通过本指南，您已经学会了在 Debian 系统上配置和管理 Samba 共享的完整流程：</p>
+<ol>
+<li>✅ <strong>Samba 安装</strong>：安装必要的软件包和创建共享目录</li>
+<li>✅ <strong>用户管理</strong>：创建和管理 Samba 用户账户</li>
+<li>✅ <strong>服务器配置</strong>：配置 Samba 服务器共享选项</li>
+<li>✅ <strong>客户端配置</strong>：挂载远程 Samba 共享</li>
+<li>✅ <strong>验证测试</strong>：测试 Samba 服务连接和功能</li>
+<li>✅ <strong>服务管理</strong>：启动、停止和监控 Samba 服务</li>
+<li>✅ <strong>故障排除</strong>：解决常见的连接和权限问题</li>
+<li>✅ <strong>高级配置</strong>：多共享、用户组和 ACL 配置</li>
+<li>✅ <strong>安全加固</strong>：增强 Samba 服务的安全性</li>
+<li>✅ <strong>性能优化</strong>：优化 Samba 服务性能</li>
+<li>✅ <strong>备份恢复</strong>：配置备份和恢复策略</li>
+</ol>
+<p>现在您可以轻松地在 Debian 系统中搭建和管理 Samba 文件共享服务，实现跨平台文件共享！📁</p>
+<blockquote>
+<p>💡 <strong>提示</strong>：在生产环境中，建议使用更复杂的密码策略，定期更新密码，并限制只有必要的用户和IP地址可以访问共享资源。同时定期检查系统日志，监控异常访问行为。</p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/samba/">samba</a><a class="post-meta__tags" href="/tags/ubuntu/">ubuntu</a><a class="post-meta__tags" href="/tags/debian/">debian</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?8576" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/3f2e65d4.html" title="ESXi 虚拟机管理命令大全 ⚡"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4776" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">ESXi 虚拟机管理命令大全 ⚡</div></div><div class="info-2"><div class="info-item-1">ESXi 虚拟机管理命令大全 ⚡  🖥️ 掌握ESXi命令行管理，轻松掌控虚拟机生命周期   目录 📚 🔍 一、虚拟机信息查询 ⚡ 二、电源管理操作 📊 三、状态监控与诊断 🔧 四、高级管理命令 🛠️ 五、配置与维护 ⚠️ 六、注意事项 💡 七、实用技巧 🎯 八、批量操作脚本 🚀 九、性能优化    🔍 一、虚拟机信息查询📋 获取所有虚拟机列表用途: 显示ESXi主机上所有虚拟机的详细信息 12345678# 获取完整虚拟机列表vim-cmd vmsvc/getallvms# 格式化输出（更易读）vim-cmd vmsvc/getallvms | awk &#x27;&#123;printf &quot;%-4s %-30s %-20s %-15s %-10s\n&quot;, $1, $2, $3, $4, $5&#125;&#x27;# 仅显示虚拟机ID和名称vim-cmd vmsvc/getallvms | awk &#x27;&#123;print $1 &quot; &quot; $2&#125;&#x27; | grep -v...</div></div></div></a><a class="pagination-related" href="/posts/47582bb4.html" title="Docker 部署 Caddy Web 服务器 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1633" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Docker 部署 Caddy Web 服务器 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Caddy Web 服务器完全指南 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Caddy 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Caddy 1. 访问 Web 界面 💻 2. 基本配置步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航 Web 服务，探索无限     🎯 项目简介Caddy 是一款现代化的开源 Web 服务器，以其简单的配置、自动 HTTPS 和出色的性能而闻名。通过 Docker 部署 Caddy，您可以轻松搭建一个功能强大的 Web 服务器，支持静态网站、反向代理、负载均衡等多种功能。 Caddy 采用 Go 语言编写，可用于静态资源托管和反向代理，默认启用...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/7007c888.html" title="Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?813" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐</div></div><div class="info-2"><div class="info-item-1">Debian/PVE/Ubuntu/FnOS 配置 SSH 服务🔐  SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   📋 目录导航 📖 简介 🛠️ 一、SSH 服务安装与基本配置 ⚙️ 二、SSH 服务优化配置 客户端连接 SSH 🔒 四、高级安全配置 🔥 五、防火墙配置 🔍 六、故障排除与监控 🚀 七、性能优化 💾 八、备份与恢复 🔎 九、安全审计脚本 🐛 十、常见问题解决 📋 十一、最佳实践总结    📖 简介SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   🛠️ 一、SSH 服务安装与基本配置1. 📦 安装 SSH 服务器并启用服务1234567891011# 更新软件包列表并安装 SSH 服务器sudo apt-get update...</div></div></div></a><a class="pagination-related" href="/posts/217eb7b9.html" title="Alpine 配置 Samba 共享指南 📁"><img class="cover" src="https://api.mobufan.eu.org:666/pc?99" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Alpine 配置 Samba 共享指南 📁</div></div><div class="info-2"><div class="info-item-1">Alpine 配置 Samba 共享指南 📁  📋 目录导航 📖 简介 🛠️ 一、Samba 基础配置 🖥️ 二、Alpine 作为 Samba 服务端配置 💻 三、Alpine 作为 Samba 客户端配置 🔧 四、Samba 管理命令 🐛 五、故障排除和调试 ⚙️ 六、高级配置选项 🔒 七、安全加固建议 🚀 八、性能优化建议    📖 简介本指南详细介绍了在 Alpine Linux 环境中配置 Samba 共享服务的完整流程，包括服务端和客户端的配置方法。Samba 允许在不同操作系统之间共享文件和打印机，特别适合在 Linux 和 Windows 系统之间共享文件。   🛠️ 一、Samba 基础配置1. 📁 创建共享目录并安装 Samba1234567# 创建共享目录并设置权限mkdir -p /mnt/mydiskchmod -R 755 /mnt/mydisk# 更新软件包列表并安装 Sambaapk updateapk add samba shadow 2. 👤 创建 Samba 用户并设置密码12345# 创建系统用户useradd...</div></div></div></a><a class="pagination-related" href="/posts/2b81833a.html" title="CentOS 配置 SSH 服务指南 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2421" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">CentOS 配置 SSH 服务指南 🔐</div></div><div class="info-2"><div class="info-item-1">CentOS 配置 SSH 服务指南 🔐  📋 目录导航 🌟 简介 🔧 一、安装和更新 SSH 服务 ⚙️ 二、配置 SSH 服务器 🛡️ 三、增强 SSH 安全性（推荐） 🔍 四、验证配置 💡 五、高级配置选项 🚨 六、故障排除 📊 七、SSH 配置参数说明 🔒 八、安全最佳实践    🌟 简介本指南将帮助您在 CentOS 系统上配置 SSH 服务器，提高安全性和连接稳定性。   🔧 一、安装和更新 SSH 服务1. 📦 更新系统并安装 OpenSSH 服务器1yum -y update &amp;&amp; yum install -y openssl openssh-server 2. 📝 查看 SSH 配置文件1cat /etc/ssh/sshd_config   ⚙️ 二、配置 SSH 服务器1. ⚡ 修改 SSH 配置文件并重启服务12345# 备份原配置文件并应用修改sed -i.bak -e &#x27;/Port 22/ a Port 22&#x27; -e &#x27;/PermitRootLogin/ a...</div></div></div></a><a class="pagination-related" href="/posts/32242369.html" title="CentOS 配置 Samba 服务指南 🖥️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9590" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">CentOS 配置 Samba 服务指南 🖥️</div></div><div class="info-2"><div class="info-item-1">CentOS 配置 Samba 服务指南 🖥️  📋 导航目录 🌟 简介 🔧 一、Samba 基础设置 ⚙️ 二、CentOS Samba 服务端配置 🔗 三、CentOS 作为 Samba 客户端配置 🔍 四、验证 Samba 服务 🛡️ 五、防火墙和 SELinux 配置 💡 六、故障排除 🔒 七、安全建议    🌟 简介本指南将帮助您在 CentOS 系统上部署和配置 Samba 服务，实现文件共享功能。Samba 允许 Linux/Unix 系统与 Windows 系统之间共享文件和打印机。   🔧 一、Samba 基础设置1. 更新系统并安装 Samba1yum update -y &amp;&amp; yum install samba -y &amp;&amp; sudo systemctl enable smb &amp;&amp; sudo systemctl restart smb 2. 创建 admin 用户并设置密码1useradd admin &amp;&amp; smbpasswd -a admin 系统会提示您输入并确认...</div></div></div></a><a class="pagination-related" href="/posts/e08e13c3.html" title="iStoreOS 配置 Samba 共享服务指南 🛠️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?852" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">iStoreOS 配置 Samba 共享服务指南 🛠️</div></div><div class="info-2"><div class="info-item-1">iStoreOS 配置 Samba 共享服务指南 🛠️  Samba 是实现 Linux/Unix 与 Windows 系统间文件和打印机共享的核心服务。   📌 导航目录   ✨ 一、功能与特点🎯 二、服务端配置🖥️ 三、客户端配置🚀 四、进阶提示与故障排除🔧 五、常用命令参考💡 六、最佳实践     ✨ 一、功能与特点 🖥️ 跨平台访问：允许 Windows、macOS、Linux 及移动设备访问共享文件 🔐 用户权限控制：可设置不同用户/密码，保障共享内容的安全 📁 目录灵活共享：支持多个不同路径的目录分别设置独立共享 ⚡ 高性能传输：针对内网环境优化，传输速度快 🍎 兼容 macOS：支持 Apple Time Machine 备份及 DS_Store 等文件过滤 🔧 配置简单：可通过 Web 界面或 SSH 命令行快速配置    🎯 二、iStoreOS 作 Samba 服务端1️⃣ 创建用户并设置 Samba 密码12# 创建admin用户并设置Samba密码useradd admin &amp;&amp; smbpasswd -a...</div></div></div></a><a class="pagination-related" href="/posts/d41d340.html" title="Proxmox VE LXC 容器磁盘挂载与 Samba 共享 🖥️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9145" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Proxmox VE LXC 容器磁盘挂载与 Samba 共享 🖥️</div></div><div class="info-2"><div class="info-item-1">Proxmox VE LXC 容器磁盘挂载与 Samba 共享 🖥️  本教程详细介绍了在 Proxmox VE (PVE) 环境中配置 LXC 容器磁盘挂载和 Samba 共享的完整流程，帮助您实现高效的文件共享和存储管理！🚀   📖 导航目录 ✨ 功能与特点 🐧 PVE LXC 容器磁盘挂载 📂 创建与验证挂载 🔧 高级挂载选项   📁 iStoreOS Samba 共享配置 👥 用户管理 ⚙️ 共享配置   🔒 安全加固 🚀 客户端访问指南 🐛 故障排除 💡 最佳实践    ✨ 功能与特点本教程涵盖的完整功能流程：  📂 磁盘挂载：将主机磁盘挂载到 LXC 容器中，实现存储扩展 🔄 数据共享：通过 Samba 实现跨平台文件共享，支持多种操作系统 👥 用户管理：创建和管理 Samba 用户账户，实现精细权限控制 🔒 权限控制：设置适当的文件权限和访问控制，保障数据安全 🌐 网络访问：配置网络共享供其他设备访问，提升协作效率 🛡️ 安全加固：通过防火墙和加密配置增强共享安全性 📊...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Debian-Ubuntu-%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE-Samba-%E5%85%B1%E4%BA%AB-%F0%9F%93%81"><span class="toc-text">Debian&#x2F;Ubuntu 手动配置 Samba 共享 📁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95-%F0%9F%93%9A"><span class="toc-text">目录 📚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-Samba-%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BC%98%E5%8A%BF"><span class="toc-text">✨ Samba 简介与优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E4%B8%80%E3%80%81Samba-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-text">🚀 一、Samba 基础配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-Samba-%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-text">1. 安装 Samba 并设置开机自启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA-Samba-%E7%94%A8%E6%88%B7%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81"><span class="toc-text">2. 创建 Samba 用户并设置密码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8F-%E4%BA%8C%E3%80%81Debian-Ubuntu-%E4%BD%9C%E4%B8%BA-Samba-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">🖥️ 二、Debian&#x2F;Ubuntu 作为 Samba 服务端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%A4%87%E4%BB%BD%E5%8E%9F%E5%A7%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1. 备份原始配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E8%A6%86%E7%9B%96%E5%BC%8F%E9%85%8D%E7%BD%AE%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">2. 方法一：覆盖式配置（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E8%BF%BD%E5%8A%A0%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">3. 方法二：追加式配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E4%B8%80%E9%94%AE%E9%85%8D%E7%BD%AE%E8%84%9A%E6%9C%AC"><span class="toc-text">4. 方法三：一键配置脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BB-%E4%B8%89%E3%80%81Debian-Ubuntu-%E4%BD%9C%E4%B8%BA-Samba-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">💻 三、Debian&#x2F;Ubuntu 作为 Samba 客户端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE-Samba-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8C%82%E8%BD%BD"><span class="toc-text">1. 配置 Samba 客户端挂载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%8B%E5%8A%A8%E6%8C%82%E8%BD%BD-Samba-%E5%85%B1%E4%BA%AB"><span class="toc-text">2. 手动挂载 Samba 共享</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E5%9B%9B%E3%80%81Samba-%E6%9C%8D%E5%8A%A1%E9%AA%8C%E8%AF%81%E5%92%8C%E6%B5%8B%E8%AF%95"><span class="toc-text">🔍 四、Samba 服务验证和测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-Samba-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B7%A5%E5%85%B7"><span class="toc-text">1. 安装 Samba 客户端工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95-Samba-%E8%BF%9E%E6%8E%A5"><span class="toc-text">2. 测试 Samba 连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E5%92%8C%E7%AE%A1%E7%90%86-Samba-%E7%94%A8%E6%88%B7"><span class="toc-text">3. 查看和管理 Samba 用户</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E4%BA%94%E3%80%81Samba-%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">🔧 五、Samba 服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">1. 服务管理命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E9%87%8D%E6%96%B0%E5%8A%A0%E8%BD%BD"><span class="toc-text">2. 配置重新加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%9B-%E5%85%AD%E3%80%81%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4%E5%92%8C%E8%B0%83%E8%AF%95"><span class="toc-text">🐛 六、故障排除和调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B"><span class="toc-text">1. 日志查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD"><span class="toc-text">2. 网络诊断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9D%83%E9%99%90%E6%A3%80%E6%9F%A5"><span class="toc-text">3. 权限检查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E4%B8%83%E3%80%81%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9"><span class="toc-text">⚙️ 七、高级配置选项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%A4%9A%E5%85%B1%E4%BA%AB%E9%85%8D%E7%BD%AE"><span class="toc-text">1. 多共享配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%94%A8%E6%88%B7%E7%BB%84%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-text">2. 用户组权限管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8"><span class="toc-text">3. 访问控制列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%92-%E5%85%AB%E3%80%81%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA%E5%BB%BA%E8%AE%AE"><span class="toc-text">🔒 八、安全加固建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">1. 网络安全配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%A4%E8%AF%81%E5%AE%89%E5%85%A8"><span class="toc-text">2. 认证安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9A%E6%9C%9F%E5%AE%A1%E8%AE%A1"><span class="toc-text">3. 定期审计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E4%B9%9D%E3%80%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-text">🚀 九、性能优化建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%93%E5%AD%98%E5%92%8C%E7%BC%93%E5%86%B2%E5%8C%BA%E4%BC%98%E5%8C%96"><span class="toc-text">1. 缓存和缓冲区优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%97%A5%E5%BF%97%E4%BC%98%E5%8C%96"><span class="toc-text">2. 日志优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-text">3. 资源限制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BE-%E5%8D%81%E3%80%81%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D"><span class="toc-text">💾 十、备份和恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE%E5%A4%87%E4%BB%BD"><span class="toc-text">1. 配置备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D%E8%84%9A%E6%9C%AC"><span class="toc-text">2. 快速恢复脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E6%80%BB%E7%BB%93"><span class="toc-text">📊 总结</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aplayer-body');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>
