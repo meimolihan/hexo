@@ -305,123 +305,150 @@ function fadeOut() {
   loading.classList.add("fadeout");
 }
 
-initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+initLoading();</script><!-- 添加音频播放器代码--><!--link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css')--><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><!--script(src='https://cdn.meimolihan.eu.org/APlayer/APlayer.min.js')--><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
 const songs = [
-    '执子之手-宝石Gem', 
-    '这些年在忙什么-田园', 
-    '平凡日子里的挣扎-小璐', 
-    '无爱情歌-王娜', 
-    '人间疾苦-马健涛', 
-    '大风吹倒梧桐树-侯泽润、田园', 
-    '跳楼机-en', 
-    '一路生花-温奕心', 
-    '碎银几两-轩东', 
-    '此生无憾-金钰儿', 
-    '搀扶-马健涛', 
-    '敬往事一杯-侯泽润', 
-    '人间一路-青木时光', 
-    '别怕我伤心-张信哲', 
-    '大东北我的家乡-何玉', 
-    '陪我过个冬-燃', 
-    '我期待的不是雪-张妙格', 
-    '苦命的人-刘阳阳', 
-    '爱情恰恰-十二大美女', 
-    '不要慌，太阳下山有月光-张含韵', 
-    '往事只能回味-周虹', 
-    '花妖-刀郎', 
-    '一身傲骨不低头-侯泽润', 
-    '罗刹海市-刀郎', 
-    '怀念战友-刀郎', 
-    '西海情歌-刀郎', 
-    '我的春风何时来-李贺', 
-    '爱我还是他-刘大拿', 
-    '爱你十分泪七分-裘海正',
-    '大不了-花姐',
-    '白鸽乌鸦相爱的戏码-艾辰',
-    '爱意藏风里-何雨溪',
-    '忠孝东路走九遍-动力火车',
-    '这一路风太大-原来是夏夏',
-    '天高任鸟飞-侯泽润',
-    '月光凉.落满窗-泡芙芙Scarlett',
-    '败-侯泽润',
-    '一万个理由-郑源', 
-    '一亿个伤心-蒙面哥', 
-    '一无所有的年纪-侯泽润', 
-    '万有引力-汪苏泷', 
-    '人间半途-刘阳阳', 
-    '人间烟火-程响', 
-    '伤心剖半-邓典', 
-    '伤心太平洋-任贤齐', 
-    '你别慌余生还长-任夏', 
-    '假如我不再善良-郑畅业', 
-    '冲动的惩罚-刀郎', 
-    '凡夫俗子-范茹', 
-    '别说我的眼泪你无所谓-东来东往', 
-    '可能-程响', 
-    '听-张杰', 
-    '喀什噶尔胡杨-刀郎', 
-    '因为爱所以爱-谢霆锋', 
-    '土坡上的狗尾草-卢润泽', 
-    '多想做个哑巴-侯泽润', 
-    '失恋阵线联盟-草蜢', 
-    '妈妈我想回家-曾抖抖', 
-    '小模样-张冬玲', 
-    '年少的你啊-浩然H.R', 
-    '归途的光-诺爷Plus', 
-    '心态才是你风水-艺凌', 
-    '我也不想活得太累-郑畅业', 
-    '我真怕自己哪天倒下-张良', 
-    '手心里的温柔-刀郎', 
-    '换个方向风景会更好看-杨一琪', 
-    '放手也是一种成全-郑畅业', 
-    '星星点灯-大波浪', 
-    '星河万里-Rom邢锐', 
-    '有点甜-汪苏泷.BY2', 
-    '望故乡-刘阳阳', 
-    '海边探戈-王鹤棣', 
-    '火力全开-王力宏', 
-    '生活没有说明书-洛什么洛', 
-    '破碎的梦-陈柏曦', 
-    '秋风经过-任夏', 
-    '第51次原谅-刘艺雯', 
-    '老人与海-汪苏泷.王心凌', 
-    '胡广生-任素汐', 
-    '苹果香-狼戈', 
-    '西楼儿女-岳云鹏', 
-    '谁明浪子心-王杰', 
-    '路灯下点烟时没有打火机-王永清', 
-    '过了河就拆桥-成学迅', 
-    '野狼disco-宝石Gem', 
-    '除了生死都是擦伤-侯泽润', 
+   '蜉蝣志-石岩',
+   'Batteforte(VanniGRemix)-Lollipop',     '忘川彼岸-零一九零贰',
+   '背着风流泪-文夫',
+   '苟活-周文凯',
+   '我爱他-丁当',
+   '苟活之重生-周文凯',
+   '最好的安排-曲婉婷',
+   '望故乡-文夫',
+   '骗子-文夫',
+   '最后一次的温柔-田园',
+   '我把往事化如烟-侯泽润',
+   '亲爱的你啊-任素汐',
+   '单身万岁-演员雪姐',
+   '借口-侯泽润',
+   '一句先苦后甜-侯泽润',
+   '你怎么舍得我难过-正在进行石女士',
+   '九万字-张靓颖、摩登兄弟刘宇宁',
+   '老男孩-筷子兄弟', 
+   '雨蝶-李翊君', 
+  'JarOfLove-曲婉婷', 
+  '我的歌声里-曲婉婷', 
+  '跳楼机-张靓颖.王以太', 
+  '浪子的心情-十二大美女', 
+  '空荡的酒杯(天籁版)-洋澜一', 
+  '谢谢你的爱1999-谢霆锋', 
+  '月亮照山川-窝窝', 
+  '离别开出花-就是南方凯', 
+  '爱是你我-刀郎、云朵', 
+  '你在他乡还好吗-大双二双',
+  '执子之手-宝石Gem',
+  '这些年在忙什么-田园',
+  '平凡日子里的挣扎-小璐',
+  '无爱情歌-王娜',
+  '人间疾苦-马健涛',
+  '大风吹倒梧桐树-侯泽润、田园',
+  '跳楼机-en',
+  '一路生花-温奕心',
+  '碎银几两-轩东',
+  '此生无憾-金钰儿',
+  '搀扶-马健涛',
+  '敬往事一杯-侯泽润',
+  '人间一路-青木时光',
+  '别怕我伤心-张信哲',
+  '大东北我的家乡-何玉',
+  '陪我过个冬-燃',
+  '我期待的不是雪-张妙格',
+  '苦命的人-刘阳阳',
+  '爱情恰恰-十二大美女',
+  '不要慌，太阳下山有月光-张含韵',
+  '往事只能回味-周虹',
+  '花妖-刀郎',
+  '一身傲骨不低头-侯泽润',
+  '罗刹海市-刀郎',
+  '怀念战友-刀郎',
+  '西海情歌-刀郎',
+  '我的春风何时来-李贺',
+  '爱我还是他-刘大拿',
+  '爱你十分泪七分-裘海正',
+  '大不了-花姐',
+  '白鸽乌鸦相爱的戏码-艾辰',
+  '爱意藏风里-何雨溪',
+  '忠孝东路走九遍-动力火车',
+  '这一路风太大-原来是夏夏',
+  '天高任鸟飞-侯泽润',
+  '月光凉.落满窗-泡芙芙Scarlett',
+  '败-侯泽润',
+  '一万个理由-郑源',
+  '一亿个伤心-蒙面哥',
+  '一无所有的年纪-侯泽润',
+  '万有引力-汪苏泷',
+  '人间半途-刘阳阳',
+  '人间烟火-程响',
+  '伤心剖半-邓典',
+  '伤心太平洋-任贤齐',
+  '你别慌余生还长-任夏',
+  '假如我不再善良-郑畅业',
+  '冲动的惩罚-刀郎',
+  '凡夫俗子-范茹',
+  '别说我的眼泪你无所谓-东来东往',
+  '可能-程响',
+  '听-张杰',
+  '喀什噶尔胡杨-刀郎',
+  '因为爱所以爱-谢霆锋',
+  '土坡上的狗尾草-卢润泽',
+  '多想做个哑巴-侯泽润',
+  '失恋阵线联盟-草蜢',
+  '妈妈我想回家-曾抖抖',
+  '小模样-张冬玲',
+  '年少的你啊-浩然H.R',
+  '归途的光-诺爷Plus',
+  '心态才是你风水-艺凌',
+  '我也不想活得太累-郑畅业',
+  '我真怕自己哪天倒下-张良',
+  '手心里的温柔-刀郎',
+  '换个方向风景会更好看-杨一琪',
+  '放手也是一种成全-郑畅业',
+  '星星点灯-大波浪',
+  '星河万里-Rom邢锐',
+  '有点甜-汪苏泷.BY2',
+  '海边探戈-王鹤棣',
+  '火力全开-王力宏',
+  '生活没有说明书-洛什么洛',
+  '破碎的梦-陈柏曦',
+  '秋风经过-任夏',
+  '第51次原谅-刘艺雯',
+  '老人与海-汪苏泷.王心凌',
+  '胡广生-任素汐',
+  '苹果香-狼戈',
+  '西楼儿女-岳云鹏',
+  '谁明浪子心-王杰',
+  '路灯下点烟时没有打火机-王永清',
+  '过了河就拆桥-成学迅',
+  '野狼disco-宝石Gem',
+  '除了生死都是擦伤-侯泽润',
 ];
 let audios = [];
 // 遍历歌曲列表
 songs.forEach((item) => {
-    const songInfo = item.split('-');
-    audios.push({
-        name: songInfo[0],
-        artist: songInfo[1],
-        url: home + item + '/song.mp3',
-        cover: home + item + '/cover.jpg',
-        lrc: home + item + '/lyric.lrc'
-    });
+  const songInfo = item.split('-');
+  audios.push({
+    name: songInfo[0],
+    artist: songInfo[1],
+    url: home + item + '/song.mp3',
+    cover: home + item + '/cover.jpg',
+    lrc: home + item + '/lyric.lrc'
+  });
 });
 
 const ap = new APlayer({
-    container: document.getElementById('aplayer'),
-    fixed: true,
-    lrcType: 3,
-    audio: audios
+  container: document.getElementById('aplayer'),
+  fixed: true,
+  lrcType: 3,
+  audio: audios
 });
-
-</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">284</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><h1 class="title-seo">podman</h1></header><main class="layout" id="content-inner"><div id="tag"><div class="article-sort-title">标签 - podman</div><div class="article-sort"><div class="article-sort-item year">2025</div><div class="article-sort-item"><a class="article-sort-item-img" href="/posts/97345c1.html" title="Podman 容器管理完全指南 🐳"><img src="https://api.mobufan.eu.org:666/pc?4064" alt="Podman 容器管理完全指南 🐳" onerror="this.onerror=null;this.src='/img/404.gif'"></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-09-12T17:07:07.000Z" title="发表于 2025-09-13 01:07:07">2025-09-13</time></div><a class="article-sort-item-title" href="/posts/97345c1.html" title="Podman 容器管理完全指南 🐳">Podman 容器管理完全指南 🐳</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/posts/dfcc84a8.html" title="Podman 镜像管理完全指南 📦"><img src="https://api.mobufan.eu.org:666/pc?2394" alt="Podman 镜像管理完全指南 📦" onerror="this.onerror=null;this.src='/img/404.gif'"></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-09-12T17:05:59.000Z" title="发表于 2025-09-13 01:05:59">2025-09-13</time></div><a class="article-sort-item-title" href="/posts/dfcc84a8.html" title="Podman 镜像管理完全指南 📦">Podman 镜像管理完全指南 📦</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/posts/afcabb0d.html" title="Podman 容器引擎安装与配置 🚀"><img src="https://api.mobufan.eu.org:666/pc?2826" alt="Podman 容器引擎安装与配置 🚀" onerror="this.onerror=null;this.src='/img/404.gif'"></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-09-12T17:04:04.000Z" title="发表于 2025-09-13 01:04:04">2025-09-13</time></div><a class="article-sort-item-title" href="/posts/afcabb0d.html" title="Podman 容器引擎安装与配置 🚀">Podman 容器引擎安装与配置 🚀</a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="author-info-name">墨不凡</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">284</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/meimolihan"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center><b>--- 主域名 ---<br><a href="https://www.meimolihan.eu.org" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">www.meimolihan.eu.org</font></a>&nbsp;|&nbsp;<a target="_blank" rel="noopener" href="https://meimolihan.eu.org" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">meimolihan.eu.org</font></a></b></center></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/d52ab947.html" title="Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧"><img src="https://api.mobufan.eu.org:666/pc?4165" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧"/></a><div class="content"><a class="title" href="/posts/d52ab947.html" title="Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧">Linux 磁盘格式化 EXT4 vs NTFS 详解 🐧</a><time datetime="2025-09-12T17:17:53.000Z" title="发表于 2025-09-13 01:17:53">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4608118b.html" title="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑"><img src="https://api.mobufan.eu.org:666/pc?1949" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑"/></a><div class="content"><a class="title" href="/posts/4608118b.html" title="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑">Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑</a><time datetime="2025-09-12T17:14:33.000Z" title="发表于 2025-09-13 01:14:33">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/597ff12a.html" title="Windows 快速安装 wget 指南 🚀"><img src="https://api.mobufan.eu.org:666/pc?5916" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Windows 快速安装 wget 指南 🚀"/></a><div class="content"><a class="title" href="/posts/597ff12a.html" title="Windows 快速安装 wget 指南 🚀">Windows 快速安装 wget 指南 🚀</a><time datetime="2025-09-12T17:13:15.000Z" title="发表于 2025-09-13 01:13:15">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f589a7a7.html" title="WSL 主机名修改指南 🖥️"><img src="https://api.mobufan.eu.org:666/pc?666" onerror="this.onerror=null;this.src='/img/404.gif'" alt="WSL 主机名修改指南 🖥️"/></a><div class="content"><a class="title" href="/posts/f589a7a7.html" title="WSL 主机名修改指南 🖥️">WSL 主机名修改指南 🖥️</a><time datetime="2025-09-12T17:12:11.000Z" title="发表于 2025-09-13 01:12:11">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/6569dfc4.html" title="WSL 安装 Debian 完全指南 🐧"><img src="https://api.mobufan.eu.org:666/pc?6359" onerror="this.onerror=null;this.src='/img/404.gif'" alt="WSL 安装 Debian 完全指南 🐧"/></a><div class="content"><a class="title" href="/posts/6569dfc4.html" title="WSL 安装 Debian 完全指南 🐧">WSL 安装 Debian 完全指南 🐧</a><time datetime="2025-09-12T17:09:38.000Z" title="发表于 2025-09-13 01:09:38">2025-09-13</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="/css/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/pc-018.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">318</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">49</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站🍁</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><h1 class="title-seo">podman</h1></header><main class="layout" id="content-inner"><div id="tag"><div class="article-sort-title">标签 - podman</div><div class="article-sort"><div class="article-sort-item year">2025</div><div class="article-sort-item"><a class="article-sort-item-img" href="/posts/97345c1.html" title="Podman 容器管理完全指南 🐳"><img src="https://api.mobufan.eu.org:666/pc?4635" alt="Podman 容器管理完全指南 🐳" onerror="this.onerror=null;this.src='/img/404.gif'"></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-09-12T17:07:07.000Z" title="发表于 2025-09-13 01:07:07">2025-09-13</time></div><a class="article-sort-item-title" href="/posts/97345c1.html" title="Podman 容器管理完全指南 🐳">Podman 容器管理完全指南 🐳</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/posts/dfcc84a8.html" title="Podman 镜像管理完全指南 📦"><img src="https://api.mobufan.eu.org:666/pc?6837" alt="Podman 镜像管理完全指南 📦" onerror="this.onerror=null;this.src='/img/404.gif'"></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-09-12T17:05:59.000Z" title="发表于 2025-09-13 01:05:59">2025-09-13</time></div><a class="article-sort-item-title" href="/posts/dfcc84a8.html" title="Podman 镜像管理完全指南 📦">Podman 镜像管理完全指南 📦</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/posts/afcabb0d.html" title="Podman 容器引擎安装与配置 🚀"><img src="https://api.mobufan.eu.org:666/pc?1839" alt="Podman 容器引擎安装与配置 🚀" onerror="this.onerror=null;this.src='/img/404.gif'"></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-09-12T17:04:04.000Z" title="发表于 2025-09-13 01:04:04">2025-09-13</time></div><a class="article-sort-item-title" href="/posts/afcabb0d.html" title="Podman 容器引擎安装与配置 🚀">Podman 容器引擎安装与配置 🚀</a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="author-info-name">墨不凡</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">318</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">49</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/meimolihan"><i class="fab fa-github"></i><span>GitHub</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center><b>--- 主域名 ---<br><a href="https://www.meimolihan.eu.org" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">www.meimolihan.eu.org</font></a>&nbsp;|&nbsp;<a target="_blank" rel="noopener" href="https://meimolihan.eu.org" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">meimolihan.eu.org</font></a></b></center></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/a085a605.html" title="Hexo + Butterfly 博客搭建指南 🎨"><img src="https://api.mobufan.eu.org:666/pc?2974" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Hexo + Butterfly 博客搭建指南 🎨"/></a><div class="content"><a class="title" href="/posts/a085a605.html" title="Hexo + Butterfly 博客搭建指南 🎨">Hexo + Butterfly 博客搭建指南 🎨</a><time datetime="2025-09-13T02:15:59.000Z" title="发表于 2025-09-13 10:15:59">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/fac8989a.html" title="Docker 部署南墙 WAF 🛡️"><img src="https://api.mobufan.eu.org:666/pc?8397" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Docker 部署南墙 WAF 🛡️"/></a><div class="content"><a class="title" href="/posts/fac8989a.html" title="Docker 部署南墙 WAF 🛡️">Docker 部署南墙 WAF 🛡️</a><time datetime="2025-09-13T01:38:19.000Z" title="发表于 2025-09-13 09:38:19">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/9f259e10.html" title="零成本网站加速 Cloudflare 缓存从入门到精通 ✨"><img src="https://api.mobufan.eu.org:666/pc?4443" onerror="this.onerror=null;this.src='/img/404.gif'" alt="零成本网站加速 Cloudflare 缓存从入门到精通 ✨"/></a><div class="content"><a class="title" href="/posts/9f259e10.html" title="零成本网站加速 Cloudflare 缓存从入门到精通 ✨">零成本网站加速 Cloudflare 缓存从入门到精通 ✨</a><time datetime="2025-09-13T01:37:35.000Z" title="发表于 2025-09-13 09:37:35">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/9164a427.html" title="Google BBR 拥塞控制算法管理脚本 🚀"><img src="https://api.mobufan.eu.org:666/pc?414" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Google BBR 拥塞控制算法管理脚本 🚀"/></a><div class="content"><a class="title" href="/posts/9164a427.html" title="Google BBR 拥塞控制算法管理脚本 🚀">Google BBR 拥塞控制算法管理脚本 🚀</a><time datetime="2025-09-13T01:36:04.000Z" title="发表于 2025-09-13 09:36:04">2025-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1fa264ad.html" title="Linux 配置 Google BBR 加速技术指南 📈"><img src="https://api.mobufan.eu.org:666/pc?2759" onerror="this.onerror=null;this.src='/img/404.gif'" alt="Linux 配置 Google BBR 加速技术指南 📈"/></a><div class="content"><a class="title" href="/posts/1fa264ad.html" title="Linux 配置 Google BBR 加速技术指南 📈">Linux 配置 Google BBR 加速技术指南 📈</a><time datetime="2025-09-13T01:35:16.000Z" title="发表于 2025-09-13 09:35:16">2025-09-13</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             
           </div>
           <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Docker/"><span class="card-category-list-name">Docker</span><span class="card-category-list-count">88</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ESXi/"><span class="card-category-list-name">ESXi</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">98</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Proxmox-VE/"><span class="card-category-list-name">Proxmox VE</span><span class="card-category-list-count">38</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/"><span class="card-category-list-name">Windows</span><span class="card-category-list-count">33</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"><span class="card-category-list-name">默认分类</span><span class="card-category-list-count">19</span></a></li>
-          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" style="font-size: 1.31em; color: rgb(50, 154, 140);">命令大全</a><a href="/tags/ffmpeg/" style="font-size: 1.15em; color: rgb(194, 75, 50);">ffmpeg</a><a href="/tags/git/" style="font-size: 1.31em; color: rgb(50, 50, 200);">git</a><a href="/tags/markdown/" style="font-size: 1.35em; color: rgb(50, 50, 139);">markdown</a><a href="/tags/debian/" style="font-size: 1.25em; color: rgb(118, 88, 186);">debian</a><a href="/tags/fnos/" style="font-size: 1.25em; color: rgb(117, 102, 147);">fnos</a><a href="/tags/ssh/" style="font-size: 1.27em; color: rgb(61, 129, 93);">ssh</a><a href="/tags/tv/" style="font-size: 1.29em; color: rgb(50, 50, 186);">tv</a><a href="/tags/compose/" style="font-size: 1.45em; color: rgb(153, 64, 50);">compose</a><a href="/tags/nfs/" style="font-size: 1.29em; color: rgb(119, 169, 88);">nfs</a><a href="/tags/hugo/" style="font-size: 1.15em; color: rgb(50, 96, 50);">hugo</a><a href="/tags/samba/" style="font-size: 1.31em; color: rgb(50, 133, 187);">samba</a><a href="/tags/%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/" style="font-size: 1.19em; color: rgb(72, 117, 50);">换国内源</a><a href="/tags/istoreos/" style="font-size: 1.43em; color: rgb(118, 179, 137);">istoreos</a><a href="/tags/ntfs/" style="font-size: 1.19em; color: rgb(50, 65, 199);">ntfs</a><a href="/tags/ubuntu/" style="font-size: 1.25em; color: rgb(194, 50, 88);">ubuntu</a><a href="/tags/centos/" style="font-size: 1.25em; color: rgb(50, 61, 50);">centos</a><a href="/tags/%E6%88%91%E7%9A%84/" style="font-size: 1.21em; color: rgb(50, 50, 172);">我的</a><a href="/tags/github/" style="font-size: 1.21em; color: rgb(50, 145, 50);">github</a><a href="/tags/gitee/" style="font-size: 1.19em; color: rgb(59, 55, 200);">gitee</a><a href="/tags/%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86/" style="font-size: 1.25em; color: rgb(50, 50, 50);">容器管理</a><a href="/tags/ssl/" style="font-size: 1.27em; color: rgb(50, 54, 93);">ssl</a><a href="/tags/%E4%B8%8B%E8%BD%BD%E5%99%A8/" style="font-size: 1.25em; color: rgb(70, 114, 180);">下载器</a><a href="/tags/caddy/" style="font-size: 1.39em; color: rgb(152, 50, 175);">caddy</a><a href="/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/" style="font-size: 1.37em; color: rgb(125, 149, 173);">文件服务</a><a href="/tags/%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1/" style="font-size: 1.33em; color: rgb(103, 177, 50);">媒体服务</a><a href="/tags/emby/" style="font-size: 1.27em; color: rgb(130, 146, 121);">emby</a><a href="/tags/halo/" style="font-size: 1.17em; color: rgb(196, 112, 154);">halo</a><a href="/tags/music/" style="font-size: 1.21em; color: rgb(191, 52, 193);">music</a><a href="/tags/conpose/" style="font-size: 1.15em; color: rgb(74, 50, 69);">conpose</a><a href="/tags/nginx/" style="font-size: 1.41em; color: rgb(170, 60, 50);">nginx</a><a href="/tags/sun-panel/" style="font-size: 1.23em; color: rgb(165, 50, 139);">sun-panel</a><a href="/tags/typecho/" style="font-size: 1.29em; color: rgb(53, 55, 120);">typecho</a><a href="/tags/alpine/" style="font-size: 1.25em; color: rgb(198, 50, 50);">alpine</a><a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.15em; color: rgb(50, 192, 50);">博客</a><a href="/tags/1panel/" style="font-size: 1.17em; color: rgb(112, 50, 54);">1panel</a><a href="/tags/ipv4/" style="font-size: 1.21em; color: rgb(50, 131, 51);">ipv4</a><a href="/tags/jellyfin/" style="font-size: 1.15em; color: rgb(134, 103, 161);">jellyfin</a><a href="/tags/certbot/" style="font-size: 1.17em; color: rgb(177, 108, 93);">certbot</a><a href="/tags/nastools/" style="font-size: 1.19em; color: rgb(50, 50, 136);">nastools</a></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">284</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">560.9k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-12T17:21:14.351Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Docker/"><span class="card-category-list-name">Docker</span><span class="card-category-list-count">93</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ESXi/"><span class="card-category-list-name">ESXi</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">118</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Proxmox-VE/"><span class="card-category-list-name">Proxmox VE</span><span class="card-category-list-count">41</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/"><span class="card-category-list-name">Windows</span><span class="card-category-list-count">35</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"><span class="card-category-list-name">默认分类</span><span class="card-category-list-count">22</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/debian/" style="font-size: 1.31em; color: rgb(119, 60, 74);">debian</a><a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 1.17em; color: rgb(111, 70, 50);">系统配置</a><a href="/tags/compose/" style="font-size: 1.45em; color: rgb(92, 90, 50);">compose</a><a href="/tags/fnos/" style="font-size: 1.27em; color: rgb(197, 69, 116);">fnos</a><a href="/tags/%E8%84%9A%E6%9C%AC/" style="font-size: 1.25em; color: rgb(62, 50, 173);">脚本</a><a href="/tags/hexo/" style="font-size: 1.15em; color: rgb(70, 50, 86);">hexo</a><a href="/tags/ssh/" style="font-size: 1.33em; color: rgb(177, 82, 50);">ssh</a><a href="/tags/samba/" style="font-size: 1.33em; color: rgb(50, 62, 50);">samba</a><a href="/tags/%E6%88%91%E7%9A%84/" style="font-size: 1.25em; color: rgb(50, 50, 54);">我的</a><a href="/tags/%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" style="font-size: 1.31em; color: rgb(89, 81, 73);">命令大全</a><a href="/tags/%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/" style="font-size: 1.21em; color: rgb(50, 50, 71);">换国内源</a><a href="/tags/istoreos/" style="font-size: 1.43em; color: rgb(50, 189, 50);">istoreos</a><a href="/tags/ntfs/" style="font-size: 1.19em; color: rgb(165, 103, 50);">ntfs</a><a href="/tags/ubuntu/" style="font-size: 1.25em; color: rgb(130, 151, 196);">ubuntu</a><a href="/tags/centos/" style="font-size: 1.25em; color: rgb(147, 177, 151);">centos</a><a href="/tags/nfs/" style="font-size: 1.29em; color: rgb(50, 164, 50);">nfs</a><a href="/tags/ffmpeg/" style="font-size: 1.15em; color: rgb(89, 50, 102);">ffmpeg</a><a href="/tags/git/" style="font-size: 1.31em; color: rgb(159, 67, 87);">git</a><a href="/tags/markdown/" style="font-size: 1.37em; color: rgb(184, 59, 70);">markdown</a><a href="/tags/tv/" style="font-size: 1.29em; color: rgb(50, 50, 81);">tv</a><a href="/tags/hugo/" style="font-size: 1.15em; color: rgb(50, 139, 77);">hugo</a><a href="/tags/github/" style="font-size: 1.21em; color: rgb(84, 170, 139);">github</a><a href="/tags/gitee/" style="font-size: 1.19em; color: rgb(129, 90, 54);">gitee</a><a href="/tags/nginx/" style="font-size: 1.43em; color: rgb(168, 134, 50);">nginx</a><a href="/tags/%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86/" style="font-size: 1.25em; color: rgb(177, 184, 50);">容器管理</a><a href="/tags/%E4%B8%8B%E8%BD%BD%E5%99%A8/" style="font-size: 1.27em; color: rgb(188, 159, 64);">下载器</a><a href="/tags/ssl/" style="font-size: 1.27em; color: rgb(175, 97, 196);">ssl</a><a href="/tags/caddy/" style="font-size: 1.41em; color: rgb(101, 122, 68);">caddy</a><a href="/tags/%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1/" style="font-size: 1.35em; color: rgb(144, 100, 185);">媒体服务</a><a href="/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/" style="font-size: 1.39em; color: rgb(167, 95, 126);">文件服务</a><a href="/tags/emby/" style="font-size: 1.27em; color: rgb(165, 50, 50);">emby</a><a href="/tags/halo/" style="font-size: 1.17em; color: rgb(111, 148, 89);">halo</a><a href="/tags/music/" style="font-size: 1.21em; color: rgb(82, 197, 102);">music</a><a href="/tags/conpose/" style="font-size: 1.15em; color: rgb(190, 50, 50);">conpose</a><a href="/tags/sun-panel/" style="font-size: 1.23em; color: rgb(100, 63, 88);">sun-panel</a><a href="/tags/typecho/" style="font-size: 1.29em; color: rgb(55, 186, 197);">typecho</a><a href="/tags/alpine/" style="font-size: 1.25em; color: rgb(62, 195, 168);">alpine</a><a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.15em; color: rgb(80, 56, 131);">博客</a><a href="/tags/ssh-web/" style="font-size: 1.15em; color: rgb(171, 73, 138);">ssh-web</a><a href="/tags/1panel/" style="font-size: 1.17em; color: rgb(194, 50, 175);">1panel</a></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">318</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">629k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-13T03:07:23.400Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By 墨不凡</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><div class="js-pjax"></div><script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src="/js/sun_moon.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.4/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = true;
 POWERMODE.mobile = true;
 document.body.addEventListener('input', POWERMODE);
@@ -491,7 +518,31 @@ document.body.addEventListener('input', POWERMODE);
         : window.location.href = e.request.responseURL
     }
   })
-})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
 for(var i = 0;i<arr.length;i++){
     arr[i].classList.add('wow');
     arr[i].classList.add('animate__zoomIn');
@@ -803,28 +854,4 @@ for(var i = 0;i<arr.length;i++){
     arr[i].setAttribute('data-wow-delay', '1s');
     arr[i].setAttribute('data-wow-offset', '');
     arr[i].setAttribute('data-wow-iteration', '');
-  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script data-pjax>
-  function butterfly_footer_beautify_injector_config(){
-    var parent_div_git = document.getElementById('footer-wrap');
-    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v5.3.5" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></p>';
-    console.log('已挂载butterfly_footer_beautify')
-    parent_div_git.insertAdjacentHTML("beforeend",item_html)
-    }
-  var elist = 'null'.split(',');
-  var cpage = location.pathname;
-  var epage = 'all';
-  var flag = 0;
-
-  for (var i=0;i<elist.length;i++){
-    if (cpage.includes(elist[i])){
-      flag++;
-    }
-  }
-
-  if ((epage ==='all')&&(flag == 0)){
-    butterfly_footer_beautify_injector_config();
-  }
-  else if (epage === cpage){
-    butterfly_footer_beautify_injector_config();
-  }
-  </script><script async src="/js/runtime.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
