@@ -1,0 +1,1063 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Alpine 配置 SSH 服务指南 🔐 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Alpine 配置 SSH 服务指南 🔐  本指南详细介绍如何在 Alpine Linux 中安装和配置 SSH 服务，实现安全可靠的远程访问功能。Alpine 的轻量级特性与 SSH 的强大功能相结合，为您提供高效的远程管理解决方案！🚀   📖 导航目录 ✨ 功能特点 🚀 快速安装与配置 📋 分步配置说明 🔧 配置参数详解 🌐 连接示例 🛡️ 安全增强建议 🔍 故障排除 📝">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alpine 配置 SSH 服务指南 🔐">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/e3bf70e9.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Alpine 配置 SSH 服务指南 🔐  本指南详细介绍如何在 Alpine Linux 中安装和配置 SSH 服务，实现安全可靠的远程访问功能。Alpine 的轻量级特性与 SSH 的强大功能相结合，为您提供高效的远程管理解决方案！🚀   📖 导航目录 ✨ 功能特点 🚀 快速安装与配置 📋 分步配置说明 🔧 配置参数详解 🌐 连接示例 🛡️ 安全增强建议 🔍 故障排除 📝">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?613">
+<meta property="article:published_time" content="2025-09-12T06:51:00.000Z">
+<meta property="article:modified_time" content="2025-09-12T06:51:00.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="alpine">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?613"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Alpine 配置 SSH 服务指南 🔐",
+  "url": "https://www.meimolihan.eu.org/posts/e3bf70e9.html",
+  "image": "https://api.mobufan.eu.org:666/pc?613",
+  "datePublished": "2025-09-12T06:51:00.000Z",
+  "dateModified": "2025-09-12T06:51:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/e3bf70e9.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Alpine 配置 SSH 服务指南 🔐',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?613);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Alpine 配置 SSH 服务指南 🔐</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Alpine 配置 SSH 服务指南 🔐</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T06:51:00.000Z" title="发表于 2025-09-12 14:51:00">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T06:51:00.000Z" title="更新于 2025-09-12 14:51:00">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 14:51:00&quot;}" hidden></div><h1 id="Alpine-配置-SSH-服务指南-🔐"><a href="#Alpine-配置-SSH-服务指南-🔐" class="headerlink" title="Alpine 配置 SSH 服务指南 🔐"></a>Alpine 配置 SSH 服务指南 🔐</h1><p><img src="https://file.meimolihan.eu.org/img/alpine-01.webp" alt="Alpine Samba 配置"></p>
+<blockquote>
+<p>本指南详细介绍如何在 Alpine Linux 中安装和配置 SSH 服务，实现安全可靠的远程访问功能。Alpine 的轻量级特性与 SSH 的强大功能相结合，为您提供高效的远程管理解决方案！🚀</p>
+</blockquote>
+<hr>
+<h2 id="📖-导航目录"><a href="#📖-导航目录" class="headerlink" title="📖 导航目录"></a>📖 导航目录</h2><ul>
+<li><a href="#features">✨ 功能特点</a></li>
+<li><a href="#quick-setup">🚀 快速安装与配置</a></li>
+<li><a href="#step-by-step">📋 分步配置说明</a></li>
+<li><a href="#configuration-parameters">🔧 配置参数详解</a></li>
+<li><a href="#connection-examples">🌐 连接示例</a></li>
+<li><a href="#security-enhancement">🛡️ 安全增强建议</a></li>
+<li><a href="#troubleshooting">🔍 故障排除</a></li>
+<li><a href="#important-notes">📝 注意事项</a></li>
+</ul>
+<hr>
+<p><a id="features"></a></p>
+<h2 id="✨-功能特点"><a href="#✨-功能特点" class="headerlink" title="✨ 功能特点"></a>✨ 功能特点</h2><p>Alpine Linux 的 SSH 服务提供以下优势：</p>
+<ul>
+<li>🔐 <strong>安全远程访问</strong>：通过 SSH 协议加密所有通信，确保连接安全</li>
+<li>⚡ <strong>轻量高效</strong>：OpenSSH 服务器包小巧，占用系统资源极少</li>
+<li>🔧 <strong>灵活配置</strong>：支持密码认证和公钥认证，可根据需要灵活配置</li>
+<li>🌐 <strong>跨平台兼容</strong>：支持所有主流 SSH 客户端连接</li>
+<li>⏰ <strong>会话保持</strong>：可配置心跳包保持长时间连接不中断</li>
+<li>🛡️ <strong>安全加固</strong>：支持多种安全增强配置，保护系统免受攻击</li>
+</ul>
+<hr>
+<p><a id="quick-setup"></a></p>
+<h2 id="🚀-快速安装与配置"><a href="#🚀-快速安装与配置" class="headerlink" title="🚀 快速安装与配置"></a>🚀 快速安装与配置</h2><h3 id="一键配置脚本"><a href="#一键配置脚本" class="headerlink" title="一键配置脚本"></a>一键配置脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/ash</span></span><br><span class="line"><span class="comment"># Alpine Linux SSH 一键配置脚本</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;🚀 开始安装和配置 SSH 服务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新软件包索引</span></span><br><span class="line">apk update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 OpenSSH 服务器</span></span><br><span class="line">apk add --no-cache openssh-server openssh-client</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份原始配置文件</span></span><br><span class="line"><span class="built_in">cp</span> /etc/ssh/sshd_config /etc/ssh/sshd_config.backup.$(<span class="built_in">date</span> +%Y%m%d)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 SSH 服务</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /etc/ssh/sshd_config &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">Port 22</span></span><br><span class="line"><span class="string">Protocol 2</span></span><br><span class="line"><span class="string">HostKey /etc/ssh/ssh_host_rsa_key</span></span><br><span class="line"><span class="string">HostKey /etc/ssh/ssh_host_ecdsa_key</span></span><br><span class="line"><span class="string">HostKey /etc/ssh/ssh_host_ed25519_key</span></span><br><span class="line"><span class="string">PermitRootLogin yes</span></span><br><span class="line"><span class="string">PasswordAuthentication yes</span></span><br><span class="line"><span class="string">PermitEmptyPasswords no</span></span><br><span class="line"><span class="string">ChallengeResponseAuthentication no</span></span><br><span class="line"><span class="string">UsePAM yes</span></span><br><span class="line"><span class="string">PrintMotd no</span></span><br><span class="line"><span class="string">ClientAliveInterval 10</span></span><br><span class="line"><span class="string">ClientAliveCountMax 999</span></span><br><span class="line"><span class="string">Subsystem sftp /usr/lib/ssh/sftp-server</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 SSH 主机密钥（如果不存在）</span></span><br><span class="line">ssh-keygen -A</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 SSH 服务到启动项</span></span><br><span class="line">rc-update add sshd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 SSH 服务</span></span><br><span class="line">rc-service sshd start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示网络接口信息</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;📡 网络接口信息:&quot;</span></span><br><span class="line">ip addr show | grep <span class="string">&quot;inet &quot;</span> | grep -v <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;✅ SSH 服务配置完成!&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;🔑 用户名: root (或您创建的其他用户)&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;🌐 使用上述 IP 地址通过 SSH 客户端连接&quot;</span></span><br></pre></td></tr></table></figure>
+<p>保存为 <code>setup-ssh.sh</code> 并运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x setup-ssh.sh</span><br><span class="line">./setup-ssh.sh</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><a id="step-by-step"></a></p>
+<h2 id="📋-分步配置说明"><a href="#📋-分步配置说明" class="headerlink" title="📋 分步配置说明"></a>📋 分步配置说明</h2><h3 id="1-安装-SSH-服务"><a href="#1-安装-SSH-服务" class="headerlink" title="1. 安装 SSH 服务"></a>1. 安装 SSH 服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新软件包列表</span></span><br><span class="line">apk update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 OpenSSH 服务器和客户端</span></span><br><span class="line">apk add --no-cache openssh-server openssh-client</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line">ssh -V</span><br></pre></td></tr></table></figure>
+<h3 id="2-查看默认配置"><a href="#2-查看默认配置" class="headerlink" title="2. 查看默认配置"></a>2. 查看默认配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看默认配置文件</span></span><br><span class="line"><span class="built_in">cat</span> /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已安装的 SSH 相关包</span></span><br><span class="line">apk info | grep ssh</span><br></pre></td></tr></table></figure>
+<h3 id="3-修改配置并重启服务"><a href="#3-修改配置并重启服务" class="headerlink" title="3. 修改配置并重启服务"></a>3. 修改配置并重启服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份原始配置</span></span><br><span class="line"><span class="built_in">cp</span> /etc/ssh/sshd_config /etc/ssh/sshd_config.backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 sed 修改关键参数</span></span><br><span class="line">sed -i \</span><br><span class="line">  -e <span class="string">&#x27;s/^#PasswordAuthentication yes/PasswordAuthentication yes/&#x27;</span> \</span><br><span class="line">  -e <span class="string">&#x27;s/^#PermitRootLogin .*/PermitRootLogin yes/&#x27;</span> \</span><br><span class="line">  -e <span class="string">&#x27;s/^#ClientAliveInterval .*/ClientAliveInterval 10/&#x27;</span> \</span><br><span class="line">  -e <span class="string">&#x27;s/^#ClientAliveCountMax .*/ClientAliveCountMax 999/&#x27;</span> \</span><br><span class="line">  /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 SSH 主机密钥（如果尚未生成）</span></span><br><span class="line">ssh-keygen -A</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加到启动项并启动服务</span></span><br><span class="line">rc-update add sshd</span><br><span class="line">rc-service sshd start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查服务状态</span></span><br><span class="line">rc-service sshd status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看网络接口信息</span></span><br><span class="line">ip addr show | grep <span class="string">&quot;inet &quot;</span> | grep -v <span class="string">&quot;127.0.0.1&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="configuration-parameters"></a></p>
+<h2 id="🔧-配置参数详解"><a href="#🔧-配置参数详解" class="headerlink" title="🔧 配置参数详解"></a>🔧 配置参数详解</h2><h3 id="基本安全参数"><a href="#基本安全参数" class="headerlink" title="基本安全参数"></a>基本安全参数</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>推荐设置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Port</code></td>
+<td><code>22</code> 或自定义端口</td>
+<td>SSH 服务监听端口</td>
+</tr>
+<tr>
+<td><code>Protocol</code></td>
+<td><code>2</code></td>
+<td>只使用 SSH 协议版本 2</td>
+</tr>
+<tr>
+<td><code>PermitRootLogin</code></td>
+<td><code>yes</code> (测试) / <code>no</code> (生产)</td>
+<td>是否允许 root 登录</td>
+</tr>
+<tr>
+<td><code>PasswordAuthentication</code></td>
+<td><code>yes</code> (测试) / <code>no</code> (生产)</td>
+<td>是否允许密码认证</td>
+</tr>
+<tr>
+<td><code>PermitEmptyPasswords</code></td>
+<td><code>no</code></td>
+<td>是否允许空密码</td>
+</tr>
+<tr>
+<td><code>MaxAuthTries</code></td>
+<td><code>3</code></td>
+<td>最大认证尝试次数</td>
+</tr>
+<tr>
+<td><code>ClientAliveInterval</code></td>
+<td><code>10</code></td>
+<td>客户端活动检查间隔(秒)</td>
+</tr>
+<tr>
+<td><code>ClientAliveCountMax</code></td>
+<td><code>999</code></td>
+<td>客户端活动检查最大次数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="高级安全参数"><a href="#高级安全参数" class="headerlink" title="高级安全参数"></a>高级安全参数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制用户访问</span></span><br><span class="line">AllowUsers user1 user2</span><br><span class="line">AllowGroups ssh-users</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拒绝特定用户访问</span></span><br><span class="line">DenyUsers user3</span><br><span class="line">DenyGroups no-ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 限制监听接口</span></span><br><span class="line">ListenAddress 192.168.1.100</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用其他认证方式</span></span><br><span class="line">PubkeyAuthentication <span class="built_in">yes</span></span><br><span class="line">KerberosAuthentication no</span><br><span class="line">GSSAPIAuthentication no</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="connection-examples"></a></p>
+<h2 id="🌐-连接示例"><a href="#🌐-连接示例" class="headerlink" title="🌐 连接示例"></a>🌐 连接示例</h2><p>配置完成后，您可以使用任何 SSH 客户端连接:</p>
+<h3 id="基本连接"><a href="#基本连接" class="headerlink" title="基本连接"></a>基本连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用用户名和密码连接</span></span><br><span class="line">ssh root@&lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用特定端口连接（如果修改了默认端口）</span></span><br><span class="line">ssh -p 2222 root@&lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用其他用户名连接</span></span><br><span class="line">ssh username@&lt;alpine-ip-address&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="高级连接选项"><a href="#高级连接选项" class="headerlink" title="高级连接选项"></a>高级连接选项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用详细输出模式（调试用）</span></span><br><span class="line">ssh -v username@&lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并退出</span></span><br><span class="line">ssh username@&lt;alpine-ip-address&gt; <span class="string">&quot;ls -la&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用密钥认证连接</span></span><br><span class="line">ssh -i ~/.ssh/mykey username@&lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立 SSH 隧道</span></span><br><span class="line">ssh -L 8080:localhost:80 username@&lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用代理跳转</span></span><br><span class="line">ssh -J jumpuser@jumpserver username@&lt;alpine-ip-address&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="security-enhancement"></a></p>
+<h2 id="🛡️-安全增强建议"><a href="#🛡️-安全增强建议" class="headerlink" title="🛡️ 安全增强建议"></a>🛡️ 安全增强建议</h2><h3 id="1-更改默认端口"><a href="#1-更改默认端口" class="headerlink" title="1. 更改默认端口"></a>1. 更改默认端口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑配置文件</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^#Port 22/Port 2222/&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新防火墙规则（如果使用防火墙）</span></span><br><span class="line">apk add ufw</span><br><span class="line">ufw allow 2222/tcp</span><br><span class="line">ufw <span class="built_in">enable</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 SSH 服务</span></span><br><span class="line">rc-service sshd restart</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用密钥认证"><a href="#2-使用密钥认证" class="headerlink" title="2. 使用密钥认证"></a>2. 使用密钥认证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在客户端生成密钥</span></span><br><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;您的注释&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将公钥上传到服务器</span></span><br><span class="line">ssh-copy-id -p 2222 username@&lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者手动添加公钥</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.ssh</span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;公钥内容&quot;</span> &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后禁用密码认证</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^PasswordAuthentication yes/PasswordAuthentication no/&#x27;</span> /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+<h3 id="3-配置防火墙限制"><a href="#3-配置防火墙限制" class="headerlink" title="3. 配置防火墙限制"></a>3. 配置防火墙限制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装并配置防火墙</span></span><br><span class="line">apk add ufw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只允许特定IP段访问SSH</span></span><br><span class="line">ufw allow from 192.168.1.0/24 to any port 2222</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者只允许特定IP访问</span></span><br><span class="line">ufw allow from 192.168.1.100 to any port 2222</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用防火墙</span></span><br><span class="line">ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-使用-Fail2Ban-防止暴力破解"><a href="#4-使用-Fail2Ban-防止暴力破解" class="headerlink" title="4. 使用 Fail2Ban 防止暴力破解"></a>4. 使用 Fail2Ban 防止暴力破解</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 Fail2Ban</span></span><br><span class="line">apk add fail2ban</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 SSH 保护</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /etc/fail2ban/jail.d/ssh.conf &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">[sshd]</span></span><br><span class="line"><span class="string">enabled = true</span></span><br><span class="line"><span class="string">port = 2222</span></span><br><span class="line"><span class="string">filter = sshd</span></span><br><span class="line"><span class="string">logpath = /var/log/auth.log</span></span><br><span class="line"><span class="string">maxretry = 3</span></span><br><span class="line"><span class="string">bantime = 3600</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 Fail2Ban</span></span><br><span class="line">rc-service fail2ban start</span><br><span class="line">rc-update add fail2ban</span><br></pre></td></tr></table></figure>
+<h3 id="5-其他安全措施"><a href="#5-其他安全措施" class="headerlink" title="5. 其他安全措施"></a>5. 其他安全措施</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定期更新系统</span></span><br><span class="line">apk update &amp;&amp; apk upgrade</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用非标准用户名</span></span><br><span class="line">adduser admin</span><br><span class="line">usermod -aG wheel admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 限制 SSH 访问时间（使用防火墙规则）</span></span><br><span class="line"><span class="comment"># 例如只允许工作时间访问</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置日志监控</span></span><br><span class="line">apk add logwatch</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🔍-故障排除"><a href="#🔍-故障排除" class="headerlink" title="🔍 故障排除"></a>🔍 故障排除</h2><h3 id="1-检查-SSH-服务状态"><a href="#1-检查-SSH-服务状态" class="headerlink" title="1. 检查 SSH 服务状态"></a>1. 检查 SSH 服务状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查服务状态</span></span><br><span class="line">rc-service sshd status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务日志</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/messages | grep ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查端口监听状态</span></span><br><span class="line">netstat -tulnp | grep :22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 ss 命令</span></span><br><span class="line">ss -tulnp | grep ssh</span><br></pre></td></tr></table></figure>
+<h3 id="2-连接问题排查"><a href="#2-连接问题排查" class="headerlink" title="2. 连接问题排查"></a>2. 连接问题排查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用详细模式诊断连接问题</span></span><br><span class="line">ssh -vvv username@&lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查防火墙设置</span></span><br><span class="line">iptables -L -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查网络连通性</span></span><br><span class="line">ping &lt;alpine-ip-address&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 DNS 解析</span></span><br><span class="line">nslookup &lt;alpine-hostname&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="3-配置文件检查"><a href="#3-配置文件检查" class="headerlink" title="3. 配置文件检查"></a>3. 配置文件检查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试 SSH 配置语法</span></span><br><span class="line">sshd -t</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较当前配置与备份</span></span><br><span class="line">diff /etc/ssh/sshd_config /etc/ssh/sshd_config.backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查文件权限</span></span><br><span class="line"><span class="built_in">ls</span> -la /etc/ssh/</span><br><span class="line"><span class="built_in">ls</span> -la ~/.ssh/</span><br></pre></td></tr></table></figure>
+<h3 id="4-常见问题解决"><a href="#4-常见问题解决" class="headerlink" title="4. 常见问题解决"></a>4. 常见问题解决</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果连接被拒绝，检查服务是否运行</span></span><br><span class="line">rc-service sshd restart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果认证失败，检查认证日志</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/auth.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果提示密钥权限问题</span></span><br><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/authorized_keys</span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果 SELinux 导致问题（Alpine 通常不使用 SELinux）</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="important-notes"></a></p>
+<h2 id="📝-注意事项"><a href="#📝-注意事项" class="headerlink" title="📝 注意事项"></a>📝 注意事项</h2><h3 id="安全注意事项"><a href="#安全注意事项" class="headerlink" title="安全注意事项"></a>安全注意事项</h3><ul>
+<li>🔒 生产环境中禁用 root 直接登录和密码认证</li>
+<li>📝 定期更换 SSH 密钥和密码</li>
+<li>🛡️ 使用防火墙限制访问来源 IP</li>
+<li>🔍 定期检查系统日志和认证日志</li>
+<li>⚠️ 不要使用默认端口 22，改为非标准端口</li>
+</ul>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ul>
+<li>⚡ 对于高并发连接，调整 <code>MaxStartups</code> 参数</li>
+<li>🌐 使用 TCP 保持连接避免会话超时</li>
+<li>💾 对于内存有限的系统，考虑使用更轻量的 dropbear 替代 openssh</li>
+</ul>
+<h3 id="维护建议"><a href="#维护建议" class="headerlink" title="维护建议"></a>维护建议</h3><ul>
+<li>📅 定期更新 SSH 软件包以获取安全补丁</li>
+<li>🔄 定期备份 SSH 配置和密钥</li>
+<li>📊 监控 SSH 连接数和失败尝试</li>
+<li>🗑️ 定期清理不再使用的授权密钥</li>
+</ul>
+<h3 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份 SSH 配置和密钥</span></span><br><span class="line">tar -czf ssh-backup-$(<span class="built_in">date</span> +%Y%m%d).tar.gz /etc/ssh/ /root/.ssh/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复 SSH 配置</span></span><br><span class="line">tar -xzf ssh-backup-20230101.tar.gz -C /</span><br><span class="line">rc-service sshd restart</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>🎯 通过以上配置，您的 Alpine Linux 系统将具备安全可靠的远程访问能力。请根据实际需求调整安全设置，并定期审查和更新配置，确保系统安全。</p>
+</blockquote>
+<p>如果您遇到任何问题，请参考故障排除部分或查阅 Alpine Linux 官方文档。🛡️</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ssh/">ssh</a><a class="post-meta__tags" href="/tags/alpine/">alpine</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?613" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/36429535.html" title="Debian/PVE/Ubuntu/FnOS 配置 SSH 服务 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6225" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Debian/PVE/Ubuntu/FnOS 配置 SSH 服务 🔐</div></div><div class="info-2"><div class="info-item-1">Debian/PVE/Ubuntu/FnOS 配置 SSH 服务🔐  SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   📋 目录导航 📖 简介 🛠️ 一、SSH 服务安装与基本配置 ⚙️ 二、SSH 服务优化配置 客户端连接 SSH 🔒 四、高级安全配置 🔥 五、防火墙配置 🔍 六、故障排除与监控 🚀 七、性能优化 💾 八、备份与恢复 🔎 九、安全审计脚本 🐛 十、常见问题解决 📋 十一、最佳实践总结    📖 简介SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   🛠️ 一、SSH 服务安装与基本配置1. 📦 安装 SSH 服务器并启用服务1234567891011# 更新软件包列表并安装 SSH 服务器sudo apt-get update &amp...</div></div></div></a><a class="pagination-related" href="/posts/f89b17e3.html" title="Alpine 配置 Samba 共享指南 📁"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2534" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Alpine 配置 Samba 共享指南 📁</div></div><div class="info-2"><div class="info-item-1">Alpine 配置 Samba 共享指南 📁  📋 目录导航 📖 简介 🛠️ 一、Samba 基础配置 🖥️ 二、Alpine 作为 Samba 服务端配置 💻 三、Alpine 作为 Samba 客户端配置 🔧 四、Samba 管理命令 🐛 五、故障排除和调试 ⚙️ 六、高级配置选项 🔒 七、安全加固建议 🚀 八、性能优化建议    📖 简介本指南详细介绍了在 Alpine Linux 环境中配置 Samba 共享服务的完整流程，包括服务端和客户端的配置方法。Samba 允许在不同操作系统之间共享文件和打印机，特别适合在 Linux 和 Windows 系统之间共享文件。   🛠️ 一、Samba 基础配置1. 📁 创建共享目录并安装 Samba1234567# 创建共享目录并设置权限mkdir -p /mnt/mydiskchmod -R 755 /mnt/mydisk# 更新软件包列表并安装 Sambaapk updateapk add samba shadow 2. 👤 创建 Samba 用户并设置密码12345# 创建系统用户useradd ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/634cd5fd.html" title="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9957" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑</div></div><div class="info-2"><div class="info-item-1">Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑  📋 目录导航 🌟 简介 🚀 一、在 Windows 上创建 SSH 密钥对 🔧 二、在 Debian 13 服务器上配置 SSH 密钥 ✅ 三、验证 SSH 密钥配置 🔒 四、SSH 服务安全配置（可选但推荐） 🛡️ 五、安全最佳实践 🔍 六、故障排除 💡 七、高级用法 📚 八、常用 SSH 命令参考    🌟 简介本指南将帮助您在 Windows 系统上创建 SSH 密钥对，并将其配置到 Debian 13 服务器，实现安全的无密码登录。 ✨ 主要优势： ✅ 提高服务器安全性 ✅ 免去每次登录输入密码的麻烦 ✅ 支持自动化脚本和工具 ✅ 符合安全最佳实践    🚀 一、在 Windows 上创建 SSH 密钥对1. 📂 打开 Git Bash 终端 在 Windows 上安装 Git 后，右键点击任意位置，选择 “Git Bash Here” 打开终端  2. 🔑 生成 SSH 密钥对使用以下命令生成名为 Debian13_SSH 的 RSA 密钥对： 1ssh-keygen...</div></div></div></a><a class="pagination-related" href="/posts/8a51c9b0.html" title="GitHub &amp; Gitee SSH 密钥配置指南  🔑"><img class="cover" src="https://api.mobufan.eu.org:666/pc?474" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">GitHub &amp; Gitee SSH 密钥配置指南  🔑</div></div><div class="info-2"><div class="info-item-1">GitHub &amp; Gitee SSH 密钥配置指南  🔑  🚀 一站式配置 SSH 密钥，轻松管理代码仓库   📋 目录 🎯 快速开始 🔑 SSH 密钥生成 🌐 GitHub 配置 🐱 Gitee 配置 ⚙️ SSH 配置管理 🔍 连接验证 💡 故障排除 🚀 高级用法    🎯 快速开始🌟 一站式配置脚本1234567891011121314#!/bin/bash# 🚀 GitHub &amp; Gitee SSH 密钥快速配置脚本echo &quot;开始配置 SSH 密钥...&quot;# 设置全局 Git 配置git config --global user.name &quot;meimolihan&quot;git config --global user.email &quot;meimolihan@gmail.com&quot;# 创建 SSH 目录mkdir -p ~/.sshchmod 700 ~/.sshecho &quot;✅ SSH 配置完成！&quot;   🔑 SSH 密钥生成🎯 生成 GitHub 密钥1234...</div></div></div></a><a class="pagination-related" href="/posts/33f89277.html" title="Docker 部署 EasyNode WebSSH 终端 🖥️🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4556" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Docker 部署 EasyNode WebSSH 终端 🖥️🔐</div></div><div class="info-2"><div class="info-item-1">Docker 部署 EasyNode WebSSH 终端 🖥️🔐   📋 目录导航 🎯 项目简介 🐳 一、Docker 部署 EasyNode 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 EasyNode 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航知识，探索无限     🎯 项目简介 🌐 EasyNode 官网地址：https://easynode.chaoszhu.com 🐱 GitHub 项目地址：https://github.com/chaos-zhu/easynode   🐋 Docker 镜像地址：https://hub.docker.com/r/chaoszhu/easynode  ...</div></div></div></a><a class="pagination-related" href="/posts/7a6eee0c.html" title="Docker 部署 WebSSH 网页版终端 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5803" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 WebSSH 网页版终端 🔐</div></div><div class="info-2"><div class="info-item-1">Docker 部署 WebSSH 网页版终端 🔐  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 WebSSH 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 WebSSH 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航远程管理，探索无限可能     🎯 项目简介 🌐 WebSSH 官网地址：https://webssh.net/ 🐱 GitHub 项目地址：https://github.com/Jrohy/webssh 🐋 Docker 镜像地址：https://hub.docker.com/r/jrohy/webssh  WebSSH 是一个基于 Web 的 SSH 客户端...</div></div></div></a><a class="pagination-related" href="/posts/1012d805.html" title="CentOS 配置 SSH 服务指南 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8617" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">CentOS 配置 SSH 服务指南 🔐</div></div><div class="info-2"><div class="info-item-1">CentOS 配置 SSH 服务指南 🔐  📋 目录导航 🌟 简介 🔧 一、安装和更新 SSH 服务 ⚙️ 二、配置 SSH 服务器 🛡️ 三、增强 SSH 安全性（推荐） 🔍 四、验证配置 💡 五、高级配置选项 🚨 六、故障排除 📊 七、SSH 配置参数说明 🔒 八、安全最佳实践    🌟 简介本指南将帮助您在 CentOS 系统上配置 SSH 服务器，提高安全性和连接稳定性。   🔧 一、安装和更新 SSH 服务1. 📦 更新系统并安装 OpenSSH 服务器1yum -y update &amp;&amp; yum install -y openssl openssh-server 2. 📝 查看 SSH 配置文件1cat /etc/ssh/sshd_config   ⚙️ 二、配置 SSH 服务器1. ⚡ 修改 SSH 配置文件并重启服务12345# 备份原配置文件并应用修改sed -i.bak -e &#x27;/Port 22/ a Port 22&#x27; -e &#x27;/PermitRootLogin/ a PermitRootL...</div></div></div></a><a class="pagination-related" href="/posts/36429535.html" title="Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6225" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐</div></div><div class="info-2"><div class="info-item-1">Debian/PVE/Ubuntu/FnOS 配置 SSH 服务🔐  SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   📋 目录导航 📖 简介 🛠️ 一、SSH 服务安装与基本配置 ⚙️ 二、SSH 服务优化配置 客户端连接 SSH 🔒 四、高级安全配置 🔥 五、防火墙配置 🔍 六、故障排除与监控 🚀 七、性能优化 💾 八、备份与恢复 🔎 九、安全审计脚本 🐛 十、常见问题解决 📋 十一、最佳实践总结    📖 简介SSH（Secure Shell）是一种加密的网络传输协议，用于在不安全的网络中提供安全的远程登录和其他安全网络服务。本指南将详细介绍在 Debian 12 上配置和优化 SSH 服务的完整流程。   🛠️ 一、SSH 服务安装与基本配置1. 📦 安装 SSH 服务器并启用服务1234567891011# 更新软件包列表并安装 SSH 服务器sudo apt-get update &amp...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Alpine-%E9%85%8D%E7%BD%AE-SSH-%E6%9C%8D%E5%8A%A1%E6%8C%87%E5%8D%97-%F0%9F%94%90"><span class="toc-text">Alpine 配置 SSH 服务指南 🔐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📖 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%8A%9F%E8%83%BD%E7%89%B9%E7%82%B9"><span class="toc-text">✨ 功能特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">🚀 快速安装与配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%94%AE%E9%85%8D%E7%BD%AE%E8%84%9A%E6%9C%AC"><span class="toc-text">一键配置脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E5%88%86%E6%AD%A5%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="toc-text">📋 分步配置说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-SSH-%E6%9C%8D%E5%8A%A1"><span class="toc-text">1. 安装 SSH 服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE"><span class="toc-text">2. 查看默认配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E5%B9%B6%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="toc-text">3. 修改配置并重启服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="toc-text">🔧 配置参数详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%89%E5%85%A8%E5%8F%82%E6%95%B0"><span class="toc-text">基本安全参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E5%AE%89%E5%85%A8%E5%8F%82%E6%95%B0"><span class="toc-text">高级安全参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E8%BF%9E%E6%8E%A5%E7%A4%BA%E4%BE%8B"><span class="toc-text">🌐 连接示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%9E%E6%8E%A5"><span class="toc-text">基本连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E8%BF%9E%E6%8E%A5%E9%80%89%E9%A1%B9"><span class="toc-text">高级连接选项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A1%EF%B8%8F-%E5%AE%89%E5%85%A8%E5%A2%9E%E5%BC%BA%E5%BB%BA%E8%AE%AE"><span class="toc-text">🛡️ 安全增强建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3"><span class="toc-text">1. 更改默认端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E8%AE%A4%E8%AF%81"><span class="toc-text">2. 使用密钥认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E9%98%B2%E7%81%AB%E5%A2%99%E9%99%90%E5%88%B6"><span class="toc-text">3. 配置防火墙限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-Fail2Ban-%E9%98%B2%E6%AD%A2%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-text">4. 使用 Fail2Ban 防止暴力破解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%85%B6%E4%BB%96%E5%AE%89%E5%85%A8%E6%8E%AA%E6%96%BD"><span class="toc-text">5. 其他安全措施</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">🔍 故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A3%80%E6%9F%A5-SSH-%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="toc-text">1. 检查 SSH 服务状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="toc-text">2. 连接问题排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%A3%80%E6%9F%A5"><span class="toc-text">3. 配置文件检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-text">4. 常见问题解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">📝 注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">安全注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%B4%E6%8A%A4%E5%BB%BA%E8%AE%AE"><span class="toc-text">维护建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-text">备份与恢复</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,40 @@
+/**************************** 文章封面擦亮效果 **********************************/
+.post_cover.right,
+.post_cover.left {
+  position: relative; /* 确保伪元素可以定位 */
+  transition: all 0.3s ease; /* 添加过渡效果 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 初始阴影效果 */
+  filter: brightness(0.9); /* 初始亮度降低 */
+  overflow: hidden; /* 确保伪元素不会溢出 */
+}
+
+/* 当父元素悬停时，子元素应用效果 */
+.recent-post-item:hover .post_cover.right,
+.recent-post-item:hover .post_cover.left {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 增强阴影效果 */
+  filter: brightness(1.1); /* 增加亮度，模拟擦亮效果 */
+}
+
+.post_cover.right::after,
+.post_cover.left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0) 100%
+  ); /* 创建一个渐变背景 */
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+/* 当父元素悬停时，子元素的伪元素动画 */
+.recent-post-item:hover .post_cover.right::after,
+.recent-post-item:hover .post_cover.left::after {
+  left: 100%; /* 移动渐变背景，模拟擦亮效果 */
+}

@@ -1,0 +1,1027 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Windows 常用批处理命令大全 🪟 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Windows 常用批处理命令大全 🪟  全面整理 Windows 系统日常管理和维护的批处理脚本，提高工作效率！本指南涵盖文件操作、网络配置、系统优化等实用技巧。🪟   📖 导航目录 🌟 批处理简介 📁 文件与目录操作 🌐 网络相关命令 🎨 系统界面优化 ⚡ 系统电源管理 🛠️ 系统维护命令 👥 用户账户管理 💡 实用技巧与提示 🚀 高级批处理技巧    🌟 批处理文件简">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows 常用批处理命令大全 🪟">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/9ba13251.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Windows 常用批处理命令大全 🪟  全面整理 Windows 系统日常管理和维护的批处理脚本，提高工作效率！本指南涵盖文件操作、网络配置、系统优化等实用技巧。🪟   📖 导航目录 🌟 批处理简介 📁 文件与目录操作 🌐 网络相关命令 🎨 系统界面优化 ⚡ 系统电源管理 🛠️ 系统维护命令 👥 用户账户管理 💡 实用技巧与提示 🚀 高级批处理技巧    🌟 批处理文件简">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?3176">
+<meta property="article:published_time" content="2025-09-12T07:30:21.000Z">
+<meta property="article:modified_time" content="2025-09-12T07:30:21.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="命令大全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?3176"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Windows 常用批处理命令大全 🪟",
+  "url": "https://www.meimolihan.eu.org/posts/9ba13251.html",
+  "image": "https://api.mobufan.eu.org:666/pc?3176",
+  "datePublished": "2025-09-12T07:30:21.000Z",
+  "dateModified": "2025-09-12T07:30:21.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/9ba13251.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Windows 常用批处理命令大全 🪟',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?3176);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Windows 常用批处理命令大全 🪟</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Windows 常用批处理命令大全 🪟</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T07:30:21.000Z" title="发表于 2025-09-12 15:30:21">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T07:30:21.000Z" title="更新于 2025-09-12 15:30:21">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Windows/">Windows</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 15:30:21&quot;}" hidden></div><h1 id="Windows-常用批处理命令大全-🪟"><a href="#Windows-常用批处理命令大全-🪟" class="headerlink" title="Windows 常用批处理命令大全 🪟"></a>Windows 常用批处理命令大全 🪟</h1><p><img src="https://file.meimolihan.eu.org/img/windows-02.webp" alt=""></p>
+<blockquote>
+<p>全面整理 Windows 系统日常管理和维护的批处理脚本，提高工作效率！本指南涵盖文件操作、网络配置、系统优化等实用技巧。🪟</p>
+</blockquote>
+<hr>
+<h2 id="📖-导航目录"><a href="#📖-导航目录" class="headerlink" title="📖 导航目录"></a>📖 导航目录</h2><ul>
+<li><a href="#intro">🌟 批处理简介</a></li>
+<li><a href="#file-operations">📁 文件与目录操作</a></li>
+<li><a href="#network-commands">🌐 网络相关命令</a></li>
+<li><a href="#system-ui">🎨 系统界面优化</a></li>
+<li><a href="#power-management">⚡ 系统电源管理</a></li>
+<li><a href="#system-maintenance">🛠️ 系统维护命令</a></li>
+<li><a href="#user-management">👥 用户账户管理</a></li>
+<li><a href="#tips-tricks">💡 实用技巧与提示</a></li>
+<li><a href="#advanced-techniques">🚀 高级批处理技巧</a></li>
+</ul>
+<hr>
+<p><a id="intro"></a></p>
+<h2 id="🌟-批处理文件简介"><a href="#🌟-批处理文件简介" class="headerlink" title="🌟 批处理文件简介"></a>🌟 批处理文件简介</h2><p>批处理文件（.bat 或 .cmd）是 Windows 系统中用于自动执行任务的脚本文件，可以批量处理命令，提高系统管理效率。✨</p>
+<p><strong>主要优势：</strong></p>
+<ul>
+<li><strong>自动化</strong> 🤖: 批量执行重复任务，节省时间</li>
+<li><strong>灵活性</strong> 🔧: 可组合各种系统命令和程序</li>
+<li><strong>强大功能</strong> ⚡: 支持变量、条件判断、循环等编程元素</li>
+<li><strong>系统集成</strong> 🖥️: 直接调用 Windows 系统工具和命令</li>
+</ul>
+<p><strong>基本结构：</strong><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">REM 这是一条注释</span><br><span class="line">echo 欢迎使用批处理脚本！</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><a id="file-operations"></a></p>
+<h2 id="📁-一、文件与目录操作"><a href="#📁-一、文件与目录操作" class="headerlink" title="📁 一、文件与目录操作"></a>📁 一、文件与目录操作</h2><h3 id="1-创建多级目录-📂"><a href="#1-创建多级目录-📂" class="headerlink" title="1. 创建多级目录 📂"></a>1. 创建多级目录 📂</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">md &quot;D:\Installation directory\洛雪音乐&quot;</span><br><span class="line">echo ✅ 目录创建成功！</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="2-在桌面创建文件夹-🖥️"><a href="#2-在桌面创建文件夹-🖥️" class="headerlink" title="2. 在桌面创建文件夹 🖥️"></a>2. 在桌面创建文件夹 🖥️</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">set &quot;folder=%USERPROFILE%\Desktop\音乐下载&quot;</span><br><span class="line"></span><br><span class="line">if not exist &quot;%folder%&quot; (</span><br><span class="line">    mkdir &quot;%folder%&quot;</span><br><span class="line">    echo ✅ 文件夹创建成功！</span><br><span class="line">) else (</span><br><span class="line">    echo ℹ️ 文件夹已存在！</span><br><span class="line">)</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="3-批量重命名文件-🔄"><a href="#3-批量重命名文件-🔄" class="headerlink" title="3. 批量重命名文件 🔄"></a>3. 批量重命名文件 🔄</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">set /a count=0</span><br><span class="line"></span><br><span class="line">for %%i in (*.txt) do (</span><br><span class="line">    set /a count+=1</span><br><span class="line">    ren &quot;%%i&quot; &quot;文档!count!.txt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">echo ✅ 共重命名了 !count! 个文件</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="4-复制和备份文件-💾"><a href="#4-复制和备份文件-💾" class="headerlink" title="4. 复制和备份文件 💾"></a>4. 复制和备份文件 💾</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 📋 正在备份重要文件...</span><br><span class="line">xcopy &quot;C:\重要文档\*.*&quot; &quot;D:\备份\%date:~0,4%%date:~5,2%%date:~8,2%\&quot; /s /i</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 0 (</span><br><span class="line">    echo ✅ 备份完成！</span><br><span class="line">) else (</span><br><span class="line">    echo ❌ 备份过程中出现错误！</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="network-commands"></a></p>
+<h2 id="🌐-二、网络相关命令"><a href="#🌐-二、网络相关命令" class="headerlink" title="🌐 二、网络相关命令"></a>🌐 二、网络相关命令</h2><h3 id="1-查看IP地址和网关-🔍"><a href="#1-查看IP地址和网关-🔍" class="headerlink" title="1. 查看IP地址和网关 🔍"></a>1. 查看IP地址和网关 🔍</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">echo 📡 正在获取网络信息...</span><br><span class="line">echo.</span><br><span class="line"></span><br><span class="line">for /f &quot;tokens=2 delims=:&quot; %%a in (&#x27;ipconfig ^| find &quot;IPv4&quot;&#x27;) do (</span><br><span class="line">    set &quot;ipaddress=%%a&quot;</span><br><span class="line">    set &quot;ipaddress=!ipaddress: =!&quot;</span><br><span class="line">    echo 📡 本机IPv4地址: !ipaddress!</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">for /f &quot;tokens=3&quot; %%a in (&#x27;route print ^| findstr /r /c:&quot;0.0.0.0.*0.0.0.0&quot;&#x27;) do (</span><br><span class="line">    set &quot;gateway=%%a&quot;</span><br><span class="line">    echo 🌐 默认网关地址: !gateway!</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="2-刷新DNS缓存-🔄"><a href="#2-刷新DNS缓存-🔄" class="headerlink" title="2. 刷新DNS缓存 🔄"></a>2. 刷新DNS缓存 🔄</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🔄 正在刷新DNS缓存...</span><br><span class="line">ipconfig /flushdns</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 0 (</span><br><span class="line">    echo ✅ DNS 缓存已刷新!</span><br><span class="line">) else (</span><br><span class="line">    echo ❌ DNS 刷新失败!</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">timeout /t 3</span><br></pre></td></tr></table></figure>
+<h3 id="3-持续Ping测试-📶"><a href="#3-持续Ping测试-📶" class="headerlink" title="3. 持续Ping测试 📶"></a>3. 持续Ping测试 📶</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🚀 开始持续ping测试，按Ctrl+C停止</span><br><span class="line">ping 10.10.10.251 -t</span><br></pre></td></tr></table></figure>
+<h3 id="4-设置静态IP地址-⚙️"><a href="#4-设置静态IP地址-⚙️" class="headerlink" title="4. 设置静态IP地址 ⚙️"></a>4. 设置静态IP地址 ⚙️</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">REM 检查管理员权限</span><br><span class="line">net session &gt;nul 2&gt;&amp;1</span><br><span class="line">if %errorLevel% neq 0 (</span><br><span class="line">    echo ⚠️ 请求管理员权限...</span><br><span class="line">    powershell start -verb runas &#x27;%0&#x27;</span><br><span class="line">    exit /B</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">echo 🛠️ 正在设置网络配置...</span><br><span class="line">netsh interface ip set address &quot;以太网&quot; static 10.10.10.248 255.255.255.0 10.10.10.253</span><br><span class="line">netsh interface ip set dns &quot;以太网&quot; static 223.5.5.5 primary</span><br><span class="line">netsh interface ip add dns &quot;以太网&quot; 8.8.8.8 index=2</span><br><span class="line"></span><br><span class="line">echo ✅ 网络配置完成！</span><br><span class="line">echo 📍 IP地址: 10.10.10.248</span><br><span class="line">echo 🔧 子网掩码: 255.255.255.0</span><br><span class="line">echo 🌐 网关: 10.10.10.253</span><br><span class="line">echo 📡 DNS: 223.5.5.5, 8.8.8.8</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="5-网络诊断工具-🩺"><a href="#5-网络诊断工具-🩺" class="headerlink" title="5. 网络诊断工具 🩺"></a>5. 网络诊断工具 🩺</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🩺 开始网络诊断...</span><br><span class="line">echo.</span><br><span class="line"></span><br><span class="line">echo 1. 正在检查网络连接...</span><br><span class="line">ping -n 4 www.google.com</span><br><span class="line"></span><br><span class="line">echo.</span><br><span class="line">echo 2. 正在追踪路由...</span><br><span class="line">tracert www.google.com</span><br><span class="line"></span><br><span class="line">echo.</span><br><span class="line">echo 3. 显示网络统计信息...</span><br><span class="line">netstat -an</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="system-ui"></a></p>
+<h2 id="🎨-三、系统界面优化"><a href="#🎨-三、系统界面优化" class="headerlink" title="🎨 三、系统界面优化"></a>🎨 三、系统界面优化</h2><h3 id="1-去除快捷方式箭头-Win10-Win11-🔧"><a href="#1-去除快捷方式箭头-Win10-Win11-🔧" class="headerlink" title="1. 去除快捷方式箭头 (Win10/Win11) 🔧"></a>1. 去除快捷方式箭头 (Win10/Win11) 🔧</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🛠️ 正在去除快捷方式箭头...</span><br><span class="line">%1 mshta vbscript:CreateObject(&quot;Shell.Application&quot;).ShellExecute(&quot;cmd.exe&quot;,&quot;/c %~s0 ::&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;&amp;exit</span><br><span class="line"></span><br><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&quot; /v 29 /d &quot;%systemroot%\system32\imageres.dll,197&quot; /t reg_sz /f</span><br><span class="line"></span><br><span class="line">taskkill /f /im explorer.exe &gt;nul 2&gt;&amp;1</span><br><span class="line">attrib -s -r -h &quot;%userprofile%\AppData\Local\iconcache.db&quot; &gt;nul 2&gt;&amp;1</span><br><span class="line">del &quot;%userprofile%\AppData\Local\iconcache.db&quot; /f /q &gt;nul 2&gt;&amp;1</span><br><span class="line">start explorer.exe &gt;nul 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">echo ✅ 快捷方式箭头已去除！</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="2-调整系统性能选项-⚡"><a href="#2-调整系统性能选项-⚡" class="headerlink" title="2. 调整系统性能选项 ⚡"></a>2. 调整系统性能选项 ⚡</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo ⚡ 调整系统性能选项...</span><br><span class="line">%1 mshta vbscript:CreateObject(&quot;Shell.Application&quot;).ShellExecute(&quot;cmd.exe&quot;,&quot;/c %~s0 ::&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;&amp;exit</span><br><span class="line"></span><br><span class="line">REM 调整为最佳性能</span><br><span class="line">systempropertiesperformance.exe</span><br><span class="line"></span><br><span class="line">echo ✅ 性能选项已调整！</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="power-management"></a></p>
+<h2 id="⚡-四、系统电源管理"><a href="#⚡-四、系统电源管理" class="headerlink" title="⚡ 四、系统电源管理"></a>⚡ 四、系统电源管理</h2><h3 id="1-立即关机-🔴"><a href="#1-立即关机-🔴" class="headerlink" title="1. 立即关机 🔴"></a>1. 立即关机 🔴</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo ⚠️ 正在立即关闭计算机...</span><br><span class="line">echo 💾 请保存好所有工作！</span><br><span class="line">shutdown /s /t 0 /f /c &quot;计算机正在立即关闭&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="2-立即重启-🔄"><a href="#2-立即重启-🔄" class="headerlink" title="2. 立即重启 🔄"></a>2. 立即重启 🔄</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🔄 正在重启计算机...</span><br><span class="line">shutdown /r /t 0 /f</span><br></pre></td></tr></table></figure>
+<h3 id="3-定时关机-⏰"><a href="#3-定时关机-⏰" class="headerlink" title="3. 定时关机 ⏰"></a>3. 定时关机 ⏰</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">set /p minutes=⏰ 请输入关机延迟时间（分钟）: </span><br><span class="line">set /a seconds=%minutes% * 60</span><br><span class="line"></span><br><span class="line">if %seconds% gtr 0 (</span><br><span class="line">    shutdown /s /t %seconds%</span><br><span class="line">    echo ⏰ 计算机将在 %minutes% 分钟后关闭</span><br><span class="line">) else (</span><br><span class="line">    echo ❌ 请输入有效的分钟数！</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="4-取消关机计划-🚫"><a href="#4-取消关机计划-🚫" class="headerlink" title="4. 取消关机计划 🚫"></a>4. 取消关机计划 🚫</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🚫 正在取消关机计划...</span><br><span class="line">shutdown /a</span><br><span class="line">echo ✅ 关机计划已取消！</span><br><span class="line">timeout /t 3</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="system-maintenance"></a></p>
+<h2 id="🛠️-五、系统维护命令"><a href="#🛠️-五、系统维护命令" class="headerlink" title="🛠️ 五、系统维护命令"></a>🛠️ 五、系统维护命令</h2><h3 id="1-系统文件检查-🔍"><a href="#1-系统文件检查-🔍" class="headerlink" title="1. 系统文件检查 🔍"></a>1. 系统文件检查 🔍</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🔍 正在检查系统文件...</span><br><span class="line">%1 mshta vbscript:CreateObject(&quot;Shell.Application&quot;).ShellExecute(&quot;cmd.exe&quot;,&quot;/c %~s0 ::&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;&amp;exit</span><br><span class="line"></span><br><span class="line">sfc /scannow</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 0 (</span><br><span class="line">    echo ✅ 系统文件检查完成，未发现问题！</span><br><span class="line">) else (</span><br><span class="line">    echo ⚠️ 系统文件检查完成，发现一些问题需要修复！</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="2-磁盘清理-🧹"><a href="#2-磁盘清理-🧹" class="headerlink" title="2. 磁盘清理 🧹"></a>2. 磁盘清理 🧹</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🧹 正在清理磁盘...</span><br><span class="line">cleanmgr /sagerun:1</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 0 (</span><br><span class="line">    echo ✅ 磁盘清理完成！</span><br><span class="line">) else (</span><br><span class="line">    echo ❌ 磁盘清理过程中出现错误！</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">timeout /t 3</span><br></pre></td></tr></table></figure>
+<h3 id="3-检查磁盘错误-🔧"><a href="#3-检查磁盘错误-🔧" class="headerlink" title="3. 检查磁盘错误 🔧"></a>3. 检查磁盘错误 🔧</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🔧 正在检查磁盘错误...</span><br><span class="line">chkdsk C: /f /x</span><br><span class="line"></span><br><span class="line">echo.</span><br><span class="line">echo ⚠️ 需要重启才能完成磁盘检查！</span><br><span class="line">echo 💡 是否立即重启？(Y/N)</span><br><span class="line">choice /c YN /n</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 1 (</span><br><span class="line">    shutdown /r /t 0</span><br><span class="line">) else (</span><br><span class="line">    echo ℹ️ 下次重启时将检查磁盘错误！</span><br><span class="line">    pause</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="4-卸载系统组件-🗑️"><a href="#4-卸载系统组件-🗑️" class="headerlink" title="4. 卸载系统组件 🗑️"></a>4. 卸载系统组件 🗑️</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 🗑️ 正在卸载不需要的系统组件...</span><br><span class="line">%1 mshta vbscript:CreateObject(&quot;Shell.Application&quot;).ShellExecute(&quot;cmd.exe&quot;,&quot;/c %~s0 ::&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;&amp;exit</span><br><span class="line"></span><br><span class="line">REM 卸载小组件</span><br><span class="line">winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy</span><br><span class="line"></span><br><span class="line">REM 重启文件管理器</span><br><span class="line">taskkill /f /im explorer.exe &gt;nul 2&gt;&amp;1</span><br><span class="line">start explorer.exe &gt;nul 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">echo ✅ 系统组件清理完成！</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="user-management"></a></p>
+<h2 id="👥-六、用户账户管理"><a href="#👥-六、用户账户管理" class="headerlink" title="👥 六、用户账户管理"></a>👥 六、用户账户管理</h2><h3 id="1-查看所有用户-👤"><a href="#1-查看所有用户-👤" class="headerlink" title="1. 查看所有用户 👤"></a>1. 查看所有用户 👤</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 📋 系统用户列表:</span><br><span class="line">echo ======================</span><br><span class="line">net user</span><br><span class="line">echo ======================</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="2-创建新用户账户-➕"><a href="#2-创建新用户账户-➕" class="headerlink" title="2. 创建新用户账户 ➕"></a>2. 创建新用户账户 ➕</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 👤 正在创建新用户...</span><br><span class="line">net user XOS guo88888 /add /fullname:&quot;XOS User&quot; /comment:&quot;标准用户账户&quot;</span><br><span class="line">net localgroup administrators XOS /add</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 0 (</span><br><span class="line">    echo ✅ 用户 XOS 创建成功，已加入管理员组</span><br><span class="line">) else (</span><br><span class="line">    echo ❌ 用户创建失败！</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="3-删除用户账户-➖"><a href="#3-删除用户账户-➖" class="headerlink" title="3. 删除用户账户 ➖"></a>3. 删除用户账户 ➖</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo ⚠️ 正在删除用户账户...</span><br><span class="line">net user XOS /delete</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 0 (</span><br><span class="line">    echo ✅ 用户 XOS 已删除</span><br><span class="line">) else (</span><br><span class="line">    echo ❌ 用户删除失败！</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="4-更改用户密码-🔒"><a href="#4-更改用户密码-🔒" class="headerlink" title="4. 更改用户密码 🔒"></a>4. 更改用户密码 🔒</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">set /p username=👤 请输入用户名: </span><br><span class="line"></span><br><span class="line">if &quot;%username%&quot;==&quot;&quot; (</span><br><span class="line">    echo ❌ 用户名不能为空！</span><br><span class="line">    pause</span><br><span class="line">    exit /b 1</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">net user %username% *</span><br><span class="line"></span><br><span class="line">if %errorlevel% equ 0 (</span><br><span class="line">    echo ✅ 密码已更改</span><br><span class="line">) else (</span><br><span class="line">    echo ❌ 密码更改失败！</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="tips-tricks"></a></p>
+<h2 id="💡-七、实用技巧与提示"><a href="#💡-七、实用技巧与提示" class="headerlink" title="💡 七、实用技巧与提示"></a>💡 七、实用技巧与提示</h2><h3 id="1-批处理最佳实践-✅"><a href="#1-批处理最佳实践-✅" class="headerlink" title="1. 批处理最佳实践 ✅"></a>1. 批处理最佳实践 ✅</h3><ul>
+<li><p><strong>权限管理</strong> 🛡️: 始终在关键操作前请求管理员权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net session &gt;nul 2&gt;&amp;1</span><br><span class="line">if %errorLevel% neq 0 (</span><br><span class="line">    echo ⚠️ 请求管理员权限...</span><br><span class="line">    powershell start -verb runas &#x27;%0&#x27;</span><br><span class="line">    exit /B</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>错误处理</strong> 🔧: 添加适当的错误检查和处理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if %errorlevel% neq 0 (</span><br><span class="line">    echo ❌ 操作失败！</span><br><span class="line">    exit /b 1</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>日志记录</strong> 📝: 记录脚本执行情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo [%date% %time%] 脚本开始执行 &gt;&gt; script.log</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-安全注意事项-⚠️"><a href="#2-安全注意事项-⚠️" class="headerlink" title="2. 安全注意事项 ⚠️"></a>2. 安全注意事项 ⚠️</h3><ul>
+<li><strong>不要运行</strong>未知来源的批处理文件</li>
+<li><strong>定期备份</strong>重要数据和系统配置</li>
+<li><strong>谨慎修改</strong>注册表和系统文件</li>
+<li><strong>测试脚本</strong>在非生产环境首先验证</li>
+</ul>
+<h3 id="3-调试技巧-🐛"><a href="#3-调试技巧-🐛" class="headerlink" title="3. 调试技巧 🐛"></a>3. 调试技巧 🐛</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@echo on REM 开启命令回显</span><br><span class="line">echo 🔍 调试信息:</span><br><span class="line">echo 📂 当前目录: %cd%</span><br><span class="line">echo 💻 系统版本: %os%</span><br><span class="line">echo 👤 当前用户: %username%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="advanced-techniques"></a></p>
+<h2 id="🚀-八、高级批处理技巧"><a href="#🚀-八、高级批处理技巧" class="headerlink" title="🚀 八、高级批处理技巧"></a>🚀 八、高级批处理技巧</h2><h3 id="1-创建图形化选择菜单-🎨"><a href="#1-创建图形化选择菜单-🎨" class="headerlink" title="1. 创建图形化选择菜单 🎨"></a>1. 创建图形化选择菜单 🎨</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">chcp 65001 &gt;nul</span><br><span class="line"></span><br><span class="line">:menu</span><br><span class="line">cls</span><br><span class="line">echo ╔══════════════════════════════╗</span><br><span class="line">echo ║        系统维护工具箱        ║</span><br><span class="line">echo ╠══════════════════════════════╣</span><br><span class="line">echo ║ 1. 清理临时文件              ║</span><br><span class="line">echo ║ 2. 检查磁盘错误              ║</span><br><span class="line">echo ║ 3. 优化启动项                ║</span><br><span class="line">echo ║ 4. 网络诊断                  ║</span><br><span class="line">echo ║ 5. 退出                      ║</span><br><span class="line">echo ╚══════════════════════════════╝</span><br><span class="line"></span><br><span class="line">choice /c 12345 /n /m &quot;请选择操作: &quot;</span><br><span class="line"></span><br><span class="line">if errorlevel 5 goto exit</span><br><span class="line">if errorlevel 4 goto network</span><br><span class="line">if errorlevel 3 goto optimize</span><br><span class="line">if errorlevel 2 goto checkdisk</span><br><span class="line">if errorlevel 1 goto cleantemp</span><br><span class="line"></span><br><span class="line">:cleantemp</span><br><span class="line">echo 🧹 正在清理临时文件...</span><br><span class="line">del /q /f /s %temp%\*.*</span><br><span class="line">echo ✅ 临时文件清理完成！</span><br><span class="line">pause</span><br><span class="line">goto menu</span><br><span class="line"></span><br><span class="line">:checkdisk</span><br><span class="line">echo 🔧 正在检查磁盘...</span><br><span class="line">chkdsk c: /f</span><br><span class="line">echo ⚠️ 需要重启完成磁盘检查！</span><br><span class="line">pause</span><br><span class="line">goto menu</span><br><span class="line"></span><br><span class="line">:optimize</span><br><span class="line">echo ⚡ 优化启动项...</span><br><span class="line">msconfig</span><br><span class="line">echo ✅ 启动项优化完成！</span><br><span class="line">pause</span><br><span class="line">goto menu</span><br><span class="line"></span><br><span class="line">:network</span><br><span class="line">echo 🌐 开始网络诊断...</span><br><span class="line">ping -n 4 www.google.com</span><br><span class="line">pause</span><br><span class="line">goto menu</span><br><span class="line"></span><br><span class="line">:exit</span><br><span class="line">echo 👋 再见！</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<h3 id="2-日志记录功能-📝"><a href="#2-日志记录功能-📝" class="headerlink" title="2. 日志记录功能 📝"></a>2. 日志记录功能 📝</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">set logfile=%date:~0,4%%date:~5,2%%date:~8,2%_%time:~0,2%%time:~3,2%.log</span><br><span class="line">set logfile=%logfile: =0%</span><br><span class="line"></span><br><span class="line">echo [%date% %time%] 脚本开始执行 &gt;&gt; %logfile%</span><br><span class="line"></span><br><span class="line">REM 记录系统信息</span><br><span class="line">systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot; /C:&quot;系统类型&quot; &gt;&gt; %logfile%</span><br><span class="line"></span><br><span class="line">REM 你的代码在这里</span><br><span class="line">echo 🛠️ 执行系统维护任务... &gt;&gt; %logfile%</span><br><span class="line"></span><br><span class="line">echo [%date% %time%] 脚本执行完成 &gt;&gt; %logfile%</span><br><span class="line">echo 📋 日志已保存到: %logfile%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h3 id="3-高级错误处理-🚨"><a href="#3-高级错误处理-🚨" class="headerlink" title="3. 高级错误处理 🚨"></a>3. 高级错误处理 🚨</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">REM 设置错误处理</span><br><span class="line">set errorhandler=exit /b 1</span><br><span class="line"></span><br><span class="line">:main</span><br><span class="line">echo 🚀 开始执行任务...</span><br><span class="line"></span><br><span class="line">REM 尝试执行可能失败的操作</span><br><span class="line">call :dangerous_operation</span><br><span class="line">if !errorlevel! neq 0 (</span><br><span class="line">    echo ❌ 操作失败，错误代码: !errorlevel!</span><br><span class="line">    goto error</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">echo ✅ 所有任务完成！</span><br><span class="line">goto end</span><br><span class="line"></span><br><span class="line">:dangerous_operation</span><br><span class="line">REM 这里放置可能失败的操作</span><br><span class="line">echo ⚠️ 执行危险操作...</span><br><span class="line">exit /b 1 REM 模拟失败</span><br><span class="line"></span><br><span class="line">:error</span><br><span class="line">echo 🛡️ 正在执行错误处理...</span><br><span class="line">REM 清理资源、发送通知等</span><br><span class="line">goto end</span><br><span class="line"></span><br><span class="line">:end</span><br><span class="line">echo 📝 脚本执行完毕！</span><br><span class="line">pause</span><br><span class="line">exit /b 0</span><br></pre></td></tr></table></figure>
+<h3 id="4-参数化脚本-📋"><a href="#4-参数化脚本-📋" class="headerlink" title="4. 参数化脚本 📋"></a>4. 参数化脚本 📋</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">echo 🔧 参数化脚本示例</span><br><span class="line">echo 📋 参数个数: %#</span><br><span class="line">echo 📝 所有参数: %*</span><br><span class="line"></span><br><span class="line">if &quot;%1&quot;==&quot;&quot; (</span><br><span class="line">    echo ❌ 请提供操作参数</span><br><span class="line">    echo 💡 用法: %0 [install|uninstall|update]</span><br><span class="line">    exit /b 1</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">:switch</span><br><span class="line">if /i &quot;%1&quot;==&quot;install&quot; goto install</span><br><span class="line">if /i &quot;%1&quot;==&quot;uninstall&quot; goto uninstall</span><br><span class="line">if /i &quot;%1&quot;==&quot;update&quot; goto update</span><br><span class="line"></span><br><span class="line">echo ❌ 未知参数: %1</span><br><span class="line">exit /b 1</span><br><span class="line"></span><br><span class="line">:install</span><br><span class="line">echo 🚀 正在安装...</span><br><span class="line">REM 安装逻辑</span><br><span class="line">goto end</span><br><span class="line"></span><br><span class="line">:uninstall</span><br><span class="line">echo 🗑️ 正在卸载...</span><br><span class="line">REM 卸载逻辑</span><br><span class="line">goto end</span><br><span class="line"></span><br><span class="line">:update</span><br><span class="line">echo 🔄 正在更新...</span><br><span class="line">REM 更新逻辑</span><br><span class="line">goto end</span><br><span class="line"></span><br><span class="line">:end</span><br><span class="line">echo ✅ 操作完成！</span><br><span class="line">exit /b 0</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="🎯-使用提示与最佳实践"><a href="#🎯-使用提示与最佳实践" class="headerlink" title="🎯 使用提示与最佳实践"></a>🎯 使用提示与最佳实践</h2><ol>
+<li><strong>测试环境验证</strong> 🧪: 在生产环境使用前，先在测试环境验证脚本功能</li>
+<li><strong>逐步执行</strong> 👣: 复杂脚本可以添加 <code>pause</code> 命令分步执行和调试</li>
+<li><strong>注释文档</strong> 📄: 为脚本添加详细注释，方便后续维护</li>
+<li><strong>版本控制</strong> 🔄: 使用 Git 等工具管理脚本版本</li>
+<li><strong>定期审查</strong> 🔍: 定期检查脚本的安全性和兼容性</li>
+</ol>
+<blockquote>
+<p><strong>⚠️ 重要提醒</strong>: 批处理文件是强大的自动化工具，但请谨慎使用系统级命令。建议在运行前备份重要数据，并在测试环境中验证脚本功能。</p>
+</blockquote>
+<p>希望这份批处理命令大全能帮助您更好地管理 Windows 系统！如有其他需求，可以参考 Microsoft 官方文档或批处理编程指南。🎉</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">命令大全</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?3176" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/3f3651e1.html" title="FFmpeg 批处理脚本大全 🎬"><img class="cover" src="https://api.mobufan.eu.org:666/pc?189" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">FFmpeg 批处理脚本大全 🎬</div></div><div class="info-2"><div class="info-item-1">FFmpeg 批处理脚本大全 🎬 FFmpeg 下载地址：https://github.com/BtbN/FFmpeg-Builds/releases  🔧 使用前请将 ffmpeg.exe 放在目标文件同一目录下   ✨ 核心功能特点 🔄 格式转换：支持多种音视频格式互转，包括 MP4、TS、MKV 等常见格式 ✂️ 剪辑处理：精确去除片头片尾，添加淡入淡出效果 📸 画面捕获：灵活的视频截图功能，支持时间点截图和封面提取 🔍 元数据管理：查看和清理视频元数据信息 🚫 水印去除：精准定位并去除视频中的水印 🖼️ 封面添加：为视频文件添加自定义封面图片 📦 视频压缩：使用 H264/H265 编码高效压缩视频体积   📋 目录导航 📦 一、音视频格式转换 ✂️ 二、去片头片尾 🎞️ 三、淡入淡出 📸 四、视频截图 🔍 五、视频元数据 🚫 六、去水印 🖼️ 七、添加封面 📦 八、视频压缩    📦 一、音视频格式转换1. 🔄 双击-视频格式转换为MP4123456789101112@echo off &amp; setlocal enabledel...</div></div></div></a><a class="pagination-related" href="/posts/f5dad34c.html" title="Linux 和 Windows 系统间文件传输 🔄"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4423" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Linux 和 Windows 系统间文件传输 🔄</div></div><div class="info-2"><div class="info-item-1">Linux 和 Windows 系统间文件传输 🔄  使用 rz 和 sz 命令轻松在 Linux 和 Windows 系统之间传输文件。本指南涵盖安装、配置、使用技巧以及替代方案，助您实现高效跨平台文件传输！🚀   📖 导航目录 🌟 简介 📦 安装 lrzsz 🖥️ Windows 端配置 📤 从 Windows 上传文件到 Linux (rz) 📥 从 Linux 下载文件到 Windows (sz) 🔧 常用参数说明 💡 实用技巧和示例 ⚠️ 常见问题与解决方案 🔄 替代方案 📊 工具对比 🎯 最佳实践建议  —  🌟 简介rz 和 sz 是 Linux 系统中常用的文件传输命令，它们使用 ZMODEM 协议 通过终端连接（如 SSH）在本地计算机和远程服务器之间传输文件。这两个命令是 lrzsz 软件包的一部分，非常适合在命令行环境下进行简单的文件交换。✨ 主要优势：  简单易用 🎯: 只需两个命令即可完成上传下载 无需额外配置 ⚡: 大多数 SSH 客户端原生支持 跨平台兼容 🔄: 支持多种 Linux 发行版和 Windows 终端 无...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/5b248616.html" title="ESXi 虚拟机管理命令大全 ⚡"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3314" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">ESXi 虚拟机管理命令大全 ⚡</div></div><div class="info-2"><div class="info-item-1">ESXi 虚拟机管理命令大全 ⚡  🖥️ 掌握ESXi命令行管理，轻松掌控虚拟机生命周期   目录 📚 🔍 一、虚拟机信息查询 ⚡ 二、电源管理操作 📊 三、状态监控与诊断 🔧 四、高级管理命令 🛠️ 五、配置与维护 ⚠️ 六、注意事项 💡 七、实用技巧 🎯 八、批量操作脚本 🚀 九、性能优化    🔍 一、虚拟机信息查询📋 获取所有虚拟机列表用途: 显示ESXi主机上所有虚拟机的详细信息 12345678# 获取完整虚拟机列表vim-cmd vmsvc/getallvms# 格式化输出（更易读）vim-cmd vmsvc/getallvms | awk &#x27;&#123;printf &quot;%-4s %-30s %-20s %-15s %-10s\n&quot;, $1, $2, $3, $4, $5&#125;&#x27;# 仅显示虚拟机ID和名称vim-cmd vmsvc/getallvms | awk &#x27;&#123;print $1 &quot; &quot; $2&#125;&#x27; | grep -v &quot;Vmi...</div></div></div></a><a class="pagination-related" href="/posts/406b6aaf.html" title="Windows CMD 命令大全 🪟"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8146" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Windows CMD 命令大全 🪟</div></div><div class="info-2"><div class="info-item-1">Windows CMD 命令大全 🪟 ⚡ 掌握 Windows 命令行，提升系统管理效率的终极指南  📑 目录导航 📁 文件与目录管理 🌐 网络相关命令 ⚙️ 系统信息与管理 💾 磁盘管理 🔍 文件搜索与处理 ⚡ 系统控制 📜 批处理脚本 🎯 实用技巧 🚀 高级用法    📁 文件与目录管理📋 目录操作123456789101112131415161718:: 显示当前目录内容dirdir /w          :: 宽列表格式dir /s          :: 包含子目录dir /ah         :: 显示隐藏文件dir /q          :: 显示文件所有者:: 切换目录cd C:\Userscd /d D:\Projects  :: 切换驱动器cd ..             :: 上级目录cd \              :: 根目录:: 创建和删除目录mkdir NewFoldermkdir &quot;Folder with Spaces&quot;rmdir EmptyFolderrmdir /s /q FolderWith...</div></div></div></a><a class="pagination-related" href="/posts/f7cfa200.html" title="Windows 常用命令大全 🪟"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7167" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Windows 常用命令大全 🪟</div></div><div class="info-2"><div class="info-item-1">Windows 常用命令大全 🪟  🚀 掌握 Windows 命令行，提升系统管理和运维效率的强大工具集   ✨ 特点与优势 ⚡ 高效管理: 快速完成文件操作、系统配置和网络管理 🔧 强大功能: 提供图形界面无法实现的深度系统控制 📊 自动化能力: 通过批处理脚本实现重复任务自动化 🌐 网络诊断: 内置丰富的网络测试和故障排查工具 💻 远程管理: 支持远程系统管理和维护   📋 目录 🔰 基础命令 📁 文件和目录管理 ⚙️ 系统管理 🌐 网络相关命令 💾 磁盘管理 👥 用户管理 🔧 其他实用命令 📜 批处理脚本 💡 使用技巧 🚀 高级功能    🔰 基础命令📂 dir - 目录列表用途: 显示目录中的文件和子目录功能: 查看文件列表、过滤文件类型、排序显示 123456dir C:\Usersdir /s *.txt          # 递归搜索所有txt文件dir /a:h              # 显示隐藏文件dir /o:d              # 按日期排序dir /q                # 显示文件所有者dir...</div></div></div></a><a class="pagination-related" href="/posts/f41d3fc6.html" title="Docker 命令大全 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3320" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 命令大全 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 命令大全 🐳 目录 📚 ✨ Docker 简介 📦 一、安装与卸载 🔍 二、基本信息与版本 🐋 三、容器管理 🖥️ 四、容器操作 🏞️ 五、镜像管理 🌐 六、网络管理 💾 七、数据卷管理 🛠️ 八、Docker Compose 命令 🧹 九、清理与维护 🔐 十、安全相关 💡 十一、实用技巧与示例 🚨 十二、注意事项 📚 十三、学习资源   ✨ Docker 简介Docker 是一个开源的容器化平台，允许开发者将应用程序及其依赖打包到轻量级、可移植的容器中。这些容器可以在任何支持 Docker 的系统中运行，确保环境一致性并简化部署流程。 🎯 Docker 的核心优势： 环境一致性：开发、测试、生产环境完全一致 快速部署：秒级启动和停止容器 资源隔离：每个容器拥有独立的运行环境 易于扩展：快速复制和扩展容器实例 版本控制：镜像版本管理，轻松回滚  🔧 Docker 核心组件： Docker Engine：核心容器运行时 Docker Images：只读模板，用于创建容器 Docker Containers：镜像的运行实例 Docker...</div></div></div></a><a class="pagination-related" href="/posts/839f8c64.html" title="Linux 命令大全 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4672" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Linux 命令大全 🐧</div></div><div class="info-2"><div class="info-item-1">Linux 命令大全 🐧  简洁高效的 Linux 命令手册，涵盖日常操作、用户管理、系统监控和网络配置，助你快速上手终端操作！   ✨ 特点与功能介绍Linux 是一种自由开源的类 Unix 操作系统，广泛应用于服务器、嵌入式设备及开发环境中。其强大的命令行工具为用户提供了高效、灵活的操作方式。本文整理了常用的 Linux 命令，涵盖文件操作、用户管理、系统监控和网络配置等方面，适合初学者和有一定经验的用户查阅使用。  🧭 一、通用命令1. 打印或设置系统日期和时间 📅1date 2. 查看或设置终端控制字符（如 Ctrl-C, Ctrl-D, Ctrl-Z 等）⌨️1stty -a  3. 修改当前用户密码 🔒1passwd 4. 用户登录与注销 🔐12login    # 登录logout   # 注销（注意：原文中的 &quot;1ogout&quot; 应为 &quot;logout&quot;） 5. 显示当前工作目录 📂1pwd 6. 查看文件内容 📄1234more     # 分页显示文件内容less     # 更高效的分页查看（支持上下滚动）h...</div></div></div></a><a class="pagination-related" href="/posts/ba8af796.html" title="Linux 文件及文件夹管理命令大全 📁"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6780" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Linux 文件及文件夹管理命令大全 📁</div></div><div class="info-2"><div class="info-item-1">Linux 文件及文件夹管理命令大全 📁  🐧 Linux 文件与目录操作完全指南 掌握 Linux 文件和文件夹操作是系统管理的基础，本文整理了最常用的文件管理命令，帮助您高效地进行文件和目录操作。   📋 目录 📄 一、文件创建命令 1. 创建空文件 2. 创建文件并添加执行权限 3. 创建带有内容的文件 4. 追加内容到文件   📂 二、目录创建命令 1. 创建单个目录 2. 创建多级目录 3. 创建目录并设置权限 4. 创建多个目录   🔐 三、文件权限管理 1. 修改文件/目录权限 2. 递归修改权限 3. 添加执行权限 4. 移除执行权限 5. 查看文件权限 6. 更改文件所有者   🔧 四、文件操作命令 1. 文件重命名 2. 移动文件 3. 强制删除文件 4. 交互式删除文件 5. 查找文件 6. 查找并处理文件   🧹 五、清理与维护命令 1. 清空当前目录 2. 安全清空目录 3. 查看磁盘使用情况 4. 查看目录大小   📖 六、文件查看与编辑 1. 查看文件内容 2. 分页查看文件 3. 查看文件开头 4. 查看文件末尾 5. 实时监控文...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows-%E5%B8%B8%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8-%F0%9F%AA%9F"><span class="toc-text">Windows 常用批处理命令大全 🪟</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📖 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E6%89%B9%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E7%AE%80%E4%BB%8B"><span class="toc-text">🌟 批处理文件简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E4%B8%80%E3%80%81%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="toc-text">📁 一、文件与目录操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%A4%9A%E7%BA%A7%E7%9B%AE%E5%BD%95-%F0%9F%93%82"><span class="toc-text">1. 创建多级目录 📂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9C%A8%E6%A1%8C%E9%9D%A2%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9-%F0%9F%96%A5%EF%B8%8F"><span class="toc-text">2. 在桌面创建文件夹 🖥️</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%B9%E9%87%8F%E9%87%8D%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6-%F0%9F%94%84"><span class="toc-text">3. 批量重命名文件 🔄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A4%8D%E5%88%B6%E5%92%8C%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6-%F0%9F%92%BE"><span class="toc-text">4. 复制和备份文件 💾</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E4%BA%8C%E3%80%81%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">🌐 二、网络相关命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8BIP%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3-%F0%9F%94%8D"><span class="toc-text">1. 查看IP地址和网关 🔍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%B7%E6%96%B0DNS%E7%BC%93%E5%AD%98-%F0%9F%94%84"><span class="toc-text">2. 刷新DNS缓存 🔄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8C%81%E7%BB%ADPing%E6%B5%8B%E8%AF%95-%F0%9F%93%B6"><span class="toc-text">3. 持续Ping测试 📶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP%E5%9C%B0%E5%9D%80-%E2%9A%99%EF%B8%8F"><span class="toc-text">4. 设置静态IP地址 ⚙️</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7-%F0%9F%A9%BA"><span class="toc-text">5. 网络诊断工具 🩺</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%A8-%E4%B8%89%E3%80%81%E7%B3%BB%E7%BB%9F%E7%95%8C%E9%9D%A2%E4%BC%98%E5%8C%96"><span class="toc-text">🎨 三、系统界面优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8E%BB%E9%99%A4%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F%E7%AE%AD%E5%A4%B4-Win10-Win11-%F0%9F%94%A7"><span class="toc-text">1. 去除快捷方式箭头 (Win10&#x2F;Win11) 🔧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B0%83%E6%95%B4%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E9%80%89%E9%A1%B9-%E2%9A%A1"><span class="toc-text">2. 调整系统性能选项 ⚡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E5%9B%9B%E3%80%81%E7%B3%BB%E7%BB%9F%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86"><span class="toc-text">⚡ 四、系统电源管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AB%8B%E5%8D%B3%E5%85%B3%E6%9C%BA-%F0%9F%94%B4"><span class="toc-text">1. 立即关机 🔴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%AB%8B%E5%8D%B3%E9%87%8D%E5%90%AF-%F0%9F%94%84"><span class="toc-text">2. 立即重启 🔄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9A%E6%97%B6%E5%85%B3%E6%9C%BA-%E2%8F%B0"><span class="toc-text">3. 定时关机 ⏰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8F%96%E6%B6%88%E5%85%B3%E6%9C%BA%E8%AE%A1%E5%88%92-%F0%9F%9A%AB"><span class="toc-text">4. 取消关机计划 🚫</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E4%BA%94%E3%80%81%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4%E5%91%BD%E4%BB%A4"><span class="toc-text">🛠️ 五、系统维护命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E6%A3%80%E6%9F%A5-%F0%9F%94%8D"><span class="toc-text">1. 系统文件检查 🔍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%A3%81%E7%9B%98%E6%B8%85%E7%90%86-%F0%9F%A7%B9"><span class="toc-text">2. 磁盘清理 🧹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A3%80%E6%9F%A5%E7%A3%81%E7%9B%98%E9%94%99%E8%AF%AF-%F0%9F%94%A7"><span class="toc-text">3. 检查磁盘错误 🔧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8D%B8%E8%BD%BD%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6-%F0%9F%97%91%EF%B8%8F"><span class="toc-text">4. 卸载系统组件 🗑️</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%91%A5-%E5%85%AD%E3%80%81%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-text">👥 六、用户账户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%94%A8%E6%88%B7-%F0%9F%91%A4"><span class="toc-text">1. 查看所有用户 👤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7-%E2%9E%95"><span class="toc-text">2. 创建新用户账户 ➕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7-%E2%9E%96"><span class="toc-text">3. 删除用户账户 ➖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9B%B4%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81-%F0%9F%94%92"><span class="toc-text">4. 更改用户密码 🔒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E4%B8%83%E3%80%81%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7%E4%B8%8E%E6%8F%90%E7%A4%BA"><span class="toc-text">💡 七、实用技巧与提示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%B9%E5%A4%84%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5-%E2%9C%85"><span class="toc-text">1. 批处理最佳实践 ✅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E5%85%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-%E2%9A%A0%EF%B8%8F"><span class="toc-text">2. 安全注意事项 ⚠️</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-%F0%9F%90%9B"><span class="toc-text">3. 调试技巧 🐛</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E5%85%AB%E3%80%81%E9%AB%98%E7%BA%A7%E6%89%B9%E5%A4%84%E7%90%86%E6%8A%80%E5%B7%A7"><span class="toc-text">🚀 八、高级批处理技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%9B%BE%E5%BD%A2%E5%8C%96%E9%80%89%E6%8B%A9%E8%8F%9C%E5%8D%95-%F0%9F%8E%A8"><span class="toc-text">1. 创建图形化选择菜单 🎨</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%8A%9F%E8%83%BD-%F0%9F%93%9D"><span class="toc-text">2. 日志记录功能 📝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%AB%98%E7%BA%A7%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-%F0%9F%9A%A8"><span class="toc-text">3. 高级错误处理 🚨</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8F%82%E6%95%B0%E5%8C%96%E8%84%9A%E6%9C%AC-%F0%9F%93%8B"><span class="toc-text">4. 参数化脚本 📋</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E4%BD%BF%E7%94%A8%E6%8F%90%E7%A4%BA%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">🎯 使用提示与最佳实践</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

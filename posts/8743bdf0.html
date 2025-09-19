@@ -1,0 +1,1070 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Halo 博客升级 MySQL 数据库指南 🚀 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Halo 博客升级 MySQL 数据库指南 🚀 📌 导读：本文详细记录将 Halo 博客的 MySQL 数据库从 8.3.0 版本安全升级至 9.4.0 的完整操作流程。包含版本路线规划、数据备份、升级参数配置、健康检查及收尾操作，适用于生产环境下的平滑升级。  📋 导航目录 ✨ 升级背景与注意事项 🔍 版本升级路线 📦 准备工作：查询可用版本标签 💾 关键第一步：整库逻辑备份（必做！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Halo 博客升级 MySQL 数据库指南 🚀">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/8743bdf0.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Halo 博客升级 MySQL 数据库指南 🚀 📌 导读：本文详细记录将 Halo 博客的 MySQL 数据库从 8.3.0 版本安全升级至 9.4.0 的完整操作流程。包含版本路线规划、数据备份、升级参数配置、健康检查及收尾操作，适用于生产环境下的平滑升级。  📋 导航目录 ✨ 升级背景与注意事项 🔍 版本升级路线 📦 准备工作：查询可用版本标签 💾 关键第一步：整库逻辑备份（必做！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?8920">
+<meta property="article:published_time" content="2025-09-14T10:09:45.000Z">
+<meta property="article:modified_time" content="2025-09-14T10:09:45.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="halo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?8920"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Halo 博客升级 MySQL 数据库指南 🚀",
+  "url": "https://www.meimolihan.eu.org/posts/8743bdf0.html",
+  "image": "https://api.mobufan.eu.org:666/pc?8920",
+  "datePublished": "2025-09-14T10:09:45.000Z",
+  "dateModified": "2025-09-14T10:09:45.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/8743bdf0.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Halo 博客升级 MySQL 数据库指南 🚀',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?8920);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Halo 博客升级 MySQL 数据库指南 🚀</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Halo 博客升级 MySQL 数据库指南 🚀</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-14T10:09:45.000Z" title="发表于 2025-09-14 18:09:45">2025-09-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-14T10:09:45.000Z" title="更新于 2025-09-14 18:09:45">2025-09-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Docker/">Docker</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-14 18:09:45&quot;}" hidden></div><h1 id="Halo-博客升级-MySQL-数据库指南-🚀"><a href="#Halo-博客升级-MySQL-数据库指南-🚀" class="headerlink" title="Halo 博客升级 MySQL 数据库指南 🚀"></a>Halo 博客升级 MySQL 数据库指南 🚀</h1><p><img src="https://file.meimolihan.eu.org/img/mysql-01.webp" alt=""></p>
+<p>📌 <strong>导读</strong>：本文详细记录将 Halo 博客的 MySQL 数据库从 8.3.0 版本安全升级至 9.4.0 的完整操作流程。包含版本路线规划、数据备份、升级参数配置、健康检查及收尾操作，适用于生产环境下的平滑升级。</p>
+<hr>
+<h2 id="📋-导航目录"><a href="#📋-导航目录" class="headerlink" title="📋 导航目录"></a>📋 导航目录</h2><ul>
+<li><a href="#upgrade-background">✨ 升级背景与注意事项</a></li>
+<li><a href="#version-path">🔍 版本升级路线</a></li>
+<li><a href="#check-tags">📦 准备工作：查询可用版本标签</a></li>
+<li><a href="#full-backup">💾 关键第一步：整库逻辑备份（必做！）</a></li>
+<li><a href="#cross-upgrade">⚙️ 跨主版本升级（8.4.2 → 9.0.1）</a><ul>
+<li><a href="#change-image-tag">📝 修改 Docker 镜像标签</a></li>
+<li><a href="#add-upgrade-param">⚒️ 添加临时升级参数</a></li>
+</ul>
+</li>
+<li><a href="#execute-upgrade">🚀 执行升级操作</a></li>
+<li><a href="#health-check">✅ 升级状态确认</a></li>
+<li><a href="#cleanup">🔧 收尾工作</a></li>
+<li><a href="#qa-summary">💡 常见问题与总结</a></li>
+</ul>
+<hr>
+<p><a id="upgrade-background"></a></p>
+<h2 id="✨-升级背景与注意事项"><a href="#✨-升级背景与注意事项" class="headerlink" title="✨ 升级背景与注意事项"></a>✨ 升级背景与注意事项</h2><p>MySQL 8.x 至 9.x 属于跨主版本升级，涉及<strong>系统表元数据格式变更</strong>且升级过程不可逆。🔴 <strong>重要提示</strong>：生产环境升级前务必完成全量逻辑备份，避免数据丢失风险。</p>
+<blockquote>
+<p>📝 <strong>升级特点</strong>：</p>
+<ul>
+<li>✨ <strong>性能提升</strong>：MySQL 9.x 优化了查询处理器，复杂查询性能提升显著；</li>
+<li>🔒 <strong>增强安全</strong>：新增角色继承、密码验证策略强化等安全特性；</li>
+<li>📊 <strong>JSON功能扩展</strong>：JSON数据类型支持更多函数和路径表达式；</li>
+<li>💾 <strong>兼容性保障</strong>：9.0 版本兼容 8.4 的数据文件格式；</li>
+<li>⚠️ <strong>升级单向性</strong>：升级后会更新系统表结构以支持新特性，且不可回退；</li>
+<li>🔧 <strong>参数要求</strong>：仅首次启动需添加 <code>--upgrade=FORCE</code> 参数，后续重启无需此操作。</li>
+</ul>
+</blockquote>
+<hr>
+<p><a id="version-path"></a></p>
+<h2 id="🔍-版本升级路线"><a href="#🔍-版本升级路线" class="headerlink" title="🔍 版本升级路线"></a>🔍 版本升级路线</h2><p>本次升级采用渐进式路径，确保兼容性稳定：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8.3.0 → 8.4.0 → 8.4.2 → 9.0.1 → 9.4.0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>💡 <strong>提示</strong>：建议逐步升级，避免跨多个主版本直接升级，以减少意外错误。每个中间版本都解决了特定的兼容性问题，确保数据迁移的平稳性。</p>
+</blockquote>
+<hr>
+<p><a id="check-tags"></a></p>
+<h2 id="📦-准备工作：查询可用版本标签"><a href="#📦-准备工作：查询可用版本标签" class="headerlink" title="📦 准备工作：查询可用版本标签"></a>📦 准备工作：查询可用版本标签</h2><p>使用以下命令列出所有官方 MySQL 镜像标签（8.x 和 9.x 系列），并按版本号排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询官方仓库所有 tag（返回 JSON，用 jq 过滤更爽）</span></span><br><span class="line">docker run --<span class="built_in">rm</span> quay.io/skopeo/stable list-tags docker://mysql \</span><br><span class="line">  | jq -r <span class="string">&#x27;.Tags[]&#x27;</span> \</span><br><span class="line">  | grep -E <span class="string">&#x27;^[8-9]\.&#x27;</span> \</span><br><span class="line">  | <span class="built_in">sort</span> -V</span><br></pre></td></tr></table></figure>
+<p>🔍 <strong>功能说明</strong>：此步骤确保你获取到官方支持的所有版本标签，避免使用非稳定版或已废弃版本。建议优先选择标记为”latest”或”stable”的版本分支。</p>
+<hr>
+<p><a id="full-backup"></a></p>
+<h2 id="💾-关键第一步：整库逻辑备份（必做！）"><a href="#💾-关键第一步：整库逻辑备份（必做！）" class="headerlink" title="💾 关键第一步：整库逻辑备份（必做！）"></a>💾 关键第一步：整库逻辑备份（必做！）</h2><p>⚠️ <strong>警告</strong>：跳过备份可能导致数据无法回退！务必执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it halodb mysqldump --all-databases --single-transaction -uroot -p<span class="string">&#x27;o#DwN&amp;JSa56&#x27;</span> &gt; all_$(<span class="built_in">date</span> +%F_%H-%M).sql</span><br></pre></td></tr></table></figure>
+<p>📌 <strong>参数说明</strong>：</p>
+<ul>
+<li><code>--single-transaction</code>：确保备份期间数据一致性，使用事务隔离机制；</li>
+<li><code>-uroot -p&#39;你的密码&#39;</code>：按实际数据库密码修改，建议使用配置文件避免密码暴露；</li>
+<li>备份文件命名包含时间戳，便于版本管理；</li>
+<li>🔒 <strong>安全建议</strong>：备份完成后将备份文件传输到远程存储或不同物理设备。</li>
+</ul>
+<p>💡 <strong>扩展功能</strong>：考虑使用自动化备份脚本，定期执行并保留多个备份版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">BACKUP_DIR=<span class="string">&quot;/path/to/backup&quot;</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$BACKUP_DIR</span></span><br><span class="line">docker <span class="built_in">exec</span> halodb mysqldump --all-databases --single-transaction -uroot -p<span class="string">&#x27;password&#x27;</span> | gzip &gt; <span class="variable">$BACKUP_DIR</span>/all_$(<span class="built_in">date</span> +%F_%H-%M).sql.gz</span><br><span class="line"><span class="comment"># 保留最近7天备份</span></span><br><span class="line">find <span class="variable">$BACKUP_DIR</span> -name <span class="string">&quot;*.sql.gz&quot;</span> -mtime +7 -delete</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="cross-upgrade"></a></p>
+<h2 id="⚙️-跨主版本升级（8-4-2-→-9-0-1）"><a href="#⚙️-跨主版本升级（8-4-2-→-9-0-1）" class="headerlink" title="⚙️ 跨主版本升级（8.4.2 → 9.0.1）"></a>⚙️ 跨主版本升级（8.4.2 → 9.0.1）</h2><p><a id="change-image-tag"></a></p>
+<h3 id="📝-修改-Docker-镜像标签"><a href="#📝-修改-Docker-镜像标签" class="headerlink" title="📝 修改 Docker 镜像标签"></a>📝 修改 Docker 镜像标签</h3><p>编辑 <code>docker-compose.yml</code>，将 MySQL 镜像标签改为目标版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano docker-compose.yml</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改前</span></span><br><span class="line"><span class="attr">image:</span> <span class="string">mysql:8.4.2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改后</span></span><br><span class="line"><span class="attr">image:</span> <span class="string">mysql:9.0.1</span></span><br></pre></td></tr></table></figure>
+<p>📝 <strong>注意</strong>：确保使用的镜像标签存在且为官方稳定版本，避免使用latest标签可能导致的不兼容问题。</p>
+<p><a id="add-upgrade-param"></a></p>
+<h3 id="⚒️-添加临时升级参数"><a href="#⚒️-添加临时升级参数" class="headerlink" title="⚒️ 添加临时升级参数"></a>⚒️ 添加临时升级参数</h3><p>在 <code>command</code> 部分<strong>临时添加</strong> <code>--upgrade=FORCE</code> 参数：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">command:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">--upgrade=FORCE</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">--character-set-server=utf8mb4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">--collation-server=utf8mb4_general_ci</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">--explicit_defaults_for_timestamp=true</span></span><br></pre></td></tr></table></figure>
+<p>🔧 <strong>参数详解</strong>：</p>
+<ul>
+<li><code>--upgrade=FORCE</code>：强制升级系统表结构，必需参数；</li>
+<li><code>--character-set-server=utf8mb4</code>：确保字符集与Halo博客兼容；</li>
+<li><code>--collation-server=utf8mb4_general_ci</code>：设置正确的排序规则；</li>
+<li><code>--explicit_defaults_for_timestamp=true</code>：解决TIMESTAMP字段的兼容性问题。</li>
+</ul>
+<hr>
+<p><a id="execute-upgrade"></a></p>
+<h2 id="🚀-执行升级操作"><a href="#🚀-执行升级操作" class="headerlink" title="🚀 执行升级操作"></a>🚀 执行升级操作</h2><ol>
+<li><p><strong>拉取新版本镜像</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose pull halodb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>启动升级</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose up -d halodb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>观察升级日志</strong>（耗时约 1-3 分钟）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">timeout</span> 180 docker compose logs -f halodb</span><br></pre></td></tr></table></figure>
+<p>✅ <strong>成功标志</strong>：出现 <code>[Server] /usr/sbin/mysqld: ready for connections. Version: &#39;9.0.1&#39;</code> 且状态转为 healthy。</p>
+</li>
+</ol>
+<p>📊 <strong>升级过程监控</strong>：升级期间MySQL会执行以下操作：</p>
+<ul>
+<li>检查现有数据文件的兼容性</li>
+<li>升级系统表（mysql.*）到新格式</li>
+<li>更新性能 schema 和 information_schema</li>
+<li>验证所有数据库对象的完整性</li>
+</ul>
+<hr>
+<p><a id="health-check"></a></p>
+<h2 id="✅-升级状态确认"><a href="#✅-升级状态确认" class="headerlink" title="✅ 升级状态确认"></a>✅ 升级状态确认</h2><ol>
+<li><p><strong>检查容器状态</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose ps halodb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>手动健康检查</strong>（如果状态未更新）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> halodb mysqladmin ping -h127.0.0.1 -uroot -p<span class="string">&#x27;o#DwN&amp;JSa56&#x27;</span> --silent</span><br><span class="line"><span class="built_in">echo</span> $?   <span class="comment"># 返回 0 表示数据库正常运行</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>验证版本号</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it halodb mysql -uroot -p<span class="string">&#x27;o#DwN&amp;JSa56&#x27;</span> -e <span class="string">&quot;SELECT @@version;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>📌 输出应为：<code>9.0.1</code></p>
+</li>
+<li><p><strong>检查数据库完整性</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it halodb mysqlcheck -uroot -p<span class="string">&#x27;o#DwN&amp;JSa56&#x27;</span> --all-databases</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="cleanup"></a></p>
+<h2 id="🔧-收尾工作"><a href="#🔧-收尾工作" class="headerlink" title="🔧 收尾工作"></a>🔧 收尾工作</h2><p>升级完成后<strong>务必删除</strong>临时参数 <code>--upgrade=FORCE</code>，避免下次重启再次执行升级流程：</p>
+<ol>
+<li>编辑 <code>docker-compose.yml</code>，删除 <code>--upgrade=FORCE</code> 行；</li>
+<li><p>重新部署：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>验证常规启动</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose logs halodb | grep -i <span class="string">&quot;upgrade&quot;</span></span><br></pre></td></tr></table></figure>
+<p>🚫 不应出现任何与upgrade相关的日志信息。</p>
+</li>
+</ol>
+<hr>
+<p><a id="qa-summary"></a></p>
+<h2 id="💡-常见问题与总结"><a href="#💡-常见问题与总结" class="headerlink" title="💡 常见问题与总结"></a>💡 常见问题与总结</h2><p>❓ <strong>Q1：升级失败如何回退？</strong><br>A：使用备份文件还原至旧版本 MySQL 容器，执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> all_2023-11-10_12-00.sql | docker <span class="built_in">exec</span> -i halodb mysql -uroot -p<span class="string">&#x27;密码&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>❓ <strong>Q2：升级后 Halo 博客无法连接数据库？</strong><br>A：检查数据库字符集配置是否与 Halo 要求一致（通常为 <code>utf8mb4</code>），并验证网络连接。同时检查MySQL用户权限是否正常。</p>
+<p>❓ <strong>Q3：升级过程中断怎么办？</strong><br>A：MySQL 9.x 具备升级事务完整性，中断后会自动回滚。检查日志确定中断原因，解决问题后重新启动升级流程。</p>
+<p>❓ <strong>Q4：升级后性能下降怎么办？</strong><br>A：运行 <code>mysql_upgrade</code> 命令优化表结构，并重新生成统计信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> halodb mysql_upgrade -uroot -p<span class="string">&#x27;密码&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>🎯 <strong>总结</strong>：  </p>
+<ul>
+<li>📋 跨主版本升级需谨慎操作，备份优先；</li>
+<li>⚙️ 通过 <code>--upgrade=FORCE</code> 参数触发元数据升级；</li>
+<li>🔧 收尾时移除临时参数，避免重复升级；</li>
+<li>🧪 建议在测试环境演练后再升级生产环境；</li>
+<li>📊 升级后监控系统性能，确保稳定运行。</li>
+</ul>
+<hr>
+<blockquote>
+<p>🔗 相关资源：<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/9.0/en/upgrading.html">MySQL 官方升级文档</a><br>💬 问题反馈：如遇到本文未覆盖的问题，请查看MySQL官方日志或社区支持</p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/halo/">halo</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?8920" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/92c231df.html" title="Docker 部署 Halo 博客系统-PostgreSQL ✨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1091" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Docker 部署 Halo 博客系统-PostgreSQL ✨</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Halo 博客系统-PostgreSQL ✨    📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Halo 博客 1. 创建目录并编写 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀 3. PostgreSQL 版本管理与验证 🔍   🚀 二、使用 Halo 博客 1. 首次访问设置 🎯 2. 功能特性 ✨   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航创作，连接世界     🎯 项目简介 🌐 Halo 官网地址：https://www.halo.run/ 🐱 GitHub 项目地址：https://github.com/halo-dev 🐋 Docker 镜像地址：https://hub.docker.com/r/halohub/halo  Halo...</div></div></div></a><a class="pagination-related" href="/posts/29d171aa.html" title="Debian13 服务器文件备份与恢复指南 📂"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7639" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Debian13 服务器文件备份与恢复指南 📂</div></div><div class="info-2"><div class="info-item-1">Debian13 服务器文件备份与恢复指南 📂  本文提供 Debian13 服务器文件备份与恢复的完整解决方案，涵盖多种同步方法与详细操作指南，助您构建可靠的数据保护策略。  导航目录 📚 📦 备份的重要性与策略 🔧 本地 rsync 同步备份 📌 同步 nginx 主目录 📌 同步 html 目录 📌 同步文件服务目录   🚀 scp 远程同步备份 📌 同步 nginx 主目录 📌 同步 html 目录 📌 同步文件服务目录   ⚡ rsync 远程同步备份 📌 同步 nginx 主目录 📌 同步 html 目录 📌 同步文件服务目录   🔄 恢复操作指南 📌 从本地备份恢复 📌 从远程备份恢复   📊 三种方法对比分析 💡 备份最佳实践    📦 备份的重要性与策略数据是服务器中最宝贵的资产，合理的备份策略可以防止以下风险：  🔴 硬件故障：磁盘损坏、服务器宕机 🔴 人为错误：误删除、错误配置 🔴 安全事件：勒索软件、黑客攻击 🔴 自然灾害：火灾、洪水等不可抗力  备份 3-2-1 原则：至少保留 3 个数据副本，使用 2 种...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/5311c990.html" title="Docker 部署 Halo 博客系统-MySQL ✨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4050" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Halo 博客系统-MySQL ✨</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Halo 博客系统-MySQL ✨    📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Halo 博客 1. 创建目录并编写 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀 3. MySQL 版本管理与验证 🔍   🚀 二、使用 Halo 博客 1. 首次访问设置 🎯 2. 功能特性 ✨   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航创作，连接世界     🎯 项目简介 🌐 Halo 官网地址：https://www.halo.run/ 🐱 GitHub 项目地址：https://github.com/halo-dev 🐋 Docker 镜像地址：https://hub.docker.com/r/halohub/halo  Halo 是一款现代化的开源...</div></div></div></a><a class="pagination-related" href="/posts/92c231df.html" title="Docker 部署 Halo 博客系统-PostgreSQL ✨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1091" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">Docker 部署 Halo 博客系统-PostgreSQL ✨</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Halo 博客系统-PostgreSQL ✨    📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Halo 博客 1. 创建目录并编写 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀 3. PostgreSQL 版本管理与验证 🔍   🚀 二、使用 Halo 博客 1. 首次访问设置 🎯 2. 功能特性 ✨   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航创作，连接世界     🎯 项目简介 🌐 Halo 官网地址：https://www.halo.run/ 🐱 GitHub 项目地址：https://github.com/halo-dev 🐋 Docker 镜像地址：https://hub.docker.com/r/halohub/halo  Halo...</div></div></div></a><a class="pagination-related" href="/posts/541ef58e.html" title="Halo to Hugo 文章迁移工具 📦"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8305" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-17</div><div class="info-item-2">Halo to Hugo 文章迁移工具 📦</div></div><div class="info-2"><div class="info-item-1">一款专为博客迁移设计的工具，可将 Halo 文章的 Front Matter 格式转换为 Hugo 兼容格式，让您的博客迁移过程更加顺畅高效！🚀</div></div></div></a><a class="pagination-related" href="/posts/3f848dbe.html" title="Halo 博客备份与文章导出 📝"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2987" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Halo 博客备份与文章导出 📝</div></div><div class="info-2"><div class="info-item-1">Halo 博客备份与文章导出 📝 🔄 全面保护你的博客内容，防止数据丢失！  📋 目录导航 · 💾 后台备份· 📦 备份文件位置· 📂 文章导出路径· 🔄 自动备份脚本· 🚀 快速恢复指南· 💡 备份策略建议  💾 后台备份 手动备份步骤  登录 Halo 后台管理界面 进入「系统」-&gt;「备份」 点击「立即备份」按钮 等待备份完成（备份文件将自动生成）  https://file.meimolihan.eu.org/screenshot/halo-backup.png  📦 备份文件位置 默认备份路径 12345678# 进入备份目录cd /mnt/mydisk/home/halo/config/halo2/backups# 查看备份文件ls -la *.zip# 按时间排序查看最新备份ls -lt *.zip | head -5 备份文件命名格式 12YYYYMMDDHHMMSS-backup-随机标识符.zip示例：20241025192604-backup-PPAuB.zip  📂 文章导出路径 解压备份文件 12345678# 创建解压目录m...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Halo-%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7-MySQL-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8C%87%E5%8D%97-%F0%9F%9A%80"><span class="toc-text">Halo 博客升级 MySQL 数据库指南 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📋 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%8D%87%E7%BA%A7%E8%83%8C%E6%99%AF%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">✨ 升级背景与注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E8%B7%AF%E7%BA%BF"><span class="toc-text">🔍 版本升级路线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%EF%BC%9A%E6%9F%A5%E8%AF%A2%E5%8F%AF%E7%94%A8%E7%89%88%E6%9C%AC%E6%A0%87%E7%AD%BE"><span class="toc-text">📦 准备工作：查询可用版本标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BE-%E5%85%B3%E9%94%AE%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%95%B4%E5%BA%93%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%EF%BC%88%E5%BF%85%E5%81%9A%EF%BC%81%EF%BC%89"><span class="toc-text">💾 关键第一步：整库逻辑备份（必做！）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E8%B7%A8%E4%B8%BB%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%EF%BC%888-4-2-%E2%86%92-9-0-1%EF%BC%89"><span class="toc-text">⚙️ 跨主版本升级（8.4.2 → 9.0.1）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%9D-%E4%BF%AE%E6%94%B9-Docker-%E9%95%9C%E5%83%8F%E6%A0%87%E7%AD%BE"><span class="toc-text">📝 修改 Docker 镜像标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%92%EF%B8%8F-%E6%B7%BB%E5%8A%A0%E4%B8%B4%E6%97%B6%E5%8D%87%E7%BA%A7%E5%8F%82%E6%95%B0"><span class="toc-text">⚒️ 添加临时升级参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E6%89%A7%E8%A1%8C%E5%8D%87%E7%BA%A7%E6%93%8D%E4%BD%9C"><span class="toc-text">🚀 执行升级操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E5%8D%87%E7%BA%A7%E7%8A%B6%E6%80%81%E7%A1%AE%E8%AE%A4"><span class="toc-text">✅ 升级状态确认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E6%94%B6%E5%B0%BE%E5%B7%A5%E4%BD%9C"><span class="toc-text">🔧 收尾工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="toc-text">💡 常见问题与总结</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

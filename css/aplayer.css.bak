@@ -1,0 +1,146 @@
+/*aplayer日间模式调整*/
+/* 背景色 */
+.aplayer{
+	background: #ffffff!important;
+	box-shadow: 0 2px 2px 0 #000000,0 1px 5px 0 rgba(0,0,0,.1);
+	position: relative;
+}
+.aplayer.aplayer-fixed .aplayer-lrc:after,.aplayer.aplayer-fixed .aplayer-lrc:before {
+	display: none
+}
+.aplayer.aplayer.aplayer-fixed .aplayer-body{
+	background:rgb(255 255 255)!important;
+	box-shadow: 0 2px 2px 0 rgb(0 0 0),0 1px 5px 0 rgba(0,0,0,.1);
+	position: fixed;
+}
+
+
+
+/* 毛玻璃效果 */
+.aplayer-list{
+	backdrop-filter: blur(3px);
+}
+.aplayer-info{
+	backdrop-filter: blur(3px);
+}
+
+/* 滚动条 */
+.aplayer .aplayer-list ol::-webkit-scrollbar {
+	width: 9px
+}
+.aplayer .aplayer-list ol::-webkit-scrollbar-thumb {
+	border-radius: 9px;
+	background-color: #81cfff
+}
+.aplayer .aplayer-list ol::-webkit-scrollbar-thumb:hover {
+	background-color: #b0e1ff
+}
+
+/* 日间模式圆角 */
+/* 日间模式圆角 */
+[data-theme="light"] .aplayer.aplayer-fixed .aplayer-list {
+    border-radius: 6px 6px 0 0 !important;
+}
+[data-theme="light"] .aplayer.aplayer-fixed .aplayer-miniswitcher {
+    border-radius: 0 6px 6px 0 !important;
+}
+/* 修复拼写 + 提高权重 */
+[data-theme="light"] .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+    transition: 0.28s !important;
+    border-radius: 6px !important;
+}
+
+/*选中歌曲激活颜色*/
+.aplayer .aplayer-list ol li:hover{
+    background: #538eb2!important;
+}
+
+/*播放中歌曲激活颜色*/
+.aplayer .aplayer-list ol li.aplayer-list-light{
+    background: #8affaf!important;
+}
+
+/*歌手名称颜色*/
+[data-theme="light"] .aplayer .aplayer-list ol li .aplayer-list-author{
+    color: #1400ff!important;
+}
+
+
+/*aplayer黑暗模式*/
+[data-theme=dark]
+.aplayer{
+    background: rgb(0 0 0)!important;
+    color: rgb(255 255 255);
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 1px 5px 0 rgba(0,0,0,.1);
+}
+[data-theme=dark]
+.aplayer.aplayer-fixed .aplayer-body{
+    background: rgb(0 0 0)!important;
+    color: rgb(255 255 255);
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 1px 5px 0 rgba(0,0,0,.1);
+}
+[data-theme=dark]
+.aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path{
+	fill: #ffffff;
+}
+
+/* 选中歌曲激活颜色 */
+[data-theme=dark]	
+.aplayer .aplayer-list ol li:hover{
+    background: #004f7e!important;
+}
+
+/* 播放中歌曲激活颜色 */
+[data-theme=dark]
+.aplayer .aplayer-list ol li.aplayer-list-light{
+    background: #003610!important;
+}
+
+[data-theme=dark]
+.aplayer .aplayer-info .aplayer-controller .aplayer-time{
+    color: #ffffff;
+}
+[data-theme=dark]
+.aplayer .aplayer-list ol li .aplayer-list-index{
+    color: #ffffff;
+}
+
+/* 歌手名称颜色 */
+[data-theme=dark]
+.aplayer .aplayer-list ol li .aplayer-list-author{
+    color: #ff7200;
+}
+
+/* 夜间模式圆角 */
+[data-theme=dark] .aplayer.aplayer-fixed .aplayer-list {
+    border-radius: 6px 6px 0 0!important;
+}
+[data-theme="dark"] .aplayer.aplayer-fixed .aplayer-miniswitcher {
+    border-radius: 0 6px 6px 0 !important;
+    background: rgb(0 0 0);   /* 与播放器主体同色 */
+}
+[data-theme=dark] .aplayer.aplayer-fixed.aplayer-narrow .aplayer-bod {
+    transition: 0.28s!important;
+    border-radius: 6px!important;
+}	
+
+
+/* Width 的值可根据喜好调整（屏幕的宽度） */
+@media (max-width: 960px) {
+    /* APlayer 音乐标签伸缩 */
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+      left: -66px !important;
+      /* 默认情况下缩进左侧 66px，只留一点箭头部分 */
+    }
+  
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+      left: 0 !important;
+      /* 鼠标悬停是左侧缩进归零，完全显示按钮 */
+    }
+  }
+
+/*强制隐藏歌词-需要歌词释放此项*/
+.aplayer-lrc {
+    display: none !important;
+}
+

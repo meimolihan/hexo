@@ -1,0 +1,1079 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Proxmox VE 新硬盘添加与配置 💾 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Proxmox VE 新硬盘添加与配置 💾  本指南详细介绍如何在 PVE 系统中添加新硬盘，包括分区、格式化、挂载和自动挂载配置，以及如何将其集成到 PVE 存储系统中。🚀   📖 导航目录 🔍 查看现有硬盘 🛠️ 硬盘分区 💽 格式化硬盘 📂 挂载硬盘 🔄 配置开机自动挂载 🗑️ 取消挂载 ⚙️ 高级配置 🔧 PVE 存储配置 ⚠️ 注意事项 💡 完整操作示例    🔍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxmox VE 新硬盘添加与配置 💾">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/b3a8287c.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Proxmox VE 新硬盘添加与配置 💾  本指南详细介绍如何在 PVE 系统中添加新硬盘，包括分区、格式化、挂载和自动挂载配置，以及如何将其集成到 PVE 存储系统中。🚀   📖 导航目录 🔍 查看现有硬盘 🛠️ 硬盘分区 💽 格式化硬盘 📂 挂载硬盘 🔄 配置开机自动挂载 🗑️ 取消挂载 ⚙️ 高级配置 🔧 PVE 存储配置 ⚠️ 注意事项 💡 完整操作示例    🔍">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?2297">
+<meta property="article:published_time" content="2025-09-12T07:13:23.000Z">
+<meta property="article:modified_time" content="2025-09-12T07:13:23.000Z">
+<meta property="article:author" content="墨不凡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?2297"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Proxmox VE 新硬盘添加与配置 💾",
+  "url": "https://www.meimolihan.eu.org/posts/b3a8287c.html",
+  "image": "https://api.mobufan.eu.org:666/pc?2297",
+  "datePublished": "2025-09-12T07:13:23.000Z",
+  "dateModified": "2025-09-12T07:13:23.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/b3a8287c.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Proxmox VE 新硬盘添加与配置 💾',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?2297);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Proxmox VE 新硬盘添加与配置 💾</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Proxmox VE 新硬盘添加与配置 💾</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T07:13:23.000Z" title="发表于 2025-09-12 15:13:23">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T07:13:23.000Z" title="更新于 2025-09-12 15:13:23">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Proxmox-VE/">Proxmox VE</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 15:13:23&quot;}" hidden></div><h1 id="Proxmox-VE-新硬盘添加与配置-💾"><a href="#Proxmox-VE-新硬盘添加与配置-💾" class="headerlink" title="Proxmox VE 新硬盘添加与配置 💾"></a>Proxmox VE 新硬盘添加与配置 💾</h1><p><img src="https://file.meimolihan.eu.org/img/pve-02.webp" alt=""></p>
+<blockquote>
+<p>本指南详细介绍如何在 PVE 系统中添加新硬盘，包括分区、格式化、挂载和自动挂载配置，以及如何将其集成到 PVE 存储系统中。🚀</p>
+</blockquote>
+<hr>
+<h2 id="📖-导航目录"><a href="#📖-导航目录" class="headerlink" title="📖 导航目录"></a>📖 导航目录</h2><ul>
+<li><a href="#check-existing-disks">🔍 查看现有硬盘</a></li>
+<li><a href="#disk-partitioning">🛠️ 硬盘分区</a></li>
+<li><a href="#formatting-disk">💽 格式化硬盘</a></li>
+<li><a href="#mounting-disk">📂 挂载硬盘</a></li>
+<li><a href="#auto-mount">🔄 配置开机自动挂载</a></li>
+<li><a href="#unmounting">🗑️ 取消挂载</a></li>
+<li><a href="#advanced-config">⚙️ 高级配置</a></li>
+<li><a href="#pve-storage">🔧 PVE 存储配置</a></li>
+<li><a href="#important-notes">⚠️ 注意事项</a></li>
+<li><a href="#complete-example">💡 完整操作示例</a></li>
+</ul>
+<hr>
+<p><a id="check-existing-disks"></a></p>
+<h2 id="🔍-一、查看现有硬盘"><a href="#🔍-一、查看现有硬盘" class="headerlink" title="🔍 一、查看现有硬盘"></a>🔍 一、查看现有硬盘</h2><h3 id="1-查看所有硬盘信息"><a href="#1-查看所有硬盘信息" class="headerlink" title="1. 查看所有硬盘信息"></a>1. 查看所有硬盘信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有块设备的信息，包括挂载点和文件系统</span></span><br><span class="line">lsblk -f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看更详细的设备树</span></span><br><span class="line">lsblk -o NAME,SIZE,TYPE,MOUNTPOINT,FSTYPE,LABEL,UUID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只显示磁盘设备（排除分区和循环设备）</span></span><br><span class="line">lsblk -d -o NAME,SIZE,TYPE,MODEL,SERIAL</span><br></pre></td></tr></table></figure>
+<h3 id="2-详细硬盘信息"><a href="#2-详细硬盘信息" class="headerlink" title="2. 详细硬盘信息"></a>2. 详细硬盘信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示所有硬盘的详细分区信息</span></span><br><span class="line">fdisk -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定硬盘详情</span></span><br><span class="line">fdisk -l /dev/sda</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 parted 查看更详细的信息</span></span><br><span class="line">parted -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看硬盘型号和序列号</span></span><br><span class="line">hdparm -i /dev/sda | grep -E <span class="string">&quot;Model|Serial&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查硬盘健康状态</span></span><br><span class="line">smartctl -a /dev/sda | grep -E <span class="string">&quot;Model|Serial|Temperature|Reallocated|Pending|Uncorrectable&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-识别新硬盘"><a href="#3-识别新硬盘" class="headerlink" title="3. 识别新硬盘"></a>3. 识别新硬盘</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比较插入新硬盘前后的设备列表</span></span><br><span class="line"><span class="built_in">ls</span> /dev/sd* &gt; /tmp/before.txt</span><br><span class="line"><span class="comment"># 插入硬盘后</span></span><br><span class="line"><span class="built_in">ls</span> /dev/sd* &gt; /tmp/after.txt</span><br><span class="line">diff /tmp/before.txt /tmp/after.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者查看内核日志识别新设备</span></span><br><span class="line">dmesg | grep -i sd</span><br><span class="line"><span class="built_in">tail</span> -f /var/log/syslog | grep -i attached</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="disk-partitioning"></a></p>
+<h2 id="🛠️-二、硬盘分区"><a href="#🛠️-二、硬盘分区" class="headerlink" title="🛠️ 二、硬盘分区"></a>🛠️ 二、硬盘分区</h2><h3 id="1-进入-fdisk-分区工具"><a href="#1-进入-fdisk-分区工具" class="headerlink" title="1. 进入 fdisk 分区工具"></a>1. 进入 fdisk 分区工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对新硬盘进行分区（以 /dev/sdb 为例）</span></span><br><span class="line">fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
+<h3 id="2-fdisk-常用命令"><a href="#2-fdisk-常用命令" class="headerlink" title="2. fdisk 常用命令"></a>2. fdisk 常用命令</h3><p>在 fdisk 交互界面中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>中文解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>m</code></td>
+<td>显示帮助菜单</td>
+<td>列出所有可用命令</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>打印当前分区表</td>
+<td>显示现有分区情况</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>创建新分区</td>
+<td>新建一个分区</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>创建主分区</td>
+<td>创建主分区（最多4个）</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>创建扩展分区</td>
+<td>创建扩展分区</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>列出分区类型</td>
+<td>显示所有可用的分区类型</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>删除分区</td>
+<td>删除指定分区</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>改变分区类型</td>
+<td>修改分区类型</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>保存并退出</td>
+<td>保存更改并退出</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>不保存退出</td>
+<td>放弃更改并退出</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-创建分区步骤"><a href="#3-创建分区步骤" class="headerlink" title="3. 创建分区步骤"></a>3. 创建分区步骤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 fdisk 中的操作顺序：</span></span><br><span class="line">1. 输入 `n`    <span class="comment"># 创建新分区</span></span><br><span class="line">2. 输入 `p`    <span class="comment"># 选择主分区</span></span><br><span class="line">3. 按回车      <span class="comment"># 使用默认分区号 (1)</span></span><br><span class="line">4. 按回车      <span class="comment"># 使用默认起始扇区</span></span><br><span class="line">5. 按回车      <span class="comment"># 使用所有可用空间</span></span><br><span class="line">6. 输入 `w`    <span class="comment"># 保存并退出</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-使用-parted-进行高级分区"><a href="#4-使用-parted-进行高级分区" class="headerlink" title="4. 使用 parted 进行高级分区"></a>4. 使用 parted 进行高级分区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于大于2TB的硬盘，使用 parted</span></span><br><span class="line">parted /dev/sdb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 parted 中的操作：</span></span><br><span class="line">(parted) mklabel gpt          <span class="comment"># 创建 GPT 分区表</span></span><br><span class="line">(parted) mkpart primary 0% 100% <span class="comment"># 创建占用整个磁盘的分区</span></span><br><span class="line">(parted) <span class="built_in">print</span>                <span class="comment"># 打印分区信息</span></span><br><span class="line">(parted) quit                 <span class="comment"># 退出</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-使用脚本自动化分区"><a href="#5-使用脚本自动化分区" class="headerlink" title="5. 使用脚本自动化分区"></a>5. 使用脚本自动化分区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 sfdisk 进行自动化分区</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;type=83&#x27;</span> | sfdisk /dev/sdb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者创建更复杂的分区方案</span></span><br><span class="line"><span class="built_in">cat</span> &gt; partition.sfdisk &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">label: gpt</span></span><br><span class="line"><span class="string">,10G,LVM</span></span><br><span class="line"><span class="string">,20G</span></span><br><span class="line"><span class="string">,+</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line">sfdisk /dev/sdb &lt; partition.sfdisk</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="formatting-disk"></a></p>
+<h2 id="💽-三、格式化硬盘"><a href="#💽-三、格式化硬盘" class="headerlink" title="💽 三、格式化硬盘"></a>💽 三、格式化硬盘</h2><h3 id="1-格式化分区"><a href="#1-格式化分区" class="headerlink" title="1. 格式化分区"></a>1. 格式化分区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式化为 ext4 文件系统</span></span><br><span class="line">mkfs -t ext4 /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用更详细的命令</span></span><br><span class="line">mkfs.ext4 /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于大容量硬盘，可以使用更大的inode比例</span></span><br><span class="line">mkfs.ext4 -i 2048 /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="2-格式化选项（可选）"><a href="#2-格式化选项（可选）" class="headerlink" title="2. 格式化选项（可选）"></a>2. 格式化选项（可选）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加卷标</span></span><br><span class="line">mkfs.ext4 -L <span class="string">&quot;pve_data&quot;</span> /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置保留块比例为 0%（最大化可用空间）</span></span><br><span class="line">mkfs.ext4 -m 0 /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用特定块大小（性能优化）</span></span><br><span class="line">mkfs.ext4 -b 4096 /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 强制格式化（即使设备已挂载）</span></span><br><span class="line">mkfs.ext4 -F /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="3-其他文件系统格式"><a href="#3-其他文件系统格式" class="headerlink" title="3. 其他文件系统格式"></a>3. 其他文件系统格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式化为 XFS 文件系统（适合大文件）</span></span><br><span class="line">mkfs.xfs -f /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化为 Btrfs 文件系统（高级特性）</span></span><br><span class="line">mkfs.btrfs -f /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化为 NTFS 文件系统（Windows 兼容）</span></span><br><span class="line">mkfs.ntfs -f /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="4-验证格式化"><a href="#4-验证格式化" class="headerlink" title="4. 验证格式化"></a>4. 验证格式化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查文件系统</span></span><br><span class="line">blkid /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看详细信息</span></span><br><span class="line">tune2fs -l /dev/sdb1 | <span class="built_in">head</span> -20</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查文件系统完整性</span></span><br><span class="line">fsck -f /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看磁盘空间使用情况（格式化后）</span></span><br><span class="line"><span class="built_in">df</span> -h /dev/sdb1</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="mounting-disk"></a></p>
+<h2 id="📂-四、挂载硬盘"><a href="#📂-四、挂载硬盘" class="headerlink" title="📂 四、挂载硬盘"></a>📂 四、挂载硬盘</h2><h3 id="1-创建挂载点"><a href="#1-创建挂载点" class="headerlink" title="1. 创建挂载点"></a>1. 创建挂载点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建挂载目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用更有意义的名称</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /mnt/pve-data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建多层目录结构</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /mnt/storage/&#123;backup,iso,template,images&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-手动挂载"><a href="#2-手动挂载" class="headerlink" title="2. 手动挂载"></a>2. 手动挂载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂载分区到目录</span></span><br><span class="line">mount -t ext4 /dev/sdb1 /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用特定挂载选项</span></span><br><span class="line">mount -t ext4 -o noatime,nodiratime /dev/sdb1 /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证挂载</span></span><br><span class="line"><span class="built_in">df</span> -h /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看详细挂载信息</span></span><br><span class="line">mount | grep sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查目录权限</span></span><br><span class="line"><span class="built_in">ls</span> -ld /mnt/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="3-设置权限"><a href="#3-设置权限" class="headerlink" title="3. 设置权限"></a>3. 设置权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置合适的权限</span></span><br><span class="line"><span class="built_in">chmod</span> 755 /mnt/sdb1</span><br><span class="line"><span class="built_in">chown</span> root:root /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建常用子目录并设置权限</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /mnt/sdb1/&#123;backup,iso,template,images&#125;</span><br><span class="line"><span class="built_in">chmod</span> 755 /mnt/sdb1/*</span><br><span class="line"><span class="built_in">chown</span> root:root /mnt/sdb1/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为特定用户或组设置权限</span></span><br><span class="line"><span class="built_in">chown</span> -R nobody:nogroup /mnt/sdb1/backup</span><br><span class="line"><span class="built_in">chmod</span> 770 /mnt/sdb1/backup</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="auto-mount"></a></p>
+<h2 id="🔄-五、配置开机自动挂载"><a href="#🔄-五、配置开机自动挂载" class="headerlink" title="🔄 五、配置开机自动挂载"></a>🔄 五、配置开机自动挂载</h2><h3 id="1-编辑-fstab-文件"><a href="#1-编辑-fstab-文件" class="headerlink" title="1. 编辑 fstab 文件"></a>1. 编辑 fstab 文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份原有 fstab 文件</span></span><br><span class="line"><span class="built_in">cp</span> /etc/fstab /etc/fstab.backup.$(<span class="built_in">date</span> +%Y%m%d)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加自动挂载配置到 /etc/fstab</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/dev/sdb1 /mnt/sdb1 ext4 defaults,nofail,x-systemd.device-timeout=15s 0 0&#x27;</span> &gt;&gt; /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 UUID（推荐）</span></span><br><span class="line">UUID=$(blkid -s UUID -o value /dev/sdb1)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;UUID=<span class="variable">$UUID</span> /mnt/sdb1 ext4 defaults,nofail,x-systemd.device-timeout=15s 0 0&quot;</span> &gt;&gt; /etc/fstab</span><br></pre></td></tr></table></figure>
+<h3 id="2-fstab-参数解释"><a href="#2-fstab-参数解释" class="headerlink" title="2. fstab 参数解释"></a>2. fstab 参数解释</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置项说明：</span></span><br><span class="line"><span class="comment"># /dev/sdb1 或 UUID=... - 设备路径或唯一标识</span></span><br><span class="line"><span class="comment"># /mnt/sdb1            - 挂载点</span></span><br><span class="line"><span class="comment"># ext4                 - 文件系统类型</span></span><br><span class="line"><span class="comment"># defaults             - 默认挂载选项</span></span><br><span class="line"><span class="comment"># nofail               - 启动时如果设备不存在也不报错</span></span><br><span class="line"><span class="comment"># x-systemd.device-timeout=15s - 设备超时时间</span></span><br><span class="line"><span class="comment"># 0 0                  - dump 和 fsck 选项</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-其他有用的挂载选项"><a href="#3-其他有用的挂载选项" class="headerlink" title="3. 其他有用的挂载选项"></a>3. 其他有用的挂载选项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 性能优化选项</span></span><br><span class="line">defaults,noatime,nodiratime,data=writeback</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安全选项</span></span><br><span class="line">defaults,nosuid,nodev,noexec</span><br><span class="line"></span><br><span class="line"><span class="comment"># 网络文件系统选项</span></span><br><span class="line">defaults,_netdev,auto</span><br></pre></td></tr></table></figure>
+<h3 id="4-测试-fstab-配置"><a href="#4-测试-fstab-配置" class="headerlink" title="4. 测试 fstab 配置"></a>4. 测试 fstab 配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试 fstab 配置是否正确</span></span><br><span class="line">mount -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果出现错误，检查并修复</span></span><br><span class="line">mount -a 2&gt;&amp;1 | grep -i error</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证自动挂载</span></span><br><span class="line">umount /mnt/sdb1</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart local-fs.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查启动时挂载</span></span><br><span class="line">systemctl status local-fs.target</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="unmounting"></a></p>
+<h2 id="🗑️-六、取消挂载"><a href="#🗑️-六、取消挂载" class="headerlink" title="🗑️ 六、取消挂载"></a>🗑️ 六、取消挂载</h2><h3 id="1-安全卸载"><a href="#1-安全卸载" class="headerlink" title="1. 安全卸载"></a>1. 安全卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载分区</span></span><br><span class="line">umount /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者通过挂载点卸载</span></span><br><span class="line">umount /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查是否卸载成功</span></span><br><span class="line"><span class="built_in">df</span> -h | grep sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看哪些进程正在使用挂载点</span></span><br><span class="line">lsof /mnt/sdb1</span><br><span class="line">fuser -vm /mnt/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="2-强制卸载（如果需要）"><a href="#2-强制卸载（如果需要）" class="headerlink" title="2. 强制卸载（如果需要）"></a>2. 强制卸载（如果需要）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果设备忙，强制卸载</span></span><br><span class="line">umount -f /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 lazy unmount</span></span><br><span class="line">umount -l /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终止使用挂载点的进程</span></span><br><span class="line">fuser -km /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再次尝试卸载</span></span><br><span class="line">umount /mnt/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="3-从-fstab-中移除配置"><a href="#3-从-fstab-中移除配置" class="headerlink" title="3. 从 fstab 中移除配置"></a>3. 从 fstab 中移除配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 移除 fstab 中的挂载配置</span></span><br><span class="line">sed -i <span class="string">&#x27;/\/mnt\/sdb1/d&#x27;</span> /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者备份并编辑文件</span></span><br><span class="line"><span class="built_in">cp</span> /etc/fstab /etc/fstab.modified</span><br><span class="line">vi /etc/fstab.modified</span><br><span class="line"><span class="built_in">mv</span> /etc/fstab.modified /etc/fstab</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="advanced-config"></a></p>
+<h2 id="⚙️-七、高级配置"><a href="#⚙️-七、高级配置" class="headerlink" title="⚙️ 七、高级配置"></a>⚙️ 七、高级配置</h2><h3 id="1-使用-UUID-挂载（推荐）"><a href="#1-使用-UUID-挂载（推荐）" class="headerlink" title="1. 使用 UUID 挂载（推荐）"></a>1. 使用 UUID 挂载（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取分区的 UUID</span></span><br><span class="line">blkid /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 UUID 替换设备路径</span></span><br><span class="line">UUID=$(blkid -s UUID -o value /dev/sdb1)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;UUID=<span class="variable">$UUID</span> /mnt/sdb1 ext4 defaults,nofail 0 0&quot;</span> &gt;&gt; /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证 UUID 挂载</span></span><br><span class="line">umount /mnt/sdb1</span><br><span class="line">mount -U <span class="variable">$UUID</span> /mnt/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="2-挂载选项优化"><a href="#2-挂载选项优化" class="headerlink" title="2. 挂载选项优化"></a>2. 挂载选项优化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 性能优化挂载选项</span></span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; /etc/fstab &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">/dev/sdb1 /mnt/sdb1 ext4 defaults,noatime,nodiratime,data=writeback,commit=60 0 0</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新挂载应用新选项</span></span><br><span class="line">mount -o remount /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查当前挂载选项</span></span><br><span class="line">mount | grep sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="3-创建符号链接"><a href="#3-创建符号链接" class="headerlink" title="3. 创建符号链接"></a>3. 创建符号链接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建方便的符号链接</span></span><br><span class="line"><span class="built_in">ln</span> -sf /mnt/sdb1 /pve-data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证链接</span></span><br><span class="line"><span class="built_in">ls</span> -la /pve-data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为不同用途创建多个链接</span></span><br><span class="line"><span class="built_in">ln</span> -sf /mnt/sdb1/backup /pve-backup</span><br><span class="line"><span class="built_in">ln</span> -sf /mnt/sdb1/iso /pve-iso</span><br><span class="line"><span class="built_in">ln</span> -sf /mnt/sdb1/template /pve-template</span><br></pre></td></tr></table></figure>
+<h3 id="4-配置磁盘调度器"><a href="#4-配置磁盘调度器" class="headerlink" title="4. 配置磁盘调度器"></a>4. 配置磁盘调度器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前调度器</span></span><br><span class="line"><span class="built_in">cat</span> /sys/block/sdb/queue/scheduler</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改调度器（例如改为 deadline）</span></span><br><span class="line"><span class="built_in">echo</span> deadline &gt; /sys/block/sdb/queue/scheduler</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久修改调度器</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;ACTION==&quot;add|change&quot;, KERNEL==&quot;sdb&quot;, ATTR&#123;queue/scheduler&#125;=&quot;deadline&quot;&#x27;</span> &gt; /etc/udev/rules.d/60-ioscheduler.rules</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载 udev 规则</span></span><br><span class="line">udevadm control --reload-rules</span><br><span class="line">udevadm trigger</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="pve-storage"></a></p>
+<h2 id="🔧-八、PVE-存储配置"><a href="#🔧-八、PVE-存储配置" class="headerlink" title="🔧 八、PVE 存储配置"></a>🔧 八、PVE 存储配置</h2><h3 id="1-添加为-PVE-存储（Web-界面）"><a href="#1-添加为-PVE-存储（Web-界面）" class="headerlink" title="1. 添加为 PVE 存储（Web 界面）"></a>1. 添加为 PVE 存储（Web 界面）</h3><ol>
+<li>登录 PVE Web 管理界面</li>
+<li>选择数据中心 → 存储</li>
+<li>点击”添加” → “目录”</li>
+<li>填写信息：<ul>
+<li>ID: sdb1-storage（唯一标识符）</li>
+<li>目录: /mnt/sdb1</li>
+<li>内容: 选择需要的类型（磁盘镜像、ISO、备份等）</li>
+<li>节点: 选择可用节点或所有节点</li>
+</ul>
+</li>
+<li>点击”添加”</li>
+</ol>
+<h3 id="2-命令行添加存储"><a href="#2-命令行添加存储" class="headerlink" title="2. 命令行添加存储"></a>2. 命令行添加存储</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用命令行添加存储</span></span><br><span class="line">pvesm add <span class="built_in">dir</span> sdb1-storage --path /mnt/sdb1 --content images,iso,backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加特定类型的存储</span></span><br><span class="line">pvesm add <span class="built_in">dir</span> sdb1-images --path /mnt/sdb1/images --content images</span><br><span class="line">pvesm add <span class="built_in">dir</span> sdb1-iso --path /mnt/sdb1/iso --content iso</span><br><span class="line">pvesm add <span class="built_in">dir</span> sdb1-backup --path /mnt/sdb1/backup --content backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证存储添加</span></span><br><span class="line">pvesm status</span><br><span class="line">pvesm list</span><br></pre></td></tr></table></figure>
+<h3 id="3-配置存储选项"><a href="#3-配置存储选项" class="headerlink" title="3. 配置存储选项"></a>3. 配置存储选项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置存储选项</span></span><br><span class="line">pvesm <span class="built_in">set</span> sdb1-storage --maxfiles 0  <span class="comment"># 不限制文件数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看存储配置</span></span><br><span class="line">pvesm config sdb1-storage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用共享存储</span></span><br><span class="line">pvesm <span class="built_in">set</span> sdb1-storage --shared 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置存储权限</span></span><br><span class="line">pvesm <span class="built_in">set</span> sdb1-storage --nodes node1,node2</span><br></pre></td></tr></table></figure>
+<h3 id="4-使用存储"><a href="#4-使用存储" class="headerlink" title="4. 使用存储"></a>4. 使用存储</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建虚拟机并使用新存储</span></span><br><span class="line">qm create 100 --name test-vm --storage sdb1-storage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传 ISO 镜像到存储</span></span><br><span class="line">qm importdisk 100 /path/to/iso.iso sdb1-storage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份虚拟机到新存储</span></span><br><span class="line">vzdump 100 --storage sdb1-backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看存储使用情况</span></span><br><span class="line">pvesm status</span><br><span class="line"><span class="built_in">df</span> -h /mnt/sdb1</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="important-notes"></a></p>
+<h2 id="⚠️-九、注意事项"><a href="#⚠️-九、注意事项" class="headerlink" title="⚠️ 九、注意事项"></a>⚠️ 九、注意事项</h2><h3 id="1-安全警告"><a href="#1-安全警告" class="headerlink" title="1. 安全警告"></a>1. 安全警告</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不要挂载系统关键目录</span></span><br><span class="line"><span class="comment"># 确保有足够的权限</span></span><br><span class="line"><span class="comment"># 定期检查磁盘健康</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查磁盘健康</span></span><br><span class="line">smartctl -a /dev/sdb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控磁盘温度</span></span><br><span class="line">smartctl -A /dev/sdb | grep -i temperature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定期检查文件系统</span></span><br><span class="line">fsck -n /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h3 id="2-性能考虑"><a href="#2-性能考虑" class="headerlink" title="2. 性能考虑"></a>2. 性能考虑</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于 SSD 硬盘，使用适当的挂载选项</span></span><br><span class="line"><span class="built_in">echo</span> noop &gt; /sys/block/sdb/queue/scheduler  <span class="comment"># SSD 调度器</span></span><br><span class="line"><span class="built_in">echo</span> 0 &gt; /proc/sys/vm/dirty_background_ratio</span><br><span class="line"><span class="built_in">echo</span> 0 &gt; /proc/sys/vm/dirty_ratio</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用 TRIM（SSD 专用）</span></span><br><span class="line">fstrim /mnt/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定期清理缓存</span></span><br><span class="line"><span class="built_in">sync</span> &amp;&amp; <span class="built_in">echo</span> 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+<h3 id="3-备份重要数据"><a href="#3-备份重要数据" class="headerlink" title="3. 备份重要数据"></a>3. 备份重要数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在操作前备份重要数据</span></span><br><span class="line">tar -czf /root/fstab-backup-$(<span class="built_in">date</span> +%Y%m%d).tar.gz /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份分区表</span></span><br><span class="line">sfdisk -d /dev/sdb &gt; /root/sdb-partition-backup.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定期备份存储配置</span></span><br><span class="line">pvesm status &gt; /root/pve-storage-status-$(<span class="built_in">date</span> +%Y%m%d).txt</span><br></pre></td></tr></table></figure>
+<h3 id="4-监控和维护"><a href="#4-监控和维护" class="headerlink" title="4. 监控和维护"></a>4. 监控和维护</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置磁盘监控</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;#!/bin/bash</span></span><br><span class="line"><span class="string">USAGE=$(df /mnt/sdb1 | awk &quot;NR==2&#123;print $5&#125;&quot; | sed &quot;s/%//&quot;)</span></span><br><span class="line"><span class="string">if [ $USAGE -gt 90 ]; then</span></span><br><span class="line"><span class="string">    echo &quot;警告: 磁盘空间不足 $&#123;USAGE&#125;%&quot; | logger -t disk-monitor</span></span><br><span class="line"><span class="string">fi&#x27;</span> &gt; /usr/local/bin/disk-alert.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> +x /usr/local/bin/disk-alert.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加到计划任务</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;*/30 * * * * /usr/local/bin/disk-alert.sh&quot;</span> &gt;&gt; /etc/crontab</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="complete-example"></a></p>
+<h2 id="💡-十、完整操作示例"><a href="#💡-十、完整操作示例" class="headerlink" title="💡 十、完整操作示例"></a>💡 十、完整操作示例</h2><h3 id="新硬盘初始化脚本"><a href="#新硬盘初始化脚本" class="headerlink" title="新硬盘初始化脚本"></a>新硬盘初始化脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># PVE 新硬盘初始化脚本</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">DISK=<span class="string">&quot;/dev/sdb&quot;</span></span><br><span class="line">MOUNT_POINT=<span class="string">&quot;/mnt/pve-data&quot;</span></span><br><span class="line">STORAGE_ID=<span class="string">&quot;pve-data&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;正在初始化新硬盘 <span class="variable">$DISK</span>...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 检查磁盘是否存在</span></span><br><span class="line"><span class="keyword">if</span> [ ! -b <span class="variable">$DISK</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;错误: 磁盘 <span class="variable">$DISK</span> 不存在!&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 分区</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;创建分区...&quot;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;n\np\n1\n\n\nw&quot;</span> | fdisk <span class="variable">$DISK</span></span><br><span class="line">partprobe <span class="variable">$DISK</span></span><br><span class="line"><span class="built_in">sleep</span> 2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 格式化</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;格式化分区...&quot;</span></span><br><span class="line">mkfs.ext4 -m 0 -L <span class="string">&quot;pve_data&quot;</span> <span class="variable">$&#123;DISK&#125;</span>1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 创建挂载点</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;创建挂载点...&quot;</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$MOUNT_POINT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 临时挂载</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;临时挂载...&quot;</span></span><br><span class="line">mount <span class="variable">$&#123;DISK&#125;</span>1 <span class="variable">$MOUNT_POINT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 创建子目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$MOUNT_POINT</span>/&#123;images,iso,backup,template&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7. 配置自动挂载</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;配置自动挂载...&quot;</span></span><br><span class="line">UUID=$(blkid -s UUID -o value <span class="variable">$&#123;DISK&#125;</span>1)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;UUID=<span class="variable">$UUID</span> <span class="variable">$MOUNT_POINT</span> ext4 defaults,nofail,x-systemd.device-timeout=15s 0 0&quot;</span> &gt;&gt; /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 8. 添加为 PVE 存储</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;添加为 PVE 存储...&quot;</span></span><br><span class="line">pvesm add <span class="built_in">dir</span> <span class="variable">$STORAGE_ID</span> --path <span class="variable">$MOUNT_POINT</span> --content images,iso,backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 9. 设置权限</span></span><br><span class="line"><span class="built_in">chmod</span> 755 <span class="variable">$MOUNT_POINT</span></span><br><span class="line"><span class="built_in">chown</span> root:root <span class="variable">$MOUNT_POINT</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;新硬盘初始化完成！&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;挂载点: <span class="variable">$MOUNT_POINT</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;存储 ID: <span class="variable">$STORAGE_ID</span>&quot;</span></span><br><span class="line"><span class="built_in">df</span> -h <span class="variable">$MOUNT_POINT</span></span><br><span class="line">pvesm status</span><br></pre></td></tr></table></figure>
+<h3 id="使用脚本"><a href="#使用脚本" class="headerlink" title="使用脚本"></a>使用脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载脚本</span></span><br><span class="line">curl -O https://example.com/pve-disk-init.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 赋予执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x pve-disk-init.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行脚本（谨慎操作！）</span></span><br><span class="line">./pve-disk-init.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者直接运行</span></span><br><span class="line">bash pve-disk-init.sh</span><br></pre></td></tr></table></figure>
+<h3 id="验证脚本执行结果"><a href="#验证脚本执行结果" class="headerlink" title="验证脚本执行结果"></a>验证脚本执行结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查挂载</span></span><br><span class="line"><span class="built_in">df</span> -h /mnt/pve-data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 fstab 配置</span></span><br><span class="line">grep <span class="string">&quot;pve-data&quot;</span> /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 PVE 存储</span></span><br><span class="line">pvesm status</span><br><span class="line">pvesm list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试自动挂载</span></span><br><span class="line">umount /mnt/pve-data</span><br><span class="line">mount -a</span><br><span class="line"><span class="built_in">df</span> -h /mnt/pve-data</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>🎯 <strong>提示</strong>: 在生产环境中操作前，请确保已经备份重要数据，并确认操作的是正确的硬盘设备。建议先在测试环境中验证脚本和操作流程。</p>
+</blockquote>
+<p>通过以上步骤，您应该能够成功在 PVE 中添加和配置新硬盘。如果遇到任何问题，可以参考相关日志文件或寻求社区帮助。</p>
+</article><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?2297" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/e3395e5f.html" title="Docker 镜像加速配置指南 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5285" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Docker 镜像加速配置指南 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 镜像加速配置指南 🐳  🚀 一键解决 Docker 镜像拉取缓慢问题，提升容器部署效率。本指南提供全面的 Docker 镜像加速配置方案，涵盖多种系统和环境！✨   📖 导航目录 ✨ 功能特点 🐧 Linux 一键配置 🔧 手动配置 Docker 镜像源 🖥️ OpenWRT Docker 配置 🔍 获取最新镜像源地址 💡 使用建议 🚨 常见问题 📊 镜像源推荐列表    ✨ 功能特点Docker 镜像加速配置提供以下优势：  🌐 全球加速 - 多个国内优质镜像源，大幅提升拉取速度 🛠️ 多平台支持 - 支持 Linux、Windows、macOS、OpenWRT 等系统 ⚡ 一键配置 - 提供自动化脚本，简化配置流程 🔄 实时更新 - 镜像源地址持续维护更新 📊 速度优选 - 智能选择最快镜像节点 🆓 完全免费 - 所有镜像服务均免费使用 🔒 安全可靠 - 官方和可信第三方镜像源，保证安全性 📈 性能监控 - 可监控镜像拉取速度和成功率     🐧 Linux 一键配置镜像加速官方网站：https://linuxmirrors....</div></div></div></a><a class="pagination-related" href="/posts/8fa9da05.html" title="Proxmox VE 虚拟内存 Swap 全面解析 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9863" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Proxmox VE 虚拟内存 Swap 全面解析 🐧</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 虚拟内存 Swap 全面解析 🐧  深入理解 Proxmox VE 中 Swap 虚拟内存的工作原理、配置方法和优化策略，帮助您构建更稳定高效的虚拟化环境！🚀   📖 导航目录 ✨ 什么是 Swap 虚拟内存？ 🛠️ 一、删除 Swap 虚拟内存 🛠️ 二、创建 Swap 虚拟内存 🛠️ 文件为 Swap 虚拟内存 🛠️ 分区为 Swap 虚拟内存   ⚙️ 三、配置永久生效 🎯 四、Swap 策略优化 ⚖️ 五、启用 Swap 的优缺点 🚀 六、优化 Swap 性能的策略 📊 七、Swap 大小规划建议 🔧 八、高级配置技巧 🚨 九、故障排除与注意事项 📈 十、监控与维护    ✨ 什么是 Swap 虚拟内存？Swap 虚拟内存是 Linux 系统的一种内存管理机制，当物理内存（RAM）不足时，系统会将一部分不常用的内存数据暂时存储到硬盘上的特定区域（Swap 空间），从而释放物理内存供更紧急的任务使用。 🔍 工作原理 内存扩展：将硬盘空间虚拟为内存使用 数据交换：将不活跃的内存页移动到 Swap 空间 应急保护：防止内存耗尽导...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proxmox-VE-%E6%96%B0%E7%A1%AC%E7%9B%98%E6%B7%BB%E5%8A%A0%E4%B8%8E%E9%85%8D%E7%BD%AE-%F0%9F%92%BE"><span class="toc-text">Proxmox VE 新硬盘添加与配置 💾</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📖 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E4%B8%80%E3%80%81%E6%9F%A5%E7%9C%8B%E7%8E%B0%E6%9C%89%E7%A1%AC%E7%9B%98"><span class="toc-text">🔍 一、查看现有硬盘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%A1%AC%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-text">1. 查看所有硬盘信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%A6%E7%BB%86%E7%A1%AC%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-text">2. 详细硬盘信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%86%E5%88%AB%E6%96%B0%E7%A1%AC%E7%9B%98"><span class="toc-text">3. 识别新硬盘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E4%BA%8C%E3%80%81%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-text">🛠️ 二、硬盘分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BF%9B%E5%85%A5-fdisk-%E5%88%86%E5%8C%BA%E5%B7%A5%E5%85%B7"><span class="toc-text">1. 进入 fdisk 分区工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-fdisk-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">2. fdisk 常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA%E6%AD%A5%E9%AA%A4"><span class="toc-text">3. 创建分区步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-parted-%E8%BF%9B%E8%A1%8C%E9%AB%98%E7%BA%A7%E5%88%86%E5%8C%BA"><span class="toc-text">4. 使用 parted 进行高级分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-text">5. 使用脚本自动化分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BD-%E4%B8%89%E3%80%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%A1%AC%E7%9B%98"><span class="toc-text">💽 三、格式化硬盘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-text">1. 格式化分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A0%BC%E5%BC%8F%E5%8C%96%E9%80%89%E9%A1%B9%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">2. 格式化选项（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A0%BC%E5%BC%8F"><span class="toc-text">3. 其他文件系统格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%AA%8C%E8%AF%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">4. 验证格式化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%82-%E5%9B%9B%E3%80%81%E6%8C%82%E8%BD%BD%E7%A1%AC%E7%9B%98"><span class="toc-text">📂 四、挂载硬盘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E6%8C%82%E8%BD%BD%E7%82%B9"><span class="toc-text">1. 创建挂载点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%8B%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="toc-text">2. 手动挂载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90"><span class="toc-text">3. 设置权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E4%BA%94%E3%80%81%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="toc-text">🔄 五、配置开机自动挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%96%E8%BE%91-fstab-%E6%96%87%E4%BB%B6"><span class="toc-text">1. 编辑 fstab 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-fstab-%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A"><span class="toc-text">2. fstab 参数解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B6%E4%BB%96%E6%9C%89%E7%94%A8%E7%9A%84%E6%8C%82%E8%BD%BD%E9%80%89%E9%A1%B9"><span class="toc-text">3. 其他有用的挂载选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B5%8B%E8%AF%95-fstab-%E9%85%8D%E7%BD%AE"><span class="toc-text">4. 测试 fstab 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%97%91%EF%B8%8F-%E5%85%AD%E3%80%81%E5%8F%96%E6%B6%88%E6%8C%82%E8%BD%BD"><span class="toc-text">🗑️ 六、取消挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E5%85%A8%E5%8D%B8%E8%BD%BD"><span class="toc-text">1. 安全卸载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BC%BA%E5%88%B6%E5%8D%B8%E8%BD%BD%EF%BC%88%E5%A6%82%E6%9E%9C%E9%9C%80%E8%A6%81%EF%BC%89"><span class="toc-text">2. 强制卸载（如果需要）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BB%8E-fstab-%E4%B8%AD%E7%A7%BB%E9%99%A4%E9%85%8D%E7%BD%AE"><span class="toc-text">3. 从 fstab 中移除配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E4%B8%83%E3%80%81%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE"><span class="toc-text">⚙️ 七、高级配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8-UUID-%E6%8C%82%E8%BD%BD%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">1. 使用 UUID 挂载（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8C%82%E8%BD%BD%E9%80%89%E9%A1%B9%E4%BC%98%E5%8C%96"><span class="toc-text">2. 挂载选项优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5"><span class="toc-text">3. 创建符号链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AE%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E5%99%A8"><span class="toc-text">4. 配置磁盘调度器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%85%AB%E3%80%81PVE-%E5%AD%98%E5%82%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">🔧 八、PVE 存储配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B7%BB%E5%8A%A0%E4%B8%BA-PVE-%E5%AD%98%E5%82%A8%EF%BC%88Web-%E7%95%8C%E9%9D%A2%EF%BC%89"><span class="toc-text">1. 添加为 PVE 存储（Web 界面）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%B7%BB%E5%8A%A0%E5%AD%98%E5%82%A8"><span class="toc-text">2. 命令行添加存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E5%AD%98%E5%82%A8%E9%80%89%E9%A1%B9"><span class="toc-text">3. 配置存储选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8%E5%AD%98%E5%82%A8"><span class="toc-text">4. 使用存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E4%B9%9D%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">⚠️ 九、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E5%85%A8%E8%AD%A6%E5%91%8A"><span class="toc-text">1. 安全警告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">2. 性能考虑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%87%E4%BB%BD%E9%87%8D%E8%A6%81%E6%95%B0%E6%8D%AE"><span class="toc-text">3. 备份重要数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%9B%91%E6%8E%A7%E5%92%8C%E7%BB%B4%E6%8A%A4"><span class="toc-text">4. 监控和维护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E5%8D%81%E3%80%81%E5%AE%8C%E6%95%B4%E6%93%8D%E4%BD%9C%E7%A4%BA%E4%BE%8B"><span class="toc-text">💡 十、完整操作示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E7%A1%AC%E7%9B%98%E5%88%9D%E5%A7%8B%E5%8C%96%E8%84%9A%E6%9C%AC"><span class="toc-text">新硬盘初始化脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC"><span class="toc-text">使用脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E8%84%9A%E6%9C%AC%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-text">验证脚本执行结果</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

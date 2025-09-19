@@ -1,0 +1,1111 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Proxmox VE 内核升级 &amp; 降级指南 🐧 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Proxmox VE 内核升级 &amp; 降级指南 🐧  本指南详细介绍了如何在 Proxmox VE 中安全地升级或降级内核版本，确保系统稳定性、硬件兼容性和安全性。包含从基础操作到高级管理的全面内容！🚀   📖 导航目录 ✨ 概述 ⚠️ 重要提示 🔄 内核管理基本操作 ⬆️ 升级内核版本 📌 内核版本固化 ⬇️ 降级内核版本 🛠️ 内核头文件安装 🔧 高级内核管理 📊 内核版">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxmox VE 内核升级 &amp; 降级指南 🐧">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/6fe68d25.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Proxmox VE 内核升级 &amp; 降级指南 🐧  本指南详细介绍了如何在 Proxmox VE 中安全地升级或降级内核版本，确保系统稳定性、硬件兼容性和安全性。包含从基础操作到高级管理的全面内容！🚀   📖 导航目录 ✨ 概述 ⚠️ 重要提示 🔄 内核管理基本操作 ⬆️ 升级内核版本 📌 内核版本固化 ⬇️ 降级内核版本 🛠️ 内核头文件安装 🔧 高级内核管理 📊 内核版">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?8542">
+<meta property="article:published_time" content="2025-09-12T07:25:17.000Z">
+<meta property="article:modified_time" content="2025-09-12T07:25:17.000Z">
+<meta property="article:author" content="墨不凡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?8542"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Proxmox VE 内核升级 & 降级指南 🐧",
+  "url": "https://www.meimolihan.eu.org/posts/6fe68d25.html",
+  "image": "https://api.mobufan.eu.org:666/pc?8542",
+  "datePublished": "2025-09-12T07:25:17.000Z",
+  "dateModified": "2025-09-12T07:25:17.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/6fe68d25.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Proxmox VE 内核升级 & 降级指南 🐧',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?8542);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Proxmox VE 内核升级 &amp; 降级指南 🐧</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Proxmox VE 内核升级 &amp; 降级指南 🐧</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T07:25:17.000Z" title="发表于 2025-09-12 15:25:17">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T07:25:17.000Z" title="更新于 2025-09-12 15:25:17">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Proxmox-VE/">Proxmox VE</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 15:25:17&quot;}" hidden></div><h1 id="Proxmox-VE-内核升级-amp-降级指南-🐧"><a href="#Proxmox-VE-内核升级-amp-降级指南-🐧" class="headerlink" title="Proxmox VE 内核升级 &amp; 降级指南 🐧"></a>Proxmox VE 内核升级 &amp; 降级指南 🐧</h1><p><img src="https://file.meimolihan.eu.org/img/pve-02.webp" alt=""></p>
+<blockquote>
+<p>本指南详细介绍了如何在 Proxmox VE 中安全地升级或降级内核版本，确保系统稳定性、硬件兼容性和安全性。包含从基础操作到高级管理的全面内容！🚀</p>
+</blockquote>
+<hr>
+<h2 id="📖-导航目录"><a href="#📖-导航目录" class="headerlink" title="📖 导航目录"></a>📖 导航目录</h2><ul>
+<li><a href="#overview">✨ 概述</a></li>
+<li><a href="#important-notes">⚠️ 重要提示</a></li>
+<li><a href="#basic-operations">🔄 内核管理基本操作</a></li>
+<li><a href="#upgrade-kernel">⬆️ 升级内核版本</a></li>
+<li><a href="#kernel-pinning">📌 内核版本固化</a></li>
+<li><a href="#downgrade-kernel">⬇️ 降级内核版本</a></li>
+<li><a href="#kernel-headers">🛠️ 内核头文件安装</a></li>
+<li><a href="#advanced-management">🔧 高级内核管理</a></li>
+<li><a href="#version-selection">📊 内核版本选择建议</a></li>
+<li><a href="#troubleshooting">🚨 故障排除与恢复</a></li>
+<li><a href="#automation-scripts">🤖 自动化脚本示例</a></li>
+<li><a href="#best-practices">💡 注意事项与最佳实践</a></li>
+</ul>
+<hr>
+<p><a id="overview"></a></p>
+<h2 id="✨-概述"><a href="#✨-概述" class="headerlink" title="✨ 概述"></a>✨ 概述</h2><p>Proxmox VE 基于 Debian，使用自定义的 Linux 内核。正确管理内核版本对于系统稳定性、硬件兼容性和安全性至关重要。</p>
+<p><strong>内核管理的重要性：</strong></p>
+<ul>
+<li>🔧 <strong>硬件兼容性</strong>：新版内核通常支持更新的硬件</li>
+<li>🛡️ <strong>安全性</strong>：内核更新包含重要的安全补丁</li>
+<li>⚡ <strong>性能优化</strong>：新内核可能提供更好的性能和改进</li>
+<li>🔄 <strong>稳定性</strong>：有时需要降级内核以解决兼容性问题</li>
+<li>📊 <strong>功能增强</strong>：新特性和新功能通常需要新版内核</li>
+</ul>
+<p><img src="https://file.meimolihan.eu.org/img/pve-02.webp" alt="Proxmox VE"></p>
+<hr>
+<p><a id="important-notes"></a></p>
+<h2 id="⚠️-重要提示"><a href="#⚠️-重要提示" class="headerlink" title="⚠️ 重要提示"></a>⚠️ 重要提示</h2><p>在进行任何内核操作前，请务必：</p>
+<ol>
+<li><p><strong>备份重要数据</strong>：包括虚拟机配置、存储设置和系统配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份虚拟机列表</span></span><br><span class="line">qm list &gt; /root/vm-backup-list.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份网络配置</span></span><br><span class="line"><span class="built_in">cp</span> /etc/network/interfaces /root/network-backup.interfaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份存储配置</span></span><br><span class="line"><span class="built_in">cp</span> /etc/pve/storage.cfg /root/storage-backup.cfg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>确保有物理访问或可靠的恢复方法</strong>：如果远程操作，确保有带外管理(IPMI/iDRAC)或恢复方案</p>
+</li>
+<li><p><strong>在测试环境中先行验证</strong>：在生产环境操作前，先在测试环境验证</p>
+</li>
+<li><p><strong>了解如何从旧内核启动</strong>：熟悉GRUB菜单操作，知道如何选择旧内核启动</p>
+</li>
+<li><p><strong>检查当前内核和系统状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 记录当前内核版本</span></span><br><span class="line"><span class="built_in">uname</span> -r &gt; /root/current-kernel.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查系统日志</span></span><br><span class="line">dmesg | <span class="built_in">tail</span> -50</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查硬件状态</span></span><br><span class="line">lspci</span><br><span class="line">lsmod</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="basic-operations"></a></p>
+<h2 id="🔄-内核管理基本操作"><a href="#🔄-内核管理基本操作" class="headerlink" title="🔄 内核管理基本操作"></a>🔄 内核管理基本操作</h2><h3 id="1-更新软件源"><a href="#1-更新软件源" class="headerlink" title="1. 更新软件源"></a>1. 更新软件源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br></pre></td></tr></table></figure>
+<p>确保获取最新的软件包信息，包括可用的内核版本。</p>
+<h3 id="2-查看可用内核版本"><a href="#2-查看可用内核版本" class="headerlink" title="2. 查看可用内核版本"></a>2. 查看可用内核版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出所有可安装的 PVE 内核版本</span></span><br><span class="line">apt-cache search pve-kernel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用更详细的搜索</span></span><br><span class="line">apt-cache search --names-only <span class="string">&#x27;^pve-kernel-[0-9]&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定版本的详细信息</span></span><br><span class="line">apt-cache show pve-kernel-6.5.11-4-pve</span><br></pre></td></tr></table></figure>
+<h3 id="3-查看当前已安装内核"><a href="#3-查看当前已安装内核" class="headerlink" title="3. 查看当前已安装内核"></a>3. 查看当前已安装内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示当前运行的内核</span></span><br><span class="line"><span class="built_in">uname</span> -r</span><br><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示所有已安装内核</span></span><br><span class="line">dpkg -l | grep pve-kernel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 proxmox 工具查看</span></span><br><span class="line">proxmox-boot-tool kernel list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核文件</span></span><br><span class="line"><span class="built_in">ls</span> -la /boot/vmlinuz-*</span><br></pre></td></tr></table></figure>
+<h3 id="4-检查内核依赖关系"><a href="#4-检查内核依赖关系" class="headerlink" title="4. 检查内核依赖关系"></a>4. 检查内核依赖关系</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查内核包依赖</span></span><br><span class="line">apt-cache depends pve-kernel-6.5.11-4-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查是否有依赖问题</span></span><br><span class="line">apt-check</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="upgrade-kernel"></a></p>
+<h2 id="⬆️-升级内核版本"><a href="#⬆️-升级内核版本" class="headerlink" title="⬆️ 升级内核版本"></a>⬆️ 升级内核版本</h2><h3 id="1-安装指定版本内核"><a href="#1-安装指定版本内核" class="headerlink" title="1. 安装指定版本内核"></a>1. 安装指定版本内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装特定版本内核</span></span><br><span class="line">apt install pve-kernel-6.5.11-4-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者安装最新可用内核</span></span><br><span class="line">apt install pve-kernel-$(apt-cache search --names-only <span class="string">&#x27;^pve-kernel-[0-9]&#x27;</span> | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | <span class="built_in">sort</span> -V | <span class="built_in">tail</span> -1)</span><br></pre></td></tr></table></figure>
+<h3 id="2-更新-GRUB-引导配置"><a href="#2-更新-GRUB-引导配置" class="headerlink" title="2. 更新 GRUB 引导配置"></a>2. 更新 GRUB 引导配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新 GRUB 配置</span></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于 UEFI 系统，还需要更新 systemd-boot</span></span><br><span class="line">proxmox-boot-tool refresh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 GRUB 配置</span></span><br><span class="line">grep -A 10 -B 5 <span class="string">&quot;menuentry&quot;</span> /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+<h3 id="3-重启系统使用新内核"><a href="#3-重启系统使用新内核" class="headerlink" title="3. 重启系统使用新内核"></a>3. 重启系统使用新内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计划重启</span></span><br><span class="line">shutdown -r +10 <span class="string">&quot;内核升级重启&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者立即重启</span></span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于生产环境，可以考虑使用 kexec 快速重启（高级用法）</span></span><br><span class="line"><span class="comment"># apt install kexec-tools</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-验证新内核"><a href="#4-验证新内核" class="headerlink" title="4. 验证新内核"></a>4. 验证新内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确认当前运行的是新内核版本</span></span><br><span class="line"><span class="built_in">uname</span> -r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查内核启动时间</span></span><br><span class="line">dmesg | grep <span class="string">&quot;BOOT_IMAGE&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证所有硬件驱动正常加载</span></span><br><span class="line">dmesg | grep -i error</span><br><span class="line">lsmod</span><br></pre></td></tr></table></figure>
+<h3 id="5-清理旧内核（可选）"><a href="#5-清理旧内核（可选）" class="headerlink" title="5. 清理旧内核（可选）"></a>5. 清理旧内核（可选）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看可清理的旧内核</span></span><br><span class="line">proxmox-boot-tool kernel list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除不再需要的旧内核（谨慎操作）</span></span><br><span class="line">apt remove pve-kernel-5.15.102-1-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自动清理不再需要的包</span></span><br><span class="line">apt autoremove</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="kernel-pinning"></a></p>
+<h2 id="📌-内核版本固化"><a href="#📌-内核版本固化" class="headerlink" title="📌 内核版本固化"></a>📌 内核版本固化</h2><h3 id="1-固化特定内核版本"><a href="#1-固化特定内核版本" class="headerlink" title="1. 固化特定内核版本"></a>1. 固化特定内核版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 固化指定内核版本</span></span><br><span class="line">proxmox-boot-tool kernel pin 6.5.11-4-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用通配符固化系列版本</span></span><br><span class="line">proxmox-boot-tool kernel pin 6.5.*</span><br></pre></td></tr></table></figure>
+<h3 id="2-检查固化状态"><a href="#2-检查固化状态" class="headerlink" title="2. 检查固化状态"></a>2. 检查固化状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示所有可用内核及固化状态</span></span><br><span class="line">proxmox-boot-tool kernel list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查当前固化设置</span></span><br><span class="line"><span class="built_in">cat</span> /etc/default/pve-kernel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看固化历史</span></span><br><span class="line">journalctl -u pve-kernel -f</span><br></pre></td></tr></table></figure>
+<h3 id="3-取消内核固化"><a href="#3-取消内核固化" class="headerlink" title="3. 取消内核固化"></a>3. 取消内核固化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取消内核固化</span></span><br><span class="line">proxmox-boot-tool kernel unpin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者手动编辑配置文件</span></span><br><span class="line">nano /etc/default/pve-kernel</span><br><span class="line"><span class="comment"># 删除或注释掉 PINNED_KERNEL 行</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-临时覆盖固化设置"><a href="#4-临时覆盖固化设置" class="headerlink" title="4. 临时覆盖固化设置"></a>4. 临时覆盖固化设置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 临时安装特定内核（即使有固化设置）</span></span><br><span class="line">apt install -o Dpkg::Options::=<span class="string">&quot;--force-overwrite&quot;</span> pve-kernel-6.5.13-1-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 临时取消固化进行更新</span></span><br><span class="line">proxmox-boot-tool kernel unpin</span><br><span class="line">apt update &amp;&amp; apt upgrade</span><br><span class="line">proxmox-boot-tool kernel pin 6.5.*</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="downgrade-kernel"></a></p>
+<h2 id="⬇️-降级内核版本"><a href="#⬇️-降级内核版本" class="headerlink" title="⬇️ 降级内核版本"></a>⬇️ 降级内核版本</h2><h3 id="1-查看已安装的内核版本"><a href="#1-查看已安装的内核版本" class="headerlink" title="1. 查看已安装的内核版本"></a>1. 查看已安装的内核版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出所有已安装内核，按版本排序</span></span><br><span class="line">dpkg -l | grep pve-kernel | <span class="built_in">sort</span> -V</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看可用旧版本</span></span><br><span class="line">apt-cache search pve-kernel | grep -E <span class="string">&#x27;^pve-kernel-[0-9]&#x27;</span> | <span class="built_in">sort</span> -V</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查仓库中是否有旧版本</span></span><br><span class="line">apt-cache policy pve-kernel-5.15.107-1-pve</span><br></pre></td></tr></table></figure>
+<h3 id="2-安装旧版本内核"><a href="#2-安装旧版本内核" class="headerlink" title="2. 安装旧版本内核"></a>2. 安装旧版本内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装特定旧版本内核</span></span><br><span class="line">apt install pve-kernel-5.15.107-1-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果版本不在当前仓库中，可以添加旧版本仓库或手动下载</span></span><br><span class="line">wget http://download.proxmox.com/debian/pve/dists/bullseye/pve-no-subscription/binary-amd64/pve-kernel-5.15.107-1-pve_5.15.107-1_amd64.deb</span><br><span class="line">dpkg -i pve-kernel-5.15.107-1-pve_5.15.107-1_amd64.deb</span><br></pre></td></tr></table></figure>
+<h3 id="3-移除新版本内核（可选）"><a href="#3-移除新版本内核（可选）" class="headerlink" title="3. 移除新版本内核（可选）"></a>3. 移除新版本内核（可选）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 移除有问题的新版本内核</span></span><br><span class="line">apt remove pve-kernel-6.5.13-1-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：确保至少保留一个可启动的内核</span></span><br><span class="line"><span class="comment"># 可以先检查剩余内核数量</span></span><br><span class="line">dpkg -l | grep pve-kernel | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+<h3 id="4-更新-GRUB-并重启"><a href="#4-更新-GRUB-并重启" class="headerlink" title="4. 更新 GRUB 并重启"></a>4. 更新 GRUB 并重启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新 GRUB 配置</span></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置默认启动项为旧内核（如果需要）</span></span><br><span class="line">grub-set-default <span class="string">&quot;Advanced options for Proxmox VE GNU/Linux&gt;Proxmox VE GNU/Linux, with Linux 5.15.107-1-pve&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启系统</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h3 id="5-验证降级结果"><a href="#5-验证降级结果" class="headerlink" title="5. 验证降级结果"></a>5. 验证降级结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确认当前运行的是旧内核版本</span></span><br><span class="line"><span class="built_in">uname</span> -r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查系统稳定性</span></span><br><span class="line">dmesg | grep -i error</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试关键功能（网络、存储等）</span></span><br><span class="line">ip a</span><br><span class="line">zpool status</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="kernel-headers"></a></p>
+<h2 id="🛠️-内核头文件安装"><a href="#🛠️-内核头文件安装" class="headerlink" title="🛠️ 内核头文件安装"></a>🛠️ 内核头文件安装</h2><h3 id="1-安装对应内核的头文件"><a href="#1-安装对应内核的头文件" class="headerlink" title="1. 安装对应内核的头文件"></a>1. 安装对应内核的头文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装与当前内核匹配的头文件</span></span><br><span class="line">apt install pve-headers-$(<span class="built_in">uname</span> -r)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者安装特定版本的头文件</span></span><br><span class="line">apt install pve-headers-6.5.11-4-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装开发工具链（如果需要编译模块）</span></span><br><span class="line">apt install build-essential dkms</span><br></pre></td></tr></table></figure>
+<h3 id="2-验证头文件安装"><a href="#2-验证头文件安装" class="headerlink" title="2. 验证头文件安装"></a>2. 验证头文件安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查头文件是否成功安装</span></span><br><span class="line">dpkg -l | grep pve-headers</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认头文件路径</span></span><br><span class="line"><span class="built_in">ls</span> -la /usr/src/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查内核构建配置</span></span><br><span class="line">zcat /proc/config.gz | <span class="built_in">head</span> -20</span><br></pre></td></tr></table></figure>
+<h3 id="3-重新编译内核模块"><a href="#3-重新编译内核模块" class="headerlink" title="3. 重新编译内核模块"></a>3. 重新编译内核模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新编译 ZFS 模块（常见需求）</span></span><br><span class="line">apt install pve-headers-$(<span class="built_in">uname</span> -r)</span><br><span class="line">dpkg-reconfigure zfs-dkms</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者手动触发编译</span></span><br><span class="line">dkms build zfs/2.1.9 -k $(<span class="built_in">uname</span> -r)</span><br><span class="line">dkms install zfs/2.1.9 -k $(<span class="built_in">uname</span> -r)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查模块状态</span></span><br><span class="line">dkms status</span><br><span class="line">modprobe zfs</span><br></pre></td></tr></table></figure>
+<h3 id="4-自定义内核模块管理"><a href="#4-自定义内核模块管理" class="headerlink" title="4. 自定义内核模块管理"></a>4. 自定义内核模块管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看已加载模块</span></span><br><span class="line">lsmod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找模块信息</span></span><br><span class="line">modinfo zfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动加载/卸载模块</span></span><br><span class="line">modprobe module_name</span><br><span class="line">rmmod module_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久添加模块到加载列表</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;module_name&quot;</span> &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="advanced-management"></a></p>
+<h2 id="🔧-高级内核管理"><a href="#🔧-高级内核管理" class="headerlink" title="🔧 高级内核管理"></a>🔧 高级内核管理</h2><h3 id="1-内核参数调优"><a href="#1-内核参数调优" class="headerlink" title="1. 内核参数调优"></a>1. 内核参数调优</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前内核参数</span></span><br><span class="line">sysctl -a | <span class="built_in">head</span> -20</span><br><span class="line"></span><br><span class="line"><span class="comment"># 临时修改内核参数</span></span><br><span class="line">sysctl -w vm.swappiness=10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久修改内核参数</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;vm.swappiness=10&quot;</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定参数</span></span><br><span class="line">sysctl vm.swappiness</span><br></pre></td></tr></table></figure>
+<h3 id="2-内核模块黑名单"><a href="#2-内核模块黑名单" class="headerlink" title="2. 内核模块黑名单"></a>2. 内核模块黑名单</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 禁用不需要的模块</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;blacklist module_name&quot;</span> &gt;&gt; /etc/modprobe.d/blacklist.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新 initramfs</span></span><br><span class="line">update-initramfs -u</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查黑名单生效</span></span><br><span class="line">lsmod | grep module_name</span><br></pre></td></tr></table></figure>
+<h3 id="3-内核调试与诊断"><a href="#3-内核调试与诊断" class="headerlink" title="3. 内核调试与诊断"></a>3. 内核调试与诊断</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用内核调试输出</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;8&quot;</span> &gt; /proc/sys/kernel/printk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核环形缓冲区</span></span><br><span class="line">dmesg -T</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实时监控内核消息</span></span><br><span class="line">journalctl -k -f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查内核错误</span></span><br><span class="line">grep -i error /var/log/kern.log</span><br></pre></td></tr></table></figure>
+<h3 id="4-性能监控与优化"><a href="#4-性能监控与优化" class="headerlink" title="4. 性能监控与优化"></a>4. 性能监控与优化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装性能监控工具</span></span><br><span class="line">apt install sysstat linux-perf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控系统性能</span></span><br><span class="line">vmstat 1 10</span><br><span class="line">iostat -x 1 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 perf 进行性能分析</span></span><br><span class="line">perf top</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调整内核调度参数</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;kernel.sched_autogroup_enabled = 1&#x27;</span> &gt;&gt; /etc/sysctl.d/99-scheduler.conf</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="version-selection"></a></p>
+<h2 id="📊-内核版本选择建议"><a href="#📊-内核版本选择建议" class="headerlink" title="📊 内核版本选择建议"></a>📊 内核版本选择建议</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>内核版本</th>
+<th>适用场景</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>最新稳定版</strong></td>
+<td>新硬件支持、安全更新、需要最新功能</td>
+<td>可能存在未知兼容性问题，建议测试环境先验证</td>
+</tr>
+<tr>
+<td><strong>LTS 长期支持版</strong></td>
+<td>生产环境、稳定性优先、长期运行系统</td>
+<td>可能缺少最新硬件支持，但经过充分测试</td>
+</tr>
+<tr>
+<td><strong>旧版本</strong></td>
+<td>解决兼容性问题、特定硬件需求</td>
+<td>可能缺少安全更新，需评估安全风险</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="推荐策略："><a href="#推荐策略：" class="headerlink" title="推荐策略："></a>推荐策略：</h3><ol>
+<li><p><strong>测试环境</strong>：使用最新内核，提前发现兼容性问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在测试环境中启用测试仓库</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb http://download.proxmox.com/debian/pve test main&quot;</span> &gt; /etc/apt/sources.list.d/pvetest.list</span><br><span class="line">apt update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>生产环境</strong>：使用经过验证的稳定版本，延迟升级</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 固化生产环境内核版本</span></span><br><span class="line">proxmox-boot-tool kernel pin 6.2.*</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>特定硬件</strong>：选择提供所需驱动程序的版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查硬件兼容性</span></span><br><span class="line">lspci -k</span><br><span class="line"><span class="comment"># 查找所需驱动支持的内核版本</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安全关键环境</strong>：优先选择包含安全补丁的版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 订阅安全公告</span></span><br><span class="line"><span class="comment"># 关注 Proxmox 安全邮件列表</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🚨-故障排除与恢复"><a href="#🚨-故障排除与恢复" class="headerlink" title="🚨 故障排除与恢复"></a>🚨 故障排除与恢复</h2><h3 id="1-内核启动失败"><a href="#1-内核启动失败" class="headerlink" title="1. 内核启动失败"></a>1. 内核启动失败</h3><p>如果新内核无法启动：</p>
+<ol>
+<li><strong>重启系统</strong></li>
+<li><strong>在 GRUB 菜单中选择旧内核启动</strong></li>
+<li><strong>移除有问题的新内核</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 登录后移除问题内核</span></span><br><span class="line">apt remove pve-kernel-6.5.13-1-pve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新 GRUB 配置</span></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查启动项</span></span><br><span class="line">grep -A 10 -B 5 <span class="string">&quot;menuentry&quot;</span> /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="2-模块不兼容"><a href="#2-模块不兼容" class="headerlink" title="2. 模块不兼容"></a>2. 模块不兼容</h3><p>如果硬件驱动或模块不兼容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新编译 ZFS 模块（如需要）</span></span><br><span class="line">apt install pve-headers-$(<span class="built_in">uname</span> -r)</span><br><span class="line">dpkg-reconfigure zfs-dkms</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者尝试降级相关模块</span></span><br><span class="line">apt install zfs-dkms=2.1.9-pve1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查模块依赖</span></span><br><span class="line">depmod -a</span><br></pre></td></tr></table></figure>
+<h3 id="3-网络问题"><a href="#3-网络问题" class="headerlink" title="3. 网络问题"></a>3. 网络问题</h3><p>如果新内核导致网络问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查加载的网络驱动</span></span><br><span class="line">lsmod | grep -E <span class="string">&#x27;(e1000|ixgbe|bnxt|mlx)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载驱动模块</span></span><br><span class="line">modprobe -r &lt;驱动模块名&gt;</span><br><span class="line">modprobe &lt;驱动模块名&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查网络接口状态</span></span><br><span class="line">ip <span class="built_in">link</span> show</span><br><span class="line">ethtool &lt;接口名&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-文件系统问题"><a href="#4-文件系统问题" class="headerlink" title="4. 文件系统问题"></a>4. 文件系统问题</h3><p>如果遇到文件系统挂载问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查文件系统</span></span><br><span class="line">fsck /dev/sdX</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 ZFS 池状态</span></span><br><span class="line">zpool status</span><br><span class="line">zpool import</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 LVM 状态</span></span><br><span class="line">pvdisplay</span><br><span class="line">vgdisplay</span><br><span class="line">lvdisplay</span><br></pre></td></tr></table></figure>
+<h3 id="5-恢复模式"><a href="#5-恢复模式" class="headerlink" title="5. 恢复模式"></a>5. 恢复模式</h3><p>如果无法正常启动：</p>
+<ol>
+<li><strong>使用恢复模式</strong>：在 GRUB 菜单中选择恢复模式</li>
+<li><strong>使用 Live CD</strong>：使用 Proxmox 安装介质启动</li>
+<li><strong>chroot 修复</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从 Live CD 挂载根分区</span></span><br><span class="line">mount /dev/pve/root /mnt</span><br><span class="line">mount /dev/sda1 /mnt/boot</span><br><span class="line">mount -t proc proc /mnt/proc</span><br><span class="line">mount -t sysfs sys /mnt/sys</span><br><span class="line">mount -o <span class="built_in">bind</span> /dev /mnt/dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># chroot 到系统</span></span><br><span class="line"><span class="built_in">chroot</span> /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行修复操作</span></span><br><span class="line">apt remove pve-kernel-6.5.13-1-pve</span><br><span class="line">update-grub</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="automation-scripts"></a></p>
+<h2 id="🤖-自动化脚本示例"><a href="#🤖-自动化脚本示例" class="headerlink" title="🤖 自动化脚本示例"></a>🤖 自动化脚本示例</h2><h3 id="安全内核更新脚本"><a href="#安全内核更新脚本" class="headerlink" title="安全内核更新脚本"></a>安全内核更新脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志记录</span></span><br><span class="line">LOG_FILE=<span class="string">&quot;/var/log/kernel-update-<span class="subst">$(date +%Y%m%d)</span>.log&quot;</span></span><br><span class="line"><span class="built_in">exec</span> &gt; &gt;(<span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span>) 2&gt;&amp;1</span><br><span class="line"><span class="built_in">exec</span> 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=== 开始内核更新: <span class="subst">$(date)</span> ===&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;当前内核版本: <span class="subst">$(uname -r)</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份当前内核信息</span></span><br><span class="line">BACKUP_DIR=<span class="string">&quot;/root/kernel-backup/<span class="subst">$(date +%Y%m%d_%H%M%S)</span>&quot;</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$BACKUP_DIR</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;备份目录: <span class="variable">$BACKUP_DIR</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份重要配置</span></span><br><span class="line">dpkg -l | grep pve-kernel &gt; <span class="string">&quot;<span class="variable">$BACKUP_DIR</span>/kernel-list.txt&quot;</span></span><br><span class="line"><span class="built_in">uname</span> -a &gt; <span class="string">&quot;<span class="variable">$BACKUP_DIR</span>/uname-info.txt&quot;</span></span><br><span class="line"><span class="built_in">cp</span> /etc/network/interfaces <span class="string">&quot;<span class="variable">$BACKUP_DIR</span>/&quot;</span></span><br><span class="line"><span class="built_in">cp</span> /etc/pve/storage.cfg <span class="string">&quot;<span class="variable">$BACKUP_DIR</span>/&quot;</span></span><br><span class="line"><span class="built_in">cp</span> /boot/grub/grub.cfg <span class="string">&quot;<span class="variable">$BACKUP_DIR</span>/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新软件源</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;更新软件源...&quot;</span></span><br><span class="line"><span class="keyword">if</span> ! apt update; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;错误: 软件源更新失败!&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找最新可用内核</span></span><br><span class="line">LATEST_KERNEL=$(apt-cache search --names-only <span class="string">&#x27;^pve-kernel-[0-9]&#x27;</span> | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | <span class="built_in">sort</span> -V | <span class="built_in">tail</span> -1)</span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$LATEST_KERNEL</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;错误: 未找到可用内核!&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;找到最新内核: <span class="variable">$LATEST_KERNEL</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查是否已安装</span></span><br><span class="line"><span class="keyword">if</span> dpkg -l | grep -q <span class="string">&quot;<span class="variable">$LATEST_KERNEL</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;信息: <span class="variable">$LATEST_KERNEL</span> 已安装，无需更新&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装新内核</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;安装新内核: <span class="variable">$LATEST_KERNEL</span>&quot;</span></span><br><span class="line"><span class="keyword">if</span> ! apt install -y <span class="string">&quot;<span class="variable">$LATEST_KERNEL</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;错误: 内核安装失败!&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装对应头文件</span></span><br><span class="line">HEADERS_PKG=<span class="string">&quot;<span class="variable">$&#123;LATEST_KERNEL/kernel/headers&#125;</span>&quot;</span></span><br><span class="line"><span class="keyword">if</span> apt-cache show <span class="string">&quot;<span class="variable">$HEADERS_PKG</span>&quot;</span> &gt;/dev/null 2&gt;&amp;1; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;安装内核头文件: <span class="variable">$HEADERS_PKG</span>&quot;</span></span><br><span class="line">    apt install -y <span class="string">&quot;<span class="variable">$HEADERS_PKG</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新 GRUB</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;更新 GRUB 配置...&quot;</span></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查是否需要更新 systemd-boot</span></span><br><span class="line"><span class="keyword">if</span> [ -d /boot/efi ]; <span class="keyword">then</span></span><br><span class="line">    proxmox-boot-tool refresh</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=== 内核更新完成: <span class="subst">$(date)</span> ===&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;新内核: <span class="variable">$LATEST_KERNEL</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;请重启系统以应用新内核: reboot&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;日志文件: <span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送通知（如果有配置通知系统）</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">command</span> -v sendmail &amp;&gt; /dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;内核更新完成于 <span class="subst">$(date)</span>&quot;</span> | mail -s <span class="string">&quot;PVE 内核更新通知&quot;</span> admin@example.com</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h3 id="内核健康检查脚本"><a href="#内核健康检查脚本" class="headerlink" title="内核健康检查脚本"></a>内核健康检查脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 内核健康检查</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=== 内核健康检查: <span class="subst">$(date)</span> ===&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查当前内核</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;当前内核: <span class="subst">$(uname -r)</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查已安装内核</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;已安装内核:&quot;</span></span><br><span class="line">dpkg -l | grep pve-kernel | awk <span class="string">&#x27;&#123;print $2 &quot; &quot; $3&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查启动项</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;GRUB 启动项:&quot;</span></span><br><span class="line">grep -A 2 <span class="string">&quot;menuentry&quot;</span> /boot/grub/grub.cfg | grep -E <span class="string">&quot;(menuentry|linux)&quot;</span> | <span class="built_in">head</span> -6</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查内核错误</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;内核错误:&quot;</span></span><br><span class="line">dmesg -T | grep -i error | <span class="built_in">tail</span> -5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查模块状态</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;模块状态:&quot;</span></span><br><span class="line">lsmod | <span class="built_in">head</span> -10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查内存使用</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;内存使用:&quot;</span></span><br><span class="line">free -h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查磁盘空间</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;启动分区空间:&quot;</span></span><br><span class="line"><span class="built_in">df</span> -h /boot</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=== 检查完成 ===&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="best-practices"></a></p>
+<h2 id="💡-注意事项与最佳实践"><a href="#💡-注意事项与最佳实践" class="headerlink" title="💡 注意事项与最佳实践"></a>💡 注意事项与最佳实践</h2><h3 id="1-保留旧内核"><a href="#1-保留旧内核" class="headerlink" title="1. 保留旧内核"></a>1. 保留旧内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 始终保留至少一个旧内核作为备份</span></span><br><span class="line"><span class="comment"># 建议保留2-3个最近内核版本</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前内核数量</span></span><br><span class="line">dpkg -l | grep pve-kernel | <span class="built_in">wc</span> -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理更旧的版本以节省空间</span></span><br><span class="line">apt autoremove --purge</span><br></pre></td></tr></table></figure>
+<h3 id="2-测试验证流程"><a href="#2-测试验证流程" class="headerlink" title="2. 测试验证流程"></a>2. 测试验证流程</h3><ol>
+<li><strong>测试环境验证</strong>：在生产环境使用前，在测试环境验证新内核</li>
+<li><strong>功能测试清单</strong>：<ul>
+<li>虚拟机启动和运行</li>
+<li>网络功能正常</li>
+<li>存储访问正常</li>
+<li>备份功能正常</li>
+<li>关键服务运行</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-监控系统"><a href="#3-监控系统" class="headerlink" title="3. 监控系统"></a>3. 监控系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 升级后监控系统稳定性至少24小时</span></span><br><span class="line"><span class="comment"># 监控资源使用情况</span></span><br><span class="line">top -b -n 1 | <span class="built_in">head</span> -20</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控内核日志</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/kern.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控虚拟机状态</span></span><br><span class="line">qm list</span><br></pre></td></tr></table></figure>
+<h3 id="4-文档记录"><a href="#4-文档记录" class="headerlink" title="4. 文档记录"></a>4. 文档记录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 记录每次内核变更</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date)</span> - 升级到内核 6.5.11-4-pve&quot;</span> &gt;&gt; /var/log/kernel-changes.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录变更原因和结果</span></span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; /var/log/kernel-changes.log &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">日期: $(date)</span></span><br><span class="line"><span class="string">操作: 升级内核</span></span><br><span class="line"><span class="string">版本: 6.5.11-4-pve</span></span><br><span class="line"><span class="string">原因: 安全更新</span></span><br><span class="line"><span class="string">结果: 成功</span></span><br><span class="line"><span class="string">问题: 无</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-回滚计划"><a href="#5-回滚计划" class="headerlink" title="5. 回滚计划"></a>5. 回滚计划</h3><ol>
+<li><strong>明确回滚条件</strong>：定义什么情况下需要回滚</li>
+<li><strong>准备回滚脚本</strong>：提前准备好回滚所需的命令和步骤</li>
+<li><strong>测试回滚流程</strong>：确保回滚流程在实际需要时能正常工作</li>
+<li><strong>沟通计划</strong>：确保团队了解回滚计划和责任人</li>
+</ol>
+<h3 id="6-定期审查"><a href="#6-定期审查" class="headerlink" title="6. 定期审查"></a>6. 定期审查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定期检查可用内核更新</span></span><br><span class="line">apt update</span><br><span class="line">apt-cache search pve-kernel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 审查安全公告</span></span><br><span class="line"><span class="comment"># 关注 Proxmox 安全邮件列表和论坛</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 评估升级需求</span></span><br><span class="line"><span class="comment"># 根据安全性和功能需求决定是否升级</span></span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>🎯 <strong>提示</strong>：内核管理是系统维护的重要部分。通过谨慎的升级策略、版本固化和充分的测试，可以确保 PVE 环境的稳定性和安全性。</p>
+</blockquote>
+<p>希望本指南帮助您成功管理 PVE 内核版本！如有问题，请参考 Proxmox VE 官方文档或社区论坛。</p>
+</article><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?8542" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/f5dad34c.html" title="Linux 和 Windows 系统间文件传输 🔄"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4423" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Linux 和 Windows 系统间文件传输 🔄</div></div><div class="info-2"><div class="info-item-1">Linux 和 Windows 系统间文件传输 🔄  使用 rz 和 sz 命令轻松在 Linux 和 Windows 系统之间传输文件。本指南涵盖安装、配置、使用技巧以及替代方案，助您实现高效跨平台文件传输！🚀   📖 导航目录 🌟 简介 📦 安装 lrzsz 🖥️ Windows 端配置 📤 从 Windows 上传文件到 Linux (rz) 📥 从 Linux 下载文件到 Windows (sz) 🔧 常用参数说明 💡 实用技巧和示例 ⚠️ 常见问题与解决方案 🔄 替代方案 📊 工具对比 🎯 最佳实践建议  —  🌟 简介rz 和 sz 是 Linux 系统中常用的文件传输命令，它们使用 ZMODEM 协议 通过终端连接（如 SSH）在本地计算机和远程服务器之间传输文件。这两个命令是 lrzsz 软件包的一部分，非常适合在命令行环境下进行简单的文件交换。✨ 主要优势：  简单易用 🎯: 只需两个命令即可完成上传下载 无需额外配置 ⚡: 大多数 SSH 客户端原生支持 跨平台兼容 🔄: 支持多种 Linux 发行版和 Windows 终端 无...</div></div></div></a><a class="pagination-related" href="/posts/97c1c052.html" title="CS2 CFG文件"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3849" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">CS2 CFG文件</div></div><div class="info-2"><div class="info-item-1">CS2 CFG文件  个人CFG路径：1C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331341351361371381391401411421431441451461471481491501511521531541551561571581591601611621631641...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proxmox-VE-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7-amp-%E9%99%8D%E7%BA%A7%E6%8C%87%E5%8D%97-%F0%9F%90%A7"><span class="toc-text">Proxmox VE 内核升级 &amp; 降级指南 🐧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📖 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E6%A6%82%E8%BF%B0"><span class="toc-text">✨ 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E9%87%8D%E8%A6%81%E6%8F%90%E7%A4%BA"><span class="toc-text">⚠️ 重要提示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E5%86%85%E6%A0%B8%E7%AE%A1%E7%90%86%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">🔄 内核管理基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9B%B4%E6%96%B0%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">1. 更新软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E5%8F%AF%E7%94%A8%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-text">2. 查看可用内核版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E5%B7%B2%E5%AE%89%E8%A3%85%E5%86%85%E6%A0%B8"><span class="toc-text">3. 查看当前已安装内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A3%80%E6%9F%A5%E5%86%85%E6%A0%B8%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="toc-text">4. 检查内核依赖关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AC%86%EF%B8%8F-%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-text">⬆️ 升级内核版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC%E5%86%85%E6%A0%B8"><span class="toc-text">1. 安装指定版本内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9B%B4%E6%96%B0-GRUB-%E5%BC%95%E5%AF%BC%E9%85%8D%E7%BD%AE"><span class="toc-text">2. 更新 GRUB 引导配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%87%8D%E5%90%AF%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E6%96%B0%E5%86%85%E6%A0%B8"><span class="toc-text">3. 重启系统使用新内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%AA%8C%E8%AF%81%E6%96%B0%E5%86%85%E6%A0%B8"><span class="toc-text">4. 验证新内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%B8%85%E7%90%86%E6%97%A7%E5%86%85%E6%A0%B8%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">5. 清理旧内核（可选）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8C-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E5%9B%BA%E5%8C%96"><span class="toc-text">📌 内核版本固化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9B%BA%E5%8C%96%E7%89%B9%E5%AE%9A%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-text">1. 固化特定内核版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A3%80%E6%9F%A5%E5%9B%BA%E5%8C%96%E7%8A%B6%E6%80%81"><span class="toc-text">2. 检查固化状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%96%E6%B6%88%E5%86%85%E6%A0%B8%E5%9B%BA%E5%8C%96"><span class="toc-text">3. 取消内核固化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%B4%E6%97%B6%E8%A6%86%E7%9B%96%E5%9B%BA%E5%8C%96%E8%AE%BE%E7%BD%AE"><span class="toc-text">4. 临时覆盖固化设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AC%87%EF%B8%8F-%E9%99%8D%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-text">⬇️ 降级内核版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85%E7%9A%84%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-text">1. 查看已安装的内核版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85%E6%97%A7%E7%89%88%E6%9C%AC%E5%86%85%E6%A0%B8"><span class="toc-text">2. 安装旧版本内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A7%BB%E9%99%A4%E6%96%B0%E7%89%88%E6%9C%AC%E5%86%85%E6%A0%B8%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">3. 移除新版本内核（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9B%B4%E6%96%B0-GRUB-%E5%B9%B6%E9%87%8D%E5%90%AF"><span class="toc-text">4. 更新 GRUB 并重启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%AA%8C%E8%AF%81%E9%99%8D%E7%BA%A7%E7%BB%93%E6%9E%9C"><span class="toc-text">5. 验证降级结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E5%86%85%E6%A0%B8%E5%A4%B4%E6%96%87%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-text">🛠️ 内核头文件安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E5%AF%B9%E5%BA%94%E5%86%85%E6%A0%B8%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-text">1. 安装对应内核的头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%AA%8C%E8%AF%81%E5%A4%B4%E6%96%87%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-text">2. 验证头文件安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%87%8D%E6%96%B0%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97"><span class="toc-text">3. 重新编译内核模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86"><span class="toc-text">4. 自定义内核模块管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E9%AB%98%E7%BA%A7%E5%86%85%E6%A0%B8%E7%AE%A1%E7%90%86"><span class="toc-text">🔧 高级内核管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="toc-text">1. 内核参数调优</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E9%BB%91%E5%90%8D%E5%8D%95"><span class="toc-text">2. 内核模块黑名单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E4%B8%8E%E8%AF%8A%E6%96%AD"><span class="toc-text">3. 内核调试与诊断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">4. 性能监控与优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="toc-text">📊 内核版本选择建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%AD%96%E7%95%A5%EF%BC%9A"><span class="toc-text">推荐策略：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%A8-%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-text">🚨 故障排除与恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%86%85%E6%A0%B8%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5"><span class="toc-text">1. 内核启动失败</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A8%A1%E5%9D%97%E4%B8%8D%E5%85%BC%E5%AE%B9"><span class="toc-text">2. 模块不兼容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98"><span class="toc-text">3. 网络问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%97%AE%E9%A2%98"><span class="toc-text">4. 文件系统问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%81%A2%E5%A4%8D%E6%A8%A1%E5%BC%8F"><span class="toc-text">5. 恢复模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A4%96-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B"><span class="toc-text">🤖 自动化脚本示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC"><span class="toc-text">安全内核更新脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5%E8%84%9A%E6%9C%AC"><span class="toc-text">内核健康检查脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">💡 注意事项与最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%9D%E7%95%99%E6%97%A7%E5%86%85%E6%A0%B8"><span class="toc-text">1. 保留旧内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E9%AA%8C%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="toc-text">2. 测试验证流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F"><span class="toc-text">3. 监控系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%96%87%E6%A1%A3%E8%AE%B0%E5%BD%95"><span class="toc-text">4. 文档记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9B%9E%E6%BB%9A%E8%AE%A1%E5%88%92"><span class="toc-text">5. 回滚计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AE%9A%E6%9C%9F%E5%AE%A1%E6%9F%A5"><span class="toc-text">6. 定期审查</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

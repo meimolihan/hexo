@@ -1,0 +1,996 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Caddy 部署静态网站 🌐 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Caddy 部署静态网站 🌐  🚀 快速搭建高性能静态网站，支持HTTPS自动加密和现代化功能   📖 目录导航 📦 Caddy 安装与配置 🌐 域名静态站点部署 🏠 内网静态站点部署 🔧 高级配置技巧 ⚡ 性能优化 🔒 安全加固 🐛 故障排除 💡 实用技巧    📦 Caddy 安装与配置🐧 Ubuntu 系统安装1. 创建目录结构123# 创建Caddy主目录和SSL证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caddy 部署静态网站 🌐">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/7f65aab3.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Caddy 部署静态网站 🌐  🚀 快速搭建高性能静态网站，支持HTTPS自动加密和现代化功能   📖 目录导航 📦 Caddy 安装与配置 🌐 域名静态站点部署 🏠 内网静态站点部署 🔧 高级配置技巧 ⚡ 性能优化 🔒 安全加固 🐛 故障排除 💡 实用技巧    📦 Caddy 安装与配置🐧 Ubuntu 系统安装1. 创建目录结构123# 创建Caddy主目录和SSL证">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?5632">
+<meta property="article:published_time" content="2025-09-12T12:31:53.000Z">
+<meta property="article:modified_time" content="2025-09-12T12:31:53.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="caddy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?5632"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Caddy 部署静态网站 🌐",
+  "url": "https://www.meimolihan.eu.org/posts/7f65aab3.html",
+  "image": "https://api.mobufan.eu.org:666/pc?5632",
+  "datePublished": "2025-09-12T12:31:53.000Z",
+  "dateModified": "2025-09-12T12:31:53.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/7f65aab3.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Caddy 部署静态网站 🌐',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?5632);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Caddy 部署静态网站 🌐</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Caddy 部署静态网站 🌐</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T12:31:53.000Z" title="发表于 2025-09-12 20:31:53">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T12:31:53.000Z" title="更新于 2025-09-12 20:31:53">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 20:31:53&quot;}" hidden></div><h1 id="Caddy-部署静态网站-🌐"><a href="#Caddy-部署静态网站-🌐" class="headerlink" title="Caddy 部署静态网站 🌐"></a>Caddy 部署静态网站 🌐</h1><p><img src="https://file.meimolihan.eu.org/img/caddy-01.webp" alt=""></p>
+<blockquote>
+<p>🚀 快速搭建高性能静态网站，支持HTTPS自动加密和现代化功能</p>
+</blockquote>
+<hr>
+<h2 id="📖-目录导航"><a href="#📖-目录导航" class="headerlink" title="📖 目录导航"></a>📖 目录导航</h2><ul>
+<li><a href="#installation">📦 Caddy 安装与配置</a></li>
+<li><a href="#domain-deployment">🌐 域名静态站点部署</a></li>
+<li><a href="#internal-deployment">🏠 内网静态站点部署</a></li>
+<li><a href="#advanced-config">🔧 高级配置技巧</a></li>
+<li><a href="#performance">⚡ 性能优化</a></li>
+<li><a href="#security">🔒 安全加固</a></li>
+<li><a href="#troubleshooting">🐛 故障排除</a></li>
+<li><a href="#tips">💡 实用技巧</a></li>
+</ul>
+<hr>
+<p><a id="installation"></a></p>
+<h2 id="📦-Caddy-安装与配置"><a href="#📦-Caddy-安装与配置" class="headerlink" title="📦 Caddy 安装与配置"></a>📦 Caddy 安装与配置</h2><h3 id="🐧-Ubuntu-系统安装"><a href="#🐧-Ubuntu-系统安装" class="headerlink" title="🐧 Ubuntu 系统安装"></a>🐧 Ubuntu 系统安装</h3><h4 id="1-创建目录结构"><a href="#1-创建目录结构" class="headerlink" title="1. 创建目录结构"></a>1. 创建目录结构</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建Caddy主目录和SSL证书目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /usr/local/caddy/ssl</span><br><span class="line"><span class="built_in">cd</span> /usr/local/caddy</span><br></pre></td></tr></table></figure>
+<h4 id="2-下载Caddy服务器"><a href="#2-下载Caddy服务器" class="headerlink" title="2. 下载Caddy服务器"></a>2. 下载Caddy服务器</h4><p><strong>推荐方法：使用官方脚本安装</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用官方安装脚本</span></span><br><span class="line"><span class="built_in">sudo</span> apt install -y debian-keyring debian-archive-keyring apt-transport-https curl</span><br><span class="line">curl -1sLf <span class="string">&#x27;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#x27;</span> | <span class="built_in">sudo</span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg</span><br><span class="line">curl -1sLf <span class="string">&#x27;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/caddy-stable.list</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者手动下载特定版本（包含WebDAV插件）</span></span><br><span class="line">wget <span class="string">&quot;https://caddyserver.com/api/download?os=linux&amp;arch=amd64&amp;p=github.com%2Fcaddyserver%2Freplace-response&amp;p=github.com%2Fcaddyserver%2Fwebdav&quot;</span> -O caddy</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x caddy</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-验证安装"><a href="#3-验证安装" class="headerlink" title="3. 验证安装"></a>3. 验证安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查Caddy版本</span></span><br><span class="line">caddy version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已安装的插件</span></span><br><span class="line">caddy list-modules</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查Caddy运行状态</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status caddy</span><br></pre></td></tr></table></figure>
+<h4 id="4-创建系统服务"><a href="#4-创建系统服务" class="headerlink" title="4. 创建系统服务"></a>4. 创建系统服务</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建systemd服务文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/systemd/system/caddy.service &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Caddy HTTP/2 web server</span><br><span class="line">Documentation=https://caddyserver.com/docs/</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=www-data</span><br><span class="line">Group=www-data</span><br><span class="line">ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile</span><br><span class="line">ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile</span><br><span class="line">TimeoutStopSec=5s</span><br><span class="line">LimitNOFILE=1048576</span><br><span class="line">LimitNPROC=512</span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line">ProtectSystem=full</span><br><span class="line">AmbientCapabilities=CAP_NET_BIND_SERVICE</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载systemd配置</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl daemon-reload</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> caddy</span><br><span class="line"><span class="built_in">sudo</span> systemctl start caddy</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="domain-deployment"></a></p>
+<h2 id="🌐-域名静态站点部署"><a href="#🌐-域名静态站点部署" class="headerlink" title="🌐 域名静态站点部署"></a>🌐 域名静态站点部署</h2><h3 id="📁-创建网站目录结构"><a href="#📁-创建网站目录结构" class="headerlink" title="📁 创建网站目录结构"></a>📁 创建网站目录结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建网站根目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /var/www/html/web</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R www-data:www-data /var/www/html</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 755 /var/www/html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建日志目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /var/log/caddy</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R www-data:www-data /var/log/caddy</span><br></pre></td></tr></table></figure>
+<h3 id="🎨-创建示例静态页面"><a href="#🎨-创建示例静态页面" class="headerlink" title="🎨 创建示例静态页面"></a>🎨 创建示例静态页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建精美的首页</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /var/www/html/web/index.html &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;zh-CN&quot;</span>&gt;</span><br><span class="line">&lt;<span class="built_in">head</span>&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;🎯 墨不凡 - 静态网站示例&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        * &#123;</span><br><span class="line">            margin: 0;</span><br><span class="line">            padding: 0;</span><br><span class="line">            box-sizing: border-box;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        body &#123;</span><br><span class="line">            font-family: <span class="string">&#x27;Segoe UI&#x27;</span>, Tahoma, Geneva, Verdana, sans-serif;</span><br><span class="line">            background: linear-gradient(135deg, <span class="comment">#667eea 0%, #764ba2 100%);</span></span><br><span class="line">            min-height: 100vh;</span><br><span class="line">            display: flex;</span><br><span class="line">            justify-content: center;</span><br><span class="line">            align-items: center;</span><br><span class="line">            color: <span class="comment">#333;</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        .container &#123;</span><br><span class="line">            background: rgba(255, 255, 255, 0.95);</span><br><span class="line">            padding: 3rem;</span><br><span class="line">            border-radius: 15px;</span><br><span class="line">            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);</span><br><span class="line">            text-align: center;</span><br><span class="line">            max-width: 600px;</span><br><span class="line">            width: 90%;</span><br><span class="line">            backdrop-filter: blur(10px);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        h1 &#123;</span><br><span class="line">            color: <span class="comment">#4a5568;</span></span><br><span class="line">            margin-bottom: 1.5rem;</span><br><span class="line">            font-size: 2.5rem;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        .path-info &#123;</span><br><span class="line">            background: <span class="comment">#f7fafc;</span></span><br><span class="line">            padding: 1.5rem;</span><br><span class="line">            border-radius: 8px;</span><br><span class="line">            margin: 2rem 0;</span><br><span class="line">            border-left: 4px solid <span class="comment">#4299e1;</span></span><br><span class="line">            font-family: <span class="string">&#x27;Courier New&#x27;</span>, monospace;</span><br><span class="line">            word-break: break-all;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        .features &#123;</span><br><span class="line">            display: grid;</span><br><span class="line">            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));</span><br><span class="line">            gap: 1rem;</span><br><span class="line">            margin: 2rem 0;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        .feature &#123;</span><br><span class="line">            background: <span class="comment">#ebf8ff;</span></span><br><span class="line">            padding: 1rem;</span><br><span class="line">            border-radius: 8px;</span><br><span class="line">            font-size: 0.9rem;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        .emoji &#123;</span><br><span class="line">            font-size: 2rem;</span><br><span class="line">            margin-bottom: 0.5rem;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;container&quot;</span>&gt;</span><br><span class="line">        &lt;h1&gt;🚀 欢迎访问静态网站&lt;/h1&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;div class=<span class="string">&quot;path-info&quot;</span>&gt;</span><br><span class="line">            &lt;strong&gt;📁 网站路径:&lt;/strong&gt;&lt;br&gt;</span><br><span class="line">            /var/www/html/web/index.html</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;div class=<span class="string">&quot;features&quot;</span>&gt;</span><br><span class="line">            &lt;div class=<span class="string">&quot;feature&quot;</span>&gt;</span><br><span class="line">                &lt;div class=<span class="string">&quot;emoji&quot;</span>&gt;⚡&lt;/div&gt;</span><br><span class="line">                &lt;div&gt;高性能&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;div class=<span class="string">&quot;feature&quot;</span>&gt;</span><br><span class="line">                &lt;div class=<span class="string">&quot;emoji&quot;</span>&gt;🔒&lt;/div&gt;</span><br><span class="line">                &lt;div&gt;HTTPS加密&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;div class=<span class="string">&quot;feature&quot;</span>&gt;</span><br><span class="line">                &lt;div class=<span class="string">&quot;emoji&quot;</span>&gt;📱&lt;/div&gt;</span><br><span class="line">                &lt;div&gt;响应式设计&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;div class=<span class="string">&quot;feature&quot;</span>&gt;</span><br><span class="line">                &lt;div class=<span class="string">&quot;emoji&quot;</span>&gt;🎨&lt;/div&gt;</span><br><span class="line">                &lt;div&gt;现代界面&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;p&gt;✨ 由 &lt;strong&gt;Caddy Server&lt;/strong&gt; 提供支持&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="🔧-配置Caddy域名站点"><a href="#🔧-配置Caddy域名站点" class="headerlink" title="🔧 配置Caddy域名站点"></a>🔧 配置Caddy域名站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建Caddy配置目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/caddy/conf.d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建域名站点配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/caddy/conf.d/jingtai.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># 🎯 静态网站配置 - 带域名HTTPS</span></span><br><span class="line">jingtai.meimolihan.eu.org:6663 &#123;</span><br><span class="line">    <span class="comment"># 启用Gzip压缩</span></span><br><span class="line">    encode gzip zstd</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># SSL证书配置（Caddy支持自动SSL）</span></span><br><span class="line">    tls &#123;</span><br><span class="line">        ciphers TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</span><br><span class="line">        curves x25519 secp521r1 secp384r1</span><br><span class="line">        alpn http/1.1 h2</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置网站根目录</span></span><br><span class="line">    root * /var/www/html/web</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 启用文件服务器和目录浏览</span></span><br><span class="line">    file_server browse</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 安全头部</span></span><br><span class="line">    header &#123;</span><br><span class="line">        X-Content-Type-Options nosniff</span><br><span class="line">        X-Frame-Options DENY</span><br><span class="line">        X-XSS-Protection <span class="string">&quot;1; mode=block&quot;</span></span><br><span class="line">        Strict-Transport-Security <span class="string">&quot;max-age=31536000; includeSubDomains; preload&quot;</span></span><br><span class="line">        Referrer-Policy <span class="string">&quot;strict-origin-when-cross-origin&quot;</span></span><br><span class="line">        Permissions-Policy <span class="string">&quot;geolocation=(), microphone=(), camera=()&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 日志配置</span></span><br><span class="line">    <span class="built_in">log</span> &#123;</span><br><span class="line">        output file /var/log/caddy/jingtai.access.log &#123;</span><br><span class="line">            roll_size 100MB</span><br><span class="line">            roll_keep 10</span><br><span class="line">            roll_keep_for 2160h</span><br><span class="line">        &#125;</span><br><span class="line">        format json</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 错误处理</span></span><br><span class="line">    handle_errors &#123;</span><br><span class="line">        @404 &#123;</span><br><span class="line">            expression &#123;http.error.status_code&#125; == 404</span><br><span class="line">        &#125;</span><br><span class="line">        rewrite @404 /404.html</span><br><span class="line">        file_server</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="🔄-应用配置"><a href="#🔄-应用配置" class="headerlink" title="🔄 应用配置"></a>🔄 应用配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建主Caddyfile</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/caddy/Caddyfile &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># 全局配置</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"># 管理接口（可选）</span></span><br><span class="line">    admin off</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 自动HTTPS</span></span><br><span class="line">    auto_https disable_redirects</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 日志</span></span><br><span class="line">    <span class="built_in">log</span> &#123;</span><br><span class="line">        level INFO</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入各个站点配置</span></span><br><span class="line">import conf.d/*.conf</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化配置文件</span></span><br><span class="line"><span class="built_in">sudo</span> caddy <span class="built_in">fmt</span> --overwrite /etc/caddy/Caddyfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载Caddy配置</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl reload caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查配置语法</span></span><br><span class="line"><span class="built_in">sudo</span> caddy validate --config /etc/caddy/Caddyfile</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="internal-deployment"></a></p>
+<h2 id="🏠-内网静态站点部署"><a href="#🏠-内网静态站点部署" class="headerlink" title="🏠 内网静态站点部署"></a>🏠 内网静态站点部署</h2><h3 id="📂-创建内网站点"><a href="#📂-创建内网站点" class="headerlink" title="📂 创建内网站点"></a>📂 创建内网站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建内网测试页面</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /var/www/html/web/internal.html &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;zh-CN&quot;</span>&gt;</span><br><span class="line">&lt;<span class="built_in">head</span>&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;🏠 内网测试页面&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body &#123; font-family: Arial, sans-serif; margin: 40px; background: <span class="comment">#f0f4f8; &#125;</span></span><br><span class="line">        .container &#123; max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); &#125;</span><br><span class="line">        h1 &#123; color: <span class="comment">#2c5282; &#125;</span></span><br><span class="line">        .info &#123; background: <span class="comment">#ebf8ff; padding: 15px; border-radius: 5px; margin: 15px 0; &#125;</span></span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;container&quot;</span>&gt;</span><br><span class="line">        &lt;h1&gt;🏠 内网静态网站测试&lt;/h1&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;info&quot;</span>&gt;</span><br><span class="line">            &lt;strong&gt;📍 访问地址:&lt;/strong&gt; http://10.10.10.247:9300&lt;br&gt;</span><br><span class="line">            &lt;strong&gt;📁 文件路径:&lt;/strong&gt; /var/www/html/web/internal.html</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;p&gt;这是一个内网测试页面，仅在内网环境中可访问。&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="🔧-配置内网站点"><a href="#🔧-配置内网站点" class="headerlink" title="🔧 配置内网站点"></a>🔧 配置内网站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建内网站点配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/caddy/conf.d/internal.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># 🏠 内网静态网站配置</span></span><br><span class="line">:9300 &#123;</span><br><span class="line">    <span class="comment"># 启用Gzip压缩</span></span><br><span class="line">    encode gzip</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置网站根目录</span></span><br><span class="line">    root * /var/www/html/web</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 启用文件服务器</span></span><br><span class="line">    file_server</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 默认页面配置</span></span><br><span class="line">    try_files &#123;path&#125; /internal.html</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 内网访问限制</span></span><br><span class="line">    @blocked &#123;</span><br><span class="line">        not remote_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16</span><br><span class="line">    &#125;</span><br><span class="line">    respond @blocked 403 <span class="string">&quot;Forbidden&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 安全头部</span></span><br><span class="line">    header &#123;</span><br><span class="line">        X-Content-Type-Options nosniff</span><br><span class="line">        X-Frame-Options DENY</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="🚀-启动内网服务"><a href="#🚀-启动内网服务" class="headerlink" title="🚀 启动内网服务"></a>🚀 启动内网服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新加载配置</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl reload caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查服务状态</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试内网访问</span></span><br><span class="line">curl -I http://10.10.10.247:9300</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看监听端口</span></span><br><span class="line"><span class="built_in">sudo</span> ss -tuln | grep 9300</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="advanced-config"></a></p>
+<h2 id="🔧-高级配置技巧"><a href="#🔧-高级配置技巧" class="headerlink" title="🔧 高级配置技巧"></a>🔧 高级配置技巧</h2><h3 id="🔄-多站点配置"><a href="#🔄-多站点配置" class="headerlink" title="🔄 多站点配置"></a>🔄 多站点配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建多个站点配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/caddy/conf.d/multiple.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># 站点1 - 主站点</span></span><br><span class="line">site1.example.com &#123;</span><br><span class="line">    root * /var/www/site1</span><br><span class="line">    file_server</span><br><span class="line">    encode gzip</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 站点2 - 博客</span></span><br><span class="line">blog.example.com &#123;</span><br><span class="line">    root * /var/www/blog</span><br><span class="line">    file_server</span><br><span class="line">    encode gzip</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 重写规则</span></span><br><span class="line">    try_files &#123;path&#125; /index.html</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 站点3 - API</span></span><br><span class="line">api.example.com &#123;</span><br><span class="line">    reverse_proxy /api/* localhost:3000</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 限制请求大小</span></span><br><span class="line">    request_body &#123;</span><br><span class="line">        max_size 10MB</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="🌐-虚拟主机配置"><a href="#🌐-虚拟主机配置" class="headerlink" title="🌐 虚拟主机配置"></a>🌐 虚拟主机配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 多个域名指向同一个网站</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/caddy/conf.d/vhost.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># 🌐 虚拟主机配置</span></span><br><span class="line">site1.example.com, site2.example.com, www.site1.example.com &#123;</span><br><span class="line">    root * /var/www/html/sites</span><br><span class="line">    file_server</span><br><span class="line">    encode gzip</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 重定向到主域名</span></span><br><span class="line">    @primary host site1.example.com</span><br><span class="line">    redir @primary https://site1.example.com&#123;uri&#125; permanent</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="📊-日志配置"><a href="#📊-日志配置" class="headerlink" title="📊 日志配置"></a>📊 日志配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细日志配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/caddy/conf.d/logging.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># 📊 高级日志配置</span></span><br><span class="line">:2015 &#123;</span><br><span class="line">    <span class="built_in">log</span> &#123;</span><br><span class="line">        output file /var/log/caddy/access.log &#123;</span><br><span class="line">            roll_size 100MB</span><br><span class="line">            roll_keep 10</span><br><span class="line">            roll_keep_for 720h</span><br><span class="line">        &#125;</span><br><span class="line">        format json &#123;</span><br><span class="line">            time_format <span class="string">&quot;2006-01-02T15:04:05Z07:00&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="performance"></a></p>
+<h2 id="⚡-性能优化"><a href="#⚡-性能优化" class="headerlink" title="⚡ 性能优化"></a>⚡ 性能优化</h2><h3 id="🚀-启用HTTP-3"><a href="#🚀-启用HTTP-3" class="headerlink" title="🚀 启用HTTP/3"></a>🚀 启用HTTP/3</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在全局配置中添加</span></span><br><span class="line">&#123;</span><br><span class="line">    servers &#123;</span><br><span class="line">        protocol &#123;</span><br><span class="line">            experimental_http3</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="📦-静态资源缓存"><a href="#📦-静态资源缓存" class="headerlink" title="📦 静态资源缓存"></a>📦 静态资源缓存</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加缓存配置</span></span><br><span class="line">@static &#123;</span><br><span class="line">    path *.css *.js *.png *.jpg *.jpeg *.gif *.ico *.svg *.woff *.woff2 *.ttf *.eot</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">header @static Cache-Control <span class="string">&quot;public, max-age=31536000, immutable&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 压缩配置</span></span><br><span class="line">encode &#123;</span><br><span class="line">    gzip</span><br><span class="line">    zstd</span><br><span class="line">    min_length 256</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="🔄-负载均衡配置"><a href="#🔄-负载均衡配置" class="headerlink" title="🔄 负载均衡配置"></a>🔄 负载均衡配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 多服务器负载均衡</span></span><br><span class="line">reverse_proxy /api/* &#123;</span><br><span class="line">    to server1:8080 server2:8080 server3:8080</span><br><span class="line">    lb_policy round_robin</span><br><span class="line">    health_check /health</span><br><span class="line">    health_interval 30s</span><br><span class="line">    health_timeout 5s</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 保持连接</span></span><br><span class="line">    transport http &#123;</span><br><span class="line">        keepalive 30s</span><br><span class="line">        keepalive_interval 10s</span><br><span class="line">        keepalive_idle_conns 100</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="security"></a></p>
+<h2 id="🔒-安全加固"><a href="#🔒-安全加固" class="headerlink" title="🔒 安全加固"></a>🔒 安全加固</h2><h3 id="🛡️-安全头部"><a href="#🛡️-安全头部" class="headerlink" title="🛡️ 安全头部"></a>🛡️ 安全头部</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增强安全头部</span></span><br><span class="line">header &#123;</span><br><span class="line">    <span class="comment"># 防止MIME类型混淆</span></span><br><span class="line">    X-Content-Type-Options <span class="string">&quot;nosniff&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 防止点击劫持</span></span><br><span class="line">    X-Frame-Options <span class="string">&quot;DENY&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># XSS保护</span></span><br><span class="line">    X-XSS-Protection <span class="string">&quot;1; mode=block&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># HSTS</span></span><br><span class="line">    Strict-Transport-Security <span class="string">&quot;max-age=31536000; includeSubDomains; preload&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 引用策略</span></span><br><span class="line">    Referrer-Policy <span class="string">&quot;strict-origin-when-cross-origin&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 权限策略</span></span><br><span class="line">    Permissions-Policy <span class="string">&quot;geolocation=(), microphone=(), camera=()&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 内容安全策略</span></span><br><span class="line">    Content-Security-Policy <span class="string">&quot;default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; https://cdn.example.com; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; https://cdn.example.com; img-src &#x27;self&#x27; data: https:;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="🔐-访问控制"><a href="#🔐-访问控制" class="headerlink" title="🔐 访问控制"></a>🔐 访问控制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># IP访问限制</span></span><br><span class="line">@blocked &#123;</span><br><span class="line">    not remote_ip 192.168.1.0/24 10.10.10.0/24</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">respond @blocked 403 <span class="string">&quot;Forbidden&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基本认证</span></span><br><span class="line">basicauth /admin/* &#123;</span><br><span class="line">    admin $2y$10<span class="variable">$AbCdEfGhIjKlMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrStUv</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 速率限制</span></span><br><span class="line">@rate_limit &#123;</span><br><span class="line">    remote_ip 192.168.1.0/24</span><br><span class="line">&#125;</span><br><span class="line">limit_rate @rate_limit 100k</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🐛-故障排除"><a href="#🐛-故障排除" class="headerlink" title="🐛 故障排除"></a>🐛 故障排除</h2><h3 id="🔍-常见问题解决"><a href="#🔍-常见问题解决" class="headerlink" title="🔍 常见问题解决"></a>🔍 常见问题解决</h3><ol>
+<li><p><strong>端口被占用</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查端口占用</span></span><br><span class="line"><span class="built_in">sudo</span> netstat -tulnp | grep :6663</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终止占用进程</span></span><br><span class="line"><span class="built_in">sudo</span> fuser -k 6663/tcp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>权限问题</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修复文件权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R www-data:www-data /var/www/html</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 755 /var/www/html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查SELinux状态</span></span><br><span class="line">getenforce</span><br><span class="line"></span><br><span class="line"><span class="comment"># 临时禁用SELinux（如需）</span></span><br><span class="line"><span class="built_in">sudo</span> setenforce 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>配置错误</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查配置语法</span></span><br><span class="line"><span class="built_in">sudo</span> caddy validate --config /etc/caddy/Caddyfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看详细错误</span></span><br><span class="line"><span class="built_in">sudo</span> caddy run --config /etc/caddy/Caddyfile --adapter caddyfile</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="📋-日志检查"><a href="#📋-日志检查" class="headerlink" title="📋 日志检查"></a>📋 日志检查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看Caddy日志</span></span><br><span class="line"><span class="built_in">sudo</span> journalctl -u caddy -f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看访问日志</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tail</span> -f /var/log/caddy/access.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实时监控错误</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tail</span> -f /var/log/caddy/*.<span class="built_in">log</span> | grep -i error</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看系统资源使用</span></span><br><span class="line"><span class="built_in">sudo</span> top -p $(pgrep caddy)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="tips"></a></p>
+<h2 id="💡-实用技巧"><a href="#💡-实用技巧" class="headerlink" title="💡 实用技巧"></a>💡 实用技巧</h2><h3 id="🎯-一键部署脚本"><a href="#🎯-一键部署脚本" class="headerlink" title="🎯 一键部署脚本"></a>🎯 一键部署脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 🚀 Caddy静态网站一键部署脚本</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始部署静态网站...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Caddy</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;安装Caddy...&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install -y debian-keyring debian-archive-keyring apt-transport-https curl</span><br><span class="line">curl -1sLf <span class="string">&#x27;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#x27;</span> | <span class="built_in">sudo</span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg</span><br><span class="line">curl -1sLf <span class="string">&#x27;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/caddy-stable.list</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建网站目录</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;创建网站目录...&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /var/www/html/web</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R www-data:www-data /var/www/html</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 755 /var/www/html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建示例页面</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;创建示例页面...&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /var/www/html/web/index.html &lt;&lt;<span class="string">&#x27;HTML&#x27;</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;<span class="built_in">head</span>&gt;</span><br><span class="line">    &lt;title&gt;Welcome&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;body&#123;font-family:Arial,sans-serif;margin:40px;text-align:center&#125;&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;🚀 网站部署成功!&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;你的静态网站已经成功部署&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">HTML</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建Caddy配置</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;创建Caddy配置...&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/caddy/conf.d</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/caddy/Caddyfile &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&#123;</span><br><span class="line">    admin off</span><br><span class="line">    auto_https disable_redirects</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">:80 &#123;</span><br><span class="line">    root * /var/www/html/web</span><br><span class="line">    file_server</span><br><span class="line">    encode gzip</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;启动Caddy服务...&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> caddy</span><br><span class="line"><span class="built_in">sudo</span> systemctl start caddy</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;✅ 部署完成! 网站已启动&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="🔄-自动更新证书"><a href="#🔄-自动更新证书" class="headerlink" title="🔄 自动更新证书"></a>🔄 自动更新证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用Caddy内置的自动SSL</span></span><br><span class="line"><span class="comment"># Caddy会自动处理证书的获取和续期</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动续期检查</span></span><br><span class="line"><span class="built_in">sudo</span> caddy renew</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看证书状态</span></span><br><span class="line"><span class="built_in">sudo</span> caddy validate</span><br></pre></td></tr></table></figure>
+<h3 id="📊-监控状态"><a href="#📊-监控状态" class="headerlink" title="📊 监控状态"></a>📊 监控状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看Caddy状态</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看活动连接</span></span><br><span class="line"><span class="built_in">sudo</span> ss -tulpn | grep caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看资源使用</span></span><br><span class="line"><span class="built_in">sudo</span> ps aux | grep caddy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控访问日志</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tail</span> -f /var/log/caddy/access.log | jq <span class="string">&#x27;.&#x27;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>💡 <strong>专业提示</strong>: Caddy的自动HTTPS功能让它成为部署静态网站的绝佳选择。对于生产环境，建议使用完整的Caddyfile配置，并定期检查日志以确保服务稳定运行。</p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/caddy/">caddy</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?5632" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/fd6183b5.html" title="Nginx 部署文件服务器 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5842" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Nginx 部署文件服务器 🚀</div></div><div class="info-2"><div class="info-item-1">Nginx 部署文件服务器 🚀  📁 快速搭建高效稳定的文件共享服务，支持内网外网访问   ✨ 功能特点 🌐 多协议支持 - 同时支持HTTP和HTTPS访问 📂 目录浏览 - 自动生成美观的文件目录列表 🔒 安全加密 - 支持SSL/TLS加密传输 🎨 主题定制 - 可自定义页面头部和底部 📱 响应式设计 - 适配各种设备访问 ⚡ 高性能 - 基于Nginx的高效静态文件服务   🛠️ 环境准备1. Debian/Ubuntu 安装 Nginx1234567891011# 安装Nginxsudo apt update &amp;&amp; sudo apt install nginx -y# 启动Nginx服务sudo systemctl start nginx# 设置开机自启sudo systemctl enable nginx# 验证安装nginx -v 2. 检查服务状态12345# 查看Nginx状态sudo systemctl status nginx# 测试配置文件语法sudo nginx -t  🌐 带域名HTTPS文件服务示例地址：https:...</div></div></div></a><a class="pagination-related" href="/posts/c8cb8af9.html" title="Nginx 部署静态网站 🌐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3419" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Nginx 部署静态网站 🌐</div></div><div class="info-2"><div class="info-item-1">Nginx 部署静态网站 🌐  📖 目录导航 🌟 简介 🔐 一、配置带域名的静态页面（HTTPS） 🌐 二、配置内网静态页面（HTTP） 🔧 三、高级配置选项 📊 四、监控和维护 🔒 五、安全加固建议 🚀 六、性能优化 🐛 七、故障排除    🌟 简介本指南将帮助您配置 Nginx 服务器来托管静态网页，包括带域名的 HTTPS 访问和内网 HTTP 访问两种方式。Nginx 是一个高性能的 HTTP 和反向代理服务器，以其稳定性、丰富的功能集、简单的配置和低资源消耗而闻名。   🔐 一、配置带域名的静态页面（HTTPS）访问地址： https://jingtai.mobufan.eu.org:5553 1. 创建 HTML 静态页面123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869mkdir -p /var/www/html/web &amp;&am...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/1b00797e.html" title="Docker 部署 Caddy Web 服务器 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2456" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 Caddy Web 服务器 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Caddy Web 服务器完全指南 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Caddy 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Caddy 1. 访问 Web 界面 💻 2. 基本配置步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航 Web 服务，探索无限     🎯 项目简介Caddy 是一款现代化的开源 Web 服务器，以其简单的配置、自动 HTTPS 和出色的性能而闻名。通过 Docker 部署 Caddy，您可以轻松搭建一个功能强大的 Web 服务器，支持静态网站、反向代理、负载均衡等多种功能。 Caddy 采用 Go 语言编写，可用于静态资源托管和反向代理，默认启用 HTTPS，...</div></div></div></a><a class="pagination-related" href="/posts/d03c3645.html" title="Caddy 反代内网 http https"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2544" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Caddy 反代内网 http https</div></div><div class="info-2"><div class="info-item-1">Caddy 反代内网 http https  一 、Caddy 反代内网 http1234567891011mkdir -pm 755 /usr/local/caddy/conf.d &amp;&amp; touch /usr/local/caddy/conf.d/xunlei.conf &amp;&amp; chmod u+x /usr/local/caddy/conf.d/xunlei.conf &amp;&amp; cat &gt; /usr/local/caddy/conf.d/xunlei.conf &lt;&lt;&#x27;EOF&#x27;https://xunlei.meimolihan.eu.org:6663 &#123;    encode gzip    tls ssl/full_chain.pem ssl/private.key    reverse_proxy http://10.10.10.245:2345  &#123;        header_up Host &#123;http.reverse_proxy.upstream.hostport...</div></div></div></a><a class="pagination-related" href="/posts/cf9cf9a1.html" title="Caddy V2 完全指南 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3547" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Caddy V2 完全指南 🚀</div></div><div class="info-2"><div class="info-item-1">Caddy V2 完全指南 🚀  🌐 现代化的自动 HTTPS Web 服务器和反向代理 - 简单、安全、高效的Web服务解决方案   📋 目录 🎯 Caddy V2 简介 🐳 Docker 安装 📝 配置文件详解 🔁 反向代理配置 📁 Web 服务配置 🔒 HTTPS 配置 ⚙️ 高级配置 🔧 故障排除    🎯 Caddy V2 简介Caddy 2 是一款现代化的开源Web服务器，使用Go语言编写，以其简单性和自动HTTPS功能而闻名。 🌟 主要特性 🔒 自动 HTTPS：自动申请和续期 SSL 证书（Let’s Encrypt集成） ⚡ 简单配置：简洁易懂的 Caddyfile 语法，JSON配置选项 🚀 高性能：基于 Go 语言开发，内存占用低，并发能力强 🔧 模块化：支持丰富的扩展功能和中间件 📦 零依赖：单一二进制文件，无需额外运行时 🌐 HTTP/3 支持：原生支持HTTP/3 (QUIC)协议  🆚 版本区别 Caddy V1：旧版本，配置语法不同，已停止维护 Caddy V2：新版本，完全重写，配置更灵活，本教程适用  🏆 ...</div></div></div></a><a class="pagination-related" href="/posts/b68cc5ae.html" title="Caddy 搭建 webdav 服务器 🖥️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?332" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Caddy 搭建 webdav 服务器 🖥️</div></div><div class="info-2"><div class="info-item-1">Caddy 搭建 webdav 服务器 🖥️ ✨ Caddy 是一款现代化的开源 Web 服务器，以其配置简单、自动 HTTPS 和高度可扩展性而著称。它凭借简洁的 Caddyfile 配置语法和内置的自动化证书管理（通过 Let’s Encrypt），让用户能快速部署各种网络服务。本文将详细介绍如何使用 Caddy 快速搭建一个安全、高效的 WebDAV 服务器，实现跨设备的文件共享与管理。 🔧 WebDAV（Web Distributed Authoring and Versioning） 是一种基于 HTTP 协议的扩展，允许用户通过网络直接编辑和管理远程服务器上的文件。它相当于“网络磁盘”，支持文件上传、下载、删除、创建目录等操作，并具有良好的兼容性（如 Windows 资源管理器、macOS Finder 等均可直接挂载）。  📋 文章目录 ✨ Caddy 与 WebDAV 简介 📦 一、Ubuntu 安装二进制 Caddy 1. 创建 Caddy 目录 2. 下载 Caddy 3. 上传并重命名 Caddy 4. 赋予执行权限 5. 升级 Caddy 版本 6...</div></div></div></a><a class="pagination-related" href="/posts/a35f0538.html" title="Caddy 负载均衡"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9352" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Caddy 负载均衡</div></div><div class="info-2"><div class="info-item-1">Caddy 负载均衡  mtab 标签页：https://mtab.meimolihan.eu.org:6663 1234567891011121314## caddy 负载均衡 负载轮询mkdir -pm 755 /usr/local/caddy/conf.d &amp;&amp; touch /usr/local/caddy/conf.d/mtab.conf &amp;&amp; chmod u+x /usr/local/caddy/conf.d/mtab.conf &amp;&amp; cat &gt; /usr/local/caddy/conf.d/mtab.conf &lt;&lt;&#x27;EOF&#x27;https://mtab.meimolihan.eu.org:6663 &#123;    encode gzip    tls /usr/local/caddy/ssl/full_chain.pem /usr/local/caddy/ssl/private.key    reverse_proxy /* http://10.10.10.245:9200 htt...</div></div></div></a><a class="pagination-related" href="/posts/c5715b9a.html" title="Caddy 服务器安装与卸载 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8586" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Caddy 服务器安装与卸载 🚀</div></div><div class="info-2"><div class="info-item-1">Caddy 服务器安装与卸载 🚀  🌐 现代化的 Web 服务器，自动 HTTPS，配置简单   📋 目录 🎯 简介 📦 安装方法 🗑️ 卸载方法 🔧 维护命令 ⚙️ 配置文件 🚀 快速开始 💡 最佳实践    🎯 简介🌟 Caddy 特点 ✅ 自动 HTTPS：自动申请和续期 SSL 证书 ✅ 简单配置：简洁的 Caddyfile 语法 ✅ 高性能：基于 Go 语言开发 ✅ 零依赖：单个二进制文件运行  🔗 重要链接 🌐 官网: https://caddyserver.com/ 📥 下载: https://caddyserver.com/download 📚 文档: https://caddy2.dengxiaolong.com/docs/ 🎥 视频教程: https://www.bilibili.com/video/BV1wU4y1u7tf 📖 教程文档: https://www.cnblogs.com/wzcsxjl/p/15517168.html    📦 安装方法🐧 APT 安装（推荐）1234567891011# 更新软件包列表s...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Caddy-%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99-%F0%9F%8C%90"><span class="toc-text">Caddy 部署静态网站 🌐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%88%AA"><span class="toc-text">📖 目录导航</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-Caddy-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">📦 Caddy 安装与配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%90%A7-Ubuntu-%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-text">🐧 Ubuntu 系统安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">1. 创建目录结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%B8%8B%E8%BD%BDCaddy%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">2. 下载Caddy服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-text">3. 验证安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%88%9B%E5%BB%BA%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="toc-text">4. 创建系统服务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E5%9F%9F%E5%90%8D%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9%E9%83%A8%E7%BD%B2"><span class="toc-text">🌐 域名静态站点部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%81-%E5%88%9B%E5%BB%BA%E7%BD%91%E7%AB%99%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">📁 创建网站目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A8-%E5%88%9B%E5%BB%BA%E7%A4%BA%E4%BE%8B%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2"><span class="toc-text">🎨 创建示例静态页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%A7-%E9%85%8D%E7%BD%AECaddy%E5%9F%9F%E5%90%8D%E7%AB%99%E7%82%B9"><span class="toc-text">🔧 配置Caddy域名站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">🔄 应用配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8F%A0-%E5%86%85%E7%BD%91%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9%E9%83%A8%E7%BD%B2"><span class="toc-text">🏠 内网静态站点部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%82-%E5%88%9B%E5%BB%BA%E5%86%85%E7%BD%91%E7%AB%99%E7%82%B9"><span class="toc-text">📂 创建内网站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%A7-%E9%85%8D%E7%BD%AE%E5%86%85%E7%BD%91%E7%AB%99%E7%82%B9"><span class="toc-text">🔧 配置内网站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E5%90%AF%E5%8A%A8%E5%86%85%E7%BD%91%E6%9C%8D%E5%8A%A1"><span class="toc-text">🚀 启动内网服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%E6%8A%80%E5%B7%A7"><span class="toc-text">🔧 高级配置技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E5%A4%9A%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE"><span class="toc-text">🔄 多站点配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%90-%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-text">🌐 虚拟主机配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8A-%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE"><span class="toc-text">📊 日志配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">⚡ 性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E5%90%AF%E7%94%A8HTTP-3"><span class="toc-text">🚀 启用HTTP&#x2F;3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A6-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E7%BC%93%E5%AD%98"><span class="toc-text">📦 静态资源缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%85%8D%E7%BD%AE"><span class="toc-text">🔄 负载均衡配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%92-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA"><span class="toc-text">🔒 安全加固</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9B%A1%EF%B8%8F-%E5%AE%89%E5%85%A8%E5%A4%B4%E9%83%A8"><span class="toc-text">🛡️ 安全头部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%90-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-text">🔐 访问控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%9B-%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">🐛 故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-text">🔍 常见问题解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8B-%E6%97%A5%E5%BF%97%E6%A3%80%E6%9F%A5"><span class="toc-text">📋 日志检查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="toc-text">💡 实用技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC"><span class="toc-text">🎯 一键部署脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6"><span class="toc-text">🔄 自动更新证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8A-%E7%9B%91%E6%8E%A7%E7%8A%B6%E6%80%81"><span class="toc-text">📊 监控状态</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

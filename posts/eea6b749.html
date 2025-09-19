@@ -1,0 +1,1039 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>随机壁纸 API 合集 🖼️ | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="随机壁纸 API 合集 🖼️本文整理了丰富的随机壁纸 API 资源，涵盖风景、动漫、游戏、美女等多种类别，并提供自适应及移动端专用链接。每个 API 均支持直接获取随机壁纸，方便开发者快速调用，增强项目视觉效果。  📚 导航目录 🏞️ 一、风景随机壁纸 📱 二、自适应随机壁纸 👩 三、美女随机壁纸 🐾 四、萌宠随机壁纸 🎮 五、游戏随机壁纸 💥 六、动漫随机壁纸 🔍 七、其他随机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机壁纸 API 合集 🖼️">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/eea6b749.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="随机壁纸 API 合集 🖼️本文整理了丰富的随机壁纸 API 资源，涵盖风景、动漫、游戏、美女等多种类别，并提供自适应及移动端专用链接。每个 API 均支持直接获取随机壁纸，方便开发者快速调用，增强项目视觉效果。  📚 导航目录 🏞️ 一、风景随机壁纸 📱 二、自适应随机壁纸 👩 三、美女随机壁纸 🐾 四、萌宠随机壁纸 🎮 五、游戏随机壁纸 💥 六、动漫随机壁纸 🔍 七、其他随机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?6636">
+<meta property="article:published_time" content="2025-09-12T01:18:52.000Z">
+<meta property="article:modified_time" content="2025-09-12T01:18:52.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="我的">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?6636"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "随机壁纸 API 合集 🖼️",
+  "url": "https://www.meimolihan.eu.org/posts/eea6b749.html",
+  "image": "https://api.mobufan.eu.org:666/pc?6636",
+  "datePublished": "2025-09-12T01:18:52.000Z",
+  "dateModified": "2025-09-12T01:18:52.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/eea6b749.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '随机壁纸 API 合集 🖼️',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?6636);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">随机壁纸 API 合集 🖼️</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">随机壁纸 API 合集 🖼️</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T01:18:52.000Z" title="发表于 2025-09-12 09:18:52">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T01:18:52.000Z" title="更新于 2025-09-12 09:18:52">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/">默认分类</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 09:18:52&quot;}" hidden></div><h1 id="随机壁纸-API-合集-🖼️"><a href="#随机壁纸-API-合集-🖼️" class="headerlink" title="随机壁纸 API 合集 🖼️"></a>随机壁纸 API 合集 🖼️</h1><p>本文整理了丰富的随机壁纸 API 资源，涵盖风景、动漫、游戏、美女等多种类别，并提供自适应及移动端专用链接。每个 API 均支持直接获取随机壁纸，方便开发者快速调用，增强项目视觉效果。</p>
+<hr>
+<h2 id="📚-导航目录"><a href="#📚-导航目录" class="headerlink" title="📚 导航目录"></a>📚 导航目录</h2><ul>
+<li><a href="#landscape-random-wallpapers">🏞️ 一、风景随机壁纸</a></li>
+<li><a href="#adaptive-random-wallpapers">📱 二、自适应随机壁纸</a></li>
+<li><a href="#beauty-random-wallpapers">👩 三、美女随机壁纸</a></li>
+<li><a href="#cute-pet-random-wallpapers">🐾 四、萌宠随机壁纸</a></li>
+<li><a href="#game-random-wallpapers">🎮 五、游戏随机壁纸</a></li>
+<li><a href="#anime-random-wallpapers">💥 六、动漫随机壁纸</a></li>
+<li><a href="#other-random-wallpapers">🔍 七、其他随机壁纸</a></li>
+<li><a href="#high-quality-daily-wallpapers">🌅 八、高质量每日壁纸</a></li>
+<li><a href="#anime-random-wallpapers-2">🖼️ 九、动漫随机壁纸</a></li>
+<li><a href="#download-wallpapers">💾 十、点击下载壁纸</a></li>
+<li><a href="#mobile-random-wallpapers">📱 十一、手机随机壁纸</a></li>
+</ul>
+<hr>
+<p><a id="landscape-random-wallpapers"></a></p>
+<h2 id="🏞️-一、风景随机壁纸"><a href="#🏞️-一、风景随机壁纸" class="headerlink" title="🏞️ 一、风景随机壁纸"></a>🏞️ 一、风景随机壁纸</h2><h3 id="1-随机必应壁纸"><a href="#1-随机必应壁纸" class="headerlink" title="1. 随机必应壁纸"></a>1. 随机必应壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.timelessq.com/bing/random">https://api.timelessq.com/bing/random</a><br><strong>特点</strong>：每日更新的高质量必应壁纸，涵盖全球自然风光与城市景观。<br><strong>示例</strong>：<br><img src="https://api.timelessq.com/bing/random" alt="必应随机壁纸"></p>
+<h3 id="2-4K-风景壁纸图片"><a href="#2-4K-风景壁纸图片" class="headerlink" title="2. 4K 风景壁纸图片"></a>2. 4K 风景壁纸图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/landscape">https://acg.suyanw.cn/landscape</a><br><strong>特点</strong>：专为风景爱好者提供的4K超清壁纸，适合桌面及移动端。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/landscape" alt="4K风景壁纸"></p>
+<h3 id="3-风景大片"><a href="#3-风景大片" class="headerlink" title="3. 风景大片"></a>3. 风景大片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=fj">https://api.zylearning.top/api/wallpaper?lx=fj</a><br><strong>特点</strong>：精选高清风景大片，支持多种分辨率切换。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=fj" alt="风景大片"></p>
+<h3 id="4-随机高清风景壁纸"><a href="#4-随机高清风景壁纸" class="headerlink" title="4. 随机高清风景壁纸"></a>4. 随机高清风景壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/gqbz/random.php">https://acg.suyanw.cn/gqbz/random.php</a><br><strong>特点</strong>：随机返回高清风景壁纸，涵盖自然、城市等多种主题。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/gqbz/random.php" alt="高清风景壁纸"></p>
+<h3 id="5-随机二次元风景图"><a href="#5-随机二次元风景图" class="headerlink" title="5. 随机二次元风景图"></a>5. 随机二次元风景图</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/scenery/random.php">https://acg.suyanw.cn/scenery/random.php</a><br><strong>特点</strong>：二次元风格的唯美风景，适合动漫爱好者。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/scenery/random.php" alt="二次元风景"></p>
+<h3 id="6-随机二次元风景图（备用）"><a href="#6-随机二次元风景图（备用）" class="headerlink" title="6. 随机二次元风景图（备用）"></a>6. 随机二次元风景图（备用）</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.asxe.vip/scenery.php">https://api.asxe.vip/scenery.php</a><br><strong>特点</strong>：提供另一种风格的二次元风景壁纸，画面细腻。<br><strong>示例</strong>：<br><img src="https://api.asxe.vip/scenery.php" alt="二次元风景备用"></p>
+<h3 id="7-随机二次元壁纸"><a href="#7-随机二次元壁纸" class="headerlink" title="7. 随机二次元壁纸"></a>7. 随机二次元壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.luvying.com/acgimg">https://api.luvying.com/acgimg</a><br><strong>特点</strong>：每日更新的二次元壁纸，涵盖多种动漫风格。<br><strong>示例</strong>：<br><img src="https://api.luvying.com/acgimg" alt="二次元壁纸"></p>
+<h3 id="8-随机二次元壁纸（备用）"><a href="#8-随机二次元壁纸（备用）" class="headerlink" title="8. 随机二次元壁纸（备用）"></a>8. 随机二次元壁纸（备用）</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/Anime">https://acg.suyanw.cn/Anime</a><br><strong>特点</strong>：提供更多二次元风格壁纸，画面精美。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/Anime" alt="二次元壁纸备用"></p>
+<h3 id="9-随机-PC-壁纸"><a href="#9-随机-PC-壁纸" class="headerlink" title="9. 随机 PC 壁纸"></a>9. 随机 PC 壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.mwm.moe/pc">https://t.mwm.moe/pc</a><br><strong>特点</strong>：专为PC端设计的高清横屏壁纸，适配大多数显示器。<br><strong>示例</strong>：<br><img src="https://t.mwm.moe/pc" alt="PC壁纸"></p>
+<h3 id="10-二次元风景壁纸"><a href="#10-二次元风景壁纸" class="headerlink" title="10. 二次元风景壁纸"></a>10. 二次元风景壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.mwm.moe/fj">https://t.mwm.moe/fj</a><br><strong>特点</strong>：融合二次元与自然风光的壁纸，视觉冲击力强。<br><strong>示例</strong>：<br><img src="https://t.mwm.moe/fj" alt="二次元风景壁纸"></p>
+<h3 id="11-白底二次元图片"><a href="#11-白底二次元图片" class="headerlink" title="11. 白底二次元图片"></a>11. 白底二次元图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.paugram.com/wallpaper/">https://api.paugram.com/wallpaper/</a><br><strong>特点</strong>：以白色为背景的二次元图片，简洁清新。<br><strong>示例</strong>：<br><img src="https://api.paugram.com/wallpaper/" alt="白底二次元"></p>
+<hr>
+<p><a id="adaptive-random-wallpapers"></a></p>
+<h2 id="📱-二、自适应随机壁纸"><a href="#📱-二、自适应随机壁纸" class="headerlink" title="📱 二、自适应随机壁纸"></a>📱 二、自适应随机壁纸</h2><h3 id="1-二次元自适应"><a href="#1-二次元自适应" class="headerlink" title="1. 二次元自适应"></a>1. 二次元自适应</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/ycy">https://t.alcy.cc/ycy</a><br><strong>特点</strong>：自动适配设备屏幕的二次元壁纸，支持PC与移动端。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/ycy" alt="二次元自适应"></p>
+<h3 id="2-萌版自适应"><a href="#2-萌版自适应" class="headerlink" title="2. 萌版自适应"></a>2. 萌版自适应</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/moez">https://t.alcy.cc/moez</a><br><strong>特点</strong>：可爱风格的萌系壁纸，自适应多种屏幕分辨率。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/moez" alt="萌版自适应"></p>
+<h3 id="3-AI-自适应"><a href="#3-AI-自适应" class="headerlink" title="3. AI 自适应"></a>3. AI 自适应</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/ai">https://t.alcy.cc/ai</a><br><strong>特点</strong>：由AI生成的艺术风格壁纸，每张都独一无二。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/ai" alt="AI自适应"></p>
+<h3 id="4-原神自适应"><a href="#4-原神自适应" class="headerlink" title="4. 原神自适应"></a>4. 原神自适应</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/ysz">https://t.alcy.cc/ysz</a><br><strong>特点</strong>：基于《原神》游戏画面的自适应壁纸，深受玩家喜爱。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/ysz" alt="原神自适应"></p>
+<h3 id="5-二次元自适应壁纸"><a href="#5-二次元自适应壁纸" class="headerlink" title="5. 二次元自适应壁纸"></a>5. 二次元自适应壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://www.loliapi.com/acg/">https://www.loliapi.com/acg/</a><br><strong>特点</strong>：提供丰富的二次元自适应壁纸，更新频繁。<br><strong>示例</strong>：<br><img src="https://www.loliapi.com/acg/" alt="二次元自适应壁纸"></p>
+<h3 id="6-二次元自适应壁纸（备用）"><a href="#6-二次元自适应壁纸（备用）" class="headerlink" title="6. 二次元自适应壁纸（备用）"></a>6. 二次元自适应壁纸（备用）</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.suyanw.cn/api/comic/api.php">https://api.suyanw.cn/api/comic/api.php</a><br><strong>特点</strong>：另一来源的二次元自适应壁纸，风格多样。<br><strong>示例</strong>：<br><img src="https://api.suyanw.cn/api/comic/api.php" alt="二次元自适应备用"></p>
+<hr>
+<p><a id="beauty-random-wallpapers"></a></p>
+<h2 id="👩-三、美女随机壁纸"><a href="#👩-三、美女随机壁纸" class="headerlink" title="👩 三、美女随机壁纸"></a>👩 三、美女随机壁纸</h2><h3 id="1-美女模特"><a href="#1-美女模特" class="headerlink" title="1. 美女模特"></a>1. 美女模特</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=mnmt">https://api.zylearning.top/api/wallpaper?lx=mnmt</a><br><strong>特点</strong>：高质量美女模特壁纸，适合艺术欣赏。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=mnmt" alt="美女模特"></p>
+<h3 id="2-4K-美女壁纸图片"><a href="#2-4K-美女壁纸图片" class="headerlink" title="2. 4K 美女壁纸图片"></a>2. 4K 美女壁纸图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/beauty">https://acg.suyanw.cn/beauty</a><br><strong>特点</strong>：4K超清美女壁纸，画面细腻。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/beauty" alt="4K美女壁纸"></p>
+<h3 id="3-电脑美女图片"><a href="#3-电脑美女图片" class="headerlink" title="3. 电脑美女图片"></a>3. 电脑美女图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="http://api.btstu.cn/sjbz/?lx=meizi">http://api.btstu.cn/sjbz/?lx=meizi</a><br><strong>特点</strong>：专为电脑端设计的美女壁纸，支持多种分辨率。<br><strong>示例</strong>：<br><img src="http://api.btstu.cn/sjbz/?lx=meizi" alt="电脑美女"></p>
+<hr>
+<p><a id="cute-pet-random-wallpapers"></a></p>
+<h2 id="🐾-四、萌宠随机壁纸"><a href="#🐾-四、萌宠随机壁纸" class="headerlink" title="🐾 四、萌宠随机壁纸"></a>🐾 四、萌宠随机壁纸</h2><h3 id="1-4K-萌宠壁纸图片"><a href="#1-4K-萌宠壁纸图片" class="headerlink" title="1. 4K 萌宠壁纸图片"></a>1. 4K 萌宠壁纸图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/cutepet">https://acg.suyanw.cn/cutepet</a><br><strong>特点</strong>：超萌宠物壁纸，包含猫、狗等多种动物。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/cutepet" alt="4K萌宠"></p>
+<h3 id="2-萌宠动物"><a href="#2-萌宠动物" class="headerlink" title="2. 萌宠动物"></a>2. 萌宠动物</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=dw">https://api.zylearning.top/api/wallpaper?lx=dw</a><br><strong>特点</strong>：各类可爱动物壁纸，画面生动有趣。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=dw" alt="萌宠动物"></p>
+<hr>
+<p><a id="game-random-wallpapers"></a></p>
+<h2 id="🎮-五、游戏随机壁纸"><a href="#🎮-五、游戏随机壁纸" class="headerlink" title="🎮 五、游戏随机壁纸"></a>🎮 五、游戏随机壁纸</h2><h3 id="1-王者荣耀原画壁纸"><a href="#1-王者荣耀原画壁纸" class="headerlink" title="1. 王者荣耀原画壁纸"></a>1. 王者荣耀原画壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/wzry">https://acg.suyanw.cn/wzry</a><br><strong>特点</strong>：精选《王者荣耀》游戏原画，高清无水印。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/wzry" alt="王者荣耀壁纸"></p>
+<h3 id="2-游戏壁纸"><a href="#2-游戏壁纸" class="headerlink" title="2. 游戏壁纸"></a>2. 游戏壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=yx">https://api.zylearning.top/api/wallpaper?lx=yx</a><br><strong>特点</strong>：涵盖多款热门游戏的壁纸，更新及时。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=yx" alt="游戏壁纸"></p>
+<h3 id="3-4K-游戏壁纸图片"><a href="#3-4K-游戏壁纸图片" class="headerlink" title="3. 4K 游戏壁纸图片"></a>3. 4K 游戏壁纸图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/Game">https://acg.suyanw.cn/Game</a><br><strong>特点</strong>：4K分辨率游戏壁纸，细节丰富。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/Game" alt="4K游戏壁纸"></p>
+<hr>
+<p><a id="anime-random-wallpapers"></a></p>
+<h2 id="💥-六、动漫随机壁纸"><a href="#💥-六、动漫随机壁纸" class="headerlink" title="💥 六、动漫随机壁纸"></a>💥 六、动漫随机壁纸</h2><h3 id="1-4K-动漫壁纸图片"><a href="#1-4K-动漫壁纸图片" class="headerlink" title="1. 4K 动漫壁纸图片"></a>1. 4K 动漫壁纸图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/Anime">https://acg.suyanw.cn/Anime</a><br><strong>特点</strong>：高质量动漫壁纸，包含多种热门作品。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/Anime" alt="4K动漫壁纸"></p>
+<h3 id="2-动漫壁纸"><a href="#2-动漫壁纸" class="headerlink" title="2. 动漫壁纸"></a>2. 动漫壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=dm">https://api.zylearning.top/api/wallpaper?lx=dm</a><br><strong>特点</strong>：每日更新的动漫壁纸，风格多样。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=dm" alt="动漫壁纸"></p>
+<hr>
+<p><a id="other-random-wallpapers"></a></p>
+<h2 id="🔍-七、其他随机壁纸"><a href="#🔍-七、其他随机壁纸" class="headerlink" title="🔍 七、其他随机壁纸"></a>🔍 七、其他随机壁纸</h2><h3 id="1-4K-壁纸"><a href="#1-4K-壁纸" class="headerlink" title="1. 4K 壁纸"></a>1. 4K 壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=4k">https://api.zylearning.top/api/wallpaper?lx=4k</a><br><strong>特点</strong>：通用4K超清壁纸，涵盖多种类别。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=4k" alt="4K壁纸"></p>
+<h3 id="2-随机类型壁纸"><a href="#2-随机类型壁纸" class="headerlink" title="2. 随机类型壁纸"></a>2. 随机类型壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper">https://api.zylearning.top/api/wallpaper</a><br><strong>特点</strong>：随机返回多种类型的壁纸，每次都有惊喜。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper" alt="随机类型壁纸"></p>
+<h3 id="3-爱情美图"><a href="#3-爱情美图" class="headerlink" title="3. 爱情美图"></a>3. 爱情美图</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=aqmt">https://api.zylearning.top/api/wallpaper?lx=aqmt</a><br><strong>特点</strong>：浪漫风格的爱情主题壁纸，适合情侣使用。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=aqmt" alt="爱情美图"></p>
+<h3 id="4-明星壁纸"><a href="#4-明星壁纸" class="headerlink" title="4. 明星壁纸"></a>4. 明星壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=mx">https://api.zylearning.top/api/wallpaper?lx=mx</a><br><strong>特点</strong>：国内外明星壁纸，更新频繁。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=mx" alt="明星壁纸"></p>
+<h3 id="5-汽车壁纸"><a href="#5-汽车壁纸" class="headerlink" title="5. 汽车壁纸"></a>5. 汽车壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=qc">https://api.zylearning.top/api/wallpaper?lx=qc</a><br><strong>特点</strong>：豪华跑车与经典车型壁纸，适合车迷。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=qc" alt="汽车壁纸"></p>
+<h3 id="6-炫酷时尚"><a href="#6-炫酷时尚" class="headerlink" title="6. 炫酷时尚"></a>6. 炫酷时尚</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=ss">https://api.zylearning.top/api/wallpaper?lx=ss</a><br><strong>特点</strong>：潮流与时尚结合的壁纸，视觉冲击力强。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=ss" alt="炫酷时尚"></p>
+<h3 id="7-影视剧照"><a href="#7-影视剧照" class="headerlink" title="7. 影视剧照"></a>7. 影视剧照</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.zylearning.top/api/wallpaper?lx=ysjz">https://api.zylearning.top/api/wallpaper?lx=ysjz</a><br><strong>特点</strong>：热门电影与电视剧照壁纸，涵盖多种作品。<br><strong>示例</strong>：<br><img src="https://api.zylearning.top/api/wallpaper?lx=ysjz" alt="影视剧照"></p>
+<hr>
+<p><a id="high-quality-daily-wallpapers"></a></p>
+<h2 id="🌅-八、高质量每日壁纸"><a href="#🌅-八、高质量每日壁纸" class="headerlink" title="🌅 八、高质量每日壁纸"></a>🌅 八、高质量每日壁纸</h2><h3 id="1-必应每日壁纸"><a href="#1-必应每日壁纸" class="headerlink" title="1. 必应每日壁纸"></a>1. 必应每日壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.dujin.org/bing/1920.php">https://api.dujin.org/bing/1920.php</a><br><strong>特点</strong>：每日更新的必应精选壁纸，支持1920x1080分辨率。<br><strong>示例</strong>：<br><img src="https://api.dujin.org/bing/1920.php" alt="必应每日壁纸"></p>
+<h3 id="2-必应每日壁纸（备用）"><a href="#2-必应每日壁纸（备用）" class="headerlink" title="2. 必应每日壁纸（备用）"></a>2. 必应每日壁纸（备用）</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://bingw.jasonzeng.dev">https://bingw.jasonzeng.dev</a><br><strong>特点</strong>：另一来源的必应每日壁纸，确保稳定访问。<br><strong>示例</strong>：<br><img src="https://bingw.jasonzeng.dev" alt="必应每日壁纸备用"></p>
+<h3 id="3-二次元每日壁纸"><a href="#3-二次元每日壁纸" class="headerlink" title="3. 二次元每日壁纸"></a>3. 二次元每日壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.paugram.com/wallpaper/?source=sm">https://api.paugram.com/wallpaper/?source=sm</a><br><strong>特点</strong>：每日更新的二次元壁纸，来源可靠。<br><strong>示例</strong>：<br><img src="https://api.paugram.com/wallpaper/?source=sm" alt="二次元每日壁纸"></p>
+<hr>
+<p><a id="anime-random-wallpapers-2"></a></p>
+<h2 id="🖼️-九、动漫随机壁纸"><a href="#🖼️-九、动漫随机壁纸" class="headerlink" title="🖼️ 九、动漫随机壁纸"></a>🖼️ 九、动漫随机壁纸</h2><h3 id="1-动漫随机壁纸"><a href="#1-动漫随机壁纸" class="headerlink" title="1. 动漫随机壁纸"></a>1. 动漫随机壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.asxe.vip/random.php">https://api.asxe.vip/random.php</a><br><strong>特点</strong>：随机返回动漫风格壁纸，包含多种作品。<br><strong>示例</strong>：<br><img src="https://api.asxe.vip/random.php" alt="动漫随机壁纸"></p>
+<h3 id="2-mc-酱动漫"><a href="#2-mc-酱动漫" class="headerlink" title="2. mc 酱动漫"></a>2. mc 酱动漫</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/mcapi/random.php">https://acg.suyanw.cn/mcapi/random.php</a><br><strong>特点</strong>：以“mc酱”为主题的动漫壁纸，风格独特。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/mcapi/random.php" alt="mc酱动漫"></p>
+<h3 id="3-随机你的名字图片"><a href="#3-随机你的名字图片" class="headerlink" title="3. 随机你的名字图片"></a>3. 随机你的名字图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/Yourname/random.php">https://acg.suyanw.cn/Yourname/random.php</a><br><strong>特点</strong>：基于《你的名字》动画电影的壁纸，唯美浪漫。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/Yourname/random.php" alt="你的名字壁纸"></p>
+<hr>
+<p><a id="download-wallpapers"></a></p>
+<h2 id="💾-十、点击下载壁纸"><a href="#💾-十、点击下载壁纸" class="headerlink" title="💾 十、点击下载壁纸"></a>💾 十、点击下载壁纸</h2><h3 id="1-随机美女-PC-壁纸"><a href="#1-随机美女-PC-壁纸" class="headerlink" title="1. 随机美女 PC 壁纸"></a>1. 随机美女 PC 壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/pcmv">https://acg.suyanw.cn/pcmv</a><br><strong>特点</strong>：专为PC端设计的美女壁纸，支持下载。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/pcmv" alt="美女PC壁纸"></p>
+<h3 id="2-随机二次元地址"><a href="#2-随机二次元地址" class="headerlink" title="2. 随机二次元地址"></a>2. 随机二次元地址</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.suyanw.cn/api/comic/api.php">https://api.suyanw.cn/api/comic/api.php</a><br><strong>特点</strong>：提供二次元壁纸的直接下载链接。<br><strong>示例</strong>：<br><img src="https://api.suyanw.cn/api/comic/api.php" alt="二次元下载"></p>
+<h3 id="3-PC-随机二次元地址"><a href="#3-PC-随机二次元地址" class="headerlink" title="3. PC 随机二次元地址"></a>3. PC 随机二次元地址</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/random.php">https://acg.suyanw.cn/random.php</a><br><strong>特点</strong>：PC端专用的二次元壁纸下载。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/random.php" alt="PC二次元下载"></p>
+<h3 id="4-二次元随机图地址"><a href="#4-二次元随机图地址" class="headerlink" title="4. 二次元随机图地址"></a>4. 二次元随机图地址</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.suyanw.cn/api/comic">https://api.suyanw.cn/api/comic</a><br><strong>特点</strong>：随机返回二次元图片，支持下载。<br><strong>示例</strong>：<br><img src="https://api.suyanw.cn/api/comic" alt="二次元随机图"></p>
+<h3 id="5-二次元随机图地址（原神）"><a href="#5-二次元随机图地址（原神）" class="headerlink" title="5. 二次元随机图地址（原神）"></a>5. 二次元随机图地址（原神）</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.dujin.org/pic/yuanshen">https://api.dujin.org/pic/yuanshen</a><br><strong>特点</strong>：专注于《原神》游戏的二次元壁纸下载。<br><strong>示例</strong>：<br><img src="https://api.dujin.org/pic/yuanshen" alt="原神壁纸"></p>
+<h3 id="6-二次元随机图地址"><a href="#6-二次元随机图地址" class="headerlink" title="6. 二次元随机图地址"></a>6. 二次元随机图地址</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/api.php">https://acg.suyanw.cn/api.php</a><br><strong>特点</strong>：通用二次元壁纸下载，来源丰富。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/api.php" alt="二次元通用下载"></p>
+<h3 id="7-二次元随机图地址"><a href="#7-二次元随机图地址" class="headerlink" title="7. 二次元随机图地址"></a>7. 二次元随机图地址</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://www.dmoe.cc/random.php">https://www.dmoe.cc/random.php</a><br><strong>特点</strong>：提供多种风格的二次元壁纸下载。<br><strong>示例</strong>：<br><img src="https://www.dmoe.cc/random.php" alt="二次元多样下载"></p>
+<h3 id="8-二次元随机图地址"><a href="#8-二次元随机图地址" class="headerlink" title="8. 二次元随机图地址"></a>8. 二次元随机图地址</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/random.php">https://acg.suyanw.cn/random.php</a><br><strong>特点</strong>：随机二次元壁纸下载，更新频繁。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/random.php" alt="二次元随机下载"></p>
+<h3 id="9-呓喵酱API"><a href="#9-呓喵酱API" class="headerlink" title="9. 呓喵酱API"></a>9. 呓喵酱API</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.yimian.xyz/img">https://api.yimian.xyz/img</a><br><strong>特点</strong>：由呓喵酱提供的随机图片API，支持多种类型。<br><strong>示例</strong>：<br><img src="https://api.yimian.xyz/img" alt="呓喵酱API"></p>
+<h3 id="10-原神自适应"><a href="#10-原神自适应" class="headerlink" title="10. 原神自适应"></a>10. 原神自适应</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/ysz">https://t.alcy.cc/ysz</a><br><strong>特点</strong>：《原神》主题的自适应壁纸，支持下载。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/ysz" alt="原神自适应下载"></p>
+<h3 id="11-PC-横屏"><a href="#11-PC-横屏" class="headerlink" title="11. PC 横屏"></a>11. PC 横屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/pc">https://t.alcy.cc/pc</a><br><strong>特点</strong>：PC端横屏壁纸下载，分辨率丰富。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/pc" alt="PC横屏"></p>
+<h3 id="12-萌版横屏"><a href="#12-萌版横屏" class="headerlink" title="12. 萌版横屏"></a>12. 萌版横屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/moe">https://t.alcy.cc/moe</a><br><strong>特点</strong>：萌系风格的横屏壁纸下载。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/moe" alt="萌版横屏"></p>
+<h3 id="13-风景横屏"><a href="#13-风景横屏" class="headerlink" title="13. 风景横屏"></a>13. 风景横屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/fj">https://t.alcy.cc/fj</a><br><strong>特点</strong>：风景主题的横屏壁纸下载。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/fj" alt="风景横屏"></p>
+<h3 id="14-白底横屏"><a href="#14-白底横屏" class="headerlink" title="14. 白底横屏"></a>14. 白底横屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/bd">https://t.alcy.cc/bd</a><br><strong>特点</strong>：白色背景的横屏壁纸，简洁清新。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/bd" alt="白底横屏"></p>
+<h3 id="15-原神横屏"><a href="#15-原神横屏" class="headerlink" title="15. 原神横屏"></a>15. 原神横屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/ys">https://t.alcy.cc/ys</a><br><strong>特点</strong>：《原神》游戏的横屏壁纸下载。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/ys" alt="原神横屏"></p>
+<hr>
+<p><a id="mobile-random-wallpapers"></a></p>
+<h2 id="📱-十一、手机随机壁纸"><a href="#📱-十一、手机随机壁纸" class="headerlink" title="📱 十一、手机随机壁纸"></a>📱 十一、手机随机壁纸</h2><h3 id="1-淘宝买家秀"><a href="#1-淘宝买家秀" class="headerlink" title="1. 淘宝买家秀"></a>1. 淘宝买家秀</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/tbmjx/random.php">https://acg.suyanw.cn/tbmjx/random.php</a><br><strong>特点</strong>：基于淘宝买家秀的实拍壁纸，真实有趣。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/tbmjx/random.php" alt="淘宝买家秀"></p>
+<h3 id="2-随机手机美女"><a href="#2-随机手机美女" class="headerlink" title="2. 随机手机美女"></a>2. 随机手机美女</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/sjmv/random.php">https://acg.suyanw.cn/sjmv/random.php</a><br><strong>特点</strong>：专为手机端设计的美女壁纸，竖屏适配。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/sjmv/random.php" alt="手机美女"></p>
+<h3 id="3-随机手机动漫"><a href="#3-随机手机动漫" class="headerlink" title="3. 随机手机动漫"></a>3. 随机手机动漫</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/sjdm/random.php">https://acg.suyanw.cn/sjdm/random.php</a><br><strong>特点</strong>：手机专用的动漫壁纸，画面精美。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/sjdm/random.php" alt="手机动漫"></p>
+<h3 id="4-随机头像"><a href="#4-随机头像" class="headerlink" title="4. 随机头像"></a>4. 随机头像</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/sjtx/random.php">https://acg.suyanw.cn/sjtx/random.php</a><br><strong>特点</strong>：随机返回各类头像，适合社交账号使用。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/sjtx/random.php" alt="随机头像"></p>
+<h3 id="5-随机小姐姐美女图片"><a href="#5-随机小姐姐美女图片" class="headerlink" title="5. 随机小姐姐美女图片"></a>5. 随机小姐姐美女图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/ksxjj/random.php">https://acg.suyanw.cn/ksxjj/random.php</a><br><strong>特点</strong>：以小姐姐为主题的美女图片，风格多样。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/ksxjj/random.php" alt="小姐姐图片"></p>
+<h3 id="6-随机-jk-制服图"><a href="#6-随机-jk-制服图" class="headerlink" title="6. 随机 jk 制服图"></a>6. 随机 jk 制服图</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/jk/random.php">https://acg.suyanw.cn/jk/random.php</a><br><strong>特点</strong>：JK制服风格的壁纸，深受喜爱。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/jk/random.php" alt="JK制服"></p>
+<h3 id="7-随机黑丝图片"><a href="#7-随机黑丝图片" class="headerlink" title="7. 随机黑丝图片"></a>7. 随机黑丝图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/hs/random.php">https://acg.suyanw.cn/hs/random.php</a><br><strong>特点</strong>：黑丝主题的壁纸，适合特定群体。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/hs/random.php" alt="黑丝图片"></p>
+<h3 id="8-随机三次元白丝-API"><a href="#8-随机三次元白丝-API" class="headerlink" title="8. 随机三次元白丝 API"></a>8. 随机三次元白丝 API</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/whitesilk/random.php">https://acg.suyanw.cn/whitesilk/random.php</a><br><strong>特点</strong>：白丝风格的三次元壁纸，画面唯美。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/whitesilk/random.php" alt="白丝壁纸"></p>
+<h3 id="9-随机二次元色图"><a href="#9-随机二次元色图" class="headerlink" title="9. 随机二次元色图"></a>9. 随机二次元色图</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/sex/random.php">https://acg.suyanw.cn/sex/random.php</a><br><strong>特点</strong>：二次元风格的色图壁纸，请注意使用场景。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/sex/random.php" alt="二次元色图"></p>
+<h3 id="10-随机猫羽雫图片"><a href="#10-随机猫羽雫图片" class="headerlink" title="10. 随机猫羽雫图片"></a>10. 随机猫羽雫图片</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/mao/random.php">https://acg.suyanw.cn/mao/random.php</a><br><strong>特点</strong>：以“猫羽雫”为主题的二次元壁纸，风格可爱。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/mao/random.php" alt="猫羽雫图片"></p>
+<h3 id="11-随机-COS-美图"><a href="#11-随机-COS-美图" class="headerlink" title="11. 随机 COS 美图"></a>11. 随机 COS 美图</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://acg.suyanw.cn/cos/random.php">https://acg.suyanw.cn/cos/random.php</a><br><strong>特点</strong>：COSPLAY主题的美图，还原度极高。<br><strong>示例</strong>：<br><img src="https://acg.suyanw.cn/cos/random.php" alt="COS美图"></p>
+<h3 id="12-原神随机图"><a href="#12-原神随机图" class="headerlink" title="12. 原神随机图"></a>12. 原神随机图</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.suyanw.cn/api/ys">https://api.suyanw.cn/api/ys</a><br><strong>特点</strong>：《原神》游戏的随机壁纸，更新频繁。<br><strong>示例</strong>：<br><img src="https://api.suyanw.cn/api/ys" alt="原神随机图"></p>
+<h3 id="13-二次元随机图"><a href="#13-二次元随机图" class="headerlink" title="13. 二次元随机图"></a>13. 二次元随机图</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://api.anosu.top/img/">https://api.anosu.top/img/</a><br><strong>特点</strong>：高质量的二次元随机图片，支持多种风格。<br><strong>示例</strong>：<br><img src="https://api.anosu.top/img/" alt="二次元随机图"></p>
+<h3 id="14-移动竖屏"><a href="#14-移动竖屏" class="headerlink" title="14. 移动竖屏"></a>14. 移动竖屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/mp">https://t.alcy.cc/mp</a><br><strong>特点</strong>：专为移动端设计的竖屏壁纸，适配大多数手机。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/mp" alt="移动竖屏"></p>
+<h3 id="15-萌版竖屏"><a href="#15-萌版竖屏" class="headerlink" title="15. 萌版竖屏"></a>15. 萌版竖屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/moemp">https://t.alcy.cc/moemp</a><br><strong>特点</strong>：萌系风格的竖屏壁纸，可爱清新。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/moemp" alt="萌版竖屏"></p>
+<h3 id="16-原神竖屏"><a href="#16-原神竖屏" class="headerlink" title="16. 原神竖屏"></a>16. 原神竖屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/ysmp">https://t.alcy.cc/ysmp</a><br><strong>特点</strong>：《原神》主题的竖屏壁纸，深受玩家喜爱。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/ysmp" alt="原神竖屏"></p>
+<h3 id="17-AI-竖屏"><a href="#17-AI-竖屏" class="headerlink" title="17. AI 竖屏"></a>17. AI 竖屏</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.alcy.cc/aimp">https://t.alcy.cc/aimp</a><br><strong>特点</strong>：AI生成的竖屏艺术壁纸，每张都独一无二。<br><strong>示例</strong>：<br><img src="https://t.alcy.cc/aimp" alt="AI竖屏"></p>
+<h3 id="18-竖屏壁纸"><a href="#18-竖屏壁纸" class="headerlink" title="18. 竖屏壁纸"></a>18. 竖屏壁纸</h3><p><strong>链接</strong>：<a target="_blank" rel="noopener" href="https://t.mwm.moe/mp">https://t.mwm.moe/mp</a><br><strong>特点</strong>：通用竖屏壁纸，涵盖多种主题。<br><strong>示例</strong>：<br><img src="https://t.mwm.moe/mp" alt="竖屏壁纸"></p>
+<hr>
+<p><strong>备注</strong>：部分API可能需要网络代理或特定访问权限，如遇无法访问，请尝试其他链接。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%88%91%E7%9A%84/">我的</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?6636" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/839f8c64.html" title="Linux 命令大全 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4672" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Linux 命令大全 🐧</div></div><div class="info-2"><div class="info-item-1">Linux 命令大全 🐧  简洁高效的 Linux 命令手册，涵盖日常操作、用户管理、系统监控和网络配置，助你快速上手终端操作！   ✨ 特点与功能介绍Linux 是一种自由开源的类 Unix 操作系统，广泛应用于服务器、嵌入式设备及开发环境中。其强大的命令行工具为用户提供了高效、灵活的操作方式。本文整理了常用的 Linux 命令，涵盖文件操作、用户管理、系统监控和网络配置等方面，适合初学者和有一定经验的用户查阅使用。  🧭 一、通用命令1. 打印或设置系统日期和时间 📅1date 2. 查看或设置终端控制字符（如 Ctrl-C, Ctrl-D, Ctrl-Z 等）⌨️1stty -a  3. 修改当前用户密码 🔒1passwd 4. 用户登录与注销 🔐12login    # 登录logout   # 注销（注意：原文中的 &quot;1ogout&quot; 应为 &quot;logout&quot;） 5. 显示当前工作目录 📂1pwd 6. 查看文件内容 📄1234more     # 分页显示文件内容less     # 更高效的分页查看（支持上下滚动）h...</div></div></div></a><a class="pagination-related" href="/posts/42a8b22f.html" title="Sun-Panel 导航页自定义页脚​"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4678" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Sun-Panel 导航页自定义页脚​</div></div><div class="info-2"><div class="info-item-1">Sun-Panel 导航页自定义页脚  v1.3.0新增，我们可以通过 应用启动器 -&gt; 基础设置 -&gt; 自定义footer 来自定义页脚代码，此功能需要有基本的HTML的编码能力，如果您不了解不要填写来源不明的代码，如果填写代码后导致页面错乱，可以点击输入框右边的清除按钮或者重置。如果您有很棒的玩法并且有贡献的精神，可以在Github社区添加你的玩法。此页脚仅针对账号生效并非全局，如果想全局生效可以使用自定义js/css。  1 、备案号 将代码中的京换成你域名备案地的简写，xxxx…换成备案号  123&lt;div style=&quot;text-align: center;color:#fff&quot;&gt;    &lt;a href=&quot;https://beian.miit.gov.cn&quot; target=&quot;_blank&quot;&gt;京ICP备 xxxxxxxxxx号&lt;/a&gt;&lt;/div&gt; 2 、动态渐变背景 此配置同时可以直接在自定义css中使用，如果在css中使用请删除代码中的标签，请注意使用...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/ac39d17b.html" title="Emoji 表情符号大全 🫡"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5597" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Emoji 表情符号大全 🫡</div></div><div class="info-2"><div class="info-item-1">Emoji 表情符号大全 🫡  📋 目录导航 😊 笑脸与人 🐾 动物与自然 🍕 饮食 ⚽ 行为 🚗 出行与地点 💡 物体 🔣 符号 🏁 旗帜    😊 笑脸与人1😀😃😄😁😆😅🤣😂🙂🙃🫠😉😊😇🥰😍🤩😘😗☺️😚😙🥲😋😛😜🤪😝🤑🤗🤭🫢🫣🤫🤔🫡🤐🤨😐😑😶🫥😶‍🌫️😏😒🙄😬😮‍💨🤥🫨🙂‍↔️🙂‍↕️😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵😵‍💫🤯🤠🥳🥸😎🤓🧐😕🫤😟🙁☹️😮😯😲😳🥺🥹😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖😺😸😹😻😼😽🙀😿😾🙈🙉🙊💋💯💢💥💫💦💨🕳️💤👋🤚🖐️✋🖖🫱🫲🫳🫴🫷🫸👌🤌🤏✌️🤞🫰🤟🤘🤙👈👉👆🖕👇☝️🫵👍👎✊👊🤛🤜👏🙌🫶👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🫀🫁🦷🦴👀...</div></div></div></a><a class="pagination-related" href="/posts/63c66cad.html" title="TMDB Hosts 自动更新与同步 DnsParse 脚本 &amp; 远程版 🌟"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3214" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">TMDB Hosts 自动更新与同步 DnsParse 脚本 &amp; 远程版 🌟</div></div><div class="info-2"><div class="info-item-1">TMDB Hosts 自动更新与同步 DnsParse 脚本 &amp; 远程版 🌟 本文介绍一套用于自动更新 TMDB 相关域名的 DNS 解析记录，并将其同步到常用媒体服务（如 Emby、Nastools）的脚本工具集。所有脚本均配备完整的日志记录与错误处理功能，支持通过计划任务自动执行。  📖 目录导航 ✨ 脚本特点与功能 🐍 安装 Python3 🔧 DnsParse.py 详解 🔄 nastools-sync-hosts.sh 详解 🔄 emby-sync-hosts.sh 详解 ⏰ 计划任务设置 📋 查看同步日志    ✨ 脚本特点与功能 🌐 多 DNS 提供商支持：使用多个公共 DNS 解析服务获取最新的 IP 地址，提高解析成功率。 🏓 智能 IP 筛选：自动 Ping 测试所有解析到的 IP，仅保留可连通的高质量 IP。 💾 无损更新 Hosts：采用标记块（###start### 与 ###end###）方式更新，保留原有 hosts 内容。 📂 多服务同步：支持将更新后的 hosts 文件自动同步到 Emby 和 Nastools 的 ...</div></div></div></a><a class="pagination-related" href="/posts/27d0ed9e.html" title="TMDB Hosts 自动更新与同步 DnsParse 脚本 &amp; 本地版 🌟"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2484" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">TMDB Hosts 自动更新与同步 DnsParse 脚本 &amp; 本地版 🌟</div></div><div class="info-2"><div class="info-item-1">TMDB Hosts 自动更新与同步 DnsParse 脚本 &amp; 本地版 🌟 本文介绍一套用于自动更新 TMDB 相关域名的 DNS 解析记录，并将其同步到常用媒体服务（如 Emby、Nastools）的本地脚本工具集。所有脚本均可直接在本地运行，无需依赖远程资源。  🐱GitHub项目地址：https://github.com/myzhongqiang/DNS-TMDB/tree/main   📖 目录导航 ✨ 脚本特点与功能 🐍 安装 Python3 🔧 DnsParse.py 本地配置 ⏰ 计划任务设置 📋 查看执行结果    ✨ 脚本特点与功能 🌐 多 DNS 提供商支持：使用多个公共 DNS 解析服务获取最新的 IP 地址，提高解析成功率。 🏓 智能 IP 筛选：自动 Ping 测试所有解析到的 IP，仅保留可连通的高质量 IP。 💾 无损更新 Hosts：采用标记块（###start### 与 ###end###）方式更新，保留原有 hosts 内容。 📂 多服务同步：支持将更新后的 hosts 文件自动同步到 Emby 和 Nastool...</div></div></div></a><a class="pagination-related" href="/posts/512fc1f8.html" title="Linux 文件压缩与解压脚本 &amp; 交互式 📦"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9148" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">Linux 文件压缩与解压脚本 &amp; 交互式 📦</div></div><div class="info-2"><div class="info-item-1">本文档提供一系列用于文件压缩与解压的 Bash 脚本，支持 ZIP 和 TAR.GZ 格式，可自动化处理当前目录下的文件与子目录。所有脚本均通过远程链接一键执行，方便快捷！</div></div></div></a><a class="pagination-related" href="/posts/531c1364.html" title="Linux 配置 Samba 服务一键脚本（本地） 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2736" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Linux 配置 Samba 服务一键脚本（本地） 🐧</div></div><div class="info-2"><div class="info-item-1">Linux 配置 Samba 服务一键脚本（本地）🐧  快速为不同 Linux 发行版配置 Samba 共享服务的自动化脚本合集！🚀   🌟 目录导航 🌟 脚本特点 📋 使用前须知 🎯 Debian Samba 配置脚本 🦁 Ubuntu Samba 配置脚本 🔧 PVE Samba 配置脚本 🎩 CentOS Samba 配置脚本 🏔️ Alpine Linux Samba 配置脚本 🔍 验证与排查 ⚠️ 注意事项 🆘 常见问题    🌟 脚本特点 🔐 安全认证：所有共享均需要用户名密码认证 🍎 macOS 优化：完美支持 Apple 生态系统（Time Machine、文件编码等） 📁 灵活配置：可自定义共享路径、权限和用户设置 ⚡ 一键部署：简化复杂配置过程，快速搭建文件共享服务 🛡️ 权限控制：精细的用户和目录权限管理 🔄 多版本支持：适配主流 Linux 发行版 🎯 开箱即用：预配置优化参数，无需复杂调试 🔧 易于扩展：模块化设计，可根据需求自定义修改    📋 使用前须知 ⚠️ 所有脚本默认使用用户名: admin，密码: y...</div></div></div></a><a class="pagination-related" href="/posts/76754c3e.html" title="Vercel 博客图床使用指南 🌟"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7882" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Vercel 博客图床使用指南 🌟</div></div><div class="info-2"><div class="info-item-1">Vercel 博客图床使用指南 🌟  快速、稳定且免费的图片托管方案，完美适配博客与文档站点   📋 目录导航 ✨ 特点与功能 🖼️ 封面图片 📸 截图示例 ✂️ 分割线   💡 使用建议 🎯 适用场景   ✨ 特点与功能 🌐 全球CDN加速 – 基于 Vercel 边缘网络，实现图片极速加载 🖼️ 支持WebP格式 – 下一代图像格式，体积更小画质更清晰 🚀 简单易用 – 直链引用，支持 Markdown 和 HTML 多种嵌入方式 🔒 稳定可靠 – 基于 Vercel 平台，提供高可用性服务 🆓 完全免费 – 无成本使用，无需注册或配置 📁 分类明确 – 提供封面、截图、动图等分类存储    🖼️ 封面图片1![](https://file.meimolihan.eu.org/img/git-01.webp)   适用于文章顶部封面、特色图片等场景    📸 截图示例1![](https://file.meimolihan.eu.org/screenshot/uptime-kuma-005.webp)   适用于技术文档、教程步骤展示等场景    ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8-API-%E5%90%88%E9%9B%86-%F0%9F%96%BC%EF%B8%8F"><span class="toc-text">随机壁纸 API 合集 🖼️</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9A-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📚 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8F%9E%EF%B8%8F-%E4%B8%80%E3%80%81%E9%A3%8E%E6%99%AF%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">🏞️ 一、风景随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%9A%8F%E6%9C%BA%E5%BF%85%E5%BA%94%E5%A3%81%E7%BA%B8"><span class="toc-text">1. 随机必应壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4K-%E9%A3%8E%E6%99%AF%E5%A3%81%E7%BA%B8%E5%9B%BE%E7%89%87"><span class="toc-text">2. 4K 风景壁纸图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%A3%8E%E6%99%AF%E5%A4%A7%E7%89%87"><span class="toc-text">3. 风景大片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%9A%8F%E6%9C%BA%E9%AB%98%E6%B8%85%E9%A3%8E%E6%99%AF%E5%A3%81%E7%BA%B8"><span class="toc-text">4. 随机高清风景壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%9A%8F%E6%9C%BA%E4%BA%8C%E6%AC%A1%E5%85%83%E9%A3%8E%E6%99%AF%E5%9B%BE"><span class="toc-text">5. 随机二次元风景图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%9A%8F%E6%9C%BA%E4%BA%8C%E6%AC%A1%E5%85%83%E9%A3%8E%E6%99%AF%E5%9B%BE%EF%BC%88%E5%A4%87%E7%94%A8%EF%BC%89"><span class="toc-text">6. 随机二次元风景图（备用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%9A%8F%E6%9C%BA%E4%BA%8C%E6%AC%A1%E5%85%83%E5%A3%81%E7%BA%B8"><span class="toc-text">7. 随机二次元壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E9%9A%8F%E6%9C%BA%E4%BA%8C%E6%AC%A1%E5%85%83%E5%A3%81%E7%BA%B8%EF%BC%88%E5%A4%87%E7%94%A8%EF%BC%89"><span class="toc-text">8. 随机二次元壁纸（备用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E9%9A%8F%E6%9C%BA-PC-%E5%A3%81%E7%BA%B8"><span class="toc-text">9. 随机 PC 壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E4%BA%8C%E6%AC%A1%E5%85%83%E9%A3%8E%E6%99%AF%E5%A3%81%E7%BA%B8"><span class="toc-text">10. 二次元风景壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E7%99%BD%E5%BA%95%E4%BA%8C%E6%AC%A1%E5%85%83%E5%9B%BE%E7%89%87"><span class="toc-text">11. 白底二次元图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%B1-%E4%BA%8C%E3%80%81%E8%87%AA%E9%80%82%E5%BA%94%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">📱 二、自适应随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BA%8C%E6%AC%A1%E5%85%83%E8%87%AA%E9%80%82%E5%BA%94"><span class="toc-text">1. 二次元自适应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%90%8C%E7%89%88%E8%87%AA%E9%80%82%E5%BA%94"><span class="toc-text">2. 萌版自适应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-AI-%E8%87%AA%E9%80%82%E5%BA%94"><span class="toc-text">3. AI 自适应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8E%9F%E7%A5%9E%E8%87%AA%E9%80%82%E5%BA%94"><span class="toc-text">4. 原神自适应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BA%8C%E6%AC%A1%E5%85%83%E8%87%AA%E9%80%82%E5%BA%94%E5%A3%81%E7%BA%B8"><span class="toc-text">5. 二次元自适应壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BA%8C%E6%AC%A1%E5%85%83%E8%87%AA%E9%80%82%E5%BA%94%E5%A3%81%E7%BA%B8%EF%BC%88%E5%A4%87%E7%94%A8%EF%BC%89"><span class="toc-text">6. 二次元自适应壁纸（备用）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%91%A9-%E4%B8%89%E3%80%81%E7%BE%8E%E5%A5%B3%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">👩 三、美女随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BE%8E%E5%A5%B3%E6%A8%A1%E7%89%B9"><span class="toc-text">1. 美女模特</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4K-%E7%BE%8E%E5%A5%B3%E5%A3%81%E7%BA%B8%E5%9B%BE%E7%89%87"><span class="toc-text">2. 4K 美女壁纸图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%94%B5%E8%84%91%E7%BE%8E%E5%A5%B3%E5%9B%BE%E7%89%87"><span class="toc-text">3. 电脑美女图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%BE-%E5%9B%9B%E3%80%81%E8%90%8C%E5%AE%A0%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">🐾 四、萌宠随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4K-%E8%90%8C%E5%AE%A0%E5%A3%81%E7%BA%B8%E5%9B%BE%E7%89%87"><span class="toc-text">1. 4K 萌宠壁纸图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%90%8C%E5%AE%A0%E5%8A%A8%E7%89%A9"><span class="toc-text">2. 萌宠动物</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AE-%E4%BA%94%E3%80%81%E6%B8%B8%E6%88%8F%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">🎮 五、游戏随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80%E5%8E%9F%E7%94%BB%E5%A3%81%E7%BA%B8"><span class="toc-text">1. 王者荣耀原画壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B8%B8%E6%88%8F%E5%A3%81%E7%BA%B8"><span class="toc-text">2. 游戏壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4K-%E6%B8%B8%E6%88%8F%E5%A3%81%E7%BA%B8%E5%9B%BE%E7%89%87"><span class="toc-text">3. 4K 游戏壁纸图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A5-%E5%85%AD%E3%80%81%E5%8A%A8%E6%BC%AB%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">💥 六、动漫随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4K-%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8%E5%9B%BE%E7%89%87"><span class="toc-text">1. 4K 动漫壁纸图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8"><span class="toc-text">2. 动漫壁纸</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E4%B8%83%E3%80%81%E5%85%B6%E4%BB%96%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">🔍 七、其他随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4K-%E5%A3%81%E7%BA%B8"><span class="toc-text">1. 4K 壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9A%8F%E6%9C%BA%E7%B1%BB%E5%9E%8B%E5%A3%81%E7%BA%B8"><span class="toc-text">2. 随机类型壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%88%B1%E6%83%85%E7%BE%8E%E5%9B%BE"><span class="toc-text">3. 爱情美图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%98%8E%E6%98%9F%E5%A3%81%E7%BA%B8"><span class="toc-text">4. 明星壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%B1%BD%E8%BD%A6%E5%A3%81%E7%BA%B8"><span class="toc-text">5. 汽车壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%82%AB%E9%85%B7%E6%97%B6%E5%B0%9A"><span class="toc-text">6. 炫酷时尚</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%BD%B1%E8%A7%86%E5%89%A7%E7%85%A7"><span class="toc-text">7. 影视剧照</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%85-%E5%85%AB%E3%80%81%E9%AB%98%E8%B4%A8%E9%87%8F%E6%AF%8F%E6%97%A5%E5%A3%81%E7%BA%B8"><span class="toc-text">🌅 八、高质量每日壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BF%85%E5%BA%94%E6%AF%8F%E6%97%A5%E5%A3%81%E7%BA%B8"><span class="toc-text">1. 必应每日壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BF%85%E5%BA%94%E6%AF%8F%E6%97%A5%E5%A3%81%E7%BA%B8%EF%BC%88%E5%A4%87%E7%94%A8%EF%BC%89"><span class="toc-text">2. 必应每日壁纸（备用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%8C%E6%AC%A1%E5%85%83%E6%AF%8F%E6%97%A5%E5%A3%81%E7%BA%B8"><span class="toc-text">3. 二次元每日壁纸</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%96%BC%EF%B8%8F-%E4%B9%9D%E3%80%81%E5%8A%A8%E6%BC%AB%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">🖼️ 九、动漫随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8A%A8%E6%BC%AB%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">1. 动漫随机壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-mc-%E9%85%B1%E5%8A%A8%E6%BC%AB"><span class="toc-text">2. mc 酱动漫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%9A%8F%E6%9C%BA%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97%E5%9B%BE%E7%89%87"><span class="toc-text">3. 随机你的名字图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BE-%E5%8D%81%E3%80%81%E7%82%B9%E5%87%BB%E4%B8%8B%E8%BD%BD%E5%A3%81%E7%BA%B8"><span class="toc-text">💾 十、点击下载壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%9A%8F%E6%9C%BA%E7%BE%8E%E5%A5%B3-PC-%E5%A3%81%E7%BA%B8"><span class="toc-text">1. 随机美女 PC 壁纸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9A%8F%E6%9C%BA%E4%BA%8C%E6%AC%A1%E5%85%83%E5%9C%B0%E5%9D%80"><span class="toc-text">2. 随机二次元地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-PC-%E9%9A%8F%E6%9C%BA%E4%BA%8C%E6%AC%A1%E5%85%83%E5%9C%B0%E5%9D%80"><span class="toc-text">3. PC 随机二次元地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BA%8C%E6%AC%A1%E5%85%83%E9%9A%8F%E6%9C%BA%E5%9B%BE%E5%9C%B0%E5%9D%80"><span class="toc-text">4. 二次元随机图地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BA%8C%E6%AC%A1%E5%85%83%E9%9A%8F%E6%9C%BA%E5%9B%BE%E5%9C%B0%E5%9D%80%EF%BC%88%E5%8E%9F%E7%A5%9E%EF%BC%89"><span class="toc-text">5. 二次元随机图地址（原神）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BA%8C%E6%AC%A1%E5%85%83%E9%9A%8F%E6%9C%BA%E5%9B%BE%E5%9C%B0%E5%9D%80"><span class="toc-text">6. 二次元随机图地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%BA%8C%E6%AC%A1%E5%85%83%E9%9A%8F%E6%9C%BA%E5%9B%BE%E5%9C%B0%E5%9D%80"><span class="toc-text">7. 二次元随机图地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E4%BA%8C%E6%AC%A1%E5%85%83%E9%9A%8F%E6%9C%BA%E5%9B%BE%E5%9C%B0%E5%9D%80"><span class="toc-text">8. 二次元随机图地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%91%93%E5%96%B5%E9%85%B1API"><span class="toc-text">9. 呓喵酱API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%8E%9F%E7%A5%9E%E8%87%AA%E9%80%82%E5%BA%94"><span class="toc-text">10. 原神自适应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-PC-%E6%A8%AA%E5%B1%8F"><span class="toc-text">11. PC 横屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E8%90%8C%E7%89%88%E6%A8%AA%E5%B1%8F"><span class="toc-text">12. 萌版横屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E9%A3%8E%E6%99%AF%E6%A8%AA%E5%B1%8F"><span class="toc-text">13. 风景横屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E7%99%BD%E5%BA%95%E6%A8%AA%E5%B1%8F"><span class="toc-text">14. 白底横屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E5%8E%9F%E7%A5%9E%E6%A8%AA%E5%B1%8F"><span class="toc-text">15. 原神横屏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%B1-%E5%8D%81%E4%B8%80%E3%80%81%E6%89%8B%E6%9C%BA%E9%9A%8F%E6%9C%BA%E5%A3%81%E7%BA%B8"><span class="toc-text">📱 十一、手机随机壁纸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B7%98%E5%AE%9D%E4%B9%B0%E5%AE%B6%E7%A7%80"><span class="toc-text">1. 淘宝买家秀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9A%8F%E6%9C%BA%E6%89%8B%E6%9C%BA%E7%BE%8E%E5%A5%B3"><span class="toc-text">2. 随机手机美女</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%9A%8F%E6%9C%BA%E6%89%8B%E6%9C%BA%E5%8A%A8%E6%BC%AB"><span class="toc-text">3. 随机手机动漫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%9A%8F%E6%9C%BA%E5%A4%B4%E5%83%8F"><span class="toc-text">4. 随机头像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%9A%8F%E6%9C%BA%E5%B0%8F%E5%A7%90%E5%A7%90%E7%BE%8E%E5%A5%B3%E5%9B%BE%E7%89%87"><span class="toc-text">5. 随机小姐姐美女图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%9A%8F%E6%9C%BA-jk-%E5%88%B6%E6%9C%8D%E5%9B%BE"><span class="toc-text">6. 随机 jk 制服图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%9A%8F%E6%9C%BA%E9%BB%91%E4%B8%9D%E5%9B%BE%E7%89%87"><span class="toc-text">7. 随机黑丝图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E9%9A%8F%E6%9C%BA%E4%B8%89%E6%AC%A1%E5%85%83%E7%99%BD%E4%B8%9D-API"><span class="toc-text">8. 随机三次元白丝 API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E9%9A%8F%E6%9C%BA%E4%BA%8C%E6%AC%A1%E5%85%83%E8%89%B2%E5%9B%BE"><span class="toc-text">9. 随机二次元色图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E9%9A%8F%E6%9C%BA%E7%8C%AB%E7%BE%BD%E9%9B%AB%E5%9B%BE%E7%89%87"><span class="toc-text">10. 随机猫羽雫图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E9%9A%8F%E6%9C%BA-COS-%E7%BE%8E%E5%9B%BE"><span class="toc-text">11. 随机 COS 美图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E5%8E%9F%E7%A5%9E%E9%9A%8F%E6%9C%BA%E5%9B%BE"><span class="toc-text">12. 原神随机图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E4%BA%8C%E6%AC%A1%E5%85%83%E9%9A%8F%E6%9C%BA%E5%9B%BE"><span class="toc-text">13. 二次元随机图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E7%A7%BB%E5%8A%A8%E7%AB%96%E5%B1%8F"><span class="toc-text">14. 移动竖屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E8%90%8C%E7%89%88%E7%AB%96%E5%B1%8F"><span class="toc-text">15. 萌版竖屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-%E5%8E%9F%E7%A5%9E%E7%AB%96%E5%B1%8F"><span class="toc-text">16. 原神竖屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-AI-%E7%AB%96%E5%B1%8F"><span class="toc-text">17. AI 竖屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-%E7%AB%96%E5%B1%8F%E5%A3%81%E7%BA%B8"><span class="toc-text">18. 竖屏壁纸</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,27 @@
+[data-theme="light"] #rightside > div > button,
+[data-theme="light"] #rightside > div > a {
+    display           : block;
+    margin-bottom     : 5px; /*间距*/
+    width             : 42px; /*左右边框大小*/
+    height            : 42px; /*上下边框大小*/
+    border-radius     : 26px; /*圆角大小*/
+    background-color  : #ffffff; /*背景颜色*/
+    color             : #000000; /*图标颜色*/
+    text-align        : center;
+    font-size         : 19px; /*图标大小*/
+    line-height       : 42px; /*图标上下调节*/
+}
+
+[data-theme="dark"] #rightside > div > button,
+[data-theme="dark"] #rightside > div > a {
+    display           : block;
+    margin-bottom     : 5px; /*间距*/
+    width             : 42px; /*左右边框大小*/
+    height            : 42px; /*上下边框大小*/
+    border-radius     : 26px; /*圆角大小*/
+    background-color  : #000000; /*背景颜色*/
+    color             : #ffffff; /*图标颜色*/
+    text-align        : center;
+    font-size         : 19px; /*图标大小*/
+    line-height       : 42px; /*图标上下调节*/
+}

@@ -1,0 +1,1215 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Markdown 常用语法大全 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Markdown 常用语法大全 📝  本指南详细介绍了 Markdown 的常用语法和高级用法，帮助您创建美观、结构清晰的文档。Markdown 是一种轻量级标记语言，易读易写，可以转换为有效的 HTML 文档。🚀   📖 导航目录 ✨ 简介 🔤 基础文本格式化 📋 标题与分割线 📝 列表 🌐 链接与图片 💻 代码相关 📊 表格 💬 引用与注释 🚀 高级功能 🔧 HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown 常用语法大全">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/4ad8462a.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Markdown 常用语法大全 📝  本指南详细介绍了 Markdown 的常用语法和高级用法，帮助您创建美观、结构清晰的文档。Markdown 是一种轻量级标记语言，易读易写，可以转换为有效的 HTML 文档。🚀   📖 导航目录 ✨ 简介 🔤 基础文本格式化 📋 标题与分割线 📝 列表 🌐 链接与图片 💻 代码相关 📊 表格 💬 引用与注释 🚀 高级功能 🔧 HTML">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?242">
+<meta property="article:published_time" content="2025-09-12T06:38:22.000Z">
+<meta property="article:modified_time" content="2025-09-12T06:38:22.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="markdown">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?242"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Markdown 常用语法大全",
+  "url": "https://www.meimolihan.eu.org/posts/4ad8462a.html",
+  "image": "https://api.mobufan.eu.org:666/pc?242",
+  "datePublished": "2025-09-12T06:38:22.000Z",
+  "dateModified": "2025-09-12T06:38:22.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/4ad8462a.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Markdown 常用语法大全',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?242);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Markdown 常用语法大全</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Markdown 常用语法大全</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T06:38:22.000Z" title="发表于 2025-09-12 14:38:22">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T06:38:22.000Z" title="更新于 2025-09-12 14:38:22">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Windows/">Windows</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 14:38:22&quot;}" hidden></div><h1 id="Markdown-常用语法大全-📝"><a href="#Markdown-常用语法大全-📝" class="headerlink" title="Markdown 常用语法大全 📝"></a>Markdown 常用语法大全 📝</h1><p><img src="https://file.meimolihan.eu.org/img/markdown-01.webp" alt=""></p>
+<blockquote>
+<p>本指南详细介绍了 Markdown 的常用语法和高级用法，帮助您创建美观、结构清晰的文档。Markdown 是一种轻量级标记语言，易读易写，可以转换为有效的 HTML 文档。🚀</p>
+</blockquote>
+<hr>
+<h2 id="📖-导航目录"><a href="#📖-导航目录" class="headerlink" title="📖 导航目录"></a>📖 导航目录</h2><ul>
+<li><a href="#intro">✨ 简介</a></li>
+<li><a href="#basic-formatting">🔤 基础文本格式化</a></li>
+<li><a href="#headings-lines">📋 标题与分割线</a></li>
+<li><a href="#lists">📝 列表</a></li>
+<li><a href="#links-images">🌐 链接与图片</a></li>
+<li><a href="#code">💻 代码相关</a></li>
+<li><a href="#tables">📊 表格</a></li>
+<li><a href="#quotes-notes">💬 引用与注释</a></li>
+<li><a href="#advanced-features">🚀 高级功能</a></li>
+<li><a href="#html-embedding">🔧 HTML 嵌入</a></li>
+<li><a href="#escape-characters">⚡ 转义字符</a></li>
+<li><a href="#tips-practices">💡 实用技巧与最佳实践</a></li>
+<li><a href="#tools-recommendation">🛠️ 工具推荐</a></li>
+</ul>
+<hr>
+<p><a id="intro"></a></p>
+<h2 id="✨-简介-📖"><a href="#✨-简介-📖" class="headerlink" title="✨ 简介 📖"></a>✨ 简介 📖</h2><p>Markdown 是一种轻量级标记语言，由 John Gruber 于 2004 年创建。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的 HTML 文档。</p>
+<p><strong>主要特点：</strong></p>
+<ul>
+<li>📝 语法简单直观，学习曲线平缓</li>
+<li>🔄 纯文本格式，兼容所有文本编辑器</li>
+<li>🌐 可转换为 HTML、PDF 等多种格式</li>
+<li>💼 广泛应用于文档编写、博客发布、笔记记录等场景</li>
+<li>🆓 开源且免费使用</li>
+</ul>
+<p><img src="https://file.meimolihan.eu.org/img/markdown-01.webp" alt="Markdown 示例"></p>
+<hr>
+<p><a id="basic-formatting"></a></p>
+<h2 id="🔤-基础文本格式化-✨"><a href="#🔤-基础文本格式化-✨" class="headerlink" title="🔤 基础文本格式化 ✨"></a>🔤 基础文本格式化 ✨</h2><h3 id="1-粗体文本"><a href="#1-粗体文本" class="headerlink" title="1. 粗体文本"></a>1. 粗体文本</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><strong>粗体文本</strong><br><strong>粗体文本</strong></p>
+<h3 id="2-斜体文本"><a href="#2-斜体文本" class="headerlink" title="2. 斜体文本"></a>2. 斜体文本</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><em>斜体文本</em><br><em>斜体文本</em></p>
+<h3 id="3-粗斜体文本"><a href="#3-粗斜体文本" class="headerlink" title="3. 粗斜体文本"></a>3. 粗斜体文本</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**<span class="emphasis">*粗斜体文本*</span>**</span></span><br><span class="line"><span class="strong">__<span class="emphasis">_粗斜体文本_</span>__</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><strong><em>粗斜体文本</em></strong><br><strong><em>粗斜体文本</em></strong></p>
+<h3 id="4-删除线"><a href="#4-删除线" class="headerlink" title="4. 删除线"></a>4. 删除线</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~删除线文本~~</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><del>删除线文本</del></p>
+<h3 id="5-文本高亮"><a href="#5-文本高亮" class="headerlink" title="5. 文本高亮"></a>5. 文本高亮</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">mark</span>&gt;</span></span>高亮文本<span class="language-xml"><span class="tag">&lt;/<span class="name">mark</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><mark>高亮文本</mark></p>
+<h3 id="6-下标和上标"><a href="#6-下标和上标" class="headerlink" title="6. 下标和上标"></a>6. 下标和上标</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H<span class="language-xml"><span class="tag">&lt;<span class="name">sub</span>&gt;</span></span>2<span class="language-xml"><span class="tag">&lt;/<span class="name">sub</span>&gt;</span></span>O</span><br><span class="line">E = mc<span class="language-xml"><span class="tag">&lt;<span class="name">sup</span>&gt;</span></span>2<span class="language-xml"><span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br>H<sub>2</sub>O<br>E = mc<sup>2</sup></p>
+<hr>
+<p><a id="headings-lines"></a></p>
+<h2 id="📋-标题与分割线-📋"><a href="#📋-标题与分割线-📋" class="headerlink" title="📋 标题与分割线 📋"></a>📋 标题与分割线 📋</h2><h3 id="1-标题级别"><a href="#1-标题级别" class="headerlink" title="1. 标题级别"></a>1. 标题级别</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-替代标题语法"><a href="#2-替代标题语法" class="headerlink" title="2. 替代标题语法"></a>2. 替代标题语法</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">一级标题</span></span><br><span class="line"><span class="section">=========</span></span><br><span class="line"></span><br><span class="line"><span class="section">二级标题</span></span><br><span class="line"><span class="section">---------</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-居中对齐标题"><a href="#3-居中对齐标题" class="headerlink" title="3. 居中对齐标题"></a>3. 居中对齐标题</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># <span class="language-xml"><span class="tag">&lt;<span class="name">center</span>&gt;</span></span>居中标题<span class="language-xml"><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<h1 id="居中标题示例"><a href="#居中标题示例" class="headerlink" title="居中标题示例"></a><center>居中标题示例</center></h1><h3 id="4-分割线"><a href="#4-分割线" class="headerlink" title="4. 分割线"></a>4. 分割线</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="strong">***</span></span><br><span class="line"><span class="strong">__<span class="emphasis">_</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<hr>
+<hr>
+<hr>
+<h3 id="5-带文本的分割线"><a href="#5-带文本的分割线" class="headerlink" title="5. 带文本的分割线"></a>5. 带文本的分割线</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">//</span>]: <span class="link"># (---)</span></span><br><span class="line"><span class="bullet">*</span> * *</span><br><span class="line"><span class="bullet">-</span> - -</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="lists"></a></p>
+<h2 id="📝-列表-📝"><a href="#📝-列表-📝" class="headerlink" title="📝 列表 📝"></a>📝 列表 📝</h2><h3 id="1-有序列表"><a href="#1-有序列表" class="headerlink" title="1. 有序列表"></a>1. 有序列表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项</span><br><span class="line"><span class="bullet">2.</span> 第二项</span><br><span class="line"><span class="bullet">3.</span> 第三项</span><br><span class="line"><span class="bullet">   1.</span> 子项一</span><br><span class="line"><span class="bullet">   2.</span> 子项二</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项<ol>
+<li>子项一</li>
+<li>子项二</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-无序列表"><a href="#2-无序列表" class="headerlink" title="2. 无序列表"></a>2. 无序列表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 项目一</span><br><span class="line"><span class="bullet">-</span> 项目二</span><br><span class="line"><span class="bullet">-</span> 项目三</span><br><span class="line"><span class="bullet">  -</span> 子项目一</span><br><span class="line"><span class="bullet">  -</span> 子项目二</span><br><span class="line"></span><br><span class="line"><span class="bullet">*</span> 另一种方式</span><br><span class="line"><span class="bullet">+</span> 又一种方式</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<ul>
+<li>项目一</li>
+<li>项目二</li>
+<li>项目三<ul>
+<li>子项目一</li>
+<li>子项目二</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-任务列表"><a href="#3-任务列表" class="headerlink" title="3. 任务列表"></a>3. 任务列表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [ ] 未完成任务</span><br><span class="line"><span class="bullet">-</span> [x] 已完成任务</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<ul>
+<li>[ ] 未完成任务</li>
+<li>[x] 已完成任务</li>
+</ul>
+<h3 id="4-定义列表"><a href="#4-定义列表" class="headerlink" title="4. 定义列表"></a>4. 定义列表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">术语一</span><br><span class="line">:   定义一</span><br><span class="line"></span><br><span class="line">术语二</span><br><span class="line">:   定义二</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br>术语一<br>:   定义一</p>
+<p>术语二<br>:   定义二</p>
+<hr>
+<p><a id="links-images"></a></p>
+<h2 id="🌐-链接与图片-🌐"><a href="#🌐-链接与图片-🌐" class="headerlink" title="🌐 链接与图片 🌐"></a>🌐 链接与图片 🌐</h2><h3 id="1-文字链接"><a href="#1-文字链接" class="headerlink" title="1. 文字链接"></a>1. 文字链接</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">显示文本</span>](<span class="link">链接地址 &quot;提示文字&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><a target="_blank" rel="noopener" href="https://www.baidu.com" title="访问百度">百度搜索</a></p>
+<h3 id="2-引用式链接"><a href="#2-引用式链接" class="headerlink" title="2. 引用式链接"></a>2. 引用式链接</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">显示文本</span>][<span class="symbol">链接标识</span>]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">链接标识</span>]: <span class="link">https://example.com &quot;可选标题&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-直接链接"><a href="#3-直接链接" class="headerlink" title="3. 直接链接"></a>3. 直接链接</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml">&lt;https://www.example.com&gt;</span></span><br><span class="line"><span class="language-xml">&lt;email@example.com&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><a target="_blank" rel="noopener" href="https://www.example.com">https://www.example.com</a><br><a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x65;&#109;&#97;&#105;&#108;&#x40;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#46;&#99;&#111;&#109;">&#x65;&#109;&#97;&#105;&#108;&#x40;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#46;&#99;&#111;&#109;</a></p>
+<h3 id="4-图片嵌入"><a href="#4-图片嵌入" class="headerlink" title="4. 图片嵌入"></a>4. 图片嵌入</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">图片描述</span>](<span class="link">图片链接地址 &quot;可选标题&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><img src="https://t.mobufan.eu.org:666/usr/uploads/2024/10/111111.png" alt="示例图片"></p>
+<h3 id="5-带链接的图片"><a href="#5-带链接的图片" class="headerlink" title="5. 带链接的图片"></a>5. 带链接的图片</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">![图片描述</span>](<span class="link">图片链接</span>)](<span class="link">目标链接</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="6-图片大小调整"><a href="#6-图片大小调整" class="headerlink" title="6. 图片大小调整"></a>6. 图片大小调整</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;图片链接&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;图片描述&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="code"></a></p>
+<h2 id="💻-代码相关-💻"><a href="#💻-代码相关-💻" class="headerlink" title="💻 代码相关 💻"></a>💻 代码相关 💻</h2><h3 id="1-行内代码"><a href="#1-行内代码" class="headerlink" title="1. 行内代码"></a>1. 行内代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">`行内代码`</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><code>console.log(&quot;Hello World&quot;)</code></p>
+<h3 id="2-代码块"><a href="#2-代码块" class="headerlink" title="2. 代码块"></a>2. 代码块</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">```语言名称</span></span><br><span class="line"><span class="code">代码内容</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hello</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello Markdown!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-缩进代码块"><a href="#3-缩进代码块" class="headerlink" title="3. 缩进代码块"></a>3. 缩进代码块</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">缩进的代码块</span><br><span class="line">每行至少四个空格</span><br></pre></td></tr></table></figure>
+<h3 id="4-语法高亮支持的语言"><a href="#4-语法高亮支持的语言" class="headerlink" title="4. 语法高亮支持的语言"></a>4. 语法高亮支持的语言</h3><ul>
+<li><code>javascript</code> 或 <code>js</code></li>
+<li><code>python</code> 或 <code>py</code></li>
+<li><code>html</code></li>
+<li><code>css</code></li>
+<li><code>java</code></li>
+<li><code>php</code></li>
+<li><code>sql</code></li>
+<li><code>bash</code> 或 <code>sh</code></li>
+<li>等等…</li>
+</ul>
+<hr>
+<p><a id="tables"></a></p>
+<h2 id="📊-表格-📊"><a href="#📊-表格-📊" class="headerlink" title="📊 表格 📊"></a>📊 表格 📊</h2><h3 id="1-基础表格"><a href="#1-基础表格" class="headerlink" title="1. 基础表格"></a>1. 基础表格</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 列1 | 列2 | 列3 |</span><br><span class="line">|-----|-----|-----|</span><br><span class="line">| 数据1 | 数据2 | 数据3 |</span><br><span class="line">| 数据4 | 数据5 | 数据6 |</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>年龄</th>
+<th>班级</th>
+<th>名字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18</td>
+<td>二班</td>
+<td>凡凡</td>
+</tr>
+<tr>
+<td>18</td>
+<td>三班</td>
+<td>涵涵</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-表格对齐"><a href="#2-表格对齐" class="headerlink" title="2. 表格对齐"></a>2. 表格对齐</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| 左对齐 | 居中对齐 | 右对齐 |</span><br><span class="line">|:-------|:--------:|-------:|</span><br><span class="line">| 数据左 | 数据中 | 数据右 |</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">左对齐</th>
+<th style="text-align:center">居中对齐</th>
+<th style="text-align:right">右对齐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">左侧数据</td>
+<td style="text-align:center">中间数据</td>
+<td style="text-align:right">右侧数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-复杂表格"><a href="#3-复杂表格" class="headerlink" title="3. 复杂表格"></a>3. 复杂表格</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| 项目 | 价格 | 数量 |</span><br><span class="line">|------|-----:|:----:|</span><br><span class="line">| 苹果 | \$1 | 5 |</span><br><span class="line">| 香蕉 | \$2 | 3 |</span><br><span class="line">| 总计 | \$11 | 8 |</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="quotes-notes"></a></p>
+<h2 id="💬-引用与注释-💬"><a href="#💬-引用与注释-💬" class="headerlink" title="💬 引用与注释 💬"></a>💬 引用与注释 💬</h2><h3 id="1-块引用"><a href="#1-块引用" class="headerlink" title="1. 块引用"></a>1. 块引用</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 一级引用</span></span><br><span class="line">&gt;&gt; 二级引用</span><br><span class="line">&gt;&gt;&gt; 三级引用</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<blockquote>
+<p>一级引用</p>
+<blockquote>
+<p>二级引用</p>
+<blockquote>
+<p>三级引用</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="2-带来源的引用"><a href="#2-带来源的引用" class="headerlink" title="2. 带来源的引用"></a>2. 带来源的引用</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 这是一个精彩的引用。</span></span><br><span class="line"><span class="quote">&gt; </span></span><br><span class="line"><span class="quote">&gt; — <span class="language-xml"><span class="tag">&lt;<span class="name">cite</span>&gt;</span></span>名人姓名<span class="language-xml"><span class="tag">&lt;/<span class="name">cite</span>&gt;</span></span></span></span><br></pre></td></tr></table></figure>
+<h3 id="3-注释"><a href="#3-注释" class="headerlink" title="3. 注释"></a>3. 注释</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">//</span>]: <span class="link"># (这是注释，不会显示)</span></span><br><span class="line">&lt;!-- 这也是注释 --&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-脚注"><a href="#4-脚注" class="headerlink" title="4. 脚注"></a>4. 脚注</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这是一个带有脚注的文本[^1]。</span><br><span class="line"></span><br><span class="line">[<span class="symbol">^1</span>]: <span class="link">这是脚注的内容。</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br>这是一个带有脚注的文本<sup><a href="#fn_1" id="reffn_1">1</a></sup>。</p>
+<blockquote id="fn_1">
+<sup>1</sup>. 这是脚注的内容。<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+<hr>
+<p><a id="advanced-features"></a></p>
+<h2 id="🚀-高级功能-🚀"><a href="#🚀-高级功能-🚀" class="headerlink" title="🚀 高级功能 🚀"></a>🚀 高级功能 🚀</h2><h3 id="1-自定义文本样式"><a href="#1-自定义文本样式" class="headerlink" title="1. 自定义文本样式"></a>1. 自定义文本样式</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">font</span> <span class="attr">face</span>=<span class="string">&quot;黑体&quot;</span> <span class="attr">color</span>=<span class="string">&quot;#0099ff&quot;</span> <span class="attr">size</span>=<span class="string">&quot;4&quot;</span>&gt;</span></span>自定义文本<span class="language-xml"><span class="tag">&lt;/<span class="name">font</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<font face="黑体" color="#0099ff" size="4">自定义文本</font>
+
+<h3 id="2-颜色和大小示例"><a href="#2-颜色和大小示例" class="headerlink" title="2. 颜色和大小示例"></a>2. 颜色和大小示例</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">#FF6347</span> <span class="attr">size</span>=<span class="string">5</span>&gt;</span></span>红色文字<span class="language-xml"><span class="tag">&lt;/<span class="name">font</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">#0099ff</span> <span class="attr">size</span>=<span class="string">3</span>&gt;</span></span>蓝色文字<span class="language-xml"><span class="tag">&lt;/<span class="name">font</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">#9ACD32</span> <span class="attr">size</span>=<span class="string">6</span>&gt;</span></span>绿色文字<span class="language-xml"><span class="tag">&lt;/<span class="name">font</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<font color=#FF6347 size=5>红色文字</font>
+<font color=#0099ff size=3>蓝色文字</font>
+<font color=#9ACD32 size=6>绿色文字</font>
+
+<h3 id="3-单选按钮"><a href="#3-单选按钮" class="headerlink" title="3. 单选按钮"></a>3. 单选按钮</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[radio color=&quot;blue&quot; checked=&quot;checked&quot;]选中项[/radio]</span><br><span class="line">[radio]未选中项[/radio]</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br>[radio color=”blue” checked=”checked”]选中项[/radio]<br>[radio]未选中项[/radio]</p>
+<h3 id="4-进度条"><a href="#4-进度条" class="headerlink" title="4. 进度条"></a>4. 进度条</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[progress value=&quot;75&quot; max=&quot;100&quot;]75%[/progress]</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br>[progress value=”75” max=”100”]75%[/progress]</p>
+<h3 id="5-折叠内容"><a href="#5-折叠内容" class="headerlink" title="5. 折叠内容"></a>5. 折叠内容</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">details</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">summary</span>&gt;</span></span>点击展开详细内容<span class="language-xml"><span class="tag">&lt;/<span class="name">summary</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">这里是隐藏的详细内容。</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 项目一</span><br><span class="line"><span class="bullet">-</span> 项目二</span><br><span class="line"><span class="bullet">-</span> 项目三</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">details</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<details>
+<summary>点击展开详细内容</summary>
+
+这里是隐藏的详细内容。
+
+- 项目一
+- 项目二
+- 项目三
+</details>
+
+<hr>
+<p><a id="html-embedding"></a></p>
+<h2 id="🔧-HTML-嵌入-🌐"><a href="#🔧-HTML-嵌入-🌐" class="headerlink" title="🔧 HTML 嵌入 🌐"></a>🔧 HTML 嵌入 🌐</h2><h3 id="1-嵌入视频"><a href="#1-嵌入视频" class="headerlink" title="1. 嵌入视频"></a>1. 嵌入视频</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;//player.bilibili.com/player.html&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">height</span>=<span class="string">&quot;600&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">scrolling</span>=<span class="string">&quot;no&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">border</span>=<span class="string">&quot;0&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">frameborder</span>=<span class="string">&quot;no&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">framespacing</span>=<span class="string">&quot;0&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">allowfullscreen</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-嵌入音频"><a href="#2-嵌入音频" class="headerlink" title="2. 嵌入音频"></a>2. 嵌入音频</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;audio.mp3&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/mpeg&quot;</span>&gt;</span></span><br><span class="line">  您的浏览器不支持音频元素。</span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-嵌入-PDF"><a href="#3-嵌入-PDF" class="headerlink" title="3. 嵌入 PDF"></a>3. 嵌入 PDF</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">embed</span> <span class="attr">src</span>=<span class="string">&quot;document.pdf&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">height</span>=<span class="string">&quot;600px&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-按钮"><a href="#4-按钮" class="headerlink" title="4. 按钮"></a>4. 按钮</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;Hello!&#x27;)&quot;</span>&gt;</span>点击我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong></p>
+<button onclick="alert('Hello!')">点击我</button>
+
+<hr>
+<p><a id="escape-characters"></a></p>
+<h2 id="⚡-转义字符-🔧"><a href="#⚡-转义字符-🔧" class="headerlink" title="⚡ 转义字符 🔧"></a>⚡ 转义字符 🔧</h2><h3 id="1-常用转义字符"><a href="#1-常用转义字符" class="headerlink" title="1. 常用转义字符"></a>1. 常用转义字符</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">\* 转义星号</span><br><span class="line">\_ 转义下划线</span><br><span class="line">\` 转义反引号</span><br><span class="line">\\ 转义反斜杠</span><br><span class="line">\[ 转义左方括号</span><br><span class="line">\] 转义右方括号</span><br><span class="line">\( 转义左圆括号</span><br><span class="line">\) 转义右圆括号</span><br><span class="line">\# 转义井号</span><br><span class="line">\+ 转义加号</span><br><span class="line">\- 转义减号</span><br><span class="line">\. 转义句点</span><br><span class="line">\! 转义感叹号</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br>* 普通星号<br>_ 普通下划线<br>` 普通反引号<br>\ 普通反斜杠</p>
+<h3 id="2-HTML-实体"><a href="#2-HTML-实体" class="headerlink" title="2. HTML 实体"></a>2. HTML 实体</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">&amp;amp;</span> <span class="literal">&amp;amp;</span>amp; 符号</span><br><span class="line"><span class="literal">&amp;lt;</span> <span class="literal">&amp;lt;</span> 小于号</span><br><span class="line"><span class="literal">&amp;gt;</span> <span class="literal">&amp;gt;</span> 大于号</span><br><span class="line"><span class="literal">&amp;nbsp;</span> 不间断空格</span><br><span class="line"><span class="literal">&amp;copy;</span> <span class="literal">&amp;copy;</span> 版权符号</span><br></pre></td></tr></table></figure>
+<p><strong>示例效果：</strong><br>&amp; &amp; 符号<br>&lt; &lt; 小于号<br>&gt; &gt; 大于号</p>
+<hr>
+<p><a id="tips-practices"></a></p>
+<h2 id="💡-实用技巧与最佳实践-💡"><a href="#💡-实用技巧与最佳实践-💡" class="headerlink" title="💡 实用技巧与最佳实践 💡"></a>💡 实用技巧与最佳实践 💡</h2><h3 id="1-文档结构建议"><a href="#1-文档结构建议" class="headerlink" title="1. 文档结构建议"></a>1. 文档结构建议</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 文档标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 简介</span></span><br><span class="line">简要介绍文档内容</span><br><span class="line"></span><br><span class="line"><span class="section">## 安装</span></span><br><span class="line"><span class="section">### 前提条件</span></span><br><span class="line"><span class="bullet">-</span> 条件1</span><br><span class="line"><span class="bullet">-</span> 条件2</span><br><span class="line"></span><br><span class="line"><span class="section">### 安装步骤</span></span><br><span class="line"><span class="bullet">1.</span> 步骤一</span><br><span class="line"><span class="bullet">2.</span> 步骤二</span><br><span class="line"></span><br><span class="line"><span class="section">## 使用方法</span></span><br><span class="line"><span class="section">### 基本用法</span></span><br><span class="line"><span class="code">```代码示例```</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 高级用法</span></span><br><span class="line"><span class="code">```高级代码示例```</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 常见问题</span></span><br><span class="line"><span class="section">### 问题一</span></span><br><span class="line">解决方案</span><br><span class="line"></span><br><span class="line"><span class="section">## 参考链接</span></span><br><span class="line"><span class="bullet">-</span> [<span class="string">相关文档</span>](<span class="link">链接</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="2-排版建议"><a href="#2-排版建议" class="headerlink" title="2. 排版建议"></a>2. 排版建议</h3><ul>
+<li>在标题前后空一行</li>
+<li>列表项前后空一行</li>
+<li>代码块前后空一行</li>
+<li>保持一致的缩进风格</li>
+<li>使用适当的标题层级结构</li>
+</ul>
+<h3 id="3-可读性技巧"><a href="#3-可读性技巧" class="headerlink" title="3. 可读性技巧"></a>3. 可读性技巧</h3><ul>
+<li>使用表格整理数据</li>
+<li>使用列表分点说明</li>
+<li>重要内容使用加粗或高亮</li>
+<li>代码示例使用语法高亮</li>
+</ul>
+<h3 id="4-兼容性提示"><a href="#4-兼容性提示" class="headerlink" title="4. 兼容性提示"></a>4. 兼容性提示</h3><blockquote>
+<p>⚠️ <strong>注意</strong>：某些 Markdown 扩展语法（如颜色文本、单选按钮等）可能在某些平台上不被支持。在使用前请确认目标平台的支持情况。</p>
+</blockquote>
+<h3 id="5-版本控制友好"><a href="#5-版本控制友好" class="headerlink" title="5. 版本控制友好"></a>5. 版本控制友好</h3><ul>
+<li>Markdown 是纯文本格式，非常适合版本控制</li>
+<li>使用有意义的提交信息</li>
+<li>保持行长度适中（建议 80-100 字符）</li>
+</ul>
+<hr>
+<p><a id="tools-recommendation"></a></p>
+<h2 id="🛠️-工具推荐-🛠️"><a href="#🛠️-工具推荐-🛠️" class="headerlink" title="🛠️ 工具推荐 🛠️"></a>🛠️ 工具推荐 🛠️</h2><h3 id="1-在线编辑器"><a href="#1-在线编辑器" class="headerlink" title="1. 在线编辑器"></a>1. 在线编辑器</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://stackedit.io/">StackEdit</a> - 功能丰富的在线 Markdown 编辑器</li>
+<li><a target="_blank" rel="noopener" href="https://dillinger.io/">Dillinger</a> - 优雅的在线 Markdown 编辑器</li>
+<li><a target="_blank" rel="noopener" href="https://markdownlivepreview.com/">Markdown Live Preview</a> - 实时预览 Markdown 效果</li>
+</ul>
+<h3 id="2-桌面应用"><a href="#2-桌面应用" class="headerlink" title="2. 桌面应用"></a>2. 桌面应用</h3><ul>
+<li><strong>Typora</strong> - 优雅的 Markdown 编辑器，所见即所得</li>
+<li><strong>VS Code</strong> - 带有强大 Markdown 支持的代码编辑器</li>
+<li><strong>Obsidian</strong> - 基于 Markdown 的知识管理工具</li>
+<li><strong>MarkText</strong> - 简单而优雅的开源 Markdown 编辑器</li>
+</ul>
+<h3 id="3-浏览器插件"><a href="#3-浏览器插件" class="headerlink" title="3. 浏览器插件"></a>3. 浏览器插件</h3><ul>
+<li><strong>Markdown Viewer</strong> - 在浏览器中预览 Markdown 文件</li>
+<li><strong>Markdown Here</strong> - 在邮箱中渲染 Markdown</li>
+<li><strong>Markdown Preview Plus</strong> - 增强的 Markdown 预览功能</li>
+</ul>
+<h3 id="4-命令行工具"><a href="#4-命令行工具" class="headerlink" title="4. 命令行工具"></a>4. 命令行工具</h3><ul>
+<li><strong>Pandoc</strong> - 文档格式转换工具，支持 Markdown</li>
+<li><strong>Remark</strong> - 强大的 Markdown 处理工具</li>
+<li><strong>Grip</strong> - 本地 GitHub风格的 Markdown 预览</li>
+</ul>
+<h3 id="5-其他工具"><a href="#5-其他工具" class="headerlink" title="5. 其他工具"></a>5. 其他工具</h3><ul>
+<li><strong>Markdown Table Generator</strong> - 在线表格生成器</li>
+<li><strong>TableConvert</strong> - 表格转换工具</li>
+<li><strong>Carbon</strong> - 创建漂亮的代码截图</li>
+</ul>
+<hr>
+<p>通过掌握这些 Markdown 语法和技巧，您可以轻松创建美观、结构清晰的文档！记得多加练习，熟能生巧哦！😊</p>
+<blockquote>
+<p>💡 <strong>提示</strong>：不同的 Markdown 解析器可能支持不同的扩展语法，建议在使用前查看目标平台的文档以了解其支持的语法特性。</p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/markdown/">markdown</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?242" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/ae005660.html" title="Markdown 嵌入视频"><img class="cover" src="https://api.mobufan.eu.org:666/pc?681" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Markdown 嵌入视频</div></div><div class="info-2"><div class="info-item-1">Markdown 嵌入视频 Markdown 嵌入视频链接1&lt;video src=&quot;https://blog.mobufan.eu.org:666/video/和风天气时钟插件安装.mp4&quot; controls=&quot;controls&quot; width=&quot;650&quot; height=&quot;300&quot;&gt;&lt;/video&gt;      Markdown 嵌入哔哩哔哩视频获得哔哩哔哩视频嵌入代码方法 哔哩哔哩点击分享按钮，点击嵌入代码，会自动复制内容 哔哩哔哩视频嵌入完整代码如下：  &lt;iframe src=&quot;//player.bilibili.com/player.html?isOutside=true&amp;aid=327623069&amp;bvid=BV1JA411h7Gw&amp;cid=171385214&amp;p=1&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; ...</div></div></div></a><a class="pagination-related" href="/posts/d0a64761.html" title="Docker 部署 Nascab 文件管理器 🗂️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1212" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Docker 部署 Nascab 文件管理器 🗂️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Nascab 文件管理器 🗂️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Nascab 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Nascab 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🔧 三、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🗂️ 启航文件，管理无限     🎯 项目简介 🌐 Nascab 官网地址：https://www.nascab.cn 🐱 GitHub 项目地址：https://github.com/nascab/nascab-releases 🐱 Gitee 项目地址：https://gitee.com/nascab/nascab-releases-gitee 🐋 Docker 镜像地址：https://hub.docker.com/r/ypptec/nascab  Nascab 是一个功能...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4b894824.html" title="十六进制颜色代码大全 🎨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4827" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">十六进制颜色代码大全 🎨</div></div><div class="info-2"><div class="info-item-1">十六进制颜色代码大全 🎨   ✨ 目录 ✨ 色彩使用原则 🔴 红色系 - 激情与警告 🟠 橙色系 - 活力与注意 🟡 黄色系 - 明亮与提示 🟢 绿色系 - 成功与自然 🔵 青色系 - 清新与冷静 🔷 蓝色系 - 信任与稳定 🟣 紫色系 - 奢华与创意 💖 粉色系 - 温柔与浪漫 ⚪ 白色系 - 纯净与简洁 ⚫ 灰色系 - 中性与平衡 🟤 棕色系 - 温暖与自然   🎨 使用建议 🚀 使用技巧    ✨ 色彩使用原则设计基础原则 🎯 一致性 - 在整个项目中保持颜色使用的一致性 👁️ 可访问性 - 确保颜色对比度符合 WCAG 2.1 标准 🎨 语义化 - 使用颜色传达明确的含义和信息 ⚖️ 适度性 - 避免过度使用鲜艳颜色造成视觉疲劳 📱 响应式 - 在不同设备上测试颜色显示效果  对比度检查标准    文本大小 AA 标准 AAA 标准     正常文本 4.5:1 7:1   大文本 3:1 4.5:1     色彩心理学简要指南 🔴 红色: 紧急、激情、危险、重要 🟠 橙色: 活力、温暖、友好、创意 🟡 黄色: 快乐、警示、能量、乐观...</div></div></div></a><a class="pagination-related" href="/posts/5d91b0fe.html" title="Markdown 下划线样式完全指南 📝"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1561" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 下划线样式完全指南 📝</div></div><div class="info-2"><div class="info-item-1">Markdown 下划线样式完全指南 📝 🔖 扩展你的 Markdown 技能：Markdown 高级教程 — 探索更多 Markdown 隐藏功能！  📋 文章目录 🎨 Markdown 下划线样式概览 📏 基础下划线样式 1. 下划虚线样式 2. 单实线下划线 3. 双下划线样式 4. 点状下划线 5. 着重号样式   ✨ 高级创意样式 1. 波浪下划线 2. 渐变色下划线 3. 动画下划线   🎯 实用技巧与配置 1. 颜色选择指南 2. 线型样式大全 3. 尺寸控制技巧   ⚠️ 兼容性注意事项 🔍 浏览器支持情况 💡 最佳实践建议    🎨 Markdown 下划线样式概览虽然标准的 Markdown 语法本身不直接支持丰富文本样式，但通过结合 HTML 和 CSS，我们可以为 Markdown 文档添加各种精美的下划线效果！✨ 这些技巧特别适用于：  🔍 突出显示重要内容 🎯 视觉引导读者注意力 📚 创建技术文档和教程 ✨ 增强文档的视觉吸引力   💡 你知道吗？ 在传统的排版中，下划线最初是为了指示印刷工人添加斜体而发明的，后来演变为强调文...</div></div></div></a><a class="pagination-related" href="/posts/7897a6c7.html" title="Markdown 内容折叠完全指南 📝"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2766" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 内容折叠完全指南 📝</div></div><div class="info-2"><div class="info-item-1">Markdown 内容折叠完全指南 📝 🌐 扩展你的 Markdown 技能：Markdown 高级教程 — 掌握更多专业排版技巧！  📋 文章目录 ✨ Markdown 折叠功能概述 🛠️ 基础折叠语法详解 1. 标准折叠语法 2. 带空行的折叠语法   🎨 高级折叠样式技巧 1. 自定义折叠图标与样式 2. 嵌套折叠结构 3. 默认展开状态设置   💡 实用场景示例 1. 代码示例折叠 2. 问答内容隐藏 3. 数据表格折叠 4. 多级目录结构   ⚠️ 兼容性与注意事项 1. 平台兼容性指南 2. 移动端适配建议 3. 可访问性考虑   🚀 扩展资源与工具 1. 在线工具推荐 2. 学习资源链接   🔧 故障排除与技巧 1. 常见问题解决 2. 最佳实践建议      ✨ Markdown 折叠功能概述Markdown 折叠功能通过 HTML 的 &lt;details&gt; 和 &lt;summary&gt; 标签实现，能够将内容组织成可交互的折叠区块，极大提升文档的可读性和用户体验！🎯 🌟 折叠功能的优势： 📚 内容层次清晰：将复杂信息分层展示，...</div></div></div></a><a class="pagination-related" href="/posts/e30e121d.html" title="Markdown 图片嵌入指南 📸"><img class="cover" src="https://api.mobufan.eu.org:666/pc?908" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 图片嵌入指南 📸</div></div><div class="info-2"><div class="info-item-1">Markdown 图片嵌入指南 📸  🌟 简介本指南将介绍在 Markdown 文档中嵌入图片的多种方法，包括基础语法、带链接的图片以及可调整大小的图片。  🖼️ 一、基础图片语法语法格式：1![图片替代文本](图片URL) 示例代码：1![我的图片名称](https://pic3.zhimg.com/v2-52e3d25b08972370aeefe92a202e5ba3_r.jpg) 效果演示：以下是《基础图片语法》示例：    🔗 二、带链接的图片语法语法格式：1[![图片替代文本](图片URL)](链接URL) 示例代码：1[![示例图片](https://pic3.zhimg.com/v2-52e3d25b08972370aeefe92a202e5ba3_r.jpg)](https://pic3.zhimg.com/v2-52e3d25b08972370aeefe92a202e5ba3_r.jpg) 效果演示：以下是《带链接的图片语法》示例：    💡 点击图片可以跳转到指定链接   📐 三、调整图像大小的语法使用 HTML 标签控制图片尺寸：语法格式：1&l...</div></div></div></a><a class="pagination-related" href="/posts/ae005660.html" title="Markdown 嵌入视频"><img class="cover" src="https://api.mobufan.eu.org:666/pc?681" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 嵌入视频</div></div><div class="info-2"><div class="info-item-1">Markdown 嵌入视频 Markdown 嵌入视频链接1&lt;video src=&quot;https://blog.mobufan.eu.org:666/video/和风天气时钟插件安装.mp4&quot; controls=&quot;controls&quot; width=&quot;650&quot; height=&quot;300&quot;&gt;&lt;/video&gt;      Markdown 嵌入哔哩哔哩视频获得哔哩哔哩视频嵌入代码方法 哔哩哔哩点击分享按钮，点击嵌入代码，会自动复制内容 哔哩哔哩视频嵌入完整代码如下：  &lt;iframe src=&quot;//player.bilibili.com/player.html?isOutside=true&amp;aid=327623069&amp;bvid=BV1JA411h7Gw&amp;cid=171385214&amp;p=1&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; ...</div></div></div></a><a class="pagination-related" href="/posts/94499cb9.html" title="Markdown 字体样式与颜色指南🎨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1945" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Markdown 字体样式与颜色指南🎨</div></div><div class="info-2"><div class="info-item-1">Markdown 字体样式与颜色指南🎨 简介 📖在 Markdown 中，虽然原生语法不支持直接设置字体样式、大小和颜色，但我们可以通过 HTML 标签来实现这些效果。本指南将详细介绍如何在 Markdown 中使用各种字体样式。  字体样式示例 🎯1. 黑体 (Heiti)1&lt;font color=#00ffff size=4 face=&quot;黑体&quot;&gt;我是黑体字&lt;/font&gt; 我是黑体字  2. 微软雅黑 (Microsoft YaHei)1&lt;font color=#00ffff size=4 face=&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;/font&gt; 我是微软雅黑  3. 华文彩云 (STCAIYUN)1&lt;font color=#00ffff size=4 face=&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;/font&gt; 我是华文彩云  4. 华文行楷 (STXingkai)1&lt;font color=#00ffff size=4 face=&quot;...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E5%A4%A7%E5%85%A8-%F0%9F%93%9D"><span class="toc-text">Markdown 常用语法大全 📝</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📖 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E7%AE%80%E4%BB%8B-%F0%9F%93%96"><span class="toc-text">✨ 简介 📖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A4-%E5%9F%BA%E7%A1%80%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96-%E2%9C%A8"><span class="toc-text">🔤 基础文本格式化 ✨</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%B2%97%E4%BD%93%E6%96%87%E6%9C%AC"><span class="toc-text">1. 粗体文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%96%9C%E4%BD%93%E6%96%87%E6%9C%AC"><span class="toc-text">2. 斜体文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%B2%97%E6%96%9C%E4%BD%93%E6%96%87%E6%9C%AC"><span class="toc-text">3. 粗斜体文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-text">4. 删除线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%96%87%E6%9C%AC%E9%AB%98%E4%BA%AE"><span class="toc-text">5. 文本高亮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%8B%E6%A0%87%E5%92%8C%E4%B8%8A%E6%A0%87"><span class="toc-text">6. 下标和上标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E6%A0%87%E9%A2%98%E4%B8%8E%E5%88%86%E5%89%B2%E7%BA%BF-%F0%9F%93%8B"><span class="toc-text">📋 标题与分割线 📋</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%87%E9%A2%98%E7%BA%A7%E5%88%AB"><span class="toc-text">1. 标题级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9B%BF%E4%BB%A3%E6%A0%87%E9%A2%98%E8%AF%AD%E6%B3%95"><span class="toc-text">2. 替代标题语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B1%85%E4%B8%AD%E5%AF%B9%E9%BD%90%E6%A0%87%E9%A2%98"><span class="toc-text">3. 居中对齐标题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B1%85%E4%B8%AD%E6%A0%87%E9%A2%98%E7%A4%BA%E4%BE%8B"><span class="toc-text">居中标题示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%86%E5%89%B2%E7%BA%BF"><span class="toc-text">4. 分割线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%B8%A6%E6%96%87%E6%9C%AC%E7%9A%84%E5%88%86%E5%89%B2%E7%BA%BF"><span class="toc-text">5. 带文本的分割线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%88%97%E8%A1%A8-%F0%9F%93%9D"><span class="toc-text">📝 列表 📝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="toc-text">1. 有序列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="toc-text">2. 无序列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BB%BB%E5%8A%A1%E5%88%97%E8%A1%A8"><span class="toc-text">3. 任务列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8"><span class="toc-text">4. 定义列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%9B%BE%E7%89%87-%F0%9F%8C%90"><span class="toc-text">🌐 链接与图片 🌐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%96%87%E5%AD%97%E9%93%BE%E6%8E%A5"><span class="toc-text">1. 文字链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BC%95%E7%94%A8%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="toc-text">2. 引用式链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%9B%B4%E6%8E%A5%E9%93%BE%E6%8E%A5"><span class="toc-text">3. 直接链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%9B%BE%E7%89%87%E5%B5%8C%E5%85%A5"><span class="toc-text">4. 图片嵌入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%B8%A6%E9%93%BE%E6%8E%A5%E7%9A%84%E5%9B%BE%E7%89%87"><span class="toc-text">5. 带链接的图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%9B%BE%E7%89%87%E5%A4%A7%E5%B0%8F%E8%B0%83%E6%95%B4"><span class="toc-text">6. 图片大小调整</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BB-%E4%BB%A3%E7%A0%81%E7%9B%B8%E5%85%B3-%F0%9F%92%BB"><span class="toc-text">💻 代码相关 💻</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A1%8C%E5%86%85%E4%BB%A3%E7%A0%81"><span class="toc-text">1. 行内代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">2. 代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BC%A9%E8%BF%9B%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">3. 缩进代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE%E6%94%AF%E6%8C%81%E7%9A%84%E8%AF%AD%E8%A8%80"><span class="toc-text">4. 语法高亮支持的语言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E8%A1%A8%E6%A0%BC-%F0%9F%93%8A"><span class="toc-text">📊 表格 📊</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E8%A1%A8%E6%A0%BC"><span class="toc-text">1. 基础表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A1%A8%E6%A0%BC%E5%AF%B9%E9%BD%90"><span class="toc-text">2. 表格对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%8D%E6%9D%82%E8%A1%A8%E6%A0%BC"><span class="toc-text">3. 复杂表格</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%AC-%E5%BC%95%E7%94%A8%E4%B8%8E%E6%B3%A8%E9%87%8A-%F0%9F%92%AC"><span class="toc-text">💬 引用与注释 💬</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9D%97%E5%BC%95%E7%94%A8"><span class="toc-text">1. 块引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B8%A6%E6%9D%A5%E6%BA%90%E7%9A%84%E5%BC%95%E7%94%A8"><span class="toc-text">2. 带来源的引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B3%A8%E9%87%8A"><span class="toc-text">3. 注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%84%9A%E6%B3%A8"><span class="toc-text">4. 脚注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD-%F0%9F%9A%80"><span class="toc-text">🚀 高级功能 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F"><span class="toc-text">1. 自定义文本样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A2%9C%E8%89%B2%E5%92%8C%E5%A4%A7%E5%B0%8F%E7%A4%BA%E4%BE%8B"><span class="toc-text">2. 颜色和大小示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%95%E9%80%89%E6%8C%89%E9%92%AE"><span class="toc-text">3. 单选按钮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BF%9B%E5%BA%A6%E6%9D%A1"><span class="toc-text">4. 进度条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%8A%98%E5%8F%A0%E5%86%85%E5%AE%B9"><span class="toc-text">5. 折叠内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-HTML-%E5%B5%8C%E5%85%A5-%F0%9F%8C%90"><span class="toc-text">🔧 HTML 嵌入 🌐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B5%8C%E5%85%A5%E8%A7%86%E9%A2%91"><span class="toc-text">1. 嵌入视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B5%8C%E5%85%A5%E9%9F%B3%E9%A2%91"><span class="toc-text">2. 嵌入音频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B5%8C%E5%85%A5-PDF"><span class="toc-text">3. 嵌入 PDF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%8C%89%E9%92%AE"><span class="toc-text">4. 按钮</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6-%F0%9F%94%A7"><span class="toc-text">⚡ 转义字符 🔧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B8%B8%E7%94%A8%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-text">1. 常用转义字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-HTML-%E5%AE%9E%E4%BD%93"><span class="toc-text">2. HTML 实体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5-%F0%9F%92%A1"><span class="toc-text">💡 实用技巧与最佳实践 💡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E5%BB%BA%E8%AE%AE"><span class="toc-text">1. 文档结构建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8E%92%E7%89%88%E5%BB%BA%E8%AE%AE"><span class="toc-text">2. 排版建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%AF%E8%AF%BB%E6%80%A7%E6%8A%80%E5%B7%A7"><span class="toc-text">3. 可读性技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%BC%E5%AE%B9%E6%80%A7%E6%8F%90%E7%A4%BA"><span class="toc-text">4. 兼容性提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E5%8F%8B%E5%A5%BD"><span class="toc-text">5. 版本控制友好</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90-%F0%9F%9B%A0%EF%B8%8F"><span class="toc-text">🛠️ 工具推荐 🛠️</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-text">1. 在线编辑器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8"><span class="toc-text">2. 桌面应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6"><span class="toc-text">3. 浏览器插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">4. 命令行工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7"><span class="toc-text">5. 其他工具</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

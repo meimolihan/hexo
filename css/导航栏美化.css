@@ -1,0 +1,62 @@
+/*************************** 导航栏美化 ****************************/
+/******* 一级菜单居中 *******/
+#nav .menus_items {
+    position          : absolute        !important;
+    width             : fit-content     !important;
+    left              : 50%             !important;
+    transform         : translateX(-50%) !important;
+}
+
+/****** 子菜单横向展示 ******/
+#nav .menus_items .menus_item:hover .menus_item_child {
+    display           : flex            !important;
+}
+/* 这里的2是代表导航栏的第2个元素，即有子菜单的元素，可以按自己需求修改 */
+.menus_items .menus_item:nth-child(2) .menus_item_child {
+    left              : -125px;
+}
+
+/****** 去除导航栏选项中底下的蓝条 ******/
+#nav *::after {
+    background-color  : transparent     !important;
+}
+
+/****** 调整导航栏内容 ******/
+.site-page svg {
+    width             : 1.35em; /* 调整（导航栏图标）的宽度 */
+    height            : 1.35em; /* 调整（导航栏图标）的高度 */
+}
+.site-page span {
+    font-size         : 1.45em; /* 调整（导航栏文字）大小 */
+    color             : var(--heo-white); /* 调整（导航栏文字）颜色 */
+}
+.site-name {
+    font-size         : 1.6em; /* 调整（站点标题文字）大小 */
+    color             : var(--heo-white); /* 调整（站点标题文字）颜色 */
+}
+
+/****** 导航栏菜单鼠标移入字体放大 ******/
+.site-name:hover {
+    font-size         : 30px; /*导航栏（站点标题）文字图标*/
+    transition        : transform 0.3s ease; /* 平滑过渡效果 */
+}
+.menus_item:hover {
+    font-size         : 20px; /*导航栏（主菜单）文字图标*/
+    transition        : transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+/****** 导航栏（子菜单） ******/
+.site-page.child.faa-parent.animated-hover {
+    border-radius: 15px;
+}
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover {
+    border-radius: 15px;
+}
+
+/****** 导航栏（子菜单）- 鼠标悬停 ******/
+.site-page.child.faa-parent.animated-hover:hover {
+    border-radius: 15px;
+}
+[data-theme="dark"] .site-page.child.faa-parent.animated-hover:hover {
+    border-radius: 15px;
+}

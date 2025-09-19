@@ -1,0 +1,1008 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Proxmox VE 国内镜像源配置指南 🚀 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Proxmox VE 国内镜像源配置指南 🚀  ✨ 为Proxmox VE (PVE) 更换国内镜像源可以大幅提升软件包下载速度，减少更新等待时间，提高系统维护效率。本指南提供多个国内主流镜像源的配置方法。   📋 导航目录 ✨ 特性与优势 🔧 准备工作 📦 更换软件源 🏢 企业源配置 🔓 无订阅源配置 🌊 Ceph源配置 📦 LXC容器源 🚫 去除订阅提示 🔄 更新与重启 ⚠">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxmox VE 国内镜像源配置指南 🚀">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/6d364acc.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Proxmox VE 国内镜像源配置指南 🚀  ✨ 为Proxmox VE (PVE) 更换国内镜像源可以大幅提升软件包下载速度，减少更新等待时间，提高系统维护效率。本指南提供多个国内主流镜像源的配置方法。   📋 导航目录 ✨ 特性与优势 🔧 准备工作 📦 更换软件源 🏢 企业源配置 🔓 无订阅源配置 🌊 Ceph源配置 📦 LXC容器源 🚫 去除订阅提示 🔄 更新与重启 ⚠">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?8989">
+<meta property="article:published_time" content="2025-09-12T08:28:24.000Z">
+<meta property="article:modified_time" content="2025-09-12T08:28:24.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="换国内源">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?8989"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Proxmox VE 国内镜像源配置指南 🚀",
+  "url": "https://www.meimolihan.eu.org/posts/6d364acc.html",
+  "image": "https://api.mobufan.eu.org:666/pc?8989",
+  "datePublished": "2025-09-12T08:28:24.000Z",
+  "dateModified": "2025-09-12T08:28:24.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/6d364acc.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Proxmox VE 国内镜像源配置指南 🚀',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?8989);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Proxmox VE 国内镜像源配置指南 🚀</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Proxmox VE 国内镜像源配置指南 🚀</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T08:28:24.000Z" title="发表于 2025-09-12 16:28:24">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T08:28:24.000Z" title="更新于 2025-09-12 16:28:24">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Proxmox-VE/">Proxmox VE</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 16:28:24&quot;}" hidden></div><h1 id="Proxmox-VE-国内镜像源配置指南-🚀"><a href="#Proxmox-VE-国内镜像源配置指南-🚀" class="headerlink" title="Proxmox VE 国内镜像源配置指南 🚀"></a>Proxmox VE 国内镜像源配置指南 🚀</h1><p><img src="https://file.meimolihan.eu.org/img/pve-02.webp" alt=""></p>
+<blockquote>
+<p>✨ 为Proxmox VE (PVE) 更换国内镜像源可以大幅提升软件包下载速度，减少更新等待时间，提高系统维护效率。本指南提供多个国内主流镜像源的配置方法。</p>
+</blockquote>
+<hr>
+<h2 id="📋-导航目录"><a href="#📋-导航目录" class="headerlink" title="📋 导航目录"></a>📋 导航目录</h2><ul>
+<li><a href="#features">✨ 特性与优势</a></li>
+<li><a href="#preparation">🔧 准备工作</a></li>
+<li><a href="#software-sources">📦 更换软件源</a></li>
+<li><a href="#enterprise-sources">🏢 企业源配置</a></li>
+<li><a href="#no-subscription">🔓 无订阅源配置</a></li>
+<li><a href="#ceph-sources">🌊 Ceph源配置</a></li>
+<li><a href="#lxc-sources">📦 LXC容器源</a></li>
+<li><a href="#remove-subscription-notice">🚫 去除订阅提示</a></li>
+<li><a href="#update-reboot">🔄 更新与重启</a></li>
+<li><a href="#important-notes">⚠️ 注意事项</a></li>
+</ul>
+<hr>
+<p><a id="features"></a></p>
+<h2 id="✨-特性与优势"><a href="#✨-特性与优势" class="headerlink" title="✨ 特性与优势"></a>✨ 特性与优势</h2><ul>
+<li>⚡ <strong>极速下载</strong>：国内镜像源提供更快的下载速度</li>
+<li>🌐 <strong>稳定连接</strong>：避免国际网络波动导致的连接问题</li>
+<li>🔒 <strong>安全可靠</strong>：官方镜像同步，保证软件包安全性</li>
+<li>🆓 <strong>免费使用</strong>：无需订阅即可享受企业级功能</li>
+<li>🛠️ <strong>多源选择</strong>：提供多个主流镜像源供选择</li>
+</ul>
+<hr>
+<p><a id="preparation"></a></p>
+<h2 id="🔧-准备工作"><a href="#🔧-准备工作" class="headerlink" title="🔧 准备工作"></a>🔧 准备工作</h2><blockquote>
+<p>📝 在开始前，请务必备份原始配置文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份原始软件源配置</span></span><br><span class="line"><span class="built_in">cp</span> /etc/apt/sources.list /etc/apt/sources.list.backup</span><br><span class="line"><span class="built_in">cp</span> /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/backup/ 2&gt;/dev/null || <span class="built_in">mkdir</span> -p /etc/apt/sources.list.d/backup &amp;&amp; <span class="built_in">cp</span> /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/backup/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看备份文件</span></span><br><span class="line"><span class="built_in">ls</span> -la /etc/apt/sources.list.backup /etc/apt/sources.list.d/backup/</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="software-sources"></a></p>
+<h2 id="📦-更换软件源（选择其一即可）"><a href="#📦-更换软件源（选择其一即可）" class="headerlink" title="📦 更换软件源（选择其一即可）"></a>📦 更换软件源（选择其一即可）</h2><h3 id="1-🐢-清华大学软件源"><a href="#1-🐢-清华大学软件源" class="headerlink" title="1. 🐢 清华大学软件源"></a>1. 🐢 清华大学软件源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 清华大学镜像源</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-🦊-中科大软件源"><a href="#2-🦊-中科大软件源" class="headerlink" title="2. 🦊 中科大软件源"></a>2. 🦊 中科大软件源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 中科大软件源</span></span><br><span class="line"><span class="string">deb https://mirrors.ustc.edu.cn/debian/ bookworm main contrib non-free</span></span><br><span class="line"><span class="string">deb-src https://mirrors.ustc.edu.cn/debian/ bookworm main contrib non-free</span></span><br><span class="line"><span class="string">deb https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib non-free</span></span><br><span class="line"><span class="string">deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib non-free</span></span><br><span class="line"><span class="string">deb https://mirrors.ustc.edu.cn/debian/ bookworm-backports main contrib non-free</span></span><br><span class="line"><span class="string">deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-backports main contrib non-free</span></span><br><span class="line"><span class="string">deb https://mirrors.ustc.edu.cn/debian-security/ bookworm-security main contrib non-free</span></span><br><span class="line"><span class="string">deb-src https://mirrors.ustc.edu.cn/debian-security/ bookworm-security main contrib non-free</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-☁️-阿里云软件源"><a href="#3-☁️-阿里云软件源" class="headerlink" title="3. ☁️ 阿里云软件源"></a>3. ☁️ 阿里云软件源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 阿里云软件源</span></span><br><span class="line"><span class="string">deb https://mirrors.aliyun.com/debian/ bookworm main non-free contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.aliyun.com/debian/ bookworm main non-free contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.aliyun.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb-src https://mirrors.aliyun.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb https://mirrors.aliyun.com/debian/ bookworm-updates main non-free contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.aliyun.com/debian/ bookworm-updates main non-free contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.aliyun.com/debian/ bookworm-backports main non-free contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.aliyun.com/debian/ bookworm-backports main non-free contrib</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-🌩️-腾讯云软件源"><a href="#4-🌩️-腾讯云软件源" class="headerlink" title="4. 🌩️ 腾讯云软件源"></a>4. 🌩️ 腾讯云软件源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 腾讯云软件源</span></span><br><span class="line"><span class="string">deb https://mirrors.tencent.com/debian/ bookworm main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tencent.com/debian/ bookworm main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.tencent.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tencent.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb https://mirrors.tencent.com/debian/ bookworm-updates main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tencent.com/debian/ bookworm-updates main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.tencent.com/debian/ bookworm-backports main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.tencent.com/debian/ bookworm-backports main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-🇨🇳-华为云软件源"><a href="#5-🇨🇳-华为云软件源" class="headerlink" title="5. 🇨🇳 华为云软件源"></a>5. 🇨🇳 华为云软件源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 华为云软件源</span></span><br><span class="line"><span class="string">deb https://mirrors.huaweicloud.com/debian/ bookworm main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.huaweicloud.com/debian/ bookworm main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.huaweicloud.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb-src https://mirrors.huaweicloud.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb https://mirrors.huaweicloud.com/debian/ bookworm-updates main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.huaweicloud.com/debian/ bookworm-updates main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.huaweicloud.com/debian/ bookworm-backports main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.huaweicloud.com/debian/ bookworm-backports main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-🦌-网易163软件源"><a href="#6-🦌-网易163软件源" class="headerlink" title="6. 🦌 网易163软件源"></a>6. 🦌 网易163软件源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 网易163软件源</span></span><br><span class="line"><span class="string">deb https://mirrors.163.com/debian/ bookworm main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.163.com/debian/ bookworm main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.163.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb-src https://mirrors.163.com/debian-security/ bookworm-security main</span></span><br><span class="line"><span class="string">deb https://mirrors.163.com/debian/ bookworm-updates main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.163.com/debian/ bookworm-updates main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb https://mirrors.163.com/debian/ bookworm-backports main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">deb-src https://mirrors.163.com/debian/ bookworm-backports main non-free non-free-firmware contrib</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="enterprise-sources"></a></p>
+<h2 id="🏢-企业源配置（选择其一）"><a href="#🏢-企业源配置（选择其一）" class="headerlink" title="🏢 企业源配置（选择其一）"></a>🏢 企业源配置（选择其一）</h2><h3 id="1-🐢-清华大学企业源"><a href="#1-🐢-清华大学企业源" class="headerlink" title="1. 🐢 清华大学企业源"></a>1. 🐢 清华大学企业源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list.d/pve-enterprise.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 清华大学企业源</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian/pve bookworm pve-no-subscription</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-🦊-中科大企业源"><a href="#2-🦊-中科大企业源" class="headerlink" title="2. 🦊 中科大企业源"></a>2. 🦊 中科大企业源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list.d/pve-enterprise.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 中科大企业源</span></span><br><span class="line"><span class="string">deb https://mirrors.ustc.edu.cn/proxmox/debian/pve bookworm pve-no-subscription</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-🚫-屏蔽企业源（解决VUM问题）"><a href="#3-🚫-屏蔽企业源（解决VUM问题）" class="headerlink" title="3. 🚫 屏蔽企业源（解决VUM问题）"></a>3. 🚫 屏蔽企业源（解决VUM问题）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释掉企业源</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^deb/#deb/&#x27;</span> /etc/apt/sources.list.d/pve-enterprise.list</span><br></pre></td></tr></table></figure>
+<p><a id="no-subscription"></a></p>
+<h2 id="🔓-无订阅源配置"><a href="#🔓-无订阅源配置" class="headerlink" title="🔓 无订阅源配置"></a>🔓 无订阅源配置</h2><h3 id="🦊-中科大无订阅源"><a href="#🦊-中科大无订阅源" class="headerlink" title="🦊 中科大无订阅源"></a>🦊 中科大无订阅源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list.d/pve-no-subscription.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 中科大无订阅源</span></span><br><span class="line"><span class="string">deb https://mirrors.ustc.edu.cn/proxmox/debian/pve bookworm pve-no-subscription</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="ceph-sources"></a></p>
+<h2 id="🌊-Ceph源配置"><a href="#🌊-Ceph源配置" class="headerlink" title="🌊 Ceph源配置"></a>🌊 Ceph源配置</h2><h3 id="🦊-中科大Ceph源"><a href="#🦊-中科大Ceph源" class="headerlink" title="🦊 中科大Ceph源"></a>🦊 中科大Ceph源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/apt/sources.list.d/ceph.list &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"># 中科大Ceph源</span></span><br><span class="line"><span class="string">deb https://mirrors.ustc.edu.cn/proxmox/debian/ceph-quincy bookworm no-subscription</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<h3 id="🚫-屏蔽Ceph源（解决VUM问题）"><a href="#🚫-屏蔽Ceph源（解决VUM问题）" class="headerlink" title="🚫 屏蔽Ceph源（解决VUM问题）"></a>🚫 屏蔽Ceph源（解决VUM问题）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释掉Ceph源</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^deb/#deb/&#x27;</span> /etc/apt/sources.list.d/ceph.list</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="lxc-sources"></a></p>
+<h2 id="📦-LXC容器源配置"><a href="#📦-LXC容器源配置" class="headerlink" title="📦 LXC容器源配置"></a>📦 LXC容器源配置</h2><h3 id="🐢-清华大学LXC容器源"><a href="#🐢-清华大学LXC容器源" class="headerlink" title="🐢 清华大学LXC容器源"></a>🐢 清华大学LXC容器源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s|http://download.proxmox.com|https://mirrors.tuna.tsinghua.edu.cn/proxmox|g&#x27;</span> /usr/share/perl5/PVE/APLInfo.pm</span><br></pre></td></tr></table></figure>
+<h3 id="🦊-中科大LXC容器源"><a href="#🦊-中科大LXC容器源" class="headerlink" title="🦊 中科大LXC容器源"></a>🦊 中科大LXC容器源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g&#x27;</span> /usr/share/perl5/PVE/APLInfo.pm</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="remove-subscription-notice"></a></p>
+<h2 id="🚫-去除订阅弹窗提醒"><a href="#🚫-去除订阅弹窗提醒" class="headerlink" title="🚫 去除订阅弹窗提醒"></a>🚫 去除订阅弹窗提醒</h2><blockquote>
+<p>📢 注意：修改后需要清除浏览器缓存才能生效</p>
+</blockquote>
+<h3 id="1-🔧-方法一（推荐）"><a href="#1-🔧-方法一（推荐）" class="headerlink" title="1. 🔧 方法一（推荐）"></a>1. 🔧 方法一（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改PVE管理界面相关文件</span></span><br><span class="line">sed -i.bak <span class="string">&quot;s/data.status === &#x27;Active&#x27;/true/g&quot;</span> /usr/share/pve-manager/js/pvemanagerlib.js</span><br><span class="line">sed -i.bak <span class="string">&quot;s/if (res === null || res === undefined || \!res || res/if(/g&quot;</span> /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</span><br><span class="line">sed -i.bak <span class="string">&quot;s/.data.status.toLowerCase() !== &#x27;active&#x27;/false/g&quot;</span> /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启PVE代理服务</span></span><br><span class="line">systemctl restart pveproxy</span><br></pre></td></tr></table></figure>
+<h3 id="2-⚡-方法二（一键脚本）"><a href="#2-⚡-方法二（一键脚本）" class="headerlink" title="2. ⚡ 方法二（一键脚本）"></a>2. ⚡ 方法二（一键脚本）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i.bak -z <span class="string">&quot;s/res === null || res === undefined || \!res || res\n\t\t\t.data.status.toLowerCase() \!== &#x27;active&#x27;/false/g&quot;</span> /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</span><br><span class="line">systemctl restart pveproxy</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="update-reboot"></a></p>
+<h2 id="🔄-更新与重启"><a href="#🔄-更新与重启" class="headerlink" title="🔄 更新与重启"></a>🔄 更新与重启</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新软件包列表</span></span><br><span class="line">apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升级所有可更新的软件包</span></span><br><span class="line">apt dist-upgrade -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启系统使更改生效</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="important-notes"></a></p>
+<h2 id="⚠️-重要注意事项"><a href="#⚠️-重要注意事项" class="headerlink" title="⚠️ 重要注意事项"></a>⚠️ 重要注意事项</h2><ol>
+<li><strong>🔒 备份重要数据</strong>：在进行系统配置更改前，请确保已备份重要数据</li>
+<li><strong>🌐 网络连接</strong>：确保PVE系统可以正常访问互联网</li>
+<li><strong>📋 版本兼容性</strong>：本指南针对Proxmox VE 7.x (Bookworm) 编写，其他版本可能需要调整</li>
+<li><strong>🔄 更新策略</strong>：定期更新系统以获得安全补丁和功能改进</li>
+<li><strong>🚫 订阅提示</strong>：去除订阅提示后，某些企业功能可能仍然受限</li>
+<li><strong>🔍 故障排除</strong>：如果遇到问题，可以恢复备份文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /etc/apt/sources.list.backup /etc/apt/sources.list</span><br><span class="line"><span class="built_in">cp</span> /etc/apt/sources.list.d/backup/*.list /etc/apt/sources.list.d/</span><br><span class="line">apt update</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><strong>🔄 最后更新</strong>：2024年3月<br><strong>✅ 适用版本</strong>：Proxmox VE 7.x (Bookworm)<br><strong>🏷️ 标签</strong>：#PVE #镜像源 #加速 #配置指南  </p>
+<blockquote>
+<p>💡 提示：选择距离您地理位置最近的镜像源可以获得最佳下载速度。如果某个镜像源出现问题，可以尝试切换到其他镜像源。</p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/">换国内源</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?8989" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/9fa6d696.html" title="Proxmox VE 网卡直通配置 🌐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3981" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Proxmox VE 网卡直通配置 🌐</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 网卡直通配置 🌐  📑 导航目录 ✨ 特性与功能 🔍 前置要求 ⚙️ 配置步骤 ✅ 验证配置 🛠️ 后续操作 ⚠️ 重要注意事项 ↩️ 恢复默认设置 💡 实用技巧    ✨ 特性与功能 网卡直通（PCI Passthrough）是一项高级虚拟化技术，允许虚拟机直接访问物理硬件设备，绕过虚拟化层的性能开销。这项功能特别适合需要高性能网络的应用场景，如：  🚀 高性能虚拟路由器（OPNsense/pfSense） 📊 网络流量分析监控 🎮 低延迟游戏服务器 🔧 网络功能虚拟化（NFV） 💻 虚拟化环境中的高性能网络应用     ✨ 特性与功能网卡直通技术提供以下优势：  🎯 接近原生性能：虚拟机直接控制物理网卡，性能损失极小 ⚡ 低延迟：绕过虚拟化层，显著降低网络延迟 🔒 隔离性：直通设备完全分配给特定虚拟机，增强安全性 🛡️ 稳定性：减少因虚拟化驱动导致的兼容性问题 🔧 灵活性：支持多种网卡型号和品牌   🔍 前置要求在开始配置前，请确保满足以下条件： 硬件要求 🖥️ CPU支持：Intel VT-d 或 AMD-V 技术 🧩...</div></div></div></a><a class="pagination-related" href="/posts/dfa3a72f.html" title="Alpine 国内镜像源配置指南 🏔️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5600" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Alpine 国内镜像源配置指南 🏔️</div></div><div class="info-2"><div class="info-item-1">Alpine 国内镜像源配置指南 🏔️  🚀 为Alpine Linux更换国内镜像源可以显著提升软件包下载速度，加速系统更新和软件安装过程，特别适合国内用户使用。   ✨ Alpine Linux 特点 🐧 轻量级：基础镜像仅5MB左右，极其精简 🔒 安全性：采用musl libc和BusyBox， attack surface小 📦 简单包管理：apk包管理器简单易用，依赖处理优秀 🏗️ 模块化设计：可根据需要定制最小化系统 🔧 适合容器：广泛用于Docker基础镜像   📋 导航目录 ✨ Alpine Linux 特点 🔧 准备工作 🔄 镜像源配置 🔍 验证配置 ⚙️ 高级配置 ⚠️ 注意事项    ✨ Alpine Linux 特点Alpine Linux是一款面向安全应用的轻量级Linux发行版，具有以下特点：  🛡️ 安全导向：所有用户态二进制文件都编译为位置无关可执行文件(PIE)并堆栈保护 🏗️ 基于musl libc：使用musl libc和BusyBox替代GNU核心工具 📦 apk包管理器：高效的包管理工具，依赖解析快速准确 🐋...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/dfa3a72f.html" title="Alpine 国内镜像源配置指南 🏔️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5600" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Alpine 国内镜像源配置指南 🏔️</div></div><div class="info-2"><div class="info-item-1">Alpine 国内镜像源配置指南 🏔️  🚀 为Alpine Linux更换国内镜像源可以显著提升软件包下载速度，加速系统更新和软件安装过程，特别适合国内用户使用。   ✨ Alpine Linux 特点 🐧 轻量级：基础镜像仅5MB左右，极其精简 🔒 安全性：采用musl libc和BusyBox， attack surface小 📦 简单包管理：apk包管理器简单易用，依赖处理优秀 🏗️ 模块化设计：可根据需要定制最小化系统 🔧 适合容器：广泛用于Docker基础镜像   📋 导航目录 ✨ Alpine Linux 特点 🔧 准备工作 🔄 镜像源配置 🔍 验证配置 ⚙️ 高级配置 ⚠️ 注意事项    ✨ Alpine Linux 特点Alpine Linux是一款面向安全应用的轻量级Linux发行版，具有以下特点：  🛡️ 安全导向：所有用户态二进制文件都编译为位置无关可执行文件(PIE)并堆栈保护 🏗️ 基于musl libc：使用musl libc和BusyBox替代GNU核心工具 📦 apk包管理器：高效的包管理工具，依赖解析快速准确 🐋...</div></div></div></a><a class="pagination-related" href="/posts/698d1202.html" title="Debian 13 国内镜像源配置指南 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9037" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Debian 13 国内镜像源配置指南 🐧</div></div><div class="info-2"><div class="info-item-1">Debian 13 国内镜像源配置指南 🐧  Debian 13（代号 Trixie）更换国内镜像源可以有效加速软件包下载和系统更新。下面我将为你详细介绍更换方法。   目录导航 📚 🔍 为什么更换国内镜像源？ 📋 更换前准备 🧾 国内常用镜像源 🛠 更换镜像源方法 方法一：命令行快速替换 方法二：手动编辑源列表 方法三：使用 DEB822 格式 方法四：一键换源脚本   ⚠️ 注意事项 🔧 测试与验证 💎 总结    🔍 为什么要更换国内镜像源？为 Debian 系统更换国内镜像源，主要是为了提升软件包下载速度和增强更新稳定性。由于网络距离和带宽的限制，连接海外官方源往往速度较慢。选择地理位置更近的国内镜像源，能大幅缩短下载时间，提高系统维护效率，并减少因网络波动导致的更新失败。 主要优势：  🚀 极速下载：国内镜像通常提供更快的连接速度和更大的带宽 📶 稳定连接：避免国际网络波动导致的更新中断 ⏱ 节省时间：大幅减少软件包下载和系统更新所需时间 🔒 备用选择：当官方源不可用时提供可靠的替代方案    📋 更换前准备开始前，务必备份你原有的源列表文件，...</div></div></div></a><a class="pagination-related" href="/posts/bf1417ca.html" title="Ubuntu 国内镜像源配置指南 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5012" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Ubuntu 国内镜像源配置指南 🚀</div></div><div class="info-2"><div class="info-item-1">Ubuntu 国内镜像源配置指南 🚀 🔄 提升您的Ubuntu软件下载速度，享受更流畅的更新体验！  📋 目录 🌟 简介 📦 国内镜像源选择 🔄 应用配置并更新 🛠️ 手动编辑源文件 📋 各版本代号对应表 🔍 验证源配置 ⚠️ 注意事项 🚨 故障排除 💡 额外提示 📊 镜像源速度比较    🌟 简介本指南将帮助您将 Ubuntu 的软件源更换为国内镜像源，显著提升软件下载和更新速度。国内镜像源可以为您提供：  ⚡ 更快的下载速度 - 减少国际带宽限制带来的延迟 🔒 更稳定的连接 - 避免国外源连接不稳定的问题 📦 完整的镜像 - 包含所有官方软件包，与官方源同步更新 🌐 本地化支持 - 部分源提供本地化文档和帮助   💡 首先备份配置文件  1sudo cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak   📦 国内镜像源选择1. 阿里云镜像源 🇨🇳1234567sudo tee /etc/apt/sources.list....</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proxmox-VE-%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97-%F0%9F%9A%80"><span class="toc-text">Proxmox VE 国内镜像源配置指南 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📋 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E7%89%B9%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8A%BF"><span class="toc-text">✨ 特性与优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">🔧 准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%EF%BC%88%E9%80%89%E6%8B%A9%E5%85%B6%E4%B8%80%E5%8D%B3%E5%8F%AF%EF%BC%89"><span class="toc-text">📦 更换软件源（选择其一即可）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%F0%9F%90%A2-%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">1. 🐢 清华大学软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%F0%9F%A6%8A-%E4%B8%AD%E7%A7%91%E5%A4%A7%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">2. 🦊 中科大软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E2%98%81%EF%B8%8F-%E9%98%BF%E9%87%8C%E4%BA%91%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">3. ☁️ 阿里云软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%F0%9F%8C%A9%EF%B8%8F-%E8%85%BE%E8%AE%AF%E4%BA%91%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">4. 🌩️ 腾讯云软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%F0%9F%87%A8%F0%9F%87%B3-%E5%8D%8E%E4%B8%BA%E4%BA%91%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">5. 🇨🇳 华为云软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%F0%9F%A6%8C-%E7%BD%91%E6%98%93163%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">6. 🦌 网易163软件源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8F%A2-%E4%BC%81%E4%B8%9A%E6%BA%90%E9%85%8D%E7%BD%AE%EF%BC%88%E9%80%89%E6%8B%A9%E5%85%B6%E4%B8%80%EF%BC%89"><span class="toc-text">🏢 企业源配置（选择其一）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%F0%9F%90%A2-%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E4%BC%81%E4%B8%9A%E6%BA%90"><span class="toc-text">1. 🐢 清华大学企业源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%F0%9F%A6%8A-%E4%B8%AD%E7%A7%91%E5%A4%A7%E4%BC%81%E4%B8%9A%E6%BA%90"><span class="toc-text">2. 🦊 中科大企业源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%F0%9F%9A%AB-%E5%B1%8F%E8%94%BD%E4%BC%81%E4%B8%9A%E6%BA%90%EF%BC%88%E8%A7%A3%E5%86%B3VUM%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-text">3. 🚫 屏蔽企业源（解决VUM问题）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%93-%E6%97%A0%E8%AE%A2%E9%98%85%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-text">🔓 无订阅源配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A6%8A-%E4%B8%AD%E7%A7%91%E5%A4%A7%E6%97%A0%E8%AE%A2%E9%98%85%E6%BA%90"><span class="toc-text">🦊 中科大无订阅源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%8A-Ceph%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-text">🌊 Ceph源配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A6%8A-%E4%B8%AD%E7%A7%91%E5%A4%A7Ceph%E6%BA%90"><span class="toc-text">🦊 中科大Ceph源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%AB-%E5%B1%8F%E8%94%BDCeph%E6%BA%90%EF%BC%88%E8%A7%A3%E5%86%B3VUM%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-text">🚫 屏蔽Ceph源（解决VUM问题）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-LXC%E5%AE%B9%E5%99%A8%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-text">📦 LXC容器源配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%90%A2-%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6LXC%E5%AE%B9%E5%99%A8%E6%BA%90"><span class="toc-text">🐢 清华大学LXC容器源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A6%8A-%E4%B8%AD%E7%A7%91%E5%A4%A7LXC%E5%AE%B9%E5%99%A8%E6%BA%90"><span class="toc-text">🦊 中科大LXC容器源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%AB-%E5%8E%BB%E9%99%A4%E8%AE%A2%E9%98%85%E5%BC%B9%E7%AA%97%E6%8F%90%E9%86%92"><span class="toc-text">🚫 去除订阅弹窗提醒</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%F0%9F%94%A7-%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">1. 🔧 方法一（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E2%9A%A1-%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%88%E4%B8%80%E9%94%AE%E8%84%9A%E6%9C%AC%EF%BC%89"><span class="toc-text">2. ⚡ 方法二（一键脚本）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E6%9B%B4%E6%96%B0%E4%B8%8E%E9%87%8D%E5%90%AF"><span class="toc-text">🔄 更新与重启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E9%87%8D%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">⚠️ 重要注意事项</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

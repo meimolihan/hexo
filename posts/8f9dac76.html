@@ -1,0 +1,1060 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️ | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️  iSCSI 允许你在网络上共享块设备，客户端可以像使用本地硬盘一样使用这些共享存储。下面是 iStoreOS 上配置 iSCSI 服务端及 Windows 客户端连接的详细指南。   📖 目录导航 ✨ iSCSI 简介与优势 🔧 iStoreOS 服务端配置 🖥️ Windows 客户端连接 ⚙️ 高级配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/8f9dac76.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️  iSCSI 允许你在网络上共享块设备，客户端可以像使用本地硬盘一样使用这些共享存储。下面是 iStoreOS 上配置 iSCSI 服务端及 Windows 客户端连接的详细指南。   📖 目录导航 ✨ iSCSI 简介与优势 🔧 iStoreOS 服务端配置 🖥️ Windows 客户端连接 ⚙️ 高级配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?2010">
+<meta property="article:published_time" content="2025-09-12T11:48:52.000Z">
+<meta property="article:modified_time" content="2025-09-12T11:48:52.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="istoreos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?2010"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️",
+  "url": "https://www.meimolihan.eu.org/posts/8f9dac76.html",
+  "image": "https://api.mobufan.eu.org:666/pc?2010",
+  "datePublished": "2025-09-12T11:48:52.000Z",
+  "dateModified": "2025-09-12T11:48:52.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/8f9dac76.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?2010);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T11:48:52.000Z" title="发表于 2025-09-12 19:48:52">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T11:48:52.000Z" title="更新于 2025-09-12 19:48:52">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 19:48:52&quot;}" hidden></div><h1 id="iStoreOS-配置-iSCSI-存储及-Windows-客户端连接指南-🖥️"><a href="#iStoreOS-配置-iSCSI-存储及-Windows-客户端连接指南-🖥️" class="headerlink" title="iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️"></a>iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️</h1><p><img src="https://file.meimolihan.eu.org/img/istoreos-01.webp" alt=""></p>
+<blockquote>
+<p>iSCSI 允许你在网络上共享块设备，客户端可以像使用本地硬盘一样使用这些共享存储。下面是 iStoreOS 上配置 iSCSI 服务端及 Windows 客户端连接的详细指南。</p>
+</blockquote>
+<hr>
+<h2 id="📖-目录导航"><a href="#📖-目录导航" class="headerlink" title="📖 目录导航"></a>📖 目录导航</h2><ul>
+<li><a href="#iscsi-intro">✨ iSCSI 简介与优势</a></li>
+<li><a href="#istoreos-setup">🔧 iStoreOS 服务端配置</a></li>
+<li><a href="#windows-client">🖥️ Windows 客户端连接</a></li>
+<li><a href="#advanced-config">⚙️ 高级配置与优化</a></li>
+<li><a href="#security">🔒 安全加固建议</a></li>
+<li><a href="#troubleshooting">🐛 故障排除</a></li>
+<li><a href="#monitoring">📊 监控与维护</a></li>
+</ul>
+<hr>
+<p><a id="iscsi-intro"></a></p>
+<h2 id="✨-iSCSI-简介与优势"><a href="#✨-iSCSI-简介与优势" class="headerlink" title="✨ iSCSI 简介与优势"></a>✨ iSCSI 简介与优势</h2><p><strong>iSCSI</strong> (Internet Small Computer System Interface) 是一种基于 <strong>IP 网络的存储协议</strong>，它允许在 IP 网络上传输 SCSI 命令，将远程存储设备映射为本地块设备。</p>
+<ul>
+<li><strong>成本效益</strong>：利用现有网络基础设施，无需专门构建昂贵的光纤通道网络。</li>
+<li><strong>灵活性</strong>：方便扩展存储容量，可在不同操作系统和硬件平台间实现存储共享。</li>
+<li><strong>应用场景</strong>：常用于数据中心服务器存储扩展和企业级应用（如数据库存储）。</li>
+</ul>
+<hr>
+<p><a id="istoreos-setup"></a></p>
+<h2 id="🔧-iStoreOS-服务端配置"><a href="#🔧-iStoreOS-服务端配置" class="headerlink" title="🔧 iStoreOS 服务端配置"></a>🔧 iStoreOS 服务端配置</h2><h3 id="📦-1-安装必要的软件包"><a href="#📦-1-安装必要的软件包" class="headerlink" title="📦 1. 安装必要的软件包"></a>📦 1. 安装必要的软件包</h3><p>iStoreOS 基于 OpenWRT，可以使用 <code>opkg</code> 包管理器安装所需软件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新软件包列表并安装 tgt（iSCSI 目标软件）和内核模块</span></span><br><span class="line">opkg update</span><br><span class="line">opkg install tgt kmod-scsi-core</span><br></pre></td></tr></table></figure>
+<h3 id="📂-2-准备存储设备"><a href="#📂-2-准备存储设备" class="headerlink" title="📂 2. 准备存储设备"></a>📂 2. 准备存储设备</h3><p>确保你有一块磁盘（如 <code>/dev/sda1</code>）可用于共享。使用 <code>df -h</code> 或 <code>lsblk</code> 查看可用磁盘和分区。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看磁盘挂载情况</span></span><br><span class="line"><span class="built_in">df</span> -h</span><br><span class="line"><span class="comment"># 或查看块设备信息</span></span><br><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<h3 id="⚙️-3-配置-iSCSI-目标服务"><a href="#⚙️-3-配置-iSCSI-目标服务" class="headerlink" title="⚙️ 3. 配置 iSCSI 目标服务"></a>⚙️ 3. 配置 iSCSI 目标服务</h3><p>iSCSI 目标的配置通常位于 <code>/etc/config/tgt</code>。你可以直接编辑此文件或使用 <code>uci</code> 命令（如果 iStoreOS 支持）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建或编辑 tgt 配置文件</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /etc/config/tgt &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment"># 全局选项</span></span><br><span class="line">config options <span class="string">&#x27;tgt&#x27;</span></span><br><span class="line">    option iothreads <span class="string">&#x27;2&#x27;</span>  <span class="comment"># I/O 线程数，可根据 CPU 核心调整</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义第一个 iSCSI 目标</span></span><br><span class="line">config target 1</span><br><span class="line">    option name <span class="string">&#x27;iqn.2024-09.com.istoreos:storage.disk1&#x27;</span>  <span class="comment"># 目标 IQN 名称，需唯一</span></span><br><span class="line">    <span class="comment"># 可选项：允许访问的客户端 IP 范围</span></span><br><span class="line">    list allow_address <span class="string">&#x27;192.168.1.0/24&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义第一个目标下的 LUN（逻辑单元）</span></span><br><span class="line">config lun 1_1</span><br><span class="line">    option device <span class="string">&#x27;/dev/sda1&#x27;</span>  <span class="comment"># 要共享的物理设备路径</span></span><br><span class="line">    option target <span class="string">&#x27;1&#x27;</span>          <span class="comment"># 关联的目标 ID</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：配置 CHAP 认证（强烈建议启用）</span></span><br><span class="line">config account</span><br><span class="line">    list target <span class="string">&#x27;1&#x27;</span>            <span class="comment"># 关联的目标 ID</span></span><br><span class="line">    option user <span class="string">&#x27;admin&#x27;</span>        <span class="comment"># CHAP 用户名</span></span><br><span class="line">    option password <span class="string">&#x27;yifan0719&#x27;</span> <span class="comment"># CHAP 密码，请使用强密码</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>关键参数说明</strong>：</p>
+<ul>
+<li><strong>IQN 名称格式</strong>：<code>iqn.yyyy-mm.reverse.domain.name:optional.identifier</code>。</li>
+<li><strong><code>device</code></strong>：要共享的块设备（如 <code>/dev/sda1</code>）或文件（需预先创建）。</li>
+<li><strong>CHAP 认证</strong>：强烈建议启用以提高安全性。</li>
+</ul>
+<h3 id="🔄-4-启动并验证服务"><a href="#🔄-4-启动并验证服务" class="headerlink" title="🔄 4. 启动并验证服务"></a>🔄 4. 启动并验证服务</h3><p>配置完成后，启动 tgt 服务并设置开机自启。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 tgt 服务</span></span><br><span class="line">service tgt start</span><br><span class="line"><span class="comment"># 设置开机自启</span></span><br><span class="line">service tgt <span class="built_in">enable</span></span><br><span class="line"><span class="comment"># 检查服务状态</span></span><br><span class="line">service tgt status</span><br></pre></td></tr></table></figure>
+<p>使用 <code>tgtadm</code> 命令验证目标是否发布成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看定义的 iSCSI 目标</span></span><br><span class="line">tgtadm --mode target --op show</span><br></pre></td></tr></table></figure>
+<p><strong>预期输出</strong>应显示你定义的 Target IQN 和 LUN 信息。</p>
+<h3 id="🔥-5-防火墙配置"><a href="#🔥-5-防火墙配置" class="headerlink" title="🔥 5. 防火墙配置"></a>🔥 5. 防火墙配置</h3><p>iSCSI 服务默认使用 <strong>TCP 端口 3260</strong>。确保防火墙允许客户端访问此端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 允许 iSCSI 端口（3260/TCP）的访问（示例，具体命令取决于你的防火墙）</span></span><br><span class="line">iptables -A INPUT -p tcp --dport 3260 -s 192.168.1.0/24 -j ACCEPT</span><br><span class="line"><span class="comment"># 然后记得保存防火墙规则</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="windows-client"></a></p>
+<h2 id="🖥️-Windows-客户端连接"><a href="#🖥️-Windows-客户端连接" class="headerlink" title="🖥️ Windows 客户端连接"></a>🖥️ Windows 客户端连接</h2><p>Windows 系统通常自带 <strong>iSCSI 发起程序</strong>，但可能需要启用。</p>
+<h3 id="⚙️-1-启动-iSCSI-发起程序并配置-Initiator-Name"><a href="#⚙️-1-启动-iSCSI-发起程序并配置-Initiator-Name" class="headerlink" title="⚙️ 1. 启动 iSCSI 发起程序并配置 Initiator Name"></a>⚙️ 1. 启动 iSCSI 发起程序并配置 Initiator Name</h3><ol>
+<li>按 <code>Win + R</code>，输入 <code>iscsicpl.exe</code> 并回车。</li>
+<li>如果首次使用，系统可能会提示<strong>启动 Microsoft iSCSI 服务</strong>，选择<strong>是</strong>。</li>
+<li>在 <strong>iSCSI 发起程序属性</strong> 窗口中，转到 <strong>Configuration</strong> 选项卡。</li>
+<li>记录或修改 <strong>Initiator Name</strong>。Windows 会提供一个默认名称，其格式通常为 <code>iqn.1991-05.com.microsoft:[hostname]</code>，你也可以修改为一个符合格式的唯一名称。<strong>此名称需与 iStoreOS 上设置的 ACL（如果配置了的话）匹配</strong>。</li>
+</ol>
+<h3 id="🔍-2-发现目标"><a href="#🔍-2-发现目标" class="headerlink" title="🔍 2. 发现目标"></a>🔍 2. 发现目标</h3><ol>
+<li>在 <strong>Discovery</strong> 选项卡中，点击 <strong>Discover Portal…</strong>。</li>
+<li>在弹出的对话框中，输入你的 <strong>iStoreOS 的 IP 地址</strong>。<strong>端口保持默认的 3260</strong>。点击 <strong>OK</strong>。</li>
+</ol>
+<h3 id="🔗-3-连接目标并配置-CHAP"><a href="#🔗-3-连接目标并配置-CHAP" class="headerlink" title="🔗 3. 连接目标并配置 CHAP"></a>🔗 3. 连接目标并配置 CHAP</h3><ol>
+<li>转到 <strong>Targets</strong> 选项卡。在 <strong>Discovered targets</strong> 列表中，你应该能看到在 iStoreOS 上配置的 Target IQN，状态为 <strong>Inactive</strong>。</li>
+<li>选中该目标，点击 <strong>Connect</strong>，然后点击 <strong>OK</strong>。此时状态应变为 <strong>Connected</strong>。</li>
+<li>如果你在 iStoreOS 上配置了 CHAP 认证，需要进一步设置：<ul>
+<li>在 <strong>Targets</strong> 选项卡，选中已连接的目标，点击 <strong>Properties</strong>。</li>
+<li>在 <strong>Properties</strong> 窗口中，点击 <strong>Configure CHAP…</strong>。</li>
+<li>选中 <strong>Use CHAP to authenticate</strong>。</li>
+<li>在 <strong>Name</strong> 中输入 iStoreOS 上设置的 CHAP 用户名（如 <code>admin</code>）。</li>
+<li>在 <strong>Target secret</strong> 中输入对应的密码（如 <code>yifan0719</code>）。</li>
+<li>点击 <strong>OK</strong> 保存。</li>
+</ul>
+</li>
+</ol>
+<h3 id="💾-4-初始化和使用磁盘"><a href="#💾-4-初始化和使用磁盘" class="headerlink" title="💾 4. 初始化和使用磁盘"></a>💾 4. 初始化和使用磁盘</h3><p>连接成功后，Windows 会将 iSCSI 磁盘识别为新的物理磁盘。</p>
+<ol>
+<li>打开 <strong>磁盘管理</strong>（<code>Win + R</code> 输入 <code>diskmgmt.msc</code>）。</li>
+<li>系统通常会提示你初始化新磁盘。选择<strong>分区样式</strong>（<strong>MBR</strong> 或 <strong>GPT</strong>，推荐 GPT for large disks）。</li>
+<li>初始化后，磁盘状态变为 <strong>Online</strong> 和 <strong>Unallocated</strong>。</li>
+<li>右键点击未分配空间，选择 <strong>New Simple Volume…</strong>，按照向导<strong>创建分区、格式化</strong>（选择文件系统，如 NTFS）并<strong>分配驱动器号</strong>。</li>
+<li>完成后，即可在 <strong>文件资源管理器</strong> 中像使用本地磁盘一样使用该网络存储。</li>
+</ol>
+<hr>
+<p><a id="advanced-config"></a></p>
+<h2 id="⚙️-高级配置与优化"><a href="#⚙️-高级配置与优化" class="headerlink" title="⚙️ 高级配置与优化"></a>⚙️ 高级配置与优化</h2><h3 id="🎯-多目标与多-LUN-配置"><a href="#🎯-多目标与多-LUN-配置" class="headerlink" title="🎯 多目标与多 LUN 配置"></a>🎯 多目标与多 LUN 配置</h3><p>你可以在 <code>/etc/config/tgt</code> 中定义多个目标和 LUN。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例：添加第二个目标和使用文件映像</span></span><br><span class="line">config target 2</span><br><span class="line">    option name <span class="string">&#x27;iqn.2024-09.com.istoreos:storage.disk2&#x27;</span></span><br><span class="line">    list allow_address <span class="string">&#x27;192.168.1.50&#x27;</span> <span class="comment"># 只允许特定 IP 访问</span></span><br><span class="line"></span><br><span class="line">config lun 2_1</span><br><span class="line">    option target <span class="string">&#x27;2&#x27;</span></span><br><span class="line">    <span class="comment"># 使用文件作为存储后端（需预先创建）</span></span><br><span class="line">    option device <span class="string">&#x27;/path/to/backend-file.img&#x27;</span></span><br><span class="line">    <span class="comment"># 可选：指定 LUN 编号</span></span><br><span class="line">    option lun <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>创建文件后端</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个 10GB 的空文件作为存储后端</span></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=/path/to/backend-file.img bs=1G count=10</span><br></pre></td></tr></table></figure></p>
+<h3 id="🚀-性能优化参数"><a href="#🚀-性能优化参数" class="headerlink" title="🚀 性能优化参数"></a>🚀 性能优化参数</h3><p>在 <code>/etc/config/tgt</code> 的全局选项或特定目标中调整参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">config options <span class="string">&#x27;tgt&#x27;</span></span><br><span class="line">    option iothreads <span class="string">&#x27;4&#x27;</span>             <span class="comment"># 根据 CPU 核心数调整 I/O 线程</span></span><br><span class="line">    option nop_interval <span class="string">&#x27;5&#x27;</span>          <span class="comment"># NOP-Out 请求间隔（秒），用于连接保活</span></span><br><span class="line">config target 1</span><br><span class="line">    <span class="comment"># 目标特定选项</span></span><br><span class="line">    option queue_depth <span class="string">&#x27;32&#x27;</span>          <span class="comment"># 队列深度，提高并发 I/O</span></span><br></pre></td></tr></table></figure>
+<p><strong>网络优化</strong>（在 iStoreOS 系统设置中考虑）：</p>
+<ul>
+<li><strong>Jumbo Frames</strong>：如果网络设备（交换机、网卡）支持，可启用巨帧（MTU 9000）以提升大数据传输效率。</li>
+<li><strong>专用网络</strong>：为 iSCSI 流量划分独立的 VLAN 或物理网络，以减少其他流量的干扰。</li>
+</ul>
+<hr>
+<p><a id="security"></a></p>
+<h2 id="🔒-安全加固建议"><a href="#🔒-安全加固建议" class="headerlink" title="🔒 安全加固建议"></a>🔒 安全加固建议</h2><ol>
+<li><strong>使用强 CHAP 密码</strong>：避免使用默认或简单密码。定期更换密码。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例：使用 apg 生成强密码（如果已安装）</span></span><br><span class="line">apg -m 12 -n 1</span><br></pre></td></tr></table></figure></li>
+<li><strong>网络隔离</strong>：使用防火墙规则严格限制仅允许授权的客户端 IP 地址访问 iSCSI 端口 3260。</li>
+<li><strong>IP 过滤</strong>：在 tgt 配置中使用 <code>allow_address</code> 列表进一步限制访问源 IP。</li>
+<li><strong>禁用未使用的目标</strong>：如果不使用某个目标，最好将其配置注释或删除，而不是仅仅停止服务。</li>
+</ol>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🐛-故障排除"><a href="#🐛-故障排除" class="headerlink" title="🐛 故障排除"></a>🐛 故障排除</h2><h3 id="🔍-iStoreOS-端检查"><a href="#🔍-iStoreOS-端检查" class="headerlink" title="🔍 iStoreOS 端检查"></a>🔍 iStoreOS 端检查</h3><ol>
+<li><strong>服务状态</strong>：确认 <code>tgt</code> 服务正在运行：<code>service tgt status</code>。</li>
+<li><strong>目标可见性</strong>：使用 <code>tgtadm --mode target --op show</code> 确认目标已正确配置且 LUN 状态正常。</li>
+<li><strong>日志查看</strong>：使用 <code>logread | grep tgt</code> 或 <code>journalctl -u tgt</code>（取决于系统）查看服务日志中的错误信息。</li>
+<li><strong>端口监听</strong>：确认 tgt 正在监听 3260 端口：<code>netstat -tlnp | grep 3260</code> 或 <code>ss -tlnp | grep 3260</code>。</li>
+<li><strong>防火墙</strong>：确认防火墙已放行 3260 端口：<code>iptables -L -n | grep 3260</code>。</li>
+</ol>
+<h3 id="🔍-Windows-端检查"><a href="#🔍-Windows-端检查" class="headerlink" title="🔍 Windows 端检查"></a>🔍 Windows 端检查</h3><ol>
+<li><strong>网络连通性</strong>：在 Windows 命令提示符中 ping iStoreOS 的 IP 地址：<code>ping &lt;iStoreOS_IP&gt;</code>。</li>
+<li><strong>发起程序服务</strong>：确保 <strong>Microsoft iSCSI Initiator Service</strong> 正在运行。</li>
+<li><strong>发现目标</strong>：在 <strong>iSCSI 发起程序</strong> 的 <strong>Discovery</strong> 选项卡中，确认已添加正确的 iStoreOS 门户地址。</li>
+<li><strong>CHAP 认证</strong>：<strong>仔细核对 CHAP 用户名和密码</strong>，大小写敏感，确保与 iStoreOS 配置完全一致。</li>
+<li><strong>连接状态</strong>：在 <strong>Targets</strong> 选项卡，查看目标状态是否为 <strong>Connected</strong>。</li>
+<li><strong>Windows 日志</strong>：检查 <strong>事件查看器</strong> 中的系统和应用程序日志，筛选与 iSCSI 或磁盘相关的错误事件。</li>
+</ol>
+<h3 id="🔍-常见问题"><a href="#🔍-常见问题" class="headerlink" title="🔍 常见问题"></a>🔍 常见问题</h3><ul>
+<li><strong>无法发现目标</strong>：检查网络连通性、防火墙、iStoreOS 上 tgt 服务状态及配置是否正确。</li>
+<li><strong>连接失败或认证错误</strong>：<strong>仔细检查 CHAP 配置</strong>（用户名、密码、Secret）在 iStoreOS 和 Windows 端是否完全一致。</li>
+<li><strong>磁盘未出现在磁盘管理</strong>：尝试在 <strong>磁盘管理</strong> 中操作 <strong>“Rescan Disks”</strong> 或重启 Windows 的 <strong>iSCSI Initiator Service</strong>。</li>
+<li><strong>性能差</strong>：检查网络带宽、延迟、是否启用巨帧、iSCSI 参数优化（队列深度等）。</li>
+</ul>
+<hr>
+<p><a id="monitoring"></a></p>
+<h2 id="📊-监控与维护"><a href="#📊-监控与维护" class="headerlink" title="📊 监控与维护"></a>📊 监控与维护</h2><h3 id="👀-基本监控"><a href="#👀-基本监控" class="headerlink" title="👀 基本监控"></a>👀 基本监控</h3><ul>
+<li><strong>iStoreOS 连接状态</strong>：定期使用 <code>tgtadm --mode conn --op show --tid &lt;TID&gt;</code> 查看活动连接。</li>
+<li><strong>Windows 性能计数器</strong>：在 <strong>任务管理器</strong> → <strong>性能</strong> 选项卡或 <strong>资源监视器</strong> 中监控 iSCSI 磁盘的 I/O 活动。</li>
+</ul>
+<h3 id="🔄-定期维护"><a href="#🔄-定期维护" class="headerlink" title="🔄 定期维护"></a>🔄 定期维护</h3><ol>
+<li><strong>备份配置</strong>：定期备份 <code>/etc/config/tgt</code> 文件。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /etc/config/tgt /etc/config/tgt.backup.$(<span class="built_in">date</span> +%Y%m%d)</span><br></pre></td></tr></table></figure></li>
+<li><strong>更新软件</strong>：定期更新 iStoreOS 和 tgt 软件包以获取安全补丁和功能更新。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opkg update &amp;&amp; opkg list-upgradable | <span class="built_in">cut</span> -f 1 -d <span class="string">&#x27; &#x27;</span> | xargs opkg upgrade</span><br></pre></td></tr></table></figure></li>
+<li><strong>磁盘健康</strong>：监控共享磁盘的 SMART 状态和可用空间。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">smartctl -a /dev/sda1  <span class="comment"># 需要安装 smartmontools</span></span><br><span class="line"><span class="built_in">df</span> -h /dev/sda1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>遵循本指南，你应该能在 iStoreOS 上成功配置 iSCSI 存储服务，并使其在 Windows 客户端上可用。记得<strong>优先启用 CHAP 认证</strong>和<strong>网络访问控制</strong>以保障安全。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/istoreos/">istoreos</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?2010" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/1a9347af.html" title="Proxmox VE 基本目录结构详解 📁"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9845" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Proxmox VE 基本目录结构详解 📁</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 核心目录结构详解 📁  🗂️ 深入探索 Proxmox VE 的核心目录结构，助你高效管理虚拟化环境！   📖 目录导航 ✨ 特性简介 🎯 核心目录概览 📀 ISO 镜像目录 🐳 容器模板目录 🖥️ 虚拟机镜像目录 💾 备份文件目录 🔧 其他重要目录 💡 管理技巧与日常维护    ✨ 特性简介Proxmox VE (PVE) 是一个基于 Debian Linux 的开源虚拟化平台，它整合了 KVM 虚拟化和 LXC 容器技术。其目录结构设计旨在：  集中管理：通过 Web GUI 或 CLI 统一管理虚拟机、容器、存储、网络等资源。 灵活存储：支持多种存储类型（包括本地存储如 ZFS、LVM-Thin，共享存储如 NFS、CIFS、iSCSI，以及分布式存储如 Ceph）。 高可用性：支持集群和高可用（HA）功能。 备份与恢复：提供完整的虚拟机备份和恢复解决方案。    🎯 核心目录概览PVE 的主要数据和配置存储在以下几个关键位置：     目录路径 主要功能 备注     /var/lib/vz/ 默认存储虚拟环境相关数据（ISO,...</div></div></div></a><a class="pagination-related" href="/posts/531c1364.html" title="Linux 配置 Samba 服务一键脚本（本地） 🐧"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2736" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Linux 配置 Samba 服务一键脚本（本地） 🐧</div></div><div class="info-2"><div class="info-item-1">Linux 配置 Samba 服务一键脚本（本地）🐧  快速为不同 Linux 发行版配置 Samba 共享服务的自动化脚本合集！🚀   🌟 目录导航 🌟 脚本特点 📋 使用前须知 🎯 Debian Samba 配置脚本 🦁 Ubuntu Samba 配置脚本 🔧 PVE Samba 配置脚本 🎩 CentOS Samba 配置脚本 🏔️ Alpine Linux Samba 配置脚本 🔍 验证与排查 ⚠️ 注意事项 🆘 常见问题    🌟 脚本特点 🔐 安全认证：所有共享均需要用户名密码认证 🍎 macOS 优化：完美支持 Apple 生态系统（Time Machine、文件编码等） 📁 灵活配置：可自定义共享路径、权限和用户设置 ⚡ 一键部署：简化复杂配置过程，快速搭建文件共享服务 🛡️ 权限控制：精细的用户和目录权限管理 🔄 多版本支持：适配主流 Linux 发行版 🎯 开箱即用：预配置优化参数，无需复杂调试 🔧 易于扩展：模块化设计，可根据需求自定义修改    📋 使用前须知 ⚠️ 所有脚本默认使用用户名: admin，密码: y...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/84831f5f.html" title="Proxmox VE 安装 iStoreOS 指南"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5982" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Proxmox VE 安装 iStoreOS 指南</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 安装 iStoreOS 指南 🖥️ 🌟 本文详细介绍了如何在 Proxmox VE (PVE) 虚拟化平台上安装和配置 iStoreOS（基于 OpenWRT），帮助你打造高效、稳定的家庭或企业软路由解决方案。  📋 目录 🌟 概述 ⚡ iStoreOS 特点与功能 🛠️ 安装前准备 🚀 安装步骤 1. 创建虚拟机 2. 下载 iStoreOS 镜像 3. 验证下载 4. 转换并导入磁盘 5. 配置虚拟机存储 6. 设置启动顺序 7. 启动并配置 iStoreOS 8. 网络配置 9. 重启应用配置   🔧 初始设置 ⚙️ 高级配置 性能优化 多网卡配置 备份配置   🛠️ 故障排除 🔒 安全加固 📊 监控和维护 🎯 使用技巧 ✅ 总结    🌟 概述iStoreOS 是基于 OpenWRT 开发的软路由系统，专为家庭和小型企业环境设计，提供了友好的用户界面和丰富的插件生态。结合 Proxmox VE 虚拟化平台，你可以灵活地部署和管理你的网络服务。   ⚡ iStoreOS 特点与功能 🖥️ 直观的 Web 管理界面：基于 LuC...</div></div></div></a><a class="pagination-related" href="/posts/45d2eebf.html" title="Proxmox VE 虚拟机安装 qemu-guest-agent 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?9198" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Proxmox VE 虚拟机安装 qemu-guest-agent 🚀</div></div><div class="info-2"><div class="info-item-1">Proxmox VE 虚拟机安装 qemu-guest-agent 🚀 🔧 提升虚拟机管理效率 — 通过 qemu-guest-agent 实现主机与虚拟机之间的高效通信与集成  📋 文章目录 🌟 qemu-guest-agent 简介 ⚙️ 一、Proxmox VE 后台配置 1. 启用虚拟机代理 2. 配置注意事项   🐧 二、Linux 系统安装指南 1. Debian/Ubuntu 系统 2. CentOS/RHEL 系统 3. OpenSUSE 系统   🔗 三、OpenWRT/iStoreOS 安装 1. 安装步骤 2. 服务配置   🖥️ 四、Windows 系统安装 1. 驱动下载 2. 安装方法   ✅ 五、验证与测试 1. 基础验证 2. 高级测试   🔧 六、高级配置与优化 1. 自定义配置 2. 性能优化   ❌ 七、故障排除 1. 常见问题 2. 解决方案   💡 八、最佳实践 1. 安全建议 2. 维护技巧      🌟 qemu-guest-agent 简介qemu-guest-agent (QGA) 是运行在虚拟机内部的守护进程...</div></div></div></a><a class="pagination-related" href="/posts/f607a017.html" title="OpenClash 配置文件"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2855" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">OpenClash 配置文件</div></div><div class="info-2"><div class="info-item-1">  一 、OpenClash 配置文件作者地址：https://github.com/qichiyuhub/rule/tree/master/config/Clash教程地址：https://www.youtube.com/watch?v=hCe4bmMwq7M&amp;ab_channel=%E4%B8%83%E5%B0%BA%E5%AE%87OpenClash 配置文件下载：https://blog.mobufan.eu.org:666/download/clash/openclash  上传到：/etc/config替换掉OpenClash   二 、yaml 配置文件作者 yaml 配置文件下载：https://blog.mobufan.eu.org:666/download/clash/configfull.yaml我的 yaml 配置文件下载：https://blog.mobufan.eu.org:666/download/clash/my.yaml 12345678910111213141516171819202122232425262728293031323334...</div></div></div></a><a class="pagination-related" href="/posts/efdf9911.html" title="iStoreOS Docker 目录迁移完全指南 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?962" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">iStoreOS Docker 目录迁移完全指南 🐳</div></div><div class="info-2"><div class="info-item-1">iStoreOS Docker 目录迁移完全指南 🐳  本指南详细介绍如何将 iStoreOS 的 Docker 数据目录迁移到新的存储位置，释放系统分区空间并提高存储灵活性。通过本指南，您可以轻松完成 Docker 数据迁移，确保服务无缝切换！🚀   📖 导航目录 ✨ 迁移优势 ⚡ 快速开始 ⚠️ 迁移前准备 🚀 迁移步骤 🔧 高级配置选项 🐛 故障排除 💡 最佳实践建议 ✅ 验证清单    ✨ 迁移优势将 Docker 目录迁移到专用存储位置可以带来以下好处：  💾 释放系统空间：避免 Docker 占用宝贵的系统分区空间 🚀 提升性能：将数据存储在更快的存储设备上（如 SSD） 📈 扩展性增强：轻松扩展存储容量而不影响系统分区 🔄 备份更方便：独立存储位置使备份和恢复更简单 🛡️ 系统稳定性：防止 Docker 数据增长导致系统分区爆满 📊 管理更清晰：Docker 数据与系统文件分离，管理更便捷    ⚡ 快速开始基本迁移命令概览1234567891011121314151617# 停止 Docker 服务/etc/init.d/dockerd ...</div></div></div></a><a class="pagination-related" href="/posts/f8b14ddd.html" title="Docker 部署 iStoreOS 软路由系统 🚀"><img class="cover" src="https://api.mobufan.eu.org:666/pc?6319" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 iStoreOS 软路由系统 🚀</div></div><div class="info-2"><div class="info-item-1">Docker 部署 iStoreOS 软路由系统 🚀  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 iStoreOS 1. 前期准备与网络配置 ⚙️ 2. 创建部署目录和 docker-compose.yml 文件 📁 3. 拉取镜像并启动容器 🚀   🚀 二、使用 iStoreOS 1. 配置网络与访问 Web 界面 🌐 2. 软件中心与功能应用 🛠️   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航网络，连接无限     🎯 项目简介 🌐 iStoreOS 官网地址：https://site.istoreos.com/ 🐋 Docker 镜像地址：https://hub.docker.com/r/fingerboy/istoreos-x86-64  **iStoreOS 是一款基于 OpenWRT...</div></div></div></a><a class="pagination-related" href="/posts/bc9c7ad8.html" title="iStoreOS opkg 软件源配置指南"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2577" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">iStoreOS opkg 软件源配置指南</div></div><div class="info-2"><div class="info-item-1">iStoreOS opkg 软件源配置指南 📦  本指南详细介绍如何为 iStoreOS 配置国内镜像源和第三方软件源，大幅提升软件包下载速度和安装成功率。包含从基础配置到高级技巧的完整解决方案。   📑 导航目录 ✨ 本文特色 ⚙️ 一、基础 opkg 配置 🌐 二、国内镜像源配置 x86_64 架构配置 aarch64 架构配置   🎯 三、第三方软件源配置 🔧 四、配置验证和优化 🛠️ 五、故障排除 💡 六、高级技巧 ⚠️ 七、重要注意事项 🔄 八、验证配置效果    ✨ 本文特色 🌐 全面覆盖：提供主流国内镜像源和第三方源配置 🏗️ 架构适配：分别提供 x86_64 和 aarch64 架构的配置 ⚡ 性能优化：包含超时设置、curl 优化等提升下载成功率的方法 🔧 实用工具：提供自动化脚本和故障排除指南 🛡️ 安全建议：包含注意事项和备份恢复方法    ⚙️ 一、基础 opkg 配置通用配置（适用于所有架构）12345678910# 创建优化的 opkg 基础配置cat &gt; /etc/opkg.conf &lt;&lt; &quot;EOF...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iStoreOS-%E9%85%8D%E7%BD%AE-iSCSI-%E5%AD%98%E5%82%A8%E5%8F%8A-Windows-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97-%F0%9F%96%A5%EF%B8%8F"><span class="toc-text">iStoreOS 配置 iSCSI 存储及 Windows 客户端连接指南 🖥️</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%88%AA"><span class="toc-text">📖 目录导航</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-iSCSI-%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BC%98%E5%8A%BF"><span class="toc-text">✨ iSCSI 简介与优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-iStoreOS-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">🔧 iStoreOS 服务端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A6-1-%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text">📦 1. 安装必要的软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%82-2-%E5%87%86%E5%A4%87%E5%AD%98%E5%82%A8%E8%AE%BE%E5%A4%87"><span class="toc-text">📂 2. 准备存储设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-3-%E9%85%8D%E7%BD%AE-iSCSI-%E7%9B%AE%E6%A0%87%E6%9C%8D%E5%8A%A1"><span class="toc-text">⚙️ 3. 配置 iSCSI 目标服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-4-%E5%90%AF%E5%8A%A8%E5%B9%B6%E9%AA%8C%E8%AF%81%E6%9C%8D%E5%8A%A1"><span class="toc-text">🔄 4. 启动并验证服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%A5-5-%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE"><span class="toc-text">🔥 5. 防火墙配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8F-Windows-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5"><span class="toc-text">🖥️ Windows 客户端连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-1-%E5%90%AF%E5%8A%A8-iSCSI-%E5%8F%91%E8%B5%B7%E7%A8%8B%E5%BA%8F%E5%B9%B6%E9%85%8D%E7%BD%AE-Initiator-Name"><span class="toc-text">⚙️ 1. 启动 iSCSI 发起程序并配置 Initiator Name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-2-%E5%8F%91%E7%8E%B0%E7%9B%AE%E6%A0%87"><span class="toc-text">🔍 2. 发现目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%97-3-%E8%BF%9E%E6%8E%A5%E7%9B%AE%E6%A0%87%E5%B9%B6%E9%85%8D%E7%BD%AE-CHAP"><span class="toc-text">🔗 3. 连接目标并配置 CHAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%BE-4-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98"><span class="toc-text">💾 4. 初始化和使用磁盘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">⚙️ 高级配置与优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%B8%8E%E5%A4%9A-LUN-%E9%85%8D%E7%BD%AE"><span class="toc-text">🎯 多目标与多 LUN 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0"><span class="toc-text">🚀 性能优化参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%92-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA%E5%BB%BA%E8%AE%AE"><span class="toc-text">🔒 安全加固建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%9B-%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">🐛 故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-iStoreOS-%E7%AB%AF%E6%A3%80%E6%9F%A5"><span class="toc-text">🔍 iStoreOS 端检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-Windows-%E7%AB%AF%E6%A3%80%E6%9F%A5"><span class="toc-text">🔍 Windows 端检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">🔍 常见问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E7%9B%91%E6%8E%A7%E4%B8%8E%E7%BB%B4%E6%8A%A4"><span class="toc-text">📊 监控与维护</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%80-%E5%9F%BA%E6%9C%AC%E7%9B%91%E6%8E%A7"><span class="toc-text">👀 基本监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E5%AE%9A%E6%9C%9F%E7%BB%B4%E6%8A%A4"><span class="toc-text">🔄 定期维护</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

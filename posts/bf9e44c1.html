@@ -1,0 +1,1032 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Docker Compose 完全安装指南 🐳 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Docker Compose 完全安装指南 🐳  本文详细介绍了如何在不同架构的 Linux 系统上安装 Docker Compose，包括 x86_64 和 ARM 架构，并提供国内外镜像源的选择。  目录 📚 ✨ Docker Compose 简介 🚀 一、Linux x86_64 架构安装 🍓 二、iStoreOS (ARM 架构) 安装 🔍 三、验证安装 ⚙️ 四、高级配置和优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker Compose 完全安装指南 🐳">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/bf9e44c1.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Docker Compose 完全安装指南 🐳  本文详细介绍了如何在不同架构的 Linux 系统上安装 Docker Compose，包括 x86_64 和 ARM 架构，并提供国内外镜像源的选择。  目录 📚 ✨ Docker Compose 简介 🚀 一、Linux x86_64 架构安装 🍓 二、iStoreOS (ARM 架构) 安装 🔍 三、验证安装 ⚙️ 四、高级配置和优化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?74">
+<meta property="article:published_time" content="2025-09-12T01:32:40.000Z">
+<meta property="article:modified_time" content="2025-09-12T01:32:40.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="compose">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?74"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Docker Compose 完全安装指南 🐳",
+  "url": "https://www.meimolihan.eu.org/posts/bf9e44c1.html",
+  "image": "https://api.mobufan.eu.org:666/pc?74",
+  "datePublished": "2025-09-12T01:32:40.000Z",
+  "dateModified": "2025-09-12T01:32:40.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/bf9e44c1.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Docker Compose 完全安装指南 🐳',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?74);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Docker Compose 完全安装指南 🐳</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Docker Compose 完全安装指南 🐳</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T01:32:40.000Z" title="发表于 2025-09-12 09:32:40">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T01:32:40.000Z" title="更新于 2025-09-12 09:32:40">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Docker/">Docker</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 09:32:40&quot;}" hidden></div><h1 id="Docker-Compose-完全安装指南-🐳"><a href="#Docker-Compose-完全安装指南-🐳" class="headerlink" title="Docker Compose 完全安装指南 🐳"></a>Docker Compose 完全安装指南 🐳</h1><p><img src="https://file.meimolihan.eu.org/img/docker-compose-01.webp" alt="Docker Compose"></p>
+<blockquote>
+<p>本文详细介绍了如何在不同架构的 Linux 系统上安装 Docker Compose，包括 x86_64 和 ARM 架构，并提供国内外镜像源的选择。</p>
+</blockquote>
+<h2 id="目录-📚"><a href="#目录-📚" class="headerlink" title="目录 📚"></a>目录 📚</h2><ul>
+<li><a href="#introduction">✨ Docker Compose 简介</a></li>
+<li><a href="#x86-installation">🚀 一、Linux x86_64 架构安装</a></li>
+<li><a href="#arm-installation">🍓 二、iStoreOS (ARM 架构) 安装</a></li>
+<li><a href="#verification">🔍 三、验证安装</a></li>
+<li><a href="#advanced-configuration">⚙️ 四、高级配置和优化</a></li>
+<li><a href="#troubleshooting">🔧 五、故障排除</a></li>
+<li><a href="#version-management">📊 六、版本管理</a></li>
+<li><a href="#summary">🎯 总结</a></li>
+<li><a href="#tips">🌟 温馨提示</a></li>
+</ul>
+<p><a id="introduction"></a></p>
+<h2 id="✨-Docker-Compose-简介"><a href="#✨-Docker-Compose-简介" class="headerlink" title="✨ Docker Compose 简介"></a>✨ Docker Compose 简介</h2><p>Docker Compose 是一个用于定义和运行多容器 Docker 应用程序的工具。通过一个 YAML 文件配置应用服务，就可以使用单个命令创建并启动所有服务。</p>
+<h3 id="🌟-主要特性"><a href="#🌟-主要特性" class="headerlink" title="🌟 主要特性"></a>🌟 主要特性</h3><ul>
+<li>🚀 <strong>简化多容器应用部署</strong>：使用简单的 YAML 文件定义复杂的多容器应用</li>
+<li>🔄 <strong>环境隔离</strong>：支持为不同环境（开发、测试、生产）创建独立的配置</li>
+<li>📦 <strong>服务依赖管理</strong>：自动处理服务之间的依赖关系和启动顺序</li>
+<li>⚡ <strong>快速扩展</strong>：轻松扩展服务的实例数量</li>
+<li>🔧 <strong>开发效率</strong>：提供热重载、日志聚合等开发友好功能</li>
+<li>🌐 <strong>跨平台兼容</strong>：支持 Linux、Windows 和 macOS 平台</li>
+</ul>
+<h3 id="💡-核心优势"><a href="#💡-核心优势" class="headerlink" title="💡 核心优势"></a>💡 核心优势</h3><ul>
+<li>✅ <strong>声明式配置</strong>：使用 YAML 文件描述应用架构，易于理解和维护</li>
+<li>✅ <strong>一键部署</strong>：单个命令即可启动或停止整个应用栈</li>
+<li>✅ <strong>环境一致性</strong>：确保开发、测试和生产环境的一致性</li>
+<li>✅ <strong>资源优化</strong>：有效管理容器资源，提高资源利用率</li>
+<li>✅ <strong>生态集成</strong>：与 Docker Swarm 和 Kubernetes 良好集成</li>
+</ul>
+<p><strong>官方资源</strong>：</p>
+<ul>
+<li>GitHub 地址：<a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases">https://github.com/docker/compose/releases</a></li>
+<li>官方文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></li>
+<li>国内镜像地址：<a target="_blank" rel="noopener" href="https://mirror.azure.cn/docker-toolbox/linux/compose">https://mirror.azure.cn/docker-toolbox/linux/compose</a></li>
+</ul>
+<p><a id="x86-installation"></a></p>
+<h2 id="🚀-一、Linux-x86-64-架构安装"><a href="#🚀-一、Linux-x86-64-架构安装" class="headerlink" title="🚀 一、Linux x86_64 架构安装"></a>🚀 一、Linux x86_64 架构安装</h2><h3 id="1️⃣-从-GitHub-官方源安装"><a href="#1️⃣-从-GitHub-官方源安装" class="headerlink" title="1️⃣ 从 GitHub 官方源安装"></a>1️⃣ 从 GitHub 官方源安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义版本变量（便于更新）</span></span><br><span class="line">COMPOSE_VERSION=<span class="string">&quot;v2.29.2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载最新版本的 Docker Compose</span></span><br><span class="line"><span class="built_in">sudo</span> curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/docker-compose-linux-x86_64&quot;</span> -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line"><span class="built_in">ls</span> -la /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建符号链接（可选）</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -sf /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-使用国内镜像加速安装"><a href="#2️⃣-使用国内镜像加速安装" class="headerlink" title="2️⃣ 使用国内镜像加速安装"></a>2️⃣ 使用国内镜像加速安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用国内镜像下载 Docker Compose</span></span><br><span class="line">COMPOSE_VERSION=<span class="string">&quot;v2.29.2&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> curl -L <span class="string">&quot;https://mirror.azure.cn/docker-toolbox/linux/compose/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/docker-compose-linux-x86_64&quot;</span> -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证文件</span></span><br><span class="line">file /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查文件类型和架构（应显示 ELF 64-bit LSB executable）</span></span><br><span class="line"><span class="built_in">ls</span> -la /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<h3 id="3️⃣-卸载旧版本"><a href="#3️⃣-卸载旧版本" class="headerlink" title="3️⃣ 卸载旧版本"></a>3️⃣ 卸载旧版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除现有 Docker Compose</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /usr/local/bin/docker-compose</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /usr/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认已删除</span></span><br><span class="line"><span class="built_in">which</span> docker-compose || <span class="built_in">echo</span> <span class="string">&quot;Docker Compose 已成功移除&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 同时删除自动补全文件（如果存在）</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -f /etc/bash_completion.d/docker-compose</span><br></pre></td></tr></table></figure>
+<p><a id="arm-installation"></a></p>
+<h2 id="🍓-二、iStoreOS-ARM-架构-安装"><a href="#🍓-二、iStoreOS-ARM-架构-安装" class="headerlink" title="🍓 二、iStoreOS (ARM 架构) 安装"></a>🍓 二、iStoreOS (ARM 架构) 安装</h2><h3 id="1️⃣-确定系统架构"><a href="#1️⃣-确定系统架构" class="headerlink" title="1️⃣ 确定系统架构"></a>1️⃣ 确定系统架构</h3><p>在安装前，请先确定您的系统架构：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统架构</span></span><br><span class="line"><span class="built_in">uname</span> -m</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可能的输出：</span></span><br><span class="line"><span class="comment"># - x86_64: Intel/AMD 64位架构</span></span><br><span class="line"><span class="comment"># - aarch64: ARM 64位架构</span></span><br><span class="line"><span class="comment"># - armv7l: ARM 32位架构</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看系统详细信息</span></span><br><span class="line"><span class="built_in">cat</span> /etc/os-release</span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-ARM64-aarch64-架构安装"><a href="#2️⃣-ARM64-aarch64-架构安装" class="headerlink" title="2️⃣ ARM64 (aarch64) 架构安装"></a>2️⃣ ARM64 (aarch64) 架构安装</h3><h4 id="从-GitHub-官方源安装"><a href="#从-GitHub-官方源安装" class="headerlink" title="从 GitHub 官方源安装"></a>从 GitHub 官方源安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 ARM64 版本的 Docker Compose</span></span><br><span class="line">COMPOSE_VERSION=<span class="string">&quot;v2.29.2&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> wget -O /usr/local/bin/docker-compose <span class="string">&quot;https://github.com/docker/compose/releases/download/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/docker-compose-linux-aarch64&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line"><span class="built_in">ls</span> -la /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<h4 id="使用国内镜像加速安装"><a href="#使用国内镜像加速安装" class="headerlink" title="使用国内镜像加速安装"></a>使用国内镜像加速安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用国内镜像下载 ARM64 版本</span></span><br><span class="line">COMPOSE_VERSION=<span class="string">&quot;v2.29.2&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> wget -O /usr/local/bin/docker-compose <span class="string">&quot;https://mirror.azure.cn/docker-toolbox/linux/compose/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/docker-compose-linux-aarch64&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证文件</span></span><br><span class="line">file /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<h3 id="3️⃣-ARMv7-armv7l-架构安装"><a href="#3️⃣-ARMv7-armv7l-架构安装" class="headerlink" title="3️⃣ ARMv7 (armv7l) 架构安装"></a>3️⃣ ARMv7 (armv7l) 架构安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于 ARMv7 架构，需要使用不同的二进制文件</span></span><br><span class="line">COMPOSE_VERSION=<span class="string">&quot;v2.29.2&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> wget -O /usr/local/bin/docker-compose <span class="string">&quot;https://github.com/docker/compose/releases/download/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/docker-compose-linux-armv7&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+<h3 id="4️⃣-卸载旧版本"><a href="#4️⃣-卸载旧版本" class="headerlink" title="4️⃣ 卸载旧版本"></a>4️⃣ 卸载旧版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除现有 Docker Compose</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /usr/local/bin/docker-compose</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /usr/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认已删除</span></span><br><span class="line"><span class="built_in">which</span> docker-compose || <span class="built_in">echo</span> <span class="string">&quot;Docker Compose 已成功移除&quot;</span></span><br></pre></td></tr></table></figure>
+<p><a id="verification"></a></p>
+<h2 id="🔍-三、验证安装"><a href="#🔍-三、验证安装" class="headerlink" title="🔍 三、验证安装"></a>🔍 三、验证安装</h2><h3 id="1️⃣-检查-Docker-Compose-版本"><a href="#1️⃣-检查-Docker-Compose-版本" class="headerlink" title="1️⃣ 检查 Docker Compose 版本"></a>1️⃣ 检查 Docker Compose 版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 Docker Compose 版本</span></span><br><span class="line">docker-compose --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用更详细的版本信息</span></span><br><span class="line">docker-compose version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 Docker Compose 是否正常工作</span></span><br><span class="line">docker-compose --<span class="built_in">help</span> | <span class="built_in">head</span> -10</span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-测试-Docker-Compose-功能"><a href="#2️⃣-测试-Docker-Compose-功能" class="headerlink" title="2️⃣ 测试 Docker Compose 功能"></a>2️⃣ 测试 Docker Compose 功能</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个简单的测试配置</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /tmp/test-compose &amp;&amp; <span class="built_in">cd</span> /tmp/test-compose</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &gt; docker-compose.yml &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">version: <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line">services:</span><br><span class="line">  hello-world:</span><br><span class="line">    image: hello-world</span><br><span class="line">    container_name: test-hello-world</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行测试</span></span><br><span class="line">docker-compose up</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器状态</span></span><br><span class="line">docker-compose ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止并移除容器</span></span><br><span class="line">docker-compose down</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理测试文件</span></span><br><span class="line"><span class="built_in">cd</span> ~ &amp;&amp; <span class="built_in">rm</span> -rf /tmp/test-compose</span><br></pre></td></tr></table></figure>
+<h3 id="3️⃣-验证架构兼容性"><a href="#3️⃣-验证架构兼容性" class="headerlink" title="3️⃣ 验证架构兼容性"></a>3️⃣ 验证架构兼容性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 Docker Compose 二进制文件的架构</span></span><br><span class="line">file $(<span class="built_in">which</span> docker-compose)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查系统架构与 Docker Compose 是否匹配</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;系统架构: <span class="subst">$(uname -m)</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Docker Compose 架构: <span class="subst">$(file $(which docker-compose)</span> | grep -o &#x27;ELF [^,]*&#x27; | cut -d&#x27; &#x27; -f2)&quot;</span></span><br></pre></td></tr></table></figure>
+<p><a id="advanced-configuration"></a></p>
+<h2 id="⚙️-四、高级配置和优化"><a href="#⚙️-四、高级配置和优化" class="headerlink" title="⚙️ 四、高级配置和优化"></a>⚙️ 四、高级配置和优化</h2><h3 id="1️⃣-设置命令自动补全"><a href="#1️⃣-设置命令自动补全" class="headerlink" title="1️⃣ 设置命令自动补全"></a>1️⃣ 设置命令自动补全</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为 Docker Compose 设置 Bash 自动补全</span></span><br><span class="line">COMPOSE_VERSION=$(docker-compose version --short)</span><br><span class="line"><span class="built_in">sudo</span> curl -L <span class="string">&quot;https://raw.githubusercontent.com/docker/compose/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/contrib/completion/bash/docker-compose&quot;</span> -o /etc/bash_completion.d/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载 Bash 配置</span></span><br><span class="line"><span class="built_in">source</span> /etc/bash_completion.d/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于当前用户，也可以安装到用户目录</span></span><br><span class="line">curl -L <span class="string">&quot;https://raw.githubusercontent.com/docker/compose/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/contrib/completion/bash/docker-compose&quot;</span> -o ~/.docker-compose-completion.bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;source ~/.docker-compose-completion.bash&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-创建别名简化命令"><a href="#2️⃣-创建别名简化命令" class="headerlink" title="2️⃣ 创建别名简化命令"></a>2️⃣ 创建别名简化命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 ~/.bashrc 或 ~/.zshrc 中添加别名</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dc=&#x27;docker-compose&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dcup=&#x27;docker-compose up -d&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dcdown=&#x27;docker-compose down&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dclogs=&#x27;docker-compose logs -f&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dcpull=&#x27;docker-compose pull&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dcbuild=&#x27;docker-compose build&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dcrestart=&#x27;docker-compose restart&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;alias dcps=&#x27;docker-compose ps&#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h3 id="3️⃣-使用-Docker-Compose-V2"><a href="#3️⃣-使用-Docker-Compose-V2" class="headerlink" title="3️⃣ 使用 Docker Compose V2"></a>3️⃣ 使用 Docker Compose V2</h3><p>Docker Compose V2 是作为 Docker CLI 插件提供的，安装方法略有不同：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 Docker CLI 插件目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.docker/cli-plugins</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Docker Compose V2</span></span><br><span class="line">COMPOSE_VERSION=<span class="string">&quot;v2.29.2&quot;</span></span><br><span class="line">curl -SL <span class="string">&quot;https://github.com/docker/compose/releases/download/<span class="variable">$&#123;COMPOSE_VERSION&#125;</span>/docker-compose-linux-<span class="subst">$(uname -m)</span>&quot;</span> -o ~/.docker/cli-plugins/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x ~/.docker/cli-plugins/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line">docker compose version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置系统级安装（可选）</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /usr/local/lib/docker/cli-plugins</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> ~/.docker/cli-plugins/docker-compose /usr/local/lib/docker/cli-plugins/</span><br></pre></td></tr></table></figure>
+<h3 id="4️⃣-配置-Docker-Compose-环境"><a href="#4️⃣-配置-Docker-Compose-环境" class="headerlink" title="4️⃣ 配置 Docker Compose 环境"></a>4️⃣ 配置 Docker Compose 环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 Docker Compose 环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export COMPOSE_HTTP_TIMEOUT=120&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export COMPOSE_PARALLEL_LIMIT=10&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export COMPOSE_FILE=docker-compose.yml:docker-compose.override.yml&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export COMPOSE_PROJECT_NAME=myproject&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🔧-五、故障排除"><a href="#🔧-五、故障排除" class="headerlink" title="🔧 五、故障排除"></a>🔧 五、故障排除</h2><h3 id="❓-常见问题及解决方案"><a href="#❓-常见问题及解决方案" class="headerlink" title="❓ 常见问题及解决方案"></a>❓ 常见问题及解决方案</h3><ol>
+<li><p><strong>权限不足错误</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确保有足够的权限执行命令</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者将用户添加到 docker 组</span></span><br><span class="line"><span class="built_in">sudo</span> usermod -aG docker <span class="variable">$USER</span></span><br><span class="line">newgrp docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>架构不匹配错误</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查系统架构</span></span><br><span class="line"><span class="built_in">uname</span> -m</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据架构下载正确的版本</span></span><br><span class="line">ARCH=$(<span class="built_in">uname</span> -m)</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$ARCH</span>&quot;</span> = <span class="string">&quot;x86_64&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># 下载 x86_64 版本</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">&quot;<span class="variable">$ARCH</span>&quot;</span> = <span class="string">&quot;aarch64&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># 下载 ARM64 版本</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">&quot;<span class="variable">$ARCH</span>&quot;</span> = <span class="string">&quot;armv7l&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># 下载 ARMv7 版本</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>命令未找到错误</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查是否在 PATH 中</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者创建符号链接</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查文件是否存在</span></span><br><span class="line"><span class="built_in">ls</span> -la /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>版本兼容性问题</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 Docker Engine 版本</span></span><br><span class="line">docker version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 Docker Compose 版本</span></span><br><span class="line">docker-compose version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保 Docker Compose 版本与 Docker Engine 兼容</span></span><br><span class="line"><span class="comment"># 通常最新版本的 Docker Compose 与较新版本的 Docker Engine 兼容</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>证书问题</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果遇到 SSL 证书问题，可以临时跳过验证</span></span><br><span class="line"><span class="built_in">sudo</span> curl -k -L <span class="string">&quot;https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 HTTP 替代 HTTPS</span></span><br><span class="line"><span class="built_in">sudo</span> curl -L <span class="string">&quot;http://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="🐛-诊断命令"><a href="#🐛-诊断命令" class="headerlink" title="🐛 诊断命令"></a>🐛 诊断命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 Docker Compose 安装路径</span></span><br><span class="line"><span class="built_in">which</span> docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查文件类型和架构</span></span><br><span class="line">file $(<span class="built_in">which</span> docker-compose)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查执行权限</span></span><br><span class="line"><span class="built_in">ls</span> -la $(<span class="built_in">which</span> docker-compose)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查依赖库</span></span><br><span class="line">ldd $(<span class="built_in">which</span> docker-compose)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查系统架构</span></span><br><span class="line"><span class="built_in">uname</span> -m</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 Docker 服务状态</span></span><br><span class="line">systemctl status docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查用户组 membership</span></span><br><span class="line"><span class="built_in">groups</span> <span class="variable">$USER</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 Docker Compose 版本兼容性</span></span><br><span class="line">docker-compose version</span><br><span class="line">docker version</span><br></pre></td></tr></table></figure>
+<p><a id="version-management"></a></p>
+<h2 id="📊-六、版本管理"><a href="#📊-六、版本管理" class="headerlink" title="📊 六、版本管理"></a>📊 六、版本管理</h2><h3 id="1️⃣-安装特定版本"><a href="#1️⃣-安装特定版本" class="headerlink" title="1️⃣ 安装特定版本"></a>1️⃣ 安装特定版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装特定版本的 Docker Compose</span></span><br><span class="line">VERSION=<span class="string">&quot;2.29.2&quot;</span></span><br><span class="line">ARCH=$(<span class="built_in">uname</span> -m)</span><br><span class="line"><span class="built_in">sudo</span> curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/v<span class="variable">$&#123;VERSION&#125;</span>/docker-compose-linux-<span class="variable">$&#123;ARCH&#125;</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证版本</span></span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-多版本管理"><a href="#2️⃣-多版本管理" class="headerlink" title="2️⃣ 多版本管理"></a>2️⃣ 多版本管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建版本管理目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载多个版本</span></span><br><span class="line">curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-<span class="subst">$(uname -m)</span>&quot;</span> -o ~/bin/docker-compose/docker-compose-2.29.2</span><br><span class="line">curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/v2.28.1/docker-compose-linux-<span class="subst">$(uname -m)</span>&quot;</span> -o ~/bin/docker-compose/docker-compose-2.28.1</span><br><span class="line">curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-<span class="subst">$(uname -m)</span>&quot;</span> -o ~/bin/docker-compose/docker-compose-2.27.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x ~/bin/docker-compose/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置当前使用的版本</span></span><br><span class="line"><span class="built_in">ln</span> -sf ~/bin/docker-compose/docker-compose-2.29.2 /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建切换版本的脚本</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /usr/local/bin/dc-version &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;可用版本:&quot;</span></span><br><span class="line">    <span class="built_in">ls</span> ~/bin/docker-compose/ | sed <span class="string">&#x27;s/docker-compose-//g&#x27;</span></span><br><span class="line">    <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">VERSION=<span class="variable">$1</span></span><br><span class="line"><span class="keyword">if</span> [ -f ~/bin/docker-compose/docker-compose-<span class="variable">$&#123;VERSION&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">ln</span> -sf ~/bin/docker-compose/docker-compose-<span class="variable">$&#123;VERSION&#125;</span> /usr/local/bin/docker-compose</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;已切换到 Docker Compose 版本: <span class="variable">$&#123;VERSION&#125;</span>&quot;</span></span><br><span class="line">    docker-compose --version</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;错误: 版本 <span class="variable">$&#123;VERSION&#125;</span> 不存在&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> +x /usr/local/bin/dc-version</span><br></pre></td></tr></table></figure>
+<h3 id="3️⃣-版本升级"><a href="#3️⃣-版本升级" class="headerlink" title="3️⃣ 版本升级"></a>3️⃣ 版本升级</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查当前版本</span></span><br><span class="line">docker-compose --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份当前版本</span></span><br><span class="line"><span class="built_in">cp</span> $(<span class="built_in">which</span> docker-compose) $(<span class="built_in">which</span> docker-compose).bak</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载最新版本</span></span><br><span class="line">LATEST_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep <span class="string">&#x27;&quot;tag_name&quot;:&#x27;</span> | sed -E <span class="string">&#x27;s/.*&quot;([^&quot;]+)&quot;.*/\1/&#x27;</span>)</span><br><span class="line"><span class="built_in">sudo</span> curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/<span class="variable">$&#123;LATEST_VERSION&#125;</span>/docker-compose-linux-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证新版本</span></span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+<p><a id="summary"></a></p>
+<h2 id="🎯-总结"><a href="#🎯-总结" class="headerlink" title="🎯 总结"></a>🎯 总结</h2><p>通过本文的指导，您已经学会了：</p>
+<ul>
+<li>✅ <strong>多种架构支持</strong>：x86_64、ARM64 (aarch64) 和 ARMv7 架构的安装方法</li>
+<li>✅ <strong>多源选择</strong>：国内外镜像源的安装方式，包括官方 GitHub 和国内镜像</li>
+<li>✅ <strong>版本管理</strong>：安装特定版本、管理多版本和升级版本的方法</li>
+<li>✅ <strong>故障排除</strong>：常见问题的诊断和解决方法</li>
+<li>✅ <strong>高级配置</strong>：自动补全、别名设置、环境变量等优化配置</li>
+<li>✅ <strong>验证方法</strong>：安装后的验证和测试方法</li>
+</ul>
+<p>现在您可以开始使用 Docker Compose 来管理多容器应用了！🐳🚀</p>
+<p><a id="tips"></a></p>
+<h2 id="🌟-温馨提示"><a href="#🌟-温馨提示" class="headerlink" title="🌟 温馨提示"></a>🌟 温馨提示</h2><ol>
+<li><strong>版本兼容性</strong>：确保 Docker Compose 版本与 Docker Engine 兼容，建议使用相同的主要版本</li>
+<li><strong>定期更新</strong>：定期检查并更新到最新版本以获得新功能和安全补丁</li>
+<li><strong>备份配置</strong>：重要的 docker-compose.yml 文件应纳入版本控制系统（如 Git）</li>
+<li><strong>安全考虑</strong>：从官方源或可信镜像下载，避免使用未经验证的二进制文件</li>
+<li><strong>文档参考</strong>：查阅官方文档了解最新功能和最佳实践</li>
+<li><strong>性能优化</strong>：对于生产环境，调整 COMPOSE_HTTP_TIMEOUT 和 COMPOSE_PARALLEL_LIMIT 环境变量</li>
+<li><strong>网络考虑</strong>：在内网环境中，可以设置本地镜像仓库加速下载</li>
+<li><strong>监控日志</strong>：定期检查 Docker Compose 日志，及时发现和解决问题</li>
+</ol>
+<p>开始使用 Docker Compose 简化您的容器编排工作吧！🎉</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/compose/">compose</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?74" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/9661ee7b.html" title="Linux 防火墙命令 🛡️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2753" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Linux 防火墙命令 🛡️</div></div><div class="info-2"><div class="info-item-1">Linux 防火墙命令 🛡️  本指南详细介绍了在 Ubuntu/Debian 和 RedHat/CentOS 系统上配置和管理防火墙的命令，确保服务器安全的同时保持必要的服务可访问。  📑 目录导航 🐧 一、Ubuntu / Debian 系统 (UFW) 🐂 二、RedHat / CentOS 系统 (FirewallD) 🔄 三、常用服务端口参考 ⚠️ 四、重要安全建议 🔍 五、故障排除命令 💡 六、实用技巧 🎯 七、总结    🐧 一、Ubuntu / Debian 系统 (UFW)1. 系统更新与 UFW 安装123456# 更新软件包列表sudo apt update# 安装 UFW (Uncomplicated Firewall)sudo apt install ufw -y# 📦 安装简易防火墙工具 2. 基本防火墙配置1234567891011# 允许 SSH 连接（重要！先配置再启用）sudo ufw allow 22/tcp# 🔐 如果 SSH 使用其他端口，替换 22 为实际端口# 允许 1Panel 控制面板端口sudo ufw a...</div></div></div></a><a class="pagination-related" href="/posts/f1e19c08.html" title="iStoreOS 端口转发 iptables 规则配置 🛠️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5605" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">iStoreOS 端口转发 iptables 规则配置 🛠️</div></div><div class="info-2"><div class="info-item-1">iStoreOS 端口转发 iptables 规则配置 🛠️  一份详尽的 iStoreOS (基于 OpenWrt) iptables 端口转发配置指南，帮助您实现内网服务的远程访问   目录 📚 🌐 网络环境概述 📋 配置前准备 🎯 方案一：网关指向主路由时的配置 🔄 方案二：网关指向旁路由时的配置 📝 方案三：追加配置（不覆盖原有规则） 🛠️ 高级配置技巧 🔍 验证和调试 ⚠️ 常见问题解决 📊 配置管理建议 🚀 性能优化建议 💡 核心原理与注意事项    🌐 网络环境概述    设备 IP地址 角色 备注     主路由 OpenWrt 10.10.10.253 网关/NAT 主要网络入口   旁路由 OpenWrt 10.10.10.252 辅助路由 特殊服务处理   Windows 桌面 10.10.10.249:3389 目标服务 远程桌面服务   Sun-panel 服务 10.10.10.251:3002 Web服务 内部Web应用       📋 配置前准备1. 启用 IP 转发功能在配置端口转发前，需要确保系统已启用 IP 转发功...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/516d7e45.html" title="Windows 挂载 NFS 共享指南 🖥️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?1758" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Windows 挂载 NFS 共享指南 🖥️</div></div><div class="info-2"><div class="info-item-1">Windows 挂载 NFS 共享指南 🖥️ 📋 导航目录 🌟 简介 🔧 一、挂载 NFS 共享到本地磁盘 🔄 二、卸载 NFS 共享 ⚙️ 三、持久化挂载配置 🔍 四、故障排除和常见问题 💡 五、高级用法和技巧 📋 六、NFS 挂载命令参考表 🛡️ 七、安全注意事项    🌟 简介本指南将帮助您在 Windows 系统上挂载和卸载 NFS（网络文件系统）共享，让您能够像访问本地磁盘一样访问远程服务器上的文件。 ✨ 主要优势： ✅ 直接访问远程服务器文件 ✅ 像操作本地磁盘一样操作远程文件 ✅ 支持大文件传输和高性能访问 ✅ 适用于多种网络存储场景    🔧 一、挂载 NFS 共享到本地磁盘1. 确保 NFS 客户端功能已启用在挂载 NFS 共享之前，请确保 Windows 的 NFS 客户端功能已启用：  打开”控制面板” → “程序” → “启用或关闭 Windows 功能” 勾选”NFS 客户端” 点击”确定”并等待安装完成  2. 挂载 NFS 共享到本地驱动器使用以下命令将远程 NFS 共享挂载到本地驱动器： 12345678# 挂载服务器 10....</div></div></div></a><a class="pagination-related" href="/posts/978655fd.html" title="Docker &amp; Nginx 配置编辑器 📋"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3137" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Docker &amp; Nginx 配置编辑器 📋</div></div><div class="info-2"><div class="info-item-1">Docker &amp; Nginx 配置编辑器 📋 一个现代化的 Web 应用，用于可视化编辑 Docker Compose、Dockerfile 和 Nginx 配置文件，通过丰富的模板和参数化配置快速生成专业的容器化部署配置。  🌟 项目特点 多配置类型支持：完整支持 Docker Compose、Dockerfile 和 Nginx 三种配置类型  丰富的模板库：内置多种常用场景的配置模板，一键应用  可视化参数编辑：通过点击按钮快速添加配置参数，无需记忆复杂语法  实时预览：模板内容预览功能，确认无误后再应用  主题切换：支持深色/浅色双主题模式，适应不同使用环境  响应式设计：完美适配桌面和移动设备  本地存储：自动保存编辑内容，防止意外丢失  开屏动画：专业的加载动画，提升用户体验    📁 项目结构.├── docker-compose.yml              # 项目本身的 Docker 部署配置├── html/                           # 前端资源目录│   ├── docker-compose-mould.js ...</div></div></div></a><a class="pagination-related" href="/posts/8e2bff5e.html" title="Docker Compose 编排说明 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8336" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker Compose 编排说明 🐳</div></div><div class="info-2"><div class="info-item-1">Docker Compose 编排说明 🐳  📖 目录导航 ✨ Docker Compose 特点与优势 🚀 一、快速创建 Docker Compose 文件 📝 二、Docker Compose 文件详细说明 ⚙️ 三、配置项详解 1️⃣ Docker 重启策略 2️⃣ 端口映射 3️⃣ 卷映射 4️⃣ 环境变量 5️⃣ 网络模式 6️⃣ 主机映射 7️⃣ 容器主机名   🛠️ 四、高级配置示例 💡 五、实用技巧与最佳实践 🚦 六、常用命令 🎯 七、故障排除与调试 📚 总结    ✨ Docker Compose 特点与优势Docker Compose 是一个用于定义和运行多容器 Docker 应用程序的工具，具有以下特点：  🏗️ 简化部署：使用 YAML 文件定义多容器应用，一键部署 🔄 环境一致性：确保开发、测试和生产环境的一致性 📋 声明式配置：通过配置文件管理应用服务、网络和卷 ⚡ 快速启动：一条命令即可启动整个应用栈 🔗 服务依赖：自动处理服务间的依赖关系和启动顺序 🌐 网络管理：自动创建容器网络，方便服务间通信 📦 版本控制：配置文件...</div></div></div></a><a class="pagination-related" href="/posts/cebd24dc.html" title="Docker 部署 1Panel 服务器管理面板 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7443" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 1Panel 服务器管理面板 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 1Panel 服务器管理面板 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 1Panel 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航服务器管理，探索无限可能     🎯 项目简介 🌐 1Panel 官网地址：https://1panel.cn/ 🐱 GitHub 项目地址：https://github.com/okxlin/docker-1panel 🐋 Docker 镜像地址：https://hub.docker.com/r/moelin/1panel  1Panel 是一个现代化的、开源的 L...</div></div></div></a><a class="pagination-related" href="/posts/5d0f993b.html" title="Docker 部署 AdGuard Home 广告拦截器 🛡️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?2260" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 AdGuard Home 广告拦截器 🛡️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 AdGuard Home 广告拦截器 🛡️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 AdGuard Home 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 AdGuard Home 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航无广告网络，探索纯净体验     🎯 项目简介 🌐 AdGuard Home 官网地址：https://adguard.com/zh_cn/ 🐱 GitHub 项目地址：https://github.com/AdguardTeam/AdGuardHome 🐋 Docker 镜像地址：https://hub.docker.co...</div></div></div></a><a class="pagination-related" href="/posts/249f7cf.html" title="Docker 部署 AllinSSL SSL证书管理工具 🔐"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5472" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Docker 部署 AllinSSL SSL证书管理工具 🔐</div></div><div class="info-2"><div class="info-item-1">Docker 部署 AllinSSL SSL证书管理工具 🔐  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 AllinSSL 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 AllinSSL 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🔄 五、同步证书到 Nginx 1. 手动同步证书 2. 自动化同步脚本 3. 设置计划任务 ⏰   🌟 启航安全，守护无限     🎯 项目简介 🌐 AllinSSL 官网地址：https://www.allinssl.com/ 🐱 GitHub 项目地址：https://github.com/allinssl/allinssl 🐋 Docker...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker-Compose-%E5%AE%8C%E5%85%A8%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97-%F0%9F%90%B3"><span class="toc-text">Docker Compose 完全安装指南 🐳</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95-%F0%9F%93%9A"><span class="toc-text">目录 📚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-Docker-Compose-%E7%AE%80%E4%BB%8B"><span class="toc-text">✨ Docker Compose 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%9F-%E4%B8%BB%E8%A6%81%E7%89%B9%E6%80%A7"><span class="toc-text">🌟 主要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A1-%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8A%BF"><span class="toc-text">💡 核心优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E4%B8%80%E3%80%81Linux-x86-64-%E6%9E%B6%E6%9E%84%E5%AE%89%E8%A3%85"><span class="toc-text">🚀 一、Linux x86_64 架构安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E4%BB%8E-GitHub-%E5%AE%98%E6%96%B9%E6%BA%90%E5%AE%89%E8%A3%85"><span class="toc-text">1️⃣ 从 GitHub 官方源安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%AE%89%E8%A3%85"><span class="toc-text">2️⃣ 使用国内镜像加速安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%89%88%E6%9C%AC"><span class="toc-text">3️⃣ 卸载旧版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8D%93-%E4%BA%8C%E3%80%81iStoreOS-ARM-%E6%9E%B6%E6%9E%84-%E5%AE%89%E8%A3%85"><span class="toc-text">🍓 二、iStoreOS (ARM 架构) 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E7%A1%AE%E5%AE%9A%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-text">1️⃣ 确定系统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-ARM64-aarch64-%E6%9E%B6%E6%9E%84%E5%AE%89%E8%A3%85"><span class="toc-text">2️⃣ ARM64 (aarch64) 架构安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E-GitHub-%E5%AE%98%E6%96%B9%E6%BA%90%E5%AE%89%E8%A3%85"><span class="toc-text">从 GitHub 官方源安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%AE%89%E8%A3%85"><span class="toc-text">使用国内镜像加速安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-ARMv7-armv7l-%E6%9E%B6%E6%9E%84%E5%AE%89%E8%A3%85"><span class="toc-text">3️⃣ ARMv7 (armv7l) 架构安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EF%B8%8F%E2%83%A3-%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%89%88%E6%9C%AC"><span class="toc-text">4️⃣ 卸载旧版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E4%B8%89%E3%80%81%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-text">🔍 三、验证安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E6%A3%80%E6%9F%A5-Docker-Compose-%E7%89%88%E6%9C%AC"><span class="toc-text">1️⃣ 检查 Docker Compose 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E6%B5%8B%E8%AF%95-Docker-Compose-%E5%8A%9F%E8%83%BD"><span class="toc-text">2️⃣ 测试 Docker Compose 功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E9%AA%8C%E8%AF%81%E6%9E%B6%E6%9E%84%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-text">3️⃣ 验证架构兼容性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E5%9B%9B%E3%80%81%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BC%98%E5%8C%96"><span class="toc-text">⚙️ 四、高级配置和优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E8%AE%BE%E7%BD%AE%E5%91%BD%E4%BB%A4%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8"><span class="toc-text">1️⃣ 设置命令自动补全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E5%88%9B%E5%BB%BA%E5%88%AB%E5%90%8D%E7%AE%80%E5%8C%96%E5%91%BD%E4%BB%A4"><span class="toc-text">2️⃣ 创建别名简化命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E4%BD%BF%E7%94%A8-Docker-Compose-V2"><span class="toc-text">3️⃣ 使用 Docker Compose V2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EF%B8%8F%E2%83%A3-%E9%85%8D%E7%BD%AE-Docker-Compose-%E7%8E%AF%E5%A2%83"><span class="toc-text">4️⃣ 配置 Docker Compose 环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E4%BA%94%E3%80%81%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">🔧 五、故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%93-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">❓ 常见问题及解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%90%9B-%E8%AF%8A%E6%96%AD%E5%91%BD%E4%BB%A4"><span class="toc-text">🐛 诊断命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E5%85%AD%E3%80%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-text">📊 六、版本管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E5%AE%89%E8%A3%85%E7%89%B9%E5%AE%9A%E7%89%88%E6%9C%AC"><span class="toc-text">1️⃣ 安装特定版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-text">2️⃣ 多版本管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7"><span class="toc-text">3️⃣ 版本升级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E6%80%BB%E7%BB%93"><span class="toc-text">🎯 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E6%B8%A9%E9%A6%A8%E6%8F%90%E7%A4%BA"><span class="toc-text">🌟 温馨提示</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

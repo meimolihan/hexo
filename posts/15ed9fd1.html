@@ -1,0 +1,1121 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Typecho 博客美化与功能增强 🎨 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Typecho 博客美化与功能增强 🎨  本指南详细介绍 Typecho 博客系统的主题安装、后台美化、插件配置等完整方案，帮助您打造个性化且功能强大的博客平台。   ✨ 目录 ✨ Typecho 资源库 🎭 一、前台主题配置 🖥️ 二、后台主题美化   🎯 三、JKAdmin 后台主题 🔌 四、功能插件配置 🛠️ 五、安装与配置指南 ⚠️ 六、注意事项 💡 七、优化建议    ✨">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Typecho 博客美化与功能增强 🎨">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/15ed9fd1.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Typecho 博客美化与功能增强 🎨  本指南详细介绍 Typecho 博客系统的主题安装、后台美化、插件配置等完整方案，帮助您打造个性化且功能强大的博客平台。   ✨ 目录 ✨ Typecho 资源库 🎭 一、前台主题配置 🖥️ 二、后台主题美化   🎯 三、JKAdmin 后台主题 🔌 四、功能插件配置 🛠️ 五、安装与配置指南 ⚠️ 六、注意事项 💡 七、优化建议    ✨">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?9904">
+<meta property="article:published_time" content="2025-09-12T06:33:59.000Z">
+<meta property="article:modified_time" content="2025-09-12T06:33:59.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="typecho">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?9904"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Typecho 博客美化与功能增强 🎨",
+  "url": "https://www.meimolihan.eu.org/posts/15ed9fd1.html",
+  "image": "https://api.mobufan.eu.org:666/pc?9904",
+  "datePublished": "2025-09-12T06:33:59.000Z",
+  "dateModified": "2025-09-12T06:33:59.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/15ed9fd1.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Typecho 博客美化与功能增强 🎨',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?9904);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Typecho 博客美化与功能增强 🎨</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Typecho 博客美化与功能增强 🎨</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T06:33:59.000Z" title="发表于 2025-09-12 14:33:59">2025-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T06:33:59.000Z" title="更新于 2025-09-12 14:33:59">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-12 14:33:59&quot;}" hidden></div><h1 id="Typecho-博客美化与功能增强-🎨"><a href="#Typecho-博客美化与功能增强-🎨" class="headerlink" title="Typecho 博客美化与功能增强 🎨"></a>Typecho 博客美化与功能增强 🎨</h1><p><img src="https://file.meimolihan.eu.org/img/typecho-02.webp" alt="Typecho Blog"></p>
+<blockquote>
+<p>本指南详细介绍 Typecho 博客系统的主题安装、后台美化、插件配置等完整方案，帮助您打造个性化且功能强大的博客平台。</p>
+</blockquote>
+<hr>
+<h2 id="✨-目录"><a href="#✨-目录" class="headerlink" title="✨ 目录"></a>✨ 目录</h2><ul>
+<li><a href="#resources">✨ Typecho 资源库</a></li>
+<li><a href="#frontend-themes">🎭 一、前台主题配置</a></li>
+<li><a href="#backend-themes">🖥️ 二、后台主题美化</a>  </li>
+<li><a href="#jkadmin-theme">🎯 三、JKAdmin 后台主题</a></li>
+<li><a href="#plugins">🔌 四、功能插件配置</a></li>
+<li><a href="#installation">🛠️ 五、安装与配置指南</a></li>
+<li><a href="#precautions">⚠️ 六、注意事项</a></li>
+<li><a href="#optimization">💡 七、优化建议</a></li>
+</ul>
+<hr>
+<p><a id="resources"></a></p>
+<h2 id="✨-Typecho-资源库"><a href="#✨-Typecho-资源库" class="headerlink" title="✨ Typecho 资源库"></a>✨ Typecho 资源库</h2><h3 id="官方与第三方资源站"><a href="#官方与第三方资源站" class="headerlink" title="官方与第三方资源站"></a>官方与第三方资源站</h3><ul>
+<li><strong>🌐 官方主题插件库</strong>：<a target="_blank" rel="noopener" href="https://typechx.com/themes">https://typechx.com/themes</a></li>
+<li><strong>🔧 第三方资源站1</strong>：<a target="_blank" rel="noopener" href="https://typecho.work/index.php">https://typecho.work/index.php</a></li>
+<li><strong>🎨 第三方资源站2</strong>：<a target="_blank" rel="noopener" href="https://www.boke8.net/tetheme">https://www.boke8.net/tetheme</a></li>
+<li><strong>🐙 GitHub 插件库</strong>：<a target="_blank" rel="noopener" href="https://github.com/typecho-fans/plugins">https://github.com/typecho-fans/plugins</a></li>
+</ul>
+<hr>
+<p><a id="frontend-themes"></a></p>
+<h2 id="🎭-一、前台主题配置"><a href="#🎭-一、前台主题配置" class="headerlink" title="🎭 一、前台主题配置"></a>🎭 一、前台主题配置</h2><h3 id="主题安装路径"><a href="#主题安装路径" class="headerlink" title="主题安装路径"></a>主题安装路径</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 Typecho 主题目录</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/typecho/typecho/usr/themes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用绝对路径</span></span><br><span class="line"><span class="built_in">cd</span> /www/wwwroot/your-domain.com/usr/themes</span><br></pre></td></tr></table></figure>
+<h3 id="推荐主题下载"><a href="#推荐主题下载" class="headerlink" title="推荐主题下载"></a>推荐主题下载</h3><ul>
+<li><strong>🦋 Butterfly 主题</strong>：<a target="_blank" rel="noopener" href="https://github.com/wehaox/Typecho-Butterfly">GitHub下载地址</a></li>
+<li><strong>🌟 Lanstar 主题</strong>：<a target="_blank" rel="noopener" href="https://github.com/dyedd/lanstar">GitHub下载地址</a></li>
+<li><strong>🚀 Material 主题</strong>：<a target="_blank" rel="noopener" href="https://typechx.com/themes/material.html">官方主题库</a></li>
+<li><strong>🌙 DarkMode 主题</strong>：<a target="_blank" rel="noopener" href="https://www.boke8.net/tetheme/darkmode">第三方资源站</a></li>
+</ul>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><ol>
+<li><p><strong>下载主题压缩包</strong> 📦</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/wehaox/Typecho-Butterfly/archive/refs/heads/main.zip</span><br><span class="line">unzip main.zip</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解压到 themes 目录</strong> 📁</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> Typecho-Butterfly-main butterfly</span><br><span class="line"><span class="built_in">chmod</span> -R 755 butterfly</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在 Typecho 后台启用主题</strong> ⚙️</p>
+<ul>
+<li>登录 Typecho 后台</li>
+<li>进入”控制台” → “外观”</li>
+<li>选择新安装的主题并点击”启用”</li>
+</ul>
+</li>
+<li><p><strong>配置主题选项</strong> 🎛️</p>
+<ul>
+<li>根据主题说明文档进行个性化配置</li>
+<li>设置颜色方案、布局选项、社交链接等</li>
+</ul>
+</li>
+</ol>
+<h3 id="主题配置示例"><a href="#主题配置示例" class="headerlink" title="主题配置示例"></a>主题配置示例</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主题配置文件示例 (config.php)</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">&#x27;title&#x27;</span> =&gt; <span class="string">&#x27;我的博客&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;description&#x27;</span> =&gt; <span class="string">&#x27;这是一个使用Typecho的博客&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;keywords&#x27;</span> =&gt; <span class="string">&#x27;博客,Typecho,PHP&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;themeColor&#x27;</span> =&gt; <span class="string">&#x27;#3498db&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;darkMode&#x27;</span> =&gt; <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&#x27;socialLinks&#x27;</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">        <span class="string">&#x27;github&#x27;</span> =&gt; <span class="string">&#x27;https://github.com/yourname&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;twitter&#x27;</span> =&gt; <span class="string">&#x27;https://twitter.com/yourname&#x27;</span></span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="backend-themes"></a></p>
+<h2 id="🖥️-二、后台主题美化"><a href="#🖥️-二、后台主题美化" class="headerlink" title="🖥️ 二、后台主题美化"></a>🖥️ 二、后台主题美化</h2><h3 id="后台主题路径"><a href="#后台主题路径" class="headerlink" title="后台主题路径"></a>后台主题路径</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 Typecho 后台目录</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/typecho/typecho/admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份原admin目录（重要！）</span></span><br><span class="line"><span class="built_in">cp</span> -r admin admin-backup</span><br></pre></td></tr></table></figure>
+<h3 id="1-Fresh-后台主题"><a href="#1-Fresh-后台主题" class="headerlink" title="1. Fresh 后台主题"></a>1. Fresh 后台主题</h3><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://zhoucl.lanzouw.com/i3bcdxcx45c">蓝奏云下载</a></p>
+<p><strong>安装方法</strong>：</p>
+<ol>
+<li><p>删除原 admin 文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf admin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建 admin 文件夹并解压文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> admin</span><br><span class="line">unzip fresh-admin.zip -d admin/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移动 Menu.php 到正确位置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> admin/Menu.php ../var/Widget/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清理浏览器缓存 🧹</p>
+<ul>
+<li>按 Ctrl+F5 强制刷新浏览器</li>
+<li>或清除浏览器缓存和数据</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-Lanstar-后台主题"><a href="#2-Lanstar-后台主题" class="headerlink" title="2. Lanstar 后台主题"></a>2. Lanstar 后台主题</h3><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/dyedd/lanstar/releases">GitHub Releases</a></p>
+<p><strong>安装方法</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载最新版本</span></span><br><span class="line">wget https://github.com/dyedd/lanstar/releases/download/v1.0.0/lanstar-admin.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压并安装</span></span><br><span class="line">unzip lanstar-admin.zip -d admin/</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-Admin-dzh-后台主题"><a href="#3-Admin-dzh-后台主题" class="headerlink" title="3. Admin-dzh 后台主题"></a>3. Admin-dzh 后台主题</h3><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/zanedeng/typecho-admin-dzh">GitHub仓库</a><br><strong>官方文档</strong>：<a target="_blank" rel="noopener" href="https://typecho.work/archives/typecho-admin-dzh.html">使用说明</a></p>
+<p><strong>安装方法</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 下载主题</span></span><br><span class="line">wget https://github.com/zanedeng/typecho-admin-dzh/archive/refs/heads/main.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 解压并重命名</span></span><br><span class="line">unzip main.zip</span><br><span class="line"><span class="built_in">mv</span> typecho-admin-dzh-main admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 设置权限</span></span><br><span class="line"><span class="built_in">chmod</span> -R 755 admin</span><br><span class="line"><span class="built_in">chown</span> -R www:www admin</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><a id="jkadmin-theme"></a></p>
+<h2 id="🎯-三、JKAdmin-后台主题（高级）"><a href="#🎯-三、JKAdmin-后台主题（高级）" class="headerlink" title="🎯 三、JKAdmin 后台主题（高级）"></a>🎯 三、JKAdmin 后台主题（高级）</h2><h3 id="下载信息"><a href="#下载信息" class="headerlink" title="下载信息"></a>下载信息</h3><ul>
+<li><strong>官方地址</strong>：<a target="_blank" rel="noopener" href="https://3si.tech/shop/22.html">3si.tech商店</a></li>
+<li><strong>网盘下载</strong>：<a target="_blank" rel="noopener" href="https://ijkxs.lanzn.com/b021swg7c">蓝奏云下载</a> 密码: <code>cptp</code></li>
+</ul>
+<h3 id="账户信息"><a href="#账户信息" class="headerlink" title="账户信息"></a>账户信息</h3><ul>
+<li><strong>用户名</strong>: <code>mobufan</code></li>
+<li><strong>密码</strong>: <code>小孩名加生（全小写）</code></li>
+<li><strong>邮箱</strong>: <code>496338740@qq.com</code></li>
+<li><strong>QQ</strong>: <code>496338740</code></li>
+</ul>
+<h3 id="安装步骤-1"><a href="#安装步骤-1" class="headerlink" title="安装步骤"></a>安装步骤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 解压主题到Typecho根目录</span></span><br><span class="line">unzip jkadmin.zip -d /mnt/mydisk/home/typecho/typecho/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 修改 config.inc.php 配置</span></span><br><span class="line">nano /mnt/mydisk/home/typecho/typecho/config.inc.php</span><br></pre></td></tr></table></figure>
+<p><strong>添加以下配置</strong>：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义后台目录</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;__TYPECHO_ADMIN_DIR__&#x27;</span>, <span class="string">&#x27;/jkadmin/&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改Gravatar头像源</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;__TYPECHO_GRAVATAR_PREFIX__&#x27;</span>, <span class="string">&#x27;https://cravatar.cn/avatar/&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启用调试模式（可选）</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;__TYPECHO_DEBUG__&#x27;</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3. 替换 Widget 组件</span></span><br><span class="line">unzip Widget.zip -d /mnt/mydisk/home/typecho/typecho/var/Typecho/</span><br></pre></td></tr></table></figure>
+<h3 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建自定义CSS文件</span></span><br><span class="line">nano /mnt/mydisk/home/typecho/typecho/jkadmin/assets/css/custom.css</span><br></pre></td></tr></table></figure>
+<p><strong>添加自定义样式</strong>：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 自定义后台样式 */</span></span><br><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attr">--primary-color</span>: <span class="number">#3498db</span>;</span><br><span class="line">    <span class="attr">--secondary-color</span>: <span class="number">#2ecc71</span>;</span><br><span class="line">    <span class="attr">--text-color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attr">--background-color</span>: <span class="number">#f8f9fa</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 暗色模式支持 */</span></span><br><span class="line"><span class="selector-attr">[data-theme=<span class="string">&quot;dark&quot;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--text-color</span>: <span class="number">#f1f1f1</span>;</span><br><span class="line">    <span class="attr">--background-color</span>: <span class="number">#1a1a1a</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 响应式调整 */</span></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">    <span class="selector-class">.admin-container</span> &#123;</span><br><span class="line">        <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><a id="plugins"></a></p>
+<h2 id="🔌-四、功能插件配置"><a href="#🔌-四、功能插件配置" class="headerlink" title="🔌 四、功能插件配置"></a>🔌 四、功能插件配置</h2><h3 id="插件安装路径"><a href="#插件安装路径" class="headerlink" title="插件安装路径"></a>插件安装路径</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/typecho/typecho/usr/plugins</span><br></pre></td></tr></table></figure>
+<h3 id="1-CodeHighlighter-代码高亮"><a href="#1-CodeHighlighter-代码高亮" class="headerlink" title="1. CodeHighlighter 代码高亮"></a>1. CodeHighlighter 代码高亮</h3><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://typechx.com/plugins/CodeHighlighter.html">官方插件页</a></p>
+<p><strong>安装方法</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://typechx.com/download/CodeHighlighter.zip</span><br><span class="line">unzip CodeHighlighter.zip</span><br><span class="line"><span class="built_in">mv</span> CodeHighlighter-master CodeHighlighter</span><br></pre></td></tr></table></figure></p>
+<p><strong>配置示例</strong>：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在文章中使用代码高亮</span></span><br><span class="line">```python</span><br><span class="line">def <span class="title function_ invoke__">hello_world</span>():</span><br><span class="line">    <span class="keyword">print</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> True</span><br></pre></td></tr></table></figure><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 2. SimpleAdmin 后台美化</span><br><span class="line">**下载地址**：[GitHub仓库](https://github.com/gogobody/SimpleAdmin)</span><br><span class="line"></span><br><span class="line">**安装方法**：</span><br><span class="line">```bash</span><br><span class="line">git clone https://github.com/gogobody/SimpleAdmin.git</span><br><span class="line">mv SimpleAdmin SimpleAdmin  # 确保名称正确</span><br></pre></td></tr></table></figure></p>
+<p><strong>自定义CSS配置</strong>：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span>, <span class="selector-attr">[data-color-mode=<span class="string">&quot;dark&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color-scheme</span>: dark <span class="meta">!important</span>;</span><br><span class="line">  <span class="attr">--background</span>: <span class="number">#191919</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attr">--backgroundA</span>: <span class="number">#212121</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attr">--text-primary</span>: <span class="number">#e0e0e0</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attr">--text-secondary</span>: <span class="number">#a0a0a0</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attr">--accent-color</span>: <span class="number">#3498db</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 左侧栏头像设置 */</span></span><br><span class="line"><span class="selector-class">.admin-sidebar</span> <span class="selector-class">.avatar</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;https://blog.mobufan.eu.org:666/mobufan/mobufan-02.jpg&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://blog.mobufan.eu.org:666/screenshot/simpleadmin-preview.jpg" alt="SimpleAdmin效果图"></p>
+<h3 id="3-AliceStyle-全面美化"><a href="#3-AliceStyle-全面美化" class="headerlink" title="3. AliceStyle 全面美化"></a>3. AliceStyle 全面美化</h3><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/racns/AliceStyle">GitHub仓库</a></p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>📱 响应式设计</li>
+<li>🌙 暗色/亮色主题切换</li>
+<li>⚡ 性能优化</li>
+<li>🎨 高度可定制</li>
+</ul>
+<h3 id="4-Update-更新插件"><a href="#4-Update-更新插件" class="headerlink" title="4. Update 更新插件"></a>4. Update 更新插件</h3><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://typecho.work/archives/Update.html">官方页面</a></p>
+<p><strong>功能特点</strong>：</p>
+<ul>
+<li>🔄 一键更新Typecho核心</li>
+<li>📦 插件和主题更新管理</li>
+<li>📊 更新历史记录</li>
+<li>🔒 安全备份功能</li>
+</ul>
+<p><img src="https://blog.mobufan.eu.org:666/screenshot/typecho-update.jpg" alt="Update插件界面"></p>
+<h3 id="5-TagSelector-标签选择"><a href="#5-TagSelector-标签选择" class="headerlink" title="5. TagSelector 标签选择"></a>5. TagSelector 标签选择</h3><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://typechx.com/plugins/TagSelector.html">官方插件页</a></p>
+<p><strong>安装方法</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://typechx.com/download/TagSelector.zip</span><br><span class="line">unzip TagSelector.zip</span><br></pre></td></tr></table></figure></p>
+<p><strong>功能特点</strong>：</p>
+<ul>
+<li>🔍 实时标签搜索</li>
+<li>🏷️ 现有标签选择</li>
+<li>📝 新标签快速创建</li>
+<li>🎯 标签云支持</li>
+</ul>
+<p><img src="https://blog.mobufan.eu.org:666/screenshot/typecho-tag.jpg" alt="TagSelector效果"></p>
+<h3 id="6-其他推荐插件"><a href="#6-其他推荐插件" class="headerlink" title="6. 其他推荐插件"></a>6. 其他推荐插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 评论相关插件</span></span><br><span class="line">- CommentToMail: 评论邮件通知</span><br><span class="line">- Smilies: 表情包支持</span><br><span class="line"></span><br><span class="line"><span class="comment"># SEO优化插件  </span></span><br><span class="line">- Sitemap: 生成网站地图</span><br><span class="line">- SEO: 搜索引擎优化</span><br><span class="line"></span><br><span class="line"><span class="comment"># 功能增强插件</span></span><br><span class="line">- Links: 友情链接管理</span><br><span class="line">- Backup: 数据备份</span><br><span class="line">- Stat: 访问统计</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="installation"></a></p>
+<h2 id="🛠️-五、安装与配置指南"><a href="#🛠️-五、安装与配置指南" class="headerlink" title="🛠️ 五、安装与配置指南"></a>🛠️ 五、安装与配置指南</h2><h3 id="通用安装步骤"><a href="#通用安装步骤" class="headerlink" title="通用安装步骤"></a>通用安装步骤</h3><ol>
+<li><p><strong>下载资源</strong> ⬇️</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用wget下载</span></span><br><span class="line">wget [下载链接]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用curl</span></span><br><span class="line">curl -O [下载链接]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>上传文件</strong> 📤</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压压缩包</span></span><br><span class="line">unzip [文件名].zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或解压tar.gz</span></span><br><span class="line">tar -zxvf [文件名].tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>设置权限</strong> 🔒</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置目录权限</span></span><br><span class="line">find /mnt/mydisk/home/typecho/ -<span class="built_in">type</span> d -<span class="built_in">exec</span> <span class="built_in">chmod</span> 755 &#123;&#125; \;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置文件权限  </span></span><br><span class="line">find /mnt/mydisk/home/typecho/ -<span class="built_in">type</span> f -<span class="built_in">exec</span> <span class="built_in">chmod</span> 644 &#123;&#125; \;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 特殊目录权限</span></span><br><span class="line"><span class="built_in">chmod</span> 777 /mnt/mydisk/home/typecho/typecho/usr/themes</span><br><span class="line"><span class="built_in">chmod</span> 777 /mnt/mydisk/home/typecho/typecho/usr/plugins</span><br><span class="line"><span class="built_in">chmod</span> 777 /mnt/mydisk/home/typecho/typecho/usr/uploads</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>启用功能</strong> ⚡</p>
+<ul>
+<li>登录Typecho后台</li>
+<li>进入”控制台” → “插件” 或 “外观”</li>
+<li>启用新安装的插件或主题</li>
+</ul>
+</li>
+<li><p><strong>配置选项</strong> 🎛️</p>
+<ul>
+<li>根据文档进行个性化配置</li>
+<li>测试所有功能是否正常工作</li>
+</ul>
+</li>
+</ol>
+<h3 id="数据库备份与恢复"><a href="#数据库备份与恢复" class="headerlink" title="数据库备份与恢复"></a>数据库备份与恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump -u [用户名] -p[密码] [数据库名] &gt; backup.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复数据库</span></span><br><span class="line">mysql -u [用户名] -p[密码] [数据库名] &lt; backup.sql</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="precautions"></a></p>
+<h2 id="⚠️-六、注意事项"><a href="#⚠️-六、注意事项" class="headerlink" title="⚠️ 六、注意事项"></a>⚠️ 六、注意事项</h2><h3 id="1-安全注意事项-🔒"><a href="#1-安全注意事项-🔒" class="headerlink" title="1. 安全注意事项 🔒"></a>1. 安全注意事项 🔒</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定期更新系统和插件</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/mydisk/home/typecho/typecho/</span><br><span class="line">git pull origin master  <span class="comment"># 如果使用git安装</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改默认后台路径（增强安全性）</span></span><br><span class="line"><span class="built_in">mv</span> admin my-secret-admin</span><br></pre></td></tr></table></figure>
+<h3 id="2-兼容性问题-⚠️"><a href="#2-兼容性问题-⚠️" class="headerlink" title="2. 兼容性问题 ⚠️"></a>2. 兼容性问题 ⚠️</h3><ul>
+<li>检查主题/插件与Typecho版本的兼容性</li>
+<li>测试在不同浏览器中的显示效果</li>
+<li>验证移动端响应式布局</li>
+</ul>
+<h3 id="3-性能优化-🚀"><a href="#3-性能优化-🚀" class="headerlink" title="3. 性能优化 🚀"></a>3. 性能优化 🚀</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用Gzip压缩</span></span><br><span class="line"><span class="comment"># 在.htaccess中添加：</span></span><br><span class="line">&lt;IfModule mod_deflate.c&gt;</span><br><span class="line">    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置缓存头</span></span><br><span class="line">&lt;IfModule mod_expires.c&gt;</span><br><span class="line">    ExpiresActive On</span><br><span class="line">    ExpiresByType image/jpg <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/jpeg <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/gif <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/png <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType text/css <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType application/pdf <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType text/javascript <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType application/javascript <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-备份策略-📦"><a href="#4-备份策略-📦" class="headerlink" title="4. 备份策略 📦"></a>4. 备份策略 📦</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建自动备份脚本</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># backup-typecho.sh</span></span><br><span class="line">DATE=$(<span class="built_in">date</span> +%Y%m%d_%H%M%S)</span><br><span class="line">BACKUP_DIR=<span class="string">&quot;/backups/typecho&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份文件</span></span><br><span class="line">tar -czf <span class="variable">$BACKUP_DIR</span>/typecho-files-<span class="variable">$DATE</span>.tar.gz /mnt/mydisk/home/typecho/typecho/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump -u root -p[password] typecho_db &gt; <span class="variable">$BACKUP_DIR</span>/typecho-db-<span class="variable">$DATE</span>.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保留最近7天备份</span></span><br><span class="line">find <span class="variable">$BACKUP_DIR</span> -name <span class="string">&quot;*.tar.gz&quot;</span> -<span class="built_in">type</span> f -mtime +7 -delete</span><br><span class="line">find <span class="variable">$BACKUP_DIR</span> -name <span class="string">&quot;*.sql&quot;</span> -<span class="built_in">type</span> f -mtime +7 -delete</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="optimization"></a></p>
+<h2 id="💡-七、优化建议"><a href="#💡-七、优化建议" class="headerlink" title="💡 七、优化建议"></a>💡 七、优化建议</h2><h3 id="1-性能优化-⚡"><a href="#1-性能优化-⚡" class="headerlink" title="1. 性能优化 ⚡"></a>1. 性能优化 ⚡</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装缓存插件</span></span><br><span class="line"><span class="comment"># Opcache配置（php.ini）</span></span><br><span class="line">[opcache]</span><br><span class="line">opcache.enable=1</span><br><span class="line">opcache.memory_consumption=128</span><br><span class="line">opcache.max_accelerated_files=10000</span><br><span class="line">opcache.revalidate_freq=300</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用CDN加速</span></span><br><span class="line">define(<span class="string">&#x27;__TYPECHO_CDN_PREFIX__&#x27;</span>, <span class="string">&#x27;https://cdn.yourdomain.com/&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="2-SEO优化-🔍"><a href="#2-SEO优化-🔍" class="headerlink" title="2. SEO优化 🔍"></a>2. SEO优化 🔍</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在header.php中添加 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&lt;?php $this-&gt;description(); ?&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&lt;?php $this-&gt;keywords(); ?&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:title&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&lt;?php $this-&gt;title(); ?&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&lt;?php $this-&gt;description(); ?&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&lt;?php // 文章特色图片 ?&gt;&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 生成sitemap --&gt;</span></span><br><span class="line"># 可以使用Sitemap插件自动生成</span><br></pre></td></tr></table></figure>
+<h3 id="3-安全加固-🛡️"><a href="#3-安全加固-🛡️" class="headerlink" title="3. 安全加固 🛡️"></a>3. 安全加固 🛡️</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改配置文件增强安全</span></span><br><span class="line">nano /mnt/mydisk/home/typecho/typecho/config.inc.php</span><br></pre></td></tr></table></figure>
+<p><strong>添加安全配置</strong>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 禁止直接访问敏感文件</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;__TYPECHO_DENY_ACCESS__&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置安全密钥</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;__TYPECHO_SECURE__&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 限制登录尝试</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;__TYPECHO_LOGIN_ATTEMPTS__&#x27;</span>, <span class="number">5</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;__TYPECHO_LOGIN_LOCKTIME__&#x27;</span>, <span class="number">300</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="4-移动端优化-📱"><a href="#4-移动端优化-📱" class="headerlink" title="4. 移动端优化 📱"></a>4. 移动端优化 📱</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 响应式设计调整 */</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">    <span class="selector-class">.container</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">        <span class="attribute">display</span>: none;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="selector-class">.menu-button</span> &#123;</span><br><span class="line">        <span class="attribute">display</span>: block;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-社交媒体集成-🌐"><a href="#5-社交媒体集成-🌐" class="headerlink" title="5. 社交媒体集成 🌐"></a>5. 社交媒体集成 🌐</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加社交分享按钮</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">social_share_buttons</span>(<span class="params"><span class="variable">$url</span>, <span class="variable">$title</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;social-share&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;a href=&quot;https://twitter.com/share?url=&#x27;</span>.<span class="variable">$url</span>.<span class="string">&#x27;&amp;text=&#x27;</span>.<span class="variable">$title</span>.<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;Twitter&lt;/a&gt;</span></span><br><span class="line"><span class="string">        &lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=&#x27;</span>.<span class="variable">$url</span>.<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;Facebook&lt;/a&gt;</span></span><br><span class="line"><span class="string">        &lt;a href=&quot;https://www.linkedin.com/shareArticle?url=&#x27;</span>.<span class="variable">$url</span>.<span class="string">&#x27;&amp;title=&#x27;</span>.<span class="variable">$title</span>.<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;LinkedIn&lt;/a&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>🎉 <strong>完成！</strong> 现在您的 Typecho 博客已经美化和功能增强完毕。记得定期备份和更新，保持博客的安全性和最佳性能。</p>
+</blockquote>
+<h2 id="📚-扩展资源"><a href="#📚-扩展资源" class="headerlink" title="📚 扩展资源"></a>📚 扩展资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://docs.typecho.org/">Typecho 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://typecho.dev/">Typecho 开发指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/typecho-fans/plugins">Typecho 主题开发教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.typecho.org/">Typecho 社区论坛</a></li>
+</ul>
+<h2 id="❓-常见问题解答"><a href="#❓-常见问题解答" class="headerlink" title="❓ 常见问题解答"></a>❓ 常见问题解答</h2><p><strong>Q: 安装主题后网站出现白屏怎么办？</strong><br>A: 检查PHP错误日志，通常是因为主题文件权限问题或PHP版本不兼容。</p>
+<p><strong>Q: 如何恢复默认主题？</strong><br>A: 通过FTP将默认主题文件重新上传，或从备份中恢复。</p>
+<p><strong>Q: 插件冲突如何解决？</strong><br>A: 禁用所有插件后逐个启用，找到冲突的插件并寻找替代方案。</p>
+<p><strong>Q: 如何优化Typecho数据库？</strong><br>A: 使用phpMyAdmin优化表，或安装数据库优化插件。</p>
+<hr>
+<p>希望本指南能帮助您打造出既美观又功能强大的 Typecho 博客！如有任何问题，欢迎在评论区讨论交流。🎊</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/typecho/">typecho</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?9904" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/b48faea0.html" title="Docker 部署 Kodbox 可道云文件管理系统 🗂️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8615" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Docker 部署 Kodbox 可道云文件管理系统 🗂️</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Kodbox 可道云文件管理系统 🗂️  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Kodbox 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Kodbox 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航文件，管理无限     🎯 项目简介 🌐 Kodbox 官网地址：https://kodcloud.com/ 🐋 Docker 镜像地址：https://hub.docker.com/r/kodcloud/kodbox  Kodbox 是一款基于 Web 的现代化文件管理系统，提供类似 Windows 操作界面的在线文件管理体验。它支持多种存储后端，具有...</div></div></div></a><a class="pagination-related" href="/posts/6d17c5f7.html" title="Docker 部署 Webtop Alpine 桌面环境 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8395" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Docker 部署 Webtop Alpine 桌面环境 🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Webtop Alpine 桌面环境 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Webtop Alpine 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用指南 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航轻量桌面，探索无限可能     🎯 项目简介 🌐 Webtop 官网地址：https://docs.linuxserver.io/images/docker-webtop 🐱 GitHub 项目地址：https://github.com/linuxserver/docker-webtop 🐋 Docker 镜像地址：https://hub.doc...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/6b0fba02.html" title="Docker 部署 Typecho 博客系统（新版）🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?4389" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-11</div><div class="info-item-2">Docker 部署 Typecho 博客系统（新版）🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Typecho 博客系统（新版） 🐳  📋 目录导航 🎯 项目简介 🛠️ 核心特性 🐳 一、Docker 部署 Typecho 博客系统 1. 创建部署目录和 docker-compose.yml 文件 📁 2. 拉取镜像并启动容器 🚀   🚀 二、使用 Typecho 1. 访问 Web 界面 💻 2. 首次使用步骤 🎯   🌐 三、Nginx 反向代理配置 1. 创建 Nginx 配置文件 🔧 2. 测试并重载 Nginx 🔄   🔧 四、容器维护命令 1. Docker Compose 命令 🐳 2. Docker 容器命令 📦 3. Docker 镜像管理 📀   🌟 启航博客，书写无限     🎯 项目简介 🌐 Typecho 官网地址：https://typecho.org 🐱 GitHub 项目地址：https://github.com/typecho/typecho 🐋 Docker 镜像地址：https://hub.docker.com/r/joyqi/typecho  Typecho 是一款轻量级...</div></div></div></a><a class="pagination-related" href="/posts/77672725.html" title="Docker 部署 Typecho 博客系统（旧版）🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8987" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-11</div><div class="info-item-2">Docker 部署 Typecho 博客系统（旧版）🐳</div></div><div class="info-2"><div class="info-item-1">Docker 部署 Typecho 博客系统（旧版） 🐳    Typecho 是一款轻量级的开源博客系统，具有简洁、高效的特点。本指南详细介绍了如何使用 Docker 和 Docker Compose 部署 Typecho 博客系统。  ✨ 目录 ✨ Typecho 简介 🚀 一、创建必要的文件 📦 二、下载 Typecho 源码 🐳 三、创建 Docker Compose 文件 🔧 四、容器维护命令 ⚙️ 五、创建配置文件 🗄️ 六、后台配置数据库 🔒 七、修改默认后台登录地址 🔄 八、启用地址重写功能 💡 九、额外提示和优化 🆘 十、常见问题解决   ✨ Typecho 简介Typecho 是一款基于 PHP 开发的轻量级开源博客系统，具有以下特点：  ⚡ 轻量高效: 核心文件仅约 500KB，资源占用低 🎨 主题丰富: 支持多种主题和模板 🔌 插件生态: 丰富的插件扩展功能 📱 响应式设计: 支持移动设备访问 🔧 简单易用: 后台管理界面简洁直观  教程文档： https://blog.laoda.de/archives/docker-comp...</div></div></div></a><a class="pagination-related" href="/posts/e20d567e.html" title="Typecho 博客 Butterfly主题 &amp; 天气时钟教程"><img class="cover" src="https://api.mobufan.eu.org:666/pc?5285" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Typecho 博客 Butterfly主题 &amp; 天气时钟教程</div></div><div class="info-2"><div class="info-item-1">Typecho 博客 Butterfly主题 &amp; 天气时钟教程   哔哩哔哩视频教程  其中时钟和风天气key和时钟高德地图web服务key最好自己去申请对应的api key，默认使用我自己的，可能会被限制，不保证可靠性  时钟和风天气key 申请地址: https://id.qweather.com/#/login  我的和风天气账号：496338740@qq.com密码：小孩名+生绑定手机：136  我的时钟和风天气key：6c59d6c6a76a4841a8e30b93e4cc38b1    登录后进入控制台 创建应用 填写应用名称和key名称随意 选择WebApi 复制key  时钟高德地图web服务key 申请地址: https://lbs.amap.com/  我的高德地图web服务账号：支付宝扫码绑定手机：136  我的时钟高德地图web服务key：6faa489a78be3b1b97a722b4b0cb2dfb    登录后进入控制台 创建应用，名称随意，类型选其他 点击添加, key名称随意，服务平台选择Web服务,点击提交 复制key   hexo博客...</div></div></div></a><a class="pagination-related" href="/posts/e49d7755.html" title="Typecho 博客插件与主题（使用中）🎨"><img class="cover" src="https://api.mobufan.eu.org:666/pc?3395" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Typecho 博客插件与主题（使用中）🎨</div></div><div class="info-2"><div class="info-item-1">Typecho 博客插件与主题（使用中） 🎨  📌 导航目录   🎯 一、JKAdmin 后台主题配置🦋 二、Butterfly 前台主题设置🔌 三、Typecho 插件安装💡 四、优化建议与技巧     🎯 一、JKAdmin 后台主题配置1. 下载与安装JKAdmin 官方地址：https://3si.tech/shop/22.html下载链接：https://ijkxs.lanzn.com/b021swg7c密码：cptp 🔐 授权信息：  用户名：mobufan 密码：小孩名加生（全小写） 邮箱：496338740@qq.com QQ：496338740  2. 安装步骤 解压主题：将下载的JKAdmin主题解压到Typecho安装目录，重命名为jkadmin 修改配置：编辑config.inc.php文件，将：1define(&#x27;__TYPECHO_ADMIN_DIR__&#x27;, &#x27;/admin/&#x27;) 修改为：1define(&#x27;__TYPECHO_ADMIN_DIR__&#x27;, &#x27;/jkadmi...</div></div></div></a><a class="pagination-related" href="/posts/b3d3971f.html" title="Typecho 音乐播放器 QPlayer2 🎵"><img class="cover" src="https://api.mobufan.eu.org:666/pc?228" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Typecho 音乐播放器 QPlayer2 🎵</div></div><div class="info-2"><div class="info-item-1">Typecho 音乐播放器 QPlayer2 🎵 一款简洁小巧的 HTML5 底部悬浮音乐播放器，为您的 Typecho 博客增添音乐魅力 📋 导航目录 ✨ 功能特点 📦 安装步骤 🎼 歌曲列表配置 🎵 推荐歌曲列表 ⚙️ 自定义配置 🔧 常见问题解答 📱 移动端适配 🌟 使用技巧 🆘 获取帮助    ✨ 功能特点QPlayer2 是一款专为 Typecho 博客设计的现代化音乐播放器插件，具有以下强大功能： 🎵 音乐播放体验  支持 MP3、AAC、OGG 等多种音频格式 流畅的播放控制和进度调节 高品质音频解码和输出  🎨 视觉设计  简洁美观的底部悬浮设计，不占用主要内容区域 深色/浅色主题自适应，匹配博客风格 动态专辑封面显示和旋转效果  📱 响应式布局  完美适配桌面、平板和手机等各种设备 移动端优化触控体验，支持滑动手势 智能隐藏控制栏，节省屏幕空间  📜 歌词功能  支持标准 LRC 格式歌词文件 实时同步歌词显示，卡拉OK式效果 歌词字体大小和颜色可自定义  ⚡ 技术优势  基于 HTML5 Audio API，无需 Flash 支持 轻...</div></div></div></a><a class="pagination-related" href="/posts/e7acd60d.html" title="Typecho 文章导出"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8534" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="info-item-2">Typecho 文章导出</div></div><div class="info-2"><div class="info-item-1">Typecho 文章导出  插件下载地址：https://github.com/ShiinaKin/Typecho-Plugin-Tp2MD  使用说明：  下载插件，解压后文件夹重命名为 Tp2MD，上传至插件目录并启用，然后按说明操作。后台设置key：BR4wOgh6Tc    备份目录加读写权限  1chmod -R 777 /mnt/mydisk/home/typecho/typecho/usr/plugins/Tp2MD/output  网页打开链接自动备份  https://t.mobufan.eu.org:666/Tp2MD?action=save&amp;key=BR4wOgh6Tc  压缩备份文件  12cd /mnt/mydisk/home/typecho/typecho/usr/plugins/Tp2MD/outputzip -r 2024-11-06-15-35-19.zip 2024-11-06-15-35-19       注意：     使用前务必 备份 备份 备份 请在本插件的设置内填写Token, 可在 个人中心-个人令牌 生成, 必要权限: 文...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Typecho-%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%F0%9F%8E%A8"><span class="toc-text">Typecho 博客美化与功能增强 🎨</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E7%9B%AE%E5%BD%95"><span class="toc-text">✨ 目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-Typecho-%E8%B5%84%E6%BA%90%E5%BA%93"><span class="toc-text">✨ Typecho 资源库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E4%B8%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E8%B5%84%E6%BA%90%E7%AB%99"><span class="toc-text">官方与第三方资源站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AD-%E4%B8%80%E3%80%81%E5%89%8D%E5%8F%B0%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="toc-text">🎭 一、前台主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84"><span class="toc-text">主题安装路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E4%B8%BB%E9%A2%98%E4%B8%8B%E8%BD%BD"><span class="toc-text">推荐主题下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-text">安装步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B"><span class="toc-text">主题配置示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8F-%E4%BA%8C%E3%80%81%E5%90%8E%E5%8F%B0%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96"><span class="toc-text">🖥️ 二、后台主题美化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E4%B8%BB%E9%A2%98%E8%B7%AF%E5%BE%84"><span class="toc-text">后台主题路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Fresh-%E5%90%8E%E5%8F%B0%E4%B8%BB%E9%A2%98"><span class="toc-text">1. Fresh 后台主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Lanstar-%E5%90%8E%E5%8F%B0%E4%B8%BB%E9%A2%98"><span class="toc-text">2. Lanstar 后台主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Admin-dzh-%E5%90%8E%E5%8F%B0%E4%B8%BB%E9%A2%98"><span class="toc-text">3. Admin-dzh 后台主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E4%B8%89%E3%80%81JKAdmin-%E5%90%8E%E5%8F%B0%E4%B8%BB%E9%A2%98%EF%BC%88%E9%AB%98%E7%BA%A7%EF%BC%89"><span class="toc-text">🎯 三、JKAdmin 后台主题（高级）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%BF%A1%E6%81%AF"><span class="toc-text">下载信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="toc-text">账户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4-1"><span class="toc-text">安装步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="toc-text">自定义配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8C-%E5%9B%9B%E3%80%81%E5%8A%9F%E8%83%BD%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">🔌 四、功能插件配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84"><span class="toc-text">插件安装路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-CodeHighlighter-%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE"><span class="toc-text">1. CodeHighlighter 代码高亮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-AliceStyle-%E5%85%A8%E9%9D%A2%E7%BE%8E%E5%8C%96"><span class="toc-text">3. AliceStyle 全面美化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Update-%E6%9B%B4%E6%96%B0%E6%8F%92%E4%BB%B6"><span class="toc-text">4. Update 更新插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-TagSelector-%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9"><span class="toc-text">5. TagSelector 标签选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%85%B6%E4%BB%96%E6%8E%A8%E8%8D%90%E6%8F%92%E4%BB%B6"><span class="toc-text">6. 其他推荐插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E4%BA%94%E3%80%81%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="toc-text">🛠️ 五、安装与配置指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-text">通用安装步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-text">数据库备份与恢复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E5%85%AD%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">⚠️ 六、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E5%85%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-%F0%9F%94%92"><span class="toc-text">1. 安全注意事项 🔒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98-%E2%9A%A0%EF%B8%8F"><span class="toc-text">2. 兼容性问题 ⚠️</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%F0%9F%9A%80"><span class="toc-text">3. 性能优化 🚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A4%87%E4%BB%BD%E7%AD%96%E7%95%A5-%F0%9F%93%A6"><span class="toc-text">4. 备份策略 📦</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E4%B8%83%E3%80%81%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-text">💡 七、优化建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E2%9A%A1"><span class="toc-text">1. 性能优化 ⚡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SEO%E4%BC%98%E5%8C%96-%F0%9F%94%8D"><span class="toc-text">2. SEO优化 🔍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%F0%9F%9B%A1%EF%B8%8F"><span class="toc-text">3. 安全加固 🛡️</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%98%E5%8C%96-%F0%9F%93%B1"><span class="toc-text">4. 移动端优化 📱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E9%9B%86%E6%88%90-%F0%9F%8C%90"><span class="toc-text">5. 社交媒体集成 🌐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9A-%E6%89%A9%E5%B1%95%E8%B5%84%E6%BA%90"><span class="toc-text">📚 扩展资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9D%93-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94"><span class="toc-text">❓ 常见问题解答</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>

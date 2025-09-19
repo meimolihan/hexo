@@ -1,0 +1,1105 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Podman 容器引擎安装与配置 🚀 | 凡凡小站</title><meta name="author" content="墨不凡"><meta name="copyright" content="墨不凡"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Podman 容器引擎安装与配置 🚀  📦 一个无需守护进程、更安全可靠的容器运行时工具  目录 🌟 项目简介 📥 安装 Podman ⚙️ 基本配置 📦 镜像管理 🐳 容器管理 🌐 网络与多容器实战 ⚡ 高级特性 🔄 系统服务与自启动 🔧 故障排查 📊 命令对比 📈 性能监控与优化   🌟 项目简介Podman（Pod Manager）是一个开源的容器运行时工具，用于开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Podman 容器引擎安装与配置 🚀">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/96986e59.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Podman 容器引擎安装与配置 🚀  📦 一个无需守护进程、更安全可靠的容器运行时工具  目录 🌟 项目简介 📥 安装 Podman ⚙️ 基本配置 📦 镜像管理 🐳 容器管理 🌐 网络与多容器实战 ⚡ 高级特性 🔄 系统服务与自启动 🔧 故障排查 📊 命令对比 📈 性能监控与优化   🌟 项目简介Podman（Pod Manager）是一个开源的容器运行时工具，用于开发">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?7602">
+<meta property="article:published_time" content="2025-09-12T17:04:04.000Z">
+<meta property="article:modified_time" content="2025-09-12T17:04:04.000Z">
+<meta property="article:author" content="墨不凡">
+<meta property="article:tag" content="podman">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?7602"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Podman 容器引擎安装与配置 🚀",
+  "url": "https://www.meimolihan.eu.org/posts/96986e59.html",
+  "image": "https://api.mobufan.eu.org:666/pc?7602",
+  "datePublished": "2025-09-12T17:04:04.000Z",
+  "dateModified": "2025-09-12T17:04:04.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "墨不凡",
+      "url": "https://www.meimolihan.eu.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/96986e59.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'medium_zoom',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#D2691E","bgDark":"#D2691E","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.12.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Podman 容器引擎安装与配置 🚀',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="/css/aplayer.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/滚动条样式.css"><link rel="stylesheet" href="/css/头像呼吸灯.css"><link rel="stylesheet" href="/css/页脚渐变.css"><link rel="stylesheet" href="/css/文章风车.css"><link rel="stylesheet" href="/css/全局圆角.css"><link rel="stylesheet" href="/css/黑夜霓虹.css"><link rel="stylesheet" href="/css/导航栏美化.css"><link rel="stylesheet" href="/css/右下角按钮美化.css"><link rel="stylesheet" href="/css/一图流.css"><link rel="stylesheet" href="/css/引用字体.css"><link rel="stylesheet" href="/css/封面擦亮.css"><!-- 明暗模式切换--><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346">   </path></symbol></svg><div class="loading"><div class="bg"></div><div class="scale"><div class="sharingon"><div class="ring"><div class="to"></div><div class="to"></div><div class="to"></div><div class="circle"></div></div></div></div></div><style>[data-scheme="light"] {
+  .loading {
+    background-color: rgba(245, 245, 250, 0.8);
+  }
+}
+
+[data-scheme="dark"] {
+  .loading {
+    background-color: rgba(48, 48, 48, 0.8);
+  }
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  zoom: 3.0;
+}
+
+.sharingon {
+  position: relative;
+  width: 6em;
+  height: 6em;
+  background-color: red;
+  border: 6px solid black;
+  animation: rot 1s ease-in-out infinite;
+}
+
+.animated-stop {
+  animation-play-state: paused;
+}
+
+.fadeout {
+  animation: fadeOut 1.5s forwards;
+}
+
+.scaleAndFadeout {
+  animation: scaleAndFadeOut 1.5s forwards
+}
+
+.ring {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 3.5em;
+  height: 3.5em;
+  border: 4px solid rgb(110, 13 ,13 ,0.5);
+  transform: translate(-50%,-50%);
+}
+
+.sharingon, .ring, .to,.circle {
+  border-radius: 50%;
+}
+
+.to,.circle {
+  position: absolute;
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  background-color: black;
+}
+
+.to:nth-child(1) {
+  top: -0.5em;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.to::before {
+  content: "";
+  position: absolute;
+  top: -0.5em;
+  right: -0.2em;
+  width: 1.1em;
+  height: 0.9em;
+  box-sizing: border-box;
+  border-left: 16px solid black;
+  border-radius: 100% 0 0;
+}
+
+.to:nth-child(2) {
+  bottom: 0.5em;
+  left: -0.35em;
+  transform: rotate(-120deg);
+}
+
+.to:nth-child(3) {
+  bottom: 0.5em;
+  right: -0.35em;
+  transform: rotate(120deg);
+}
+
+.circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 20px 1px;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleAndFadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);  
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);  
+    opacity: 0;  
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;  
+  }
+}
+</style><script>function initLoading() {
+  const startTime = Date.now();
+  let loading = document.querySelector(".loading");
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeDelay = Date.now() - startTime;
+    
+    setTimeout(() => {
+      fadeOut();
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 1500)
+    }, timeDelay > 1050 ? 0 : 1050 - timeDelay)
+  });
+}
+
+function fadeOut() {
+  let sharingon = document.querySelector(".sharingon");
+  sharingon.classList.add("animated-stop");
+  
+  let scale = document.querySelector(".scale");
+  scale.classList.add("scaleAndFadeout");
+  
+  let loading = document.querySelector(".loading");
+  loading.classList.add("fadeout");
+}
+
+initLoading();</script><!-- 添加音频播放器代码--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+    '蜉蝣志-石岩',
+    '忘川彼岸-零一九零贰',
+    '背着风流泪-文夫',
+    '苟活-周文凯',
+    '我爱他-丁当',
+    '苟活之重生-周文凯',
+    '最好的安排-曲婉婷',
+    '望故乡-文夫',
+    '骗子-文夫',
+    '最后一次的温柔-田园',
+    '我把往事化如烟-侯泽润',
+    '亲爱的你啊-任素汐',
+    '单身万岁-演员雪姐',
+    '借口-侯泽润',
+    '一句先苦后甜-侯泽润',
+    '你怎么舍得我难过-正在进行石女士',
+    '九万字-张靓颖、摩登兄弟刘宇宁',
+    '老男孩-筷子兄弟', 
+    '雨蝶-李翊君', 
+    'JarOfLove-曲婉婷', 
+    '我的歌声里-曲婉婷', 
+    '跳楼机-张靓颖.王以太', 
+    '浪子的心情-十二大美女', 
+    '空荡的酒杯(天籁版)-洋澜一', 
+    '谢谢你的爱1999-谢霆锋', 
+    '月亮照山川-窝窝', 
+    '离别开出花-就是南方凯', 
+    '爱是你我-刀郎、云朵', 
+    '你在他乡还好吗-大双二双',
+    '执子之手-宝石Gem', 
+    '这些年在忙什么-田园', 
+    '平凡日子里的挣扎-小璐', 
+    '无爱情歌-王娜', 
+    '人间疾苦-马健涛', 
+    '大风吹倒梧桐树-侯泽润、田园', 
+    '跳楼机-en', 
+    '一路生花-温奕心', 
+    '碎银几两-轩东', 
+    '此生无憾-金钰儿', 
+    '搀扶-马健涛', 
+    '敬往事一杯-侯泽润', 
+    '人间一路-青木时光', 
+    '别怕我伤心-张信哲', 
+    '大东北我的家乡-何玉', 
+    '陪我过个冬-燃', 
+    '我期待的不是雪-张妙格', 
+    '苦命的人-刘阳阳', 
+    '爱情恰恰-十二大美女', 
+    '不要慌，太阳下山有月光-张含韵', 
+    '往事只能回味-周虹', 
+    '花妖-刀郎', 
+    '一身傲骨不低头-侯泽润', 
+    '罗刹海市-刀郎', 
+    '怀念战友-刀郎', 
+    '西海情歌-刀郎', 
+    '我的春风何时来-李贺', 
+    '爱我还是他-刘大拿', 
+    '爱你十分泪七分-裘海正',
+    '大不了-花姐',
+    '白鸽乌鸦相爱的戏码-艾辰',
+    '爱意藏风里-何雨溪',
+    '忠孝东路走九遍-动力火车',
+    '这一路风太大-原来是夏夏',
+    '天高任鸟飞-侯泽润',
+    '月光凉.落满窗-泡芙芙Scarlett',
+    '败-侯泽润',
+    '一万个理由-郑源', 
+    '一亿个伤心-蒙面哥', 
+    '一无所有的年纪-侯泽润', 
+    '万有引力-汪苏泷', 
+    '人间半途-刘阳阳', 
+    '人间烟火-程响', 
+    '伤心剖半-邓典', 
+    '伤心太平洋-任贤齐', 
+    '你别慌余生还长-任夏', 
+    '假如我不再善良-郑畅业', 
+    '冲动的惩罚-刀郎', 
+    '凡夫俗子-范茹', 
+    '别说我的眼泪你无所谓-东来东往', 
+    '可能-程响', 
+    '听-张杰', 
+    '喀什噶尔胡杨-刀郎', 
+    '因为爱所以爱-谢霆锋', 
+    '土坡上的狗尾草-卢润泽', 
+    '多想做个哑巴-侯泽润', 
+    '失恋阵线联盟-草蜢', 
+    '妈妈我想回家-曾抖抖', 
+    '小模样-张冬玲', 
+    '年少的你啊-浩然H.R', 
+    '归途的光-诺爷Plus', 
+    '心态才是你风水-艺凌', 
+    '我也不想活得太累-郑畅业', 
+    '我真怕自己哪天倒下-张良', 
+    '手心里的温柔-刀郎', 
+    '换个方向风景会更好看-杨一琪', 
+    '放手也是一种成全-郑畅业', 
+    '星星点灯-大波浪', 
+    '星河万里-Rom邢锐', 
+    '有点甜-汪苏泷.BY2', 
+    '望故乡-刘阳阳', 
+    '海边探戈-王鹤棣', 
+    '火力全开-王力宏', 
+    '生活没有说明书-洛什么洛', 
+    '破碎的梦-陈柏曦', 
+    '秋风经过-任夏', 
+    '第51次原谅-刘艺雯', 
+    '老人与海-汪苏泷.王心凌', 
+    '胡广生-任素汐', 
+    '苹果香-狼戈', 
+    '西楼儿女-岳云鹏', 
+    '谁明浪子心-王杰', 
+    '路灯下点烟时没有打火机-王永清', 
+    '过了河就拆桥-成学迅', 
+    '野狼disco-宝石Gem', 
+    '除了生死都是擦伤-侯泽润', 
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+    const songInfo = item.split('-');
+    audios.push({
+        name: songInfo[0],
+        artist: songInfo[1],
+        url: home + item + '/song.mp3',
+        cover: home + item + '/cover.jpg',
+        lrc: home + item + '/lyric.lrc'
+    });
+});
+
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: audios
+});
+
+</script><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/pc-369.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/muzimi.gif" onerror="this.onerror=null;this.src='/img/friend_400.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://api.mobufan.eu.org:666/pc?7602);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">凡凡小站</span></a><a class="nav-page-title" href="/"><span class="site-name">Podman 容器引擎安装与配置 🚀</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><a class="site-page social-icon search faa-parent animated-hover" title="搜索"><svg class="faa-tada icon" aria-hidden="true" style="height:2.9em;width:2.9em"><use xlink:href="#icon-a-044_sousuo"></use></svg></a></span></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-zhuye"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhuye"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="明暗模式" id="nightmode-button"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-sun"></use></svg></a><div id="toggle-menu"><span class="site-page"><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada" aria-hidden="true" style="width: 1.6em; height: 1.6em;"><use id="modeicon" xlink:href="#icon-shezhi"></use></svg></a></span></div></div></nav><div id="post-info"><h1 class="post-title">Podman 容器引擎安装与配置 🚀</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-12T17:04:04.000Z" title="发表于 2025-09-13 01:04:04">2025-09-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T17:04:04.000Z" title="更新于 2025-09-13 01:04:04">2025-09-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/">默认分类</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-13 01:04:04&quot;}" hidden></div><h1 id="Podman-容器引擎安装与配置-🚀"><a href="#Podman-容器引擎安装与配置-🚀" class="headerlink" title="Podman 容器引擎安装与配置 🚀"></a>Podman 容器引擎安装与配置 🚀</h1><p><img src="https://file.meimolihan.eu.org/img/podman-01.webp" alt="Podman Banner"></p>
+<blockquote>
+<p>📦 一个无需守护进程、更安全可靠的容器运行时工具</p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#introduction">🌟 项目简介</a></li>
+<li><a href="#installation">📥 安装 Podman</a></li>
+<li><a href="#configuration">⚙️ 基本配置</a></li>
+<li><a href="#image-management">📦 镜像管理</a></li>
+<li><a href="#container-management">🐳 容器管理</a></li>
+<li><a href="#network-multi-container">🌐 网络与多容器实战</a></li>
+<li><a href="#advanced-features">⚡ 高级特性</a></li>
+<li><a href="#systemd-services">🔄 系统服务与自启动</a></li>
+<li><a href="#troubleshooting">🔧 故障排查</a></li>
+<li><a href="#command-comparison">📊 命令对比</a></li>
+<li><a href="#performance-optimization">📈 性能监控与优化</a></li>
+</ul>
+<p><a id="introduction"></a></p>
+<h2 id="🌟-项目简介"><a href="#🌟-项目简介" class="headerlink" title="🌟 项目简介"></a>🌟 项目简介</h2><p><strong>Podman</strong>（Pod Manager）是一个开源的容器运行时工具，用于开发、管理和运行 OCI（Open Container Initiative）标准的容器。由 Red Hat 开发并于 2018 年推出，它采用无守护进程（daemon-less）架构，作为 Docker 的替代方案，提供更安全、更轻量的容器管理方式。</p>
+<h3 id="✨-主要特点："><a href="#✨-主要特点：" class="headerlink" title="✨ 主要特点："></a>✨ 主要特点：</h3><ul>
+<li>✅ <strong>无需守护进程</strong>：采用传统的 fork-exec 模式，不需要长期运行的后台服务，更加轻量安全</li>
+<li>✅ <strong>与 Docker CLI 兼容</strong>：学习成本低，大多数命令与 Docker 相同</li>
+<li>✅ <strong>支持 rootless 容器</strong>：允许非 root 用户运行容器，提高安全性</li>
+<li>✅ <strong>完整的容器生态系统支持</strong>：支持容器、镜像、卷和 pod 的管理</li>
+<li>✅ <strong>与 systemd 集成良好</strong>：可以生成 systemd 服务文件，管理容器生命周期</li>
+<li>✅ <strong>支持 Pod 概念</strong>：类似 Kubernetes 中的 Pod，可管理一组共享资源的容器</li>
+</ul>
+<h3 id="🔄-Podman-与-Docker-的主要区别"><a href="#🔄-Podman-与-Docker-的主要区别" class="headerlink" title="🔄 Podman 与 Docker 的主要区别"></a>🔄 Podman 与 Docker 的主要区别</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Podman</th>
+<th>Docker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>架构</strong></td>
+<td>无守护进程 (daemon-less)</td>
+<td>客户端-服务器架构，需守护进程</td>
+</tr>
+<tr>
+<td><strong>root 权限</strong></td>
+<td>支持非 root 用户运行容器</td>
+<td>通常需要 root 权限</td>
+</tr>
+<tr>
+<td><strong>存储</strong></td>
+<td>镜像和容器存储在不同地方</td>
+<td>必须存储在 Docker 引擎本地</td>
+</tr>
+<tr>
+<td><strong>Pod 支持</strong></td>
+<td>原生支持 Pod 概念</td>
+<td>需要通过 Docker Compose 实现类似功能</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a id="installation"></a></p>
+<h2 id="📥-安装-Podman（Debian-Ubuntu）"><a href="#📥-安装-Podman（Debian-Ubuntu）" class="headerlink" title="📥 安装 Podman（Debian/Ubuntu）"></a>📥 安装 Podman（Debian/Ubuntu）</h2><h3 id="1-从系统仓库安装"><a href="#1-从系统仓库安装" class="headerlink" title="1. 从系统仓库安装"></a>1. 从系统仓库安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新系统包列表</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Podman</span></span><br><span class="line"><span class="built_in">sudo</span> apt install -y podman</span><br></pre></td></tr></table></figure>
+<h3 id="2-从第三方仓库安装最新版（可选）"><a href="#2-从第三方仓库安装最新版（可选）" class="headerlink" title="2. 从第三方仓库安装最新版（可选）"></a>2. 从第三方仓库安装最新版（可选）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入 GPG 密钥</span></span><br><span class="line"><span class="built_in">source</span> /etc/os-release</span><br><span class="line">wget http://downloadcontent.opensuse.org/repositories/home:/alvistack/Debian_<span class="variable">$VERSION_ID</span>/Release.key -O alvistack_key</span><br><span class="line"><span class="built_in">cat</span> alvistack_key | gpg --dearmor | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/trusted.gpg.d/alvistack.gpg &gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加安装源</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb http://downloadcontent.opensuse.org/repositories/home:/alvistack/Debian_<span class="variable">$VERSION_ID</span>/ /&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/alvistack.list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Podman 及依赖</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt -y install podman uidmap dbus-x11 slirp4netns libpam-systemd podman-aardvark-dns podman-netavark podman-docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line">podman --version</span><br></pre></td></tr></table></figure>
+<h3 id="3-安装-pipx-和-podman-compose"><a href="#3-安装-pipx-和-podman-compose" class="headerlink" title="3. 安装 pipx 和 podman-compose"></a>3. 安装 pipx 和 podman-compose</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 pipx</span></span><br><span class="line"><span class="built_in">sudo</span> apt install -y pipx</span><br><span class="line">pipx ensurepath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 podman-compose</span></span><br><span class="line">pipx install podman-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line">podman-compose --version</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>💡 <strong>提示</strong>：安装完成后，可能需要重新登录 SSH 会话或执行 <code>source ~/.bashrc</code> 来刷新环境变量。</p>
+</blockquote>
+<p><a id="configuration"></a></p>
+<h2 id="⚙️-基本配置"><a href="#⚙️-基本配置" class="headerlink" title="⚙️ 基本配置"></a>⚙️ 基本配置</h2><h3 id="1-配置国内镜像加速"><a href="#1-配置国内镜像加速" class="headerlink" title="1. 配置国内镜像加速"></a>1. 配置国内镜像加速</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建配置目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/containers</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置镜像加速器</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/containers/registries.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">unqualified-search-registries = [<span class="string">&quot;docker.io&quot;</span>]</span><br><span class="line"></span><br><span class="line">[[registry]]</span><br><span class="line">prefix = <span class="string">&quot;docker.io&quot;</span></span><br><span class="line">location = <span class="string">&quot;docker.1ms.run&quot;</span></span><br><span class="line"></span><br><span class="line">[[registry]]</span><br><span class="line">prefix = <span class="string">&quot;dockerio&quot;</span></span><br><span class="line">location = <span class="string">&quot;hub.rat.dev&quot;</span></span><br><span class="line"></span><br><span class="line">[[registry]]</span><br><span class="line">prefix = <span class="string">&quot;docker.io&quot;</span></span><br><span class="line">location = <span class="string">&quot;docker.xuanyuan.me&quot;</span></span><br><span class="line"></span><br><span class="line">[[registry]]</span><br><span class="line">prefix = <span class="string">&quot;docker.io&quot;</span></span><br><span class="line">location = <span class="string">&quot;docker.1panel.live&quot;</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置无根模式（Rootless-Mode）"><a href="#2-配置无根模式（Rootless-Mode）" class="headerlink" title="2. 配置无根模式（Rootless Mode）"></a>2. 配置无根模式（Rootless Mode）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加专用用户</span></span><br><span class="line"><span class="built_in">sudo</span> useradd -r -m -s /bin/bash podman</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置用户子UID和子GID</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;podman:100000:65536&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/subuid</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;podman:100000:65536&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/subgid</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用用户 linger，允许用户无登录会话运行容器</span></span><br><span class="line"><span class="built_in">sudo</span> loginctl enable-linger podman</span><br></pre></td></tr></table></figure>
+<h3 id="3-解决无根模式下的警告"><a href="#3-解决无根模式下的警告" class="headerlink" title="3. 解决无根模式下的警告"></a>3. 解决无根模式下的警告</h3><p>在非 root 用户下使用 Podman 时，可能会遇到 cgroup 警告，可以通过以下配置解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建用户级配置目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.config/containers</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建配置文件</span></span><br><span class="line"><span class="built_in">tee</span> ~/.config/containers/containers.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[engine]</span><br><span class="line">events_logger = <span class="string">&quot;file&quot;</span></span><br><span class="line">cgroup_manager = <span class="string">&quot;cgroupfs&quot;</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><a id="image-management"></a></p>
+<h2 id="📦-镜像管理"><a href="#📦-镜像管理" class="headerlink" title="📦 镜像管理"></a>📦 镜像管理</h2><p>Podman 的镜像管理与 Docker 类似，但拉取镜像时通常需要<strong>指定完整的注册表路径</strong>。</p>
+<h3 id="常用镜像管理命令"><a href="#常用镜像管理命令" class="headerlink" title="常用镜像管理命令"></a>常用镜像管理命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索镜像</span></span><br><span class="line">podman search nginx --filter=stars=5000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取镜像（需要指定完整注册表路径）</span></span><br><span class="line">podman pull docker.io/library/nginx:latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出本地镜像</span></span><br><span class="line">podman images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除镜像</span></span><br><span class="line">podman rmi -f feb5d9fea6a5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导出镜像</span></span><br><span class="line">podman save -o nginx.tar docker.io/nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入镜像</span></span><br><span class="line">podman load -i nginx.tar</span><br></pre></td></tr></table></figure>
+<p><a id="container-management"></a></p>
+<h2 id="🐳-容器管理"><a href="#🐳-容器管理" class="headerlink" title="🐳 容器管理"></a>🐳 容器管理</h2><h3 id="1-容器生命周期管理"><a href="#1-容器生命周期管理" class="headerlink" title="1. 容器生命周期管理"></a>1. 容器生命周期管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建并启动容器</span></span><br><span class="line">podman run -itd --name my_nginx -p 80:80 nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动/停止/重启容器</span></span><br><span class="line">podman start my_nginx</span><br><span class="line">podman stop my_nginx</span><br><span class="line">podman restart my_nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除容器</span></span><br><span class="line">podman <span class="built_in">rm</span> -f my_nginx</span><br></pre></td></tr></table></figure>
+<h3 id="2-容器交互与监控"><a href="#2-容器交互与监控" class="headerlink" title="2. 容器交互与监控"></a>2. 容器交互与监控</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入容器终端</span></span><br><span class="line">podman <span class="built_in">exec</span> -it my_nginx /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器日志</span></span><br><span class="line">podman logs -tf --<span class="built_in">tail</span> 50 my_nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看资源占用情况</span></span><br><span class="line">podman stats my_nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器进程信息</span></span><br><span class="line">podman top my_nginx</span><br></pre></td></tr></table></figure>
+<h3 id="3-数据管理"><a href="#3-数据管理" class="headerlink" title="3. 数据管理"></a>3. 数据管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 目录挂载</span></span><br><span class="line">podman run -v /host/path:/container/path nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件复制</span></span><br><span class="line">podman <span class="built_in">cp</span> my_nginx:/etc/nginx/nginx.conf ./</span><br></pre></td></tr></table></figure>
+<p><a id="network-multi-container"></a></p>
+<h2 id="🌐-网络与多容器实战（LEMP-环境）"><a href="#🌐-网络与多容器实战（LEMP-环境）" class="headerlink" title="🌐 网络与多容器实战（LEMP 环境）"></a>🌐 网络与多容器实战（LEMP 环境）</h2><h3 id="1-创建自定义网络"><a href="#1-创建自定义网络" class="headerlink" title="1. 创建自定义网络"></a>1. 创建自定义网络</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建桥接网络</span></span><br><span class="line">podman network create lemp --subnet 10.88.0.0/24</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看网络信息</span></span><br><span class="line">podman network <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-启动容器集群"><a href="#2-启动容器集群" class="headerlink" title="2. 启动容器集群"></a>2. 启动容器集群</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Nginx 容器</span></span><br><span class="line">podman run -d --name nginx --network lemp --ip 10.88.0.10 \</span><br><span class="line">  -p 80:80 -v /html:/usr/share/nginx/html nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># PHP-FPM 容器</span></span><br><span class="line">podman run -d --name php-fpm --network lemp --ip 10.88.0.20 \</span><br><span class="line">  -v /html:/var/www/html bitnami/php-fpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># MariaDB 容器</span></span><br><span class="line">podman run -d --name mariadb --network lemp --ip 10.88.0.30 \</span><br><span class="line">  -v /sql_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=secret mariadb</span><br></pre></td></tr></table></figure>
+<h3 id="3-Nginx-连接-PHP-FPM-配置"><a href="#3-Nginx-连接-PHP-FPM-配置" class="headerlink" title="3. Nginx 连接 PHP-FPM 配置"></a>3. Nginx 连接 PHP-FPM 配置</h3><p>修改 Nginx 站点配置文件，添加 PHP 处理：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">location</span> <span class="regexp">~ \.php$</span> &#123;</span><br><span class="line">    <span class="attribute">fastcgi_pass</span> <span class="number">10.88.0.20:9000</span>;</span><br><span class="line">    <span class="attribute">include</span> fastcgi_params;</span><br><span class="line">    <span class="attribute">fastcgi_param</span> SCRIPT_FILENAME /var/www/html<span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-测试容器通信"><a href="#4-测试容器通信" class="headerlink" title="4. 测试容器通信"></a>4. 测试容器通信</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试容器间通信</span></span><br><span class="line">podman <span class="built_in">exec</span> -it nginx ping php-fpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试与宿主机的通信</span></span><br><span class="line">podman <span class="built_in">exec</span> -it nginx ping host.containers.internal</span><br></pre></td></tr></table></figure>
+<p><a id="advanced-features"></a></p>
+<h2 id="⚡-高级特性"><a href="#⚡-高级特性" class="headerlink" title="⚡ 高级特性"></a>⚡ 高级特性</h2><h3 id="1-Pod-管理"><a href="#1-Pod-管理" class="headerlink" title="1. Pod 管理"></a>1. Pod 管理</h3><p>Podman 支持 Pod 概念，类似于 Kubernetes 中的 Pod，允许一组容器共享相同的网络、PID 和 IPC 命名空间。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 Pod（可能需要先拉取 infra 镜像）</span></span><br><span class="line">podman pull registry.aliyuncs.com/google_containers/pause:3.2</span><br><span class="line">podman image tag registry.aliyuncs.com/google_containers/pause:3.2 k8s.gcr.io/pause:3.2</span><br><span class="line"></span><br><span class="line">podman pod create --name mypod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Pod 中运行容器</span></span><br><span class="line">podman run -d --pod mypod --name container1 nginx</span><br><span class="line">podman run -d --pod mypod --name container2 alpine ping 8.8.8.8</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Pod</span></span><br><span class="line">podman pod ps</span><br><span class="line">podman ps --pod</span><br></pre></td></tr></table></figure>
+<h3 id="2-特权容器"><a href="#2-特权容器" class="headerlink" title="2. 特权容器"></a>2. 特权容器</h3><p>特权容器突破默认隔离限制，需谨慎使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问主机进程</span></span><br><span class="line">podman run --privileged --pid=host alpine ps aux</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问主机网络</span></span><br><span class="line">podman run --net=host nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 挂载主机设备</span></span><br><span class="line">podman run --privileged -v /dev:/dev ubuntu</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>警告</strong>：特权容器存在安全风险，仅在必要时使用并配合 <code>--cap-add</code> 精细化授权。</p>
+</blockquote>
+<p><a id="systemd-services"></a></p>
+<h2 id="🔄-系统服务与自启动"><a href="#🔄-系统服务与自启动" class="headerlink" title="🔄 系统服务与自启动"></a>🔄 系统服务与自启动</h2><p>Podman 可以与 systemd 集成，将容器作为系统服务管理。</p>
+<h3 id="1-生成-systemd-服务文件"><a href="#1-生成-systemd-服务文件" class="headerlink" title="1. 生成 systemd 服务文件"></a>1. 生成 systemd 服务文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成服务文件</span></span><br><span class="line">podman generate systemd --new --name nginx &gt; ~/.config/systemd/user/container-nginx.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用并启动服务</span></span><br><span class="line">systemctl --user <span class="built_in">enable</span> container-nginx.service</span><br><span class="line">systemctl --user start container-nginx.service</span><br></pre></td></tr></table></figure>
+<h3 id="2-启用用户级服务持久化"><a href="#2-启用用户级服务持久化" class="headerlink" title="2. 启用用户级服务持久化"></a>2. 启用用户级服务持久化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用用户 linger，允许用户服务在无登录会话时运行</span></span><br><span class="line"><span class="built_in">sudo</span> loginctl enable-linger <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🔧-故障排查"><a href="#🔧-故障排查" class="headerlink" title="🔧 故障排查"></a>🔧 故障排查</h2><h3 id="1-常见问题及解决方法"><a href="#1-常见问题及解决方法" class="headerlink" title="1. 常见问题及解决方法"></a>1. 常见问题及解决方法</h3><p><strong>问题一：镜像拉取失败</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查注册表配置</span></span><br><span class="line"><span class="built_in">cat</span> /etc/containers/registries.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 尝试使用其他镜像源</span></span><br><span class="line">podman pull registry.aliyuncs.com/library/nginx</span><br></pre></td></tr></table></figure></p>
+<p><strong>问题二：权限错误</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查用户命名空间配置</span></span><br><span class="line"><span class="built_in">cat</span> /etc/subuid</span><br><span class="line"><span class="built_in">cat</span> /etc/subgid</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用用户命名空间</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;kernel.unprivileged_userns_clone=1&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/sysctl.d/userns.conf</span><br><span class="line"><span class="built_in">sudo</span> sysctl -p</span><br></pre></td></tr></table></figure></p>
+<p><strong>问题三：cgroup 警告</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建用户级配置解决 cgroup 警告</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.config/containers</span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;[engine]\nevents_logger = \&quot;file\&quot;\ncgroup_manager = \&quot;cgroupfs\&quot;&quot;</span> &gt; ~/.config/containers/containers.conf</span><br></pre></td></tr></table></figure></p>
+<p><strong>问题四：端口冲突</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查端口使用情况</span></span><br><span class="line">ss -tulpn | grep :80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用不同端口运行容器</span></span><br><span class="line">podman run -d --name nginx -p 8080:80 nginx</span><br></pre></td></tr></table></figure></p>
+<p><a id="command-comparison"></a></p>
+<h2 id="📊-命令对比"><a href="#📊-命令对比" class="headerlink" title="📊 命令对比"></a>📊 命令对比</h2><h3 id="Podman-与-Docker-命令对比表"><a href="#Podman-与-Docker-命令对比表" class="headerlink" title="Podman 与 Docker 命令对比表"></a>Podman 与 Docker 命令对比表</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Docker 命令</th>
+<th>Podman 命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>列出容器</strong></td>
+<td><code>docker ps</code></td>
+<td><code>podman ps</code></td>
+<td>列出运行中的容器</td>
+</tr>
+<tr>
+<td><strong>列出镜像</strong></td>
+<td><code>docker images</code></td>
+<td><code>podman images</code></td>
+<td>列出本地镜像</td>
+</tr>
+<tr>
+<td><strong>运行容器</strong></td>
+<td><code>docker run</code></td>
+<td><code>podman run</code></td>
+<td>运行容器</td>
+</tr>
+<tr>
+<td><strong>构建镜像</strong></td>
+<td><code>docker build</code></td>
+<td><code>podman build</code></td>
+<td>构建镜像</td>
+</tr>
+<tr>
+<td><strong>容器编排</strong></td>
+<td><code>docker-compose up</code></td>
+<td><code>podman-compose up</code></td>
+<td>启动 compose 项目</td>
+</tr>
+<tr>
+<td><strong>查看日志</strong></td>
+<td><code>docker logs</code></td>
+<td><code>podman logs</code></td>
+<td>查看容器日志</td>
+</tr>
+<tr>
+<td><strong>执行命令</strong></td>
+<td><code>docker exec</code></td>
+<td><code>podman exec</code></td>
+<td>在容器中执行命令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a id="performance-optimization"></a></p>
+<h2 id="📈-性能监控与优化"><a href="#📈-性能监控与优化" class="headerlink" title="📈 性能监控与优化"></a>📈 性能监控与优化</h2><h3 id="1-资源监控"><a href="#1-资源监控" class="headerlink" title="1. 资源监控"></a>1. 资源监控</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看容器资源使用情况</span></span><br><span class="line">podman stats</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看系统级容器资源使用</span></span><br><span class="line">podman system <span class="built_in">df</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-资源限制"><a href="#2-资源限制" class="headerlink" title="2. 资源限制"></a>2. 资源限制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行带资源限制的容器</span></span><br><span class="line">podman run -it --memory=512m --cpus=1.5 alpine</span><br></pre></td></tr></table></figure>
+<h3 id="3-清理无用资源"><a href="#3-清理无用资源" class="headerlink" title="3. 清理无用资源"></a>3. 清理无用资源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理停止的容器</span></span><br><span class="line">podman container prune</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理未使用的镜像</span></span><br><span class="line">podman image prune</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理所有未使用的资源</span></span><br><span class="line">podman system prune</span><br></pre></td></tr></table></figure>
+<h2 id="💎-总结"><a href="#💎-总结" class="headerlink" title="💎 总结"></a>💎 总结</h2><p>Podman 是一个强大且安全的容器运行时工具，它以其无守护进程的架构和出色的 rootless 支持而脱颖而出。通过本指南，您应该能够：</p>
+<ol>
+<li>✅ 在 Debian/Ubuntu 系统上安装和配置 Podman</li>
+<li>✅ 使用国内镜像加速器提高拉取速度</li>
+<li>✅ 管理容器和镜像，包括 Pod 的创建和管理</li>
+<li>✅ 配置容器网络和多容器应用环境</li>
+<li>✅ 将容器集成到 systemd 系统中作为服务运行</li>
+<li>✅ 排查常见问题并优化性能</li>
+</ol>
+<p>Podman 特别适合希望避免守护进程安全风险的用户，以及需要在非 root 环境下运行容器的场景。随着容器技术的不断发展，Podman 正成为一个越来越受欢迎的 Docker 替代方案。</p>
+<h2 id="📚-扩展资源"><a href="#📚-扩展资源" class="headerlink" title="📚 扩展资源"></a>📚 扩展资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://podman.io/">Podman 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/containers/podman">Podman GitHub 仓库</a></li>
+<li><a target="_blank" rel="noopener" href="https://opencontainers.org/">OCI 标准文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/security/">容器安全最佳实践</a></li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/podman/">podman</a></div><div class="post-share"><div class="social-share" data-image="https://api.mobufan.eu.org:666/pc?7602" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/ae6aadb8.html" title="Podman 镜像管理完全指南 📦"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8344" onerror="onerror=null;src='/img/404.gif'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Podman 镜像管理完全指南 📦</div></div><div class="info-2"><div class="info-item-1">Podman 镜像管理完全指南 📦  🔍 全面掌握 Podman 镜像管理的专业技巧，从基础操作到高级优化   📖 目录导航 ✨ Podman 简介与特点 📋 一、镜像管理基础命令 🧹 二、镜像清理与维护 ⚙️ 三、高级镜像操作 🔍 四、镜像查询与过滤 🛡️ 五、安全最佳实践 📊 六、实用脚本示例 🚀 七、性能优化技巧 🎯 总结    ✨ Podman 简介与特点Podman 是一个开源的容器运行时工具，旨在替代 Docker，具有以下优秀特性：  🔒 无守护进程：不需要后台守护进程，更加安全可靠 🐧 Rootless 运行：支持非特权用户运行容器，提升安全性 🔄 兼容 Docker：大部分命令与 Docker 兼容，学习成本低 🌐 开源免费：完全开源，无商业限制 ⚡ 轻量高效：资源占用少，启动速度快 🛡️ 安全可靠：采用传统的 fork-exec 模型，减少攻击面 📦 镜像兼容：完全支持 OCI 标准镜像格式  🎯 适用场景：  开发环境容器化 生产环境容器部署 CI/CD 流水线 本地开发和测试 多平台容器构建    📋 一、镜像管理基础命...</div></div></div></a><a class="pagination-related" href="/posts/9b7aa310.html" title="Git 项目管理工具脚本 🛠️"><img class="cover" src="https://api.mobufan.eu.org:666/pc?7125" onerror="onerror=null;src='/img/404.gif'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Git 项目管理工具脚本 🛠️</div></div><div class="info-2"><div class="info-item-1">Git 项目管理工具脚本 🛠️  功能强大的图形化 Git 多仓库管理工具，提升开发效率   📋 文章目录 🌟 工具概述 🚀 快速开始 1. 从 GitHub 运行 2. 从 Gitee 运行 3. 本地安装   🎯 核心功能 1. 拉取当前仓库更新 2. 推送当前仓库更改 3. 标签管理功能 4. 批量拉取更新 5. 批量推送更新 6. 仓库克隆管理   ⚙️ 安装与配置 1. 全局安装 2. 配置文件 3. 仓库列表格式   🖥️ 界面与交互 1. 主界面预览 2. 快捷键支持 3. 状态指示器   🔧 高级功能 1. 自定义配置 2. 批量操作 3. 网络优化   🎮 使用示例 1. 日常更新流程 2. 版本发布流程 3. 新环境搭建   ⚠️ 注意事项 1. 权限要求 2. 冲突处理 3. 备份策略   ❌ 故障排除 1. 常见问题 2. 解决方案      🌟 工具概述Git 项目管理工具是一个功能强大的 Bash 脚本，提供图形化界面来高效管理多个 Git 仓库。专为需要同时处理多个项目的开发者设计！✨ 🎯 设计理念： 一站式管理：统一界面管理所有...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/ab295d7b.html" title="Podman 容器管理完全指南 🐳"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8738" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Podman 容器管理完全指南 🐳</div></div><div class="info-2"><div class="info-item-1">Podman 容器管理完全指南 🐳  📋 目录 📖 简介 👀 容器查看命令 ⚡ 容器生命周期管理 📊 容器日志和监控 💻 容器交互操作 🔄 批量操作 🔍 容器信息查询 🚀 高级管理命令 📝 实用脚本示例 🛠️ 故障排除 🔒 安全最佳实践 🌐 网络管理 📦 镜像管理    📖 简介Podman 是一个开源的容器运行时工具，用于管理容器、镜像和容器编排。它与 Docker 兼容但无需守护进程，提供了更安全的容器管理方式。Podman 支持 rootless 容器运行，是 Docker 的优秀替代品。 🎯 Podman 主要特性 无守护进程架构: 不需要长期运行的守护进程 Rootless 容器: 允许普通用户运行容器，提高安全性 Docker 兼容: 支持 Docker CLI 命令和镜像格式 Pod 支持: 原生支持 Kubernetes 风格的 Pod 系统集成: 与 systemd 集成良好  🔄 Podman vs Docker    特性 Podman Docker     架构 无守护进程 客户端-服务器架构   权限 支持 rootle...</div></div></div></a><a class="pagination-related" href="/posts/ae6aadb8.html" title="Podman 镜像管理完全指南 📦"><img class="cover" src="https://api.mobufan.eu.org:666/pc?8344" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="info-item-2">Podman 镜像管理完全指南 📦</div></div><div class="info-2"><div class="info-item-1">Podman 镜像管理完全指南 📦  🔍 全面掌握 Podman 镜像管理的专业技巧，从基础操作到高级优化   📖 目录导航 ✨ Podman 简介与特点 📋 一、镜像管理基础命令 🧹 二、镜像清理与维护 ⚙️ 三、高级镜像操作 🔍 四、镜像查询与过滤 🛡️ 五、安全最佳实践 📊 六、实用脚本示例 🚀 七、性能优化技巧 🎯 总结    ✨ Podman 简介与特点Podman 是一个开源的容器运行时工具，旨在替代 Docker，具有以下优秀特性：  🔒 无守护进程：不需要后台守护进程，更加安全可靠 🐧 Rootless 运行：支持非特权用户运行容器，提升安全性 🔄 兼容 Docker：大部分命令与 Docker 兼容，学习成本低 🌐 开源免费：完全开源，无商业限制 ⚡ 轻量高效：资源占用少，启动速度快 🛡️ 安全可靠：采用传统的 fork-exec 模型，减少攻击面 📦 镜像兼容：完全支持 OCI 标准镜像格式  🎯 适用场景：  开发环境容器化 生产环境容器部署 CI/CD 流水线 本地开发和测试 多平台容器构建    📋 一、镜像管理基础命...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Podman-%E5%AE%B9%E5%99%A8%E5%BC%95%E6%93%8E%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE-%F0%9F%9A%80"><span class="toc-text">Podman 容器引擎安装与配置 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-text">🌟 项目简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%A8-%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="toc-text">✨ 主要特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-Podman-%E4%B8%8E-Docker-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="toc-text">🔄 Podman 与 Docker 的主要区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A5-%E5%AE%89%E8%A3%85-Podman%EF%BC%88Debian-Ubuntu%EF%BC%89"><span class="toc-text">📥 安装 Podman（Debian&#x2F;Ubuntu）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8E%E7%B3%BB%E7%BB%9F%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85"><span class="toc-text">1. 从系统仓库安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BB%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">2. 从第三方仓库安装最新版（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85-pipx-%E5%92%8C-podman-compose"><span class="toc-text">3. 安装 pipx 和 podman-compose</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">⚙️ 基本配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F"><span class="toc-text">1. 配置国内镜像加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E6%97%A0%E6%A0%B9%E6%A8%A1%E5%BC%8F%EF%BC%88Rootless-Mode%EF%BC%89"><span class="toc-text">2. 配置无根模式（Rootless Mode）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%A7%A3%E5%86%B3%E6%97%A0%E6%A0%B9%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E8%AD%A6%E5%91%8A"><span class="toc-text">3. 解决无根模式下的警告</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="toc-text">📦 镜像管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">常用镜像管理命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%B3-%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-text">🐳 容器管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%B9%E5%99%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86"><span class="toc-text">1. 容器生命周期管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%B9%E5%99%A8%E4%BA%A4%E4%BA%92%E4%B8%8E%E7%9B%91%E6%8E%A7"><span class="toc-text">2. 容器交互与监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86"><span class="toc-text">3. 数据管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%A4%9A%E5%AE%B9%E5%99%A8%E5%AE%9E%E6%88%98%EF%BC%88LEMP-%E7%8E%AF%E5%A2%83%EF%BC%89"><span class="toc-text">🌐 网络与多容器实战（LEMP 环境）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C"><span class="toc-text">1. 创建自定义网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8%E9%9B%86%E7%BE%A4"><span class="toc-text">2. 启动容器集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Nginx-%E8%BF%9E%E6%8E%A5-PHP-FPM-%E9%85%8D%E7%BD%AE"><span class="toc-text">3. Nginx 连接 PHP-FPM 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B5%8B%E8%AF%95%E5%AE%B9%E5%99%A8%E9%80%9A%E4%BF%A1"><span class="toc-text">4. 测试容器通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="toc-text">⚡ 高级特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Pod-%E7%AE%A1%E7%90%86"><span class="toc-text">1. Pod 管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%89%B9%E6%9D%83%E5%AE%B9%E5%99%A8"><span class="toc-text">2. 特权容器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E4%B8%8E%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-text">🔄 系统服务与自启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%9F%E6%88%90-systemd-%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6"><span class="toc-text">1. 生成 systemd 服务文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%AF%E7%94%A8%E7%94%A8%E6%88%B7%E7%BA%A7%E6%9C%8D%E5%8A%A1%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">2. 启用用户级服务持久化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5"><span class="toc-text">🔧 故障排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">1. 常见问题及解决方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%AF%94"><span class="toc-text">📊 命令对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Podman-%E4%B8%8E-Docker-%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="toc-text">Podman 与 Docker 命令对比表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%88-%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">📈 性能监控与优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7"><span class="toc-text">1. 资源监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-text">2. 资源限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B8%85%E7%90%86%E6%97%A0%E7%94%A8%E8%B5%84%E6%BA%90"><span class="toc-text">3. 清理无用资源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%8E-%E6%80%BB%E7%BB%93"><span class="toc-text">💎 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9A-%E6%89%A9%E5%B1%95%E8%B5%84%E6%BA%90"><span class="toc-text">📚 扩展资源</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 墨不凡</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="日间和夜间模式切换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><!-- 直达底部按钮--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.8/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script async src="/js/runtime.js"></script><script src="/js/sun_moon.js"></script><script src="/js/APlayer.min.js"></script><script async src="/js/font_4857814_n91auwhepk.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/fireworks.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.6/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '600ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-related');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__heartBeat');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '800ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/meimolihan/cdn@v1.0.0/hexo-butterfly-wowjs/wow_init.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><script async src="//at.alicdn.com/t/c/font_4857814_n91auwhepk.js"></script><!-- hexo injector body_end end --></body></html>
