@@ -15,6 +15,7 @@
     user-select: none;
     line-height: normal;                                 /* 恢复浏览器默认行高，避免继承异常 */
     position: relative;                                  /* 为内部绝对定位元素建立包含块 */
+	backdrop-filter: blur(12px); /* 添加磨砂效果，模糊半径为12px */
 }
 
 /* 统一盒模型：保持旧版 APlayer 计算方式（content-box）*/
@@ -1081,6 +1082,20 @@
 [data-theme="dark"] @keyframes rotate {
 	0% { -webkit-transform: rotate(0); transform: rotate(0) }
 	to { -webkit-transform: rotate(1turn); transform: rotate(1turn) }
+}
+
+/* Width 的值可根据喜好调整（屏幕的宽度） */
+@media (max-width: 960px) {
+    /* APlayer 音乐标签伸缩 */
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+        /* 默认情况下缩进左侧 66px，只留一点箭头部分 */
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0 !important;
+        /* 鼠标悬停是左侧缩进归零，完全显示按钮 */
+    }
 }
 
 /*强制隐藏歌词-需要歌词释放此项*/
