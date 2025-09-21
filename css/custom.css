@@ -4887,7 +4887,7 @@ blockquote {
   border-radius: 12px; /* 设置圆角边框 */
 }
 
-/* 下一篇文字 */
+/****** 下一篇文章 ******/
 .prev-post.pull-left,
 .next-post.pull-right {
   border: var(--border-style) !important; /* 边框装饰线颜色 */
@@ -4895,12 +4895,41 @@ blockquote {
 }
 .prev-post.pull-left:hover,
 .next-post.pull-right:hover {
-  border-radius: 15px; /* 设置圆角边框 */
+  border-radius: 15px !important; /* 设置圆角边框 */
   box-shadow: 0 0 3px var(--theme-color) !important;
   transform: scale(0.96);  /* 放大0.98倍 */
   transform-origin: center;  /* 从中心点放大 */
   transition: transform 0.3s ease; /* 平滑过渡效果 */
   box-shadow: 0 0 3px var(--theme-color) !important; /* 添加阴影效果 */
+}
+/* 下一篇容器：悬停时圆角 15 px */
+.prev-post:hover;
+.next-post:hover {
+  border-radius: 15px;
+  overflow: hidden;   /* 防止图片边角溢出 */
+}
+/* 下一篇容器：悬停时同步 15 px */
+.next-post:hover .next-cover {
+  border-radius: 15px;
+}
+/* 平滑过渡 */
+.next-post,
+.next-post .next-cover {
+  transition: border-radius .3s ease;
+}
+/* 上一篇容器：悬停时圆角 15 px */
+.prev-post:hover {
+  border-radius: 15px;
+  overflow: hidden;   /* 防止图片边角溢出 */
+}
+/* 上一篇图片：悬停时同步 15 px */
+.prev-post:hover .prev-cover {
+  border-radius: 15px;
+}
+/* 平滑过渡 */
+.prev-post,
+.prev-post .prev-cover {
+  transition: border-radius .3s ease;
 }
 
 /* 相关推荐 */
