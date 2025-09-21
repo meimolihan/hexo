@@ -28,15 +28,15 @@
 
 /********* 调整导航栏（图标大小和文字颜色）*********/
 .site-page svg {
-  width: 1.5em !important; /* 调整（导航栏图标）的宽度 */
-  height: 1.5em!important; /* 调整（导航栏图标）的高度 */
+  width: 1.3em !important; /* 调整（导航栏图标）的宽度 */
+  height: 1.3em!important; /* 调整（导航栏图标）的高度 */
   vertical-align: middle !important; /* 默认居中对齐 */
-  vertical-align: -0.3em !important; /* 向上移动 */
+  vertical-align: -0.2em !important; /* 向上移动 */
 }
 .site-page span {
-  width: 1.5em !important; /* 调整（导航栏图标）的宽度 */
-  height: 1.5em!important; /* 调整（导航栏图标）的高度 */
-  font-size: 1.38em !important; /* 调整（导航栏文字）大小 */
+  width: 1.2em !important; /* 调整（导航栏图标）的宽度 */
+  height: 1.2em!important; /* 调整（导航栏图标）的高度 */
+  font-size: 1.2em !important; /* 调整（导航栏文字）大小 */
   vertical-align: 0.01em !important; /* 向上移动 */
 }
 
@@ -44,14 +44,14 @@
   font-size: 28px !important;   /* 想再大就改 40px、3rem… */
 }
 
-/* 调整（导航栏菜单图标）的宽度 */
+/* 调整（手机导航栏菜单图标）的宽度 */
 svg.faa-tada.caidan {
-  width: 1.1em !important; /* 调整（导航栏图标）的宽度 */
-  height: 1.1em!important; /* 调整（导航栏图标）的高度 */
+  width: 1.2em !important; /* 调整（导航栏图标）的宽度 */
+  height: 1.2em!important; /* 调整（导航栏图标）的高度 */
   vertical-align: middle !important; /* 默认居中对齐 */
   vertical-align: 0.09em !important; /* 向上移动 */
 }
-/********* 调整导航栏（图标大小和文字颜色）*********/
+/********* 以上是 调整导航栏（图标大小和文字颜色）*********/
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {
@@ -1742,6 +1742,11 @@ a:hover {
 #sidebar #sidebar-menus {
   background: linear-gradient(60deg, #ffd7e4 0, #c8f1ff 93%);
   border-radius: 15px;
+}
+
+/* 手机菜单子分类小箭头（上下居中） */
+.site-page.group .fa-chevron-down {
+  top: 36% !important;
 }
 
 /* 手机菜单栏渐变色适配暗黑模式 */
