@@ -1,0 +1,1000 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Debian 静态 IPv4 配置与管理指南 📡 | 凡凡小站</title><meta name="keywords" content="debian,ipv4"><meta name="author" content="凡凡小站"><meta name="copyright" content="凡凡小站"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Debian 静态 IPv4 配置与管理指南 📡   📑 导航目录  🌠 简介与特点 ⚡ 默认网关配置 📋 网络配置文件管理 🌐 DNS 配置指南 🔧 完整静态 IP 配置示例 🛠️ 网络故障排查 ⚠️ 注意事项 🔄 恢复网络配置 💡 实用脚本与技巧    🌠 简介与特点 Debian 是最古老且最受尊敬的 Linux 发行版之一，以其稳定性、安全性和广泛的软件包支持著称。本指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debian 静态 IPv4 配置与管理指南 📡">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/9b25570b.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Debian 静态 IPv4 配置与管理指南 📡   📑 导航目录  🌠 简介与特点 ⚡ 默认网关配置 📋 网络配置文件管理 🌐 DNS 配置指南 🔧 完整静态 IP 配置示例 🛠️ 网络故障排查 ⚠️ 注意事项 🔄 恢复网络配置 💡 实用脚本与技巧    🌠 简介与特点 Debian 是最古老且最受尊敬的 Linux 发行版之一，以其稳定性、安全性和广泛的软件包支持著称。本指">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?8100">
+<meta property="article:published_time" content="2025-09-12T08:02:57.000Z">
+<meta property="article:modified_time" content="2025-09-12T08:02:57.000Z">
+<meta property="article:author" content="凡凡小站">
+<meta property="article:tag" content="debian">
+<meta property="article:tag" content="ipv4">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?8100"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/9b25570b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"已经过了","messageNext":"天自上次更新，文章内容可能已过时。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Debian 静态 IPv4 配置与管理指南 📡',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-12 16:02:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/element-ui@2.15.6/packages/theme-chalk/lib/index.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/test.css"><link rel="stylesheet" href="/css/jquery.fancybox.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.css"><link rel="stylesheet" href="/css/fa-solid-900.woff2"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- 添加音频播放器代码--><!--link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css')--><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><!--script(src='https://cdn.meimolihan.eu.org/APlayer/APlayer.min.js')--><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+   '蜉蝣志-石岩',
+   'Batteforte(VanniGRemix)-Lollipop',     '忘川彼岸-零一九零贰',
+   '背着风流泪-文夫',
+   '苟活-周文凯',
+   '我爱他-丁当',
+   '苟活之重生-周文凯',
+   '最好的安排-曲婉婷',
+   '望故乡-文夫',
+   '骗子-文夫',
+   '最后一次的温柔-田园',
+   '我把往事化如烟-侯泽润',
+   '亲爱的你啊-任素汐',
+   '单身万岁-演员雪姐',
+   '借口-侯泽润',
+   '一句先苦后甜-侯泽润',
+   '你怎么舍得我难过-正在进行石女士',
+   '九万字-张靓颖、摩登兄弟刘宇宁',
+   '老男孩-筷子兄弟', 
+   '雨蝶-李翊君', 
+  'JarOfLove-曲婉婷', 
+  '我的歌声里-曲婉婷', 
+  '跳楼机-张靓颖.王以太', 
+  '浪子的心情-十二大美女', 
+  '空荡的酒杯(天籁版)-洋澜一', 
+  '谢谢你的爱1999-谢霆锋', 
+  '月亮照山川-窝窝', 
+  '离别开出花-就是南方凯', 
+  '爱是你我-刀郎、云朵', 
+  '你在他乡还好吗-大双二双',
+  '执子之手-宝石Gem',
+  '这些年在忙什么-田园',
+  '平凡日子里的挣扎-小璐',
+  '无爱情歌-王娜',
+  '人间疾苦-马健涛',
+  '大风吹倒梧桐树-侯泽润、田园',
+  '跳楼机-en',
+  '一路生花-温奕心',
+  '碎银几两-轩东',
+  '此生无憾-金钰儿',
+  '搀扶-马健涛',
+  '敬往事一杯-侯泽润',
+  '人间一路-青木时光',
+  '别怕我伤心-张信哲',
+  '大东北我的家乡-何玉',
+  '陪我过个冬-燃',
+  '我期待的不是雪-张妙格',
+  '苦命的人-刘阳阳',
+  '爱情恰恰-十二大美女',
+  '不要慌，太阳下山有月光-张含韵',
+  '往事只能回味-周虹',
+  '花妖-刀郎',
+  '一身傲骨不低头-侯泽润',
+  '罗刹海市-刀郎',
+  '怀念战友-刀郎',
+  '西海情歌-刀郎',
+  '我的春风何时来-李贺',
+  '爱我还是他-刘大拿',
+  '爱你十分泪七分-裘海正',
+  '大不了-花姐',
+  '白鸽乌鸦相爱的戏码-艾辰',
+  '爱意藏风里-何雨溪',
+  '忠孝东路走九遍-动力火车',
+  '这一路风太大-原来是夏夏',
+  '天高任鸟飞-侯泽润',
+  '月光凉.落满窗-泡芙芙Scarlett',
+  '败-侯泽润',
+  '一万个理由-郑源',
+  '一亿个伤心-蒙面哥',
+  '一无所有的年纪-侯泽润',
+  '万有引力-汪苏泷',
+  '人间半途-刘阳阳',
+  '人间烟火-程响',
+  '伤心剖半-邓典',
+  '伤心太平洋-任贤齐',
+  '你别慌余生还长-任夏',
+  '假如我不再善良-郑畅业',
+  '冲动的惩罚-刀郎',
+  '凡夫俗子-范茹',
+  '别说我的眼泪你无所谓-东来东往',
+  '可能-程响',
+  '听-张杰',
+  '喀什噶尔胡杨-刀郎',
+  '因为爱所以爱-谢霆锋',
+  '土坡上的狗尾草-卢润泽',
+  '多想做个哑巴-侯泽润',
+  '失恋阵线联盟-草蜢',
+  '妈妈我想回家-曾抖抖',
+  '小模样-张冬玲',
+  '年少的你啊-浩然H.R',
+  '归途的光-诺爷Plus',
+  '心态才是你风水-艺凌',
+  '我也不想活得太累-郑畅业',
+  '我真怕自己哪天倒下-张良',
+  '手心里的温柔-刀郎',
+  '换个方向风景会更好看-杨一琪',
+  '放手也是一种成全-郑畅业',
+  '星星点灯-大波浪',
+  '星河万里-Rom邢锐',
+  '有点甜-汪苏泷.BY2',
+  '海边探戈-王鹤棣',
+  '火力全开-王力宏',
+  '生活没有说明书-洛什么洛',
+  '破碎的梦-陈柏曦',
+  '秋风经过-任夏',
+  '第51次原谅-刘艺雯',
+  '老人与海-汪苏泷.王心凌',
+  '胡广生-任素汐',
+  '苹果香-狼戈',
+  '西楼儿女-岳云鹏',
+  '谁明浪子心-王杰',
+  '路灯下点烟时没有打火机-王永清',
+  '过了河就拆桥-成学迅',
+  '野狼disco-宝石Gem',
+  '除了生死都是擦伤-侯泽润',
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+  const songInfo = item.split('-');
+  audios.push({
+    name: songInfo[0],
+    artist: songInfo[1],
+    url: home + item + '/song.mp3',
+    cover: home + item + '/cover.jpg',
+    lrc: home + item + '/lyric.lrc'
+  });
+});
+
+const ap = new APlayer({
+  container: document.getElementById('aplayer'),
+  fixed: true,
+  lrcType: 3,
+  audio: audios
+});</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="凡凡小站" type="application/atom+xml">
+</head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/muzimi.png" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-shouye2"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shouye2"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei2">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bianzu41">                   </use></svg><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">凡凡小站</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-shouye2"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shouye2"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei2">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bianzu41">                   </use></svg><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-sousuojituanshangpin"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian4"></use></svg></a><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="浅色和深色模式转换" id="nightmode-button"><svg class="faa-tada" style="height:25px;width:25px;fill:currentColor;position:relative;top:7px" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">       </use></svg></a><div id="toggle-menu"><a><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada caidan" style="height:18px;width:18px;fill:currentColor;position:relative;top:7px"><use id="modeicon" xlink:href="#icon-caidan1"></use></svg></a></a></div></div></div></nav><div id="post-info"><h1 class="post-title">Debian 静态 IPv4 配置与管理指南 📡</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2025-09-12T08:02:57.000Z" title="发表于 2025-09-12 16:02:57">2025-09-12</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T08:02:57.000Z" title="更新于 2025-09-12 16:02:57">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">2283</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>Debian 静态 IPv4 配置与管理指南 📡</h1>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.meimolihan.eu.org/img/debian-01.webp" alt=""></p>
+<hr>
+<h2 id="📑-导航目录">📑 导航目录</h2>
+<ul>
+<li><a href="#intro">🌠 简介与特点</a></li>
+<li><a href="#gateway-config">⚡ 默认网关配置</a></li>
+<li><a href="#config-management">📋 网络配置文件管理</a></li>
+<li><a href="#dns-config">🌐 DNS 配置指南</a></li>
+<li><a href="#full-config">🔧 完整静态 IP 配置示例</a></li>
+<li><a href="#troubleshooting">🛠️ 网络故障排查</a></li>
+<li><a href="#important-notes">⚠️ 注意事项</a></li>
+<li><a href="#recovery">🔄 恢复网络配置</a></li>
+<li><a href="#practical-tips">💡 实用脚本与技巧</a></li>
+</ul>
+<hr>
+<p><a id="intro"></a></p>
+<h2 id="🌠-简介与特点">🌠 简介与特点</h2>
+<p>Debian 是最古老且最受尊敬的 Linux 发行版之一，以其稳定性、安全性和广泛的软件包支持著称。本指南专注于 Debian 系统的静态 IPv4 网络配置，特别是网关管理和网络故障排除。</p>
+<p><strong>主要功能</strong>：</p>
+<ul>
+<li>✅ 多网关快速切换脚本</li>
+<li>✅ 传统 interfaces 和现代 netplan 配置方法</li>
+<li>✅ 完整的网络诊断工具集</li>
+<li>✅ DNS 配置详解（包括 systemd-resolved）</li>
+<li>✅ 配置备份和恢复机制</li>
+<li>✅ 实用脚本和自动化技巧</li>
+</ul>
+<hr>
+<p><a id="gateway-config"></a></p>
+<h2 id="⚡-默认网关配置">⚡ 默认网关配置</h2>
+<h3 id="1-配置-10-10-10-252-网关">1. 配置 10.10.10.252 网关</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/gateway.*/gateway 10.10.10.252/&#x27;</span> /etc/network/interfaces &amp;&amp; \</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart networking &amp;&amp; \</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;✅ 已成功切换到网关: 10.10.10.252&quot;</span></span><br><span class="line"><span class="comment"># 💨 一键配置 10.10.10.252 网关并重启网络服务</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-配置-10-10-10-243-网关">2. 配置 10.10.10.243 网关</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/gateway.*/gateway 10.10.10.243/&#x27;</span> /etc/network/interfaces &amp;&amp; \</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart networking &amp;&amp; \</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;✅ 已成功切换到网关: 10.10.10.243&quot;</span></span><br><span class="line"><span class="comment"># 💨 一键配置 10.10.10.243 网关并重启网络服务</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-配置-10-10-10-253-网关">3. 配置 10.10.10.253 网关</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/gateway.*/gateway 10.10.10.253/&#x27;</span> /etc/network/interfaces &amp;&amp; \</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart networking &amp;&amp; \</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;✅ 已成功切换到网关: 10.10.10.253&quot;</span></span><br><span class="line"><span class="comment"># 💨 一键配置 10.10.10.253 网关并重启网络服务</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-查看当前默认网关">4. 查看当前默认网关</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;34m默认网关 : \e[1;31m<span class="subst">$(ip route show default | awk &#x27;/default/ &#123;print $3&#125;&#x27;)</span>\e[0m&quot;</span></span><br><span class="line"><span class="comment"># 🔍 显示当前系统的默认网关地址</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="config-management"></a></p>
+<h2 id="📋-网络配置文件管理">📋 网络配置文件管理</h2>
+<h3 id="1-编辑网络配置文件">1. 编辑网络配置文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/network/interfaces</span><br><span class="line"><span class="comment"># ✏️ 使用 nano 编辑器修改网络配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 vim</span></span><br><span class="line"><span class="built_in">sudo</span> vim /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+<h3 id="2-查看网络配置内容">2. 查看网络配置内容</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/network/interfaces</span><br><span class="line"><span class="comment"># 👀 显示当前网络配置信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带行号查看</span></span><br><span class="line"><span class="built_in">cat</span> -n /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+<h3 id="3-重启网络服务">3. 重启网络服务</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart networking</span><br><span class="line"><span class="comment"># 🔄 应用网络配置更改</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用传统方法</span></span><br><span class="line"><span class="built_in">sudo</span> /etc/init.d/networking restart</span><br></pre></td></tr></table></figure>
+<h3 id="4-检查网络服务状态">4. 检查网络服务状态</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl status networking</span><br><span class="line"><span class="comment"># 📊 检查网络服务运行状态</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看网络服务日志</span></span><br><span class="line">journalctl -u networking --since <span class="string">&quot;5 minutes ago&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="dns-config"></a></p>
+<h2 id="🌐-DNS-配置指南">🌐 DNS 配置指南</h2>
+<h3 id="Debian-12-DNS-配置说明">Debian 12 DNS 配置说明</h3>
+<blockquote>
+<p>Debian 12 默认使用 systemd-resolved 管理 DNS，可能没有直接的 <code>/etc/resolv.conf</code> 文件。</p>
+</blockquote>
+<h3 id="1-创建-编辑-DNS-配置文件">1. 创建/编辑 DNS 配置文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/resolv.conf</span><br><span class="line"><span class="comment"># ✏️ 编辑 DNS 解析配置</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-添加-DNS-服务器">2. 添加 DNS 服务器</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件内容：</span></span><br><span class="line">nameserver 223.5.5.5     <span class="comment"># 🌐 阿里 DNS</span></span><br><span class="line">nameserver 8.8.8.8       <span class="comment"># 🌐 Google DNS</span></span><br><span class="line">nameserver 114.114.114.114 <span class="comment"># 🌐 114 DNS</span></span><br><span class="line">nameserver 1.1.1.1       <span class="comment"># 🌐 Cloudflare DNS</span></span><br><span class="line">options rotate           <span class="comment"># 🔄 启用 DNS 轮询</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-防止-DNS-配置被覆盖">3. 防止 DNS 配置被覆盖</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 resolv.conf 为不可变</span></span><br><span class="line"><span class="built_in">sudo</span> chattr +i /etc/resolv.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取消不可变属性</span></span><br><span class="line"><span class="built_in">sudo</span> chattr -i /etc/resolv.conf</span><br></pre></td></tr></table></figure>
+<h3 id="4-使用-systemd-resolved-配置-DNS">4. 使用 systemd-resolved 配置 DNS</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前 DNS 配置</span></span><br><span class="line">resolvectl status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置全局 DNS</span></span><br><span class="line"><span class="built_in">sudo</span> resolvectl dns eth0 8.8.8.8 1.1.1.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置特定域的 DNS</span></span><br><span class="line"><span class="built_in">sudo</span> resolvectl domain eth0 <span class="string">&quot;example.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 刷新 DNS 缓存</span></span><br><span class="line"><span class="built_in">sudo</span> resolvectl flush-caches</span><br></pre></td></tr></table></figure>
+<h3 id="5-在-interfaces-文件中配置-DNS">5. 在 interfaces 文件中配置 DNS</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /etc/network/interfaces 中添加</span></span><br><span class="line">dns-nameservers 8.8.8.8 1.1.1.1</span><br><span class="line">dns-search example.com</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="full-config"></a></p>
+<h2 id="🔧-完整静态-IP-配置示例">🔧 完整静态 IP 配置示例</h2>
+<h3 id="etc-network-interfaces-文件内容示例："><code>/etc/network/interfaces</code> 文件内容示例：</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 环回接口</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主网络接口 - 静态 IP 配置</span></span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">    address 192.168.1.100/24     <span class="comment"># 📍 静态 IP 地址和 CIDR 表示法</span></span><br><span class="line">    <span class="comment"># 或者使用传统表示法</span></span><br><span class="line">    <span class="comment"># address 192.168.1.100</span></span><br><span class="line">    <span class="comment"># netmask 255.255.255.0</span></span><br><span class="line">    gateway 192.168.1.1          <span class="comment"># 🌉 默认网关</span></span><br><span class="line">    dns-nameservers 8.8.8.8 8.8.4.4 <span class="comment"># 🔍 DNS 服务器</span></span><br><span class="line">    dns-search example.com       <span class="comment"># 🔎 DNS 搜索域</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 备用网络接口配置示例</span></span><br><span class="line"><span class="comment"># auto eth1</span></span><br><span class="line"><span class="comment"># iface eth1 inet static</span></span><br><span class="line"><span class="comment">#     address 10.0.0.100/24</span></span><br><span class="line"><span class="comment">#     gateway 10.0.0.1</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用-netplan-Debian-10">使用 netplan (Debian 10+)</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/netplan/01-netcfg.yaml</span></span><br><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">renderer:</span> <span class="string">networkd</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eth0:</span></span><br><span class="line">      <span class="attr">addresses:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span><span class="string">/24</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span> [<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>, <span class="number">8.8</span><span class="number">.4</span><span class="number">.4</span>]</span><br><span class="line">        <span class="attr">search:</span> [<span class="string">example.com</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="应用-netplan-配置">应用 netplan 配置</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> netplan apply</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="built_in">sudo</span> netplan try</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🛠️-网络故障排查">🛠️ 网络故障排查</h2>
+<h3 id="1-查看网络接口信息">1. 查看网络接口信息</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ip addr show</span><br><span class="line"><span class="comment"># 📋 显示所有网络接口的详细信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定接口</span></span><br><span class="line">ip addr show eth0</span><br></pre></td></tr></table></figure>
+<h3 id="2-检查路由表">2. 检查路由表</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ip route show</span><br><span class="line"><span class="comment"># 🗺️ 显示系统路由表</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看默认路由</span></span><br><span class="line">ip route show default</span><br></pre></td></tr></table></figure>
+<h3 id="3-测试-DNS-解析">3. 测试 DNS 解析</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nslookup google.com</span><br><span class="line"><span class="comment"># 🔎 测试 DNS 解析功能</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 dig 命令</span></span><br><span class="line">dig google.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试特定 DNS 服务器</span></span><br><span class="line">nslookup google.com 8.8.8.8</span><br></pre></td></tr></table></figure>
+<h3 id="4-网络连通性测试">4. 网络连通性测试</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ping -c 4 google.com</span><br><span class="line"><span class="comment"># 🌐 测试网络连通性</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试到网关的连通性</span></span><br><span class="line">ping -c 4 $(ip route show default | awk <span class="string">&#x27;/default/ &#123;print $3&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跟踪路由路径</span></span><br><span class="line">traceroute google.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 mtr 进行更详细的跟踪</span></span><br><span class="line">mtr google.com</span><br></pre></td></tr></table></figure>
+<h3 id="5-端口和服务检查">5. 端口和服务检查</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查监听端口</span></span><br><span class="line">ss -tuln</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查特定端口连通性</span></span><br><span class="line">nc -zv example.com 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 HTTP 服务</span></span><br><span class="line">curl -I http://example.com</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="important-notes"></a></p>
+<h2 id="⚠️-注意事项">⚠️ 注意事项</h2>
+<ol>
+<li>
+<p><strong>备份配置</strong>：修改前备份原始文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/network/interfaces /etc/network/interfaces.backup</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/resolv.conf /etc/resolv.conf.backup</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>接口名称</strong>：确保使用正确的网络接口名称</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有网络接口</span></span><br><span class="line">ip <span class="built_in">link</span> show</span><br><span class="line"><span class="built_in">ls</span> /sys/class/net</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>网络重启</strong>：配置更改后需要重启网络服务才能生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart networking</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>权限要求</strong>：所有配置修改都需要 root 权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> -i  <span class="comment"># 切换到 root 用户</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>网络规划</strong>：确保 IP 地址、子网掩码和网关在同一网络段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 IP 和网关是否在同一子网</span></span><br><span class="line">ipcalc -n 192.168.1.100/24  <span class="comment"># 计算网络地址</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>防火墙配置</strong>：确保防火墙不会阻止网络连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查防火墙状态</span></span><br><span class="line"><span class="built_in">sudo</span> ufw status</span><br><span class="line"><span class="comment"># 或者使用 iptables</span></span><br><span class="line"><span class="built_in">sudo</span> iptables -L</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="recovery"></a></p>
+<h2 id="🔄-恢复网络配置">🔄 恢复网络配置</h2>
+<p>如果网络配置出现问题，可以恢复默认设置：</p>
+<h3 id="恢复-DHCP-获取-IP">恢复 DHCP 获取 IP</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份当前配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/network/interfaces /etc/network/interfaces.bak</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复 DHCP 配置</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;auto lo\niface lo inet loopback\n\nauto eth0\niface eth0 inet dhcp&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/network/interfaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启网络服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart networking</span><br></pre></td></tr></table></figure>
+<h3 id="从备份恢复">从备份恢复</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 恢复 interfaces 配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/network/interfaces.backup /etc/network/interfaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复 resolv.conf 配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/resolv.conf.backup /etc/resolv.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启网络服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart networking</span><br></pre></td></tr></table></figure>
+<h3 id="使用救援模式">使用救援模式</h3>
+<p>如果网络配置错误导致无法连接，可以通过以下方式修复：</p>
+<ol>
+<li>使用 Live CD/USB 启动系统</li>
+<li>挂载原系统根分区</li>
+<li>修复网络配置文件</li>
+<li>重启到原系统</li>
+</ol>
+<hr>
+<p><a id="practical-tips"></a></p>
+<h2 id="💡-实用脚本与技巧">💡 实用脚本与技巧</h2>
+<h3 id="网关切换脚本">网关切换脚本</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># switch-gateway.sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;用法: switch-gateway [252|243|253]&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line">    <span class="string">&quot;252&quot;</span>)</span><br><span class="line">        GATEWAY=<span class="string">&quot;10.10.10.252&quot;</span></span><br><span class="line">        ;;</span><br><span class="line">    <span class="string">&quot;243&quot;</span>)</span><br><span class="line">        GATEWAY=<span class="string">&quot;10.10.10.243&quot;</span></span><br><span class="line">        ;;</span><br><span class="line">    <span class="string">&quot;253&quot;</span>)</span><br><span class="line">        GATEWAY=<span class="string">&quot;10.10.10.253&quot;</span></span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;错误: 无效的网关选择&quot;</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">        ;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&quot;s/gateway.*/gateway <span class="variable">$GATEWAY</span>/&quot;</span> /etc/network/interfaces</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart networking</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;✅ 已切换到网关: <span class="variable">$GATEWAY</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>使用方法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x switch-gateway.sh</span><br><span class="line"><span class="comment"># 切换到 252 网关</span></span><br><span class="line">./switch-gateway.sh 252</span><br></pre></td></tr></table></figure>
+<h3 id="网络状态检查脚本">网络状态检查脚本</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># network-status.sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;34m=== 网络状态检查 ===\e[0m&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示接口信息</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;32m网络接口:\e[0m&quot;</span></span><br><span class="line">ip addr show | grep -E <span class="string">&quot;^(.*: )|(inet )&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示路由信息</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;32m路由表:\e[0m&quot;</span></span><br><span class="line">ip route show</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示默认网关</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;32m默认网关:\e[0m&quot;</span></span><br><span class="line">ip route show default | awk <span class="string">&#x27;/default/ &#123;print $3&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示DNS配置</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;32mDNS 配置:\e[0m&quot;</span></span><br><span class="line"><span class="built_in">cat</span> /etc/resolv.conf | grep -v <span class="string">&quot;^#&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试连通性</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;32m网络连通性:\e[0m&quot;</span></span><br><span class="line">ping -c 2 -W 1 8.8.8.8 &gt;/dev/null 2&gt;&amp;1 &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;外部网络: 可达&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;外部网络: 不可达&quot;</span></span><br><span class="line">ping -c 2 -W 1 $(ip route show default | awk <span class="string">&#x27;/default/ &#123;print $3&#125;&#x27;</span>) &gt;/dev/null 2&gt;&amp;1 &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;网关: 可达&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;网关: 不可达&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>使用方法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x network-status.sh</span><br><span class="line">./network-status.sh</span><br></pre></td></tr></table></figure>
+<h3 id="下载速度测试">下载速度测试</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># speed-test.sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;34m=== 网络速度测试 ===\e[0m&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试下载速度</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;32m下载速度测试:\e[0m&quot;</span></span><br><span class="line">wget -O /dev/null http://speedtest.tele2.net/100MB.zip 2&gt;&amp;1 | grep -o <span class="string">&#x27;[0-9.]\+ [KM]*B/s&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 curl 测试速度</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;32mCURL 速度测试:\e[0m&quot;</span></span><br><span class="line">curl -o /dev/null -w <span class="string">&quot;速度: %&#123;speed_download&#125; B/s\n&quot;</span> http://speedtest.tele2.net/100MB.zip</span><br></pre></td></tr></table></figure>
+<p><strong>使用方法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x speed-test.sh</span><br><span class="line">./speed-test.sh</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="🎉-总结">🎉 总结</h2>
+<p>通过本指南，您应该能够轻松地在 Debian 系统上配置和管理静态 IPv4 网络设置。Debian 提供了灵活而强大的网络管理工具，无论是传统的 interfaces 配置还是现代的 netplan，都能满足各种网络配置需求。</p>
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>🛡️ 始终备份网络配置 before 进行更改</li>
+<li>🔍 使用提供的诊断工具验证网络状态</li>
+<li>⚡ 利用脚本实现快速网关切换</li>
+<li>📝 了解 Debian 特有的网络服务管理方式</li>
+<li>🌐 掌握 DNS 配置方法（包括 systemd-resolved）</li>
+</ul>
+<p>如有任何问题或需要进一步协助，请参考 Debian 官方文档或社区论坛。Happy networking! 🚀</p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>Debian 静态 IPv4 配置与管理指南 📡</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://www.meimolihan.eu.org/posts/9b25570b.html">https://www.meimolihan.eu.org/posts/9b25570b.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>凡凡小站</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2025-09-12</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2025-09-12</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/debian/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>debian</a><a class="post-meta__tags" href="/tags/ipv4/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>ipv4</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.meimolihan.eu.org/hexo/img/wx.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/wx.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.meimolihan.eu.org/hexo/img/zfb.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/zfb.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/73dc6d32.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?235" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CentOS 静态 IPv4 配置指南 📡</div></div></a></div><div class="next-post pull-right"><a href="/posts/63ce4ece.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?7021" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CentOS 国内镜像源配置指南 🚀</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/731705bb.html" title="WSL 安装 Debian 完全指南 🐧"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?7479" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">WSL 安装 Debian 完全指南 🐧</div></div></a></div><div><a href="/posts/634cd5fd.html" title="Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?2747" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Windows 创建 SSH 密钥对及 Debian 13 配置指南 🔑</div></div></a></div><div><a href="/posts/45d2eebf.html" title="Proxmox VE 虚拟机安装 qemu-guest-agent 🚀"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?9051" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Proxmox VE 虚拟机安装 qemu-guest-agent 🚀</div></div></a></div><div><a href="/posts/fd8c0208.html" title="Debian 13 中文语言环境配置指南 🌏"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?8429" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Debian 13 中文语言环境配置指南 🌏</div></div></a></div><div><a href="/posts/698d1202.html" title="Debian 13 国内镜像源配置指南 🐧"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?1913" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Debian 13 国内镜像源配置指南 🐧</div></div></a></div><div><a href="/posts/36429535.html" title="Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?3575" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="title">Debian&#x2F;PVE&#x2F;Ubuntu&#x2F;FnOS 配置 SSH 服务 🔐</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Debian 静态 IPv4 配置与管理指南 📡</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%91-%E5%AF%BC%E8%88%AA%E7%9B%AE%E5%BD%95"><span class="toc-text">📑 导航目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%A0-%E7%AE%80%E4%BB%8B%E4%B8%8E%E7%89%B9%E7%82%B9"><span class="toc-text">🌠 简介与特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E9%BB%98%E8%AE%A4%E7%BD%91%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="toc-text">⚡ 默认网关配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE-10-10-10-252-%E7%BD%91%E5%85%B3"><span class="toc-text">1. 配置 10.10.10.252 网关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-10-10-10-243-%E7%BD%91%E5%85%B3"><span class="toc-text">2. 配置 10.10.10.243 网关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE-10-10-10-253-%E7%BD%91%E5%85%B3"><span class="toc-text">3. 配置 10.10.10.253 网关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E9%BB%98%E8%AE%A4%E7%BD%91%E5%85%B3"><span class="toc-text">4. 查看当前默认网关</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="toc-text">📋 网络配置文件管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%96%E8%BE%91%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1. 编辑网络配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9"><span class="toc-text">2. 查看网络配置内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%87%8D%E5%90%AF%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1"><span class="toc-text">3. 重启网络服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="toc-text">4. 检查网络服务状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-DNS-%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="toc-text">🌐 DNS 配置指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Debian-12-DNS-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="toc-text">Debian 12 DNS 配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA-%E7%BC%96%E8%BE%91-DNS-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1. 创建&#x2F;编辑 DNS 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B7%BB%E5%8A%A0-DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">2. 添加 DNS 服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%98%B2%E6%AD%A2-DNS-%E9%85%8D%E7%BD%AE%E8%A2%AB%E8%A6%86%E7%9B%96"><span class="toc-text">3. 防止 DNS 配置被覆盖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-systemd-resolved-%E9%85%8D%E7%BD%AE-DNS"><span class="toc-text">4. 使用 systemd-resolved 配置 DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9C%A8-interfaces-%E6%96%87%E4%BB%B6%E4%B8%AD%E9%85%8D%E7%BD%AE-DNS"><span class="toc-text">5. 在 interfaces 文件中配置 DNS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%AE%8C%E6%95%B4%E9%9D%99%E6%80%81-IP-%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B"><span class="toc-text">🔧 完整静态 IP 配置示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#etc-network-interfaces-%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="toc-text">&#x2F;etc&#x2F;network&#x2F;interfaces 文件内容示例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-netplan-Debian-10"><span class="toc-text">使用 netplan (Debian 10+)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8-netplan-%E9%85%8D%E7%BD%AE"><span class="toc-text">应用 netplan 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E7%BD%91%E7%BB%9C%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5"><span class="toc-text">🛠️ 网络故障排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E4%BF%A1%E6%81%AF"><span class="toc-text">1. 查看网络接口信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A3%80%E6%9F%A5%E8%B7%AF%E7%94%B1%E8%A1%A8"><span class="toc-text">2. 检查路由表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%8B%E8%AF%95-DNS-%E8%A7%A3%E6%9E%90"><span class="toc-text">3. 测试 DNS 解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BD%91%E7%BB%9C%E8%BF%9E%E9%80%9A%E6%80%A7%E6%B5%8B%E8%AF%95"><span class="toc-text">4. 网络连通性测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%AB%AF%E5%8F%A3%E5%92%8C%E6%9C%8D%E5%8A%A1%E6%A3%80%E6%9F%A5"><span class="toc-text">5. 端口和服务检查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">⚠️ 注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E6%81%A2%E5%A4%8D%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-text">🔄 恢复网络配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D-DHCP-%E8%8E%B7%E5%8F%96-IP"><span class="toc-text">恢复 DHCP 获取 IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D"><span class="toc-text">从备份恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%95%91%E6%8F%B4%E6%A8%A1%E5%BC%8F"><span class="toc-text">使用救援模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC%E4%B8%8E%E6%8A%80%E5%B7%A7"><span class="toc-text">💡 实用脚本与技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E5%85%B3%E5%88%87%E6%8D%A2%E8%84%9A%E6%9C%AC"><span class="toc-text">网关切换脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81%E6%A3%80%E6%9F%A5%E8%84%9A%E6%9C%AC"><span class="toc-text">网络状态检查脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="toc-text">下载速度测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%89-%E6%80%BB%E7%BB%93"><span class="toc-text">🎉 总结</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright"><span><b>&copy;2025</b></span><span><b>&nbsp;&nbsp;By 凡凡小站</b></span></div><div id="workboard"></div><p id="ghbdages"></p><div id="footer-animal"><div class="animal-wall"></div><img class="animal" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/color.avif" alt="动物" onerror="this.onerror=null;this.src='/img/404.jpg'"/></div></div><!--#footer-wrap--><!--  #ft--><!--    .ft-item-1--><!--      .t-top--><!--        .t-t-l--><!--          p.ft-t.t-l-t 格言🧬--><!--          .bg-ad--><!--            div--><!--              | 再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨--><!--            .btn-xz-box--><!--              a.btn-xz(href='https://stellarium.org/') 点击开启星辰之旅--><!--        .t-t-r--><!--          p.ft-t.t-l-t 猜你想看💡--><!--          ul.ft-links--><!--            li--><!--              a(href='/posts/eec9786.html') 魔改指南--><!--              a(href='/box/nav/') 网址导航--><!--            li--><!--              a(href='/social/link/') 我的朋友--><!--              a(href='/comments/') 留点什么--><!--            li--><!--              a(href='/personal/about/') 关于作者--><!--              a(href='/archives/') 文章归档--><!--            li--><!--              a(href='/categories/') 文章分类--><!--              a(href='/tags/') 文章标签--><!--            li--><!--              a(href='/box/Gallery/') 我的画廊--><!--              a(href='/personal/bb/') 我的唠叨--><!--            li--><!--              a(href='/site/time/') 建设进程--><!--              a(href='/site/census/') 网站统计--><!--    .ft-item-2--><!--      p.ft-t 推荐友链⌛--><!--      .ft-img-group--><!--        .img-group-item--><!--          a(href='https://www.fomal.cc/' title='Fomalhaut🥝')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/60e5d4e39da7c077.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!----><!--  if theme.footer.owner.enable--><!--    - var now = new Date()--><!--    - var nowYear = now.getFullYear()--><!--    //- if theme.footer.owner.since && theme.footer.owner.since != nowYear--><!--    //-   .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By ${config.author}`--><!--    //- else--><!--    //-   .copyright!= `&copy;${nowYear} By ${config.author}`--><!--    //- 新加的--><!--    if theme.footer.owner.since && theme.footer.owner.since != nowYear--><!--      .copyright--><!--        span!= `<b>&copy;${theme.footer.owner.since}-${nowYear}</b>`--><!--        span!= `<b>&nbsp;&nbsp;By ${config.author}</b>`--><!--    else--><!--      .copyright--><!--        span!= `<b>&copy;${nowYear}</b>`--><!--        span!= `<b>&nbsp;&nbsp;By ${config.author}</b>`--><!--    //- 到这里--><!--  if theme.footer.copyright--><!--    .framework-info--><!--      span= _p('footer.framework') + ' '--><!--      a(href='https://hexo.io')= 'Hexo'--><!--      span.footer-separator |--><!--      span= _p('footer.theme') + ' '--><!--      a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'--><!--  if theme.footer.custom_text--><!--    .footer_custom_text!=`${theme.footer.custom_text}`--><!--  #workboard--><!--  p#ghbdages--><!--    a.github-badge(target='_blank' href="https://hexo.io/" style='margin-inline:5px' title="博客框架为Hexo_v6.3.0")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://butterfly.js.org/" style='margin-inline:5px' title="主题版本Butterfly_v4.3.1")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://vercel.com/" style='margin-inline:5px' title="本站采用多线部署，主线路托管于Vercel")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Hosted-Vercel-brightgreen.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://user.51.la/" style='margin-inline:5px' title="本站数据分析得益于51la技术支持")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Analytics-51la-3db1eb.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://icp.gov.moe/?keyword=20226665" style='margin-inline:5px' title="本站已加入萌ICP豪华套餐，萌ICP备20226665号")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/萌ICP备-20226665-fe1384.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://bitiful.dogecast.com/buckets" style='margin-inline:5px' title="本网站经Service Worker分流至缤纷云对象存储")--><!--      img(src=" https://sourcebucket.s3.ladydaily.com/badge/Bucket-缤纷云-9c62da.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://www.netdun.net/" style='margin-inline:5px' title="本站使用网盾星球提供CDN加速与防护")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/CDN-网盾星球-fff2cc.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://github.com/" style='margin-inline:5px' title="本网站源码由Github提供存储仓库")--><!--      img(src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt='')--><!----><!--    //- a.github-badge(target='_blank' href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style='margin-inline:5px' title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可")--><!--    //-   img(src="https://sourcebucket.s3.ladydaily.com/badge/Copyright-BY--NC--SA--4.svg" alt='')--></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><span id="percent">0<span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script src="/js/instantpage.min.js"></script><script src="/js/vue.min.js" defer></script><script src="/js/index.js" defer></script><script src="/js/clipboard.min.js" defer></script><script src="/js/sweetalert2.all.js" defer></script><script src="/js/pace.min.js" defer></script><script src="/js/winbox.bundle.min.js" defer></script><script src="/js/font_3586335_hsivh70x0fm.js" defer></script><script src="/js/font_3636804_gr02jmjr3y9.js" defer></script><script src="/js/font_3612150_kfv55xn3u2g.js" defer></script><script src="//at.alicdn.com/t/c/font_4857814_plnjyguk7t.js" defer></script><script src="https://open.lightxi.com/unpkg/chinese-lunar@0.1.4/lib/chinese-lunar.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.js"></script><script data-pjax src="/js/rightmenu.js" defer></script><script src="/js/typed.min.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><script src="/js/welcome.js"></script><script src="/js/日历卡片.js"></script><script defer src="/js/今日诗词.js"></script><script defer src="/js/lazyload.min.js"></script><script src="/js/jquery.fancybox.min.js"></script><script src="/js/Gold-ingot.js"></script><script src="/js/APlayer.min.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/fireworks.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show","#web_bg",".js-pjax","#bibi","body > title","#app","#tag-echarts","#posts-echart","#categories-echarts"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Linux/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍥 Linux (125)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Windows/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">👩‍💻 Windows (35)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Proxmox-VE/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">📢 Proxmox VE (42)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Docker/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🐳 Docker (95)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><a class="magnet_link_more"  href="https://www.meimolihan.eu.org/categories/" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(50% - 5px);background: #f2f2f2;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: #b30070}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?9932" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-12</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt="">十六进制颜色代码大全 🎨</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?6974" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-12</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt="">随机壁纸 API 合集 🖼️</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tk-row');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tk-comments-container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-post');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('relatedPosts-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('local-search-box--input');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('welcome-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info__name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info__description');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-info-social-icons');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 320px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/site/census/'|| '/site/census/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("/api?null",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'null')
+    }
+  </script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,1059 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>使用 acme.sh 和阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐 | 凡凡小站</title><meta name="keywords" content="ssl,acme"><meta name="author" content="凡凡小站"><meta name="copyright" content="凡凡小站"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="使用 acme.sh 和 阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐   📋 目录  🌰 简介与特点 📦 安装 acme.sh 🔑 配置阿里云 DNS API 🖋️ 申请泛域名证书 📁 安装与部署证书 ⚙️ Nginx 配置示例 🔄 自动续期管理 🐛 故障排除 📊 多域名管理 🔒 安全最佳实践 🗑️ 卸载与清理 💡 高级用法 🎯 总结与提示    🌰">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 acme.sh 和阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/b7d4082a.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="使用 acme.sh 和 阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐   📋 目录  🌰 简介与特点 📦 安装 acme.sh 🔑 配置阿里云 DNS API 🖋️ 申请泛域名证书 📁 安装与部署证书 ⚙️ Nginx 配置示例 🔄 自动续期管理 🐛 故障排除 📊 多域名管理 🔒 安全最佳实践 🗑️ 卸载与清理 💡 高级用法 🎯 总结与提示    🌰">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?3604">
+<meta property="article:published_time" content="2025-09-12T07:37:41.000Z">
+<meta property="article:modified_time" content="2025-09-12T07:37:41.000Z">
+<meta property="article:author" content="凡凡小站">
+<meta property="article:tag" content="ssl">
+<meta property="article:tag" content="acme">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?3604"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/b7d4082a"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"已经过了","messageNext":"天自上次更新，文章内容可能已过时。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用 acme.sh 和阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-12 15:37:41'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/element-ui@2.15.6/packages/theme-chalk/lib/index.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/test.css"><link rel="stylesheet" href="/css/jquery.fancybox.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.css"><link rel="stylesheet" href="/css/fa-solid-900.woff2"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- 添加音频播放器代码--><!--link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css')--><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><!--script(src='https://cdn.meimolihan.eu.org/APlayer/APlayer.min.js')--><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+   '蜉蝣志-石岩',
+   'Batteforte(VanniGRemix)-Lollipop',     '忘川彼岸-零一九零贰',
+   '背着风流泪-文夫',
+   '苟活-周文凯',
+   '我爱他-丁当',
+   '苟活之重生-周文凯',
+   '最好的安排-曲婉婷',
+   '望故乡-文夫',
+   '骗子-文夫',
+   '最后一次的温柔-田园',
+   '我把往事化如烟-侯泽润',
+   '亲爱的你啊-任素汐',
+   '单身万岁-演员雪姐',
+   '借口-侯泽润',
+   '一句先苦后甜-侯泽润',
+   '你怎么舍得我难过-正在进行石女士',
+   '九万字-张靓颖、摩登兄弟刘宇宁',
+   '老男孩-筷子兄弟', 
+   '雨蝶-李翊君', 
+  'JarOfLove-曲婉婷', 
+  '我的歌声里-曲婉婷', 
+  '跳楼机-张靓颖.王以太', 
+  '浪子的心情-十二大美女', 
+  '空荡的酒杯(天籁版)-洋澜一', 
+  '谢谢你的爱1999-谢霆锋', 
+  '月亮照山川-窝窝', 
+  '离别开出花-就是南方凯', 
+  '爱是你我-刀郎、云朵', 
+  '你在他乡还好吗-大双二双',
+  '执子之手-宝石Gem',
+  '这些年在忙什么-田园',
+  '平凡日子里的挣扎-小璐',
+  '无爱情歌-王娜',
+  '人间疾苦-马健涛',
+  '大风吹倒梧桐树-侯泽润、田园',
+  '跳楼机-en',
+  '一路生花-温奕心',
+  '碎银几两-轩东',
+  '此生无憾-金钰儿',
+  '搀扶-马健涛',
+  '敬往事一杯-侯泽润',
+  '人间一路-青木时光',
+  '别怕我伤心-张信哲',
+  '大东北我的家乡-何玉',
+  '陪我过个冬-燃',
+  '我期待的不是雪-张妙格',
+  '苦命的人-刘阳阳',
+  '爱情恰恰-十二大美女',
+  '不要慌，太阳下山有月光-张含韵',
+  '往事只能回味-周虹',
+  '花妖-刀郎',
+  '一身傲骨不低头-侯泽润',
+  '罗刹海市-刀郎',
+  '怀念战友-刀郎',
+  '西海情歌-刀郎',
+  '我的春风何时来-李贺',
+  '爱我还是他-刘大拿',
+  '爱你十分泪七分-裘海正',
+  '大不了-花姐',
+  '白鸽乌鸦相爱的戏码-艾辰',
+  '爱意藏风里-何雨溪',
+  '忠孝东路走九遍-动力火车',
+  '这一路风太大-原来是夏夏',
+  '天高任鸟飞-侯泽润',
+  '月光凉.落满窗-泡芙芙Scarlett',
+  '败-侯泽润',
+  '一万个理由-郑源',
+  '一亿个伤心-蒙面哥',
+  '一无所有的年纪-侯泽润',
+  '万有引力-汪苏泷',
+  '人间半途-刘阳阳',
+  '人间烟火-程响',
+  '伤心剖半-邓典',
+  '伤心太平洋-任贤齐',
+  '你别慌余生还长-任夏',
+  '假如我不再善良-郑畅业',
+  '冲动的惩罚-刀郎',
+  '凡夫俗子-范茹',
+  '别说我的眼泪你无所谓-东来东往',
+  '可能-程响',
+  '听-张杰',
+  '喀什噶尔胡杨-刀郎',
+  '因为爱所以爱-谢霆锋',
+  '土坡上的狗尾草-卢润泽',
+  '多想做个哑巴-侯泽润',
+  '失恋阵线联盟-草蜢',
+  '妈妈我想回家-曾抖抖',
+  '小模样-张冬玲',
+  '年少的你啊-浩然H.R',
+  '归途的光-诺爷Plus',
+  '心态才是你风水-艺凌',
+  '我也不想活得太累-郑畅业',
+  '我真怕自己哪天倒下-张良',
+  '手心里的温柔-刀郎',
+  '换个方向风景会更好看-杨一琪',
+  '放手也是一种成全-郑畅业',
+  '星星点灯-大波浪',
+  '星河万里-Rom邢锐',
+  '有点甜-汪苏泷.BY2',
+  '海边探戈-王鹤棣',
+  '火力全开-王力宏',
+  '生活没有说明书-洛什么洛',
+  '破碎的梦-陈柏曦',
+  '秋风经过-任夏',
+  '第51次原谅-刘艺雯',
+  '老人与海-汪苏泷.王心凌',
+  '胡广生-任素汐',
+  '苹果香-狼戈',
+  '西楼儿女-岳云鹏',
+  '谁明浪子心-王杰',
+  '路灯下点烟时没有打火机-王永清',
+  '过了河就拆桥-成学迅',
+  '野狼disco-宝石Gem',
+  '除了生死都是擦伤-侯泽润',
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+  const songInfo = item.split('-');
+  audios.push({
+    name: songInfo[0],
+    artist: songInfo[1],
+    url: home + item + '/song.mp3',
+    cover: home + item + '/cover.jpg',
+    lrc: home + item + '/lyric.lrc'
+  });
+});
+
+const ap = new APlayer({
+  container: document.getElementById('aplayer'),
+  fixed: true,
+  lrcType: 3,
+  audio: audios
+});</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="凡凡小站" type="application/atom+xml">
+</head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/muzimi.png" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">330</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-shouye2"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shouye2"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei2">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bianzu41">                   </use></svg><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">凡凡小站</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-shouye2"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shouye2"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei2">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bianzu41">                   </use></svg><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-sousuojituanshangpin"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian4"></use></svg></a><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="浅色和深色模式转换" id="nightmode-button"><svg class="faa-tada" style="height:25px;width:25px;fill:currentColor;position:relative;top:7px" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">       </use></svg></a><div id="toggle-menu"><a><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada caidan" style="height:18px;width:18px;fill:currentColor;position:relative;top:7px"><use id="modeicon" xlink:href="#icon-caidan1"></use></svg></a></a></div></div></div></nav><div id="post-info"><h1 class="post-title">使用 acme.sh 和阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2025-09-12T07:37:41.000Z" title="发表于 2025-09-12 15:37:41">2025-09-12</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-12T07:37:41.000Z" title="更新于 2025-09-12 15:37:41">2025-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">3489</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>使用 <a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 和 阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐</h1>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.meimolihan.eu.org/img/ssl-01.webp" alt=""></p>
+<hr>
+<h2 id="📋-目录">📋 目录</h2>
+<ul>
+<li><a href="#intro">🌰 简介与特点</a></li>
+<li><a href="#install-acme">📦 安装 acme.sh</a></li>
+<li><a href="#aliyun-dns-config">🔑 配置阿里云 DNS API</a></li>
+<li><a href="#issue-certificate">🖋️ 申请泛域名证书</a></li>
+<li><a href="#install-certificate">📁 安装与部署证书</a></li>
+<li><a href="#nginx-config">⚙️ Nginx 配置示例</a></li>
+<li><a href="#auto-renewal">🔄 自动续期管理</a></li>
+<li><a href="#troubleshooting">🐛 故障排除</a></li>
+<li><a href="#multi-domain">📊 多域名管理</a></li>
+<li><a href="#security">🔒 安全最佳实践</a></li>
+<li><a href="#uninstall">🗑️ 卸载与清理</a></li>
+<li><a href="#advanced-usage">💡 高级用法</a></li>
+<li><a href="#summary">🎯 总结与提示</a></li>
+</ul>
+<hr>
+<p><a id="intro"></a></p>
+<h2 id="🌰-简介与特点">🌰 简介与特点</h2>
+<p><a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 是一个纯 Shell 语言编写的 ACME 协议客户端，专为从 Let’s Encrypt 等证书颁发机构（CA）自动获取和更新 SSL/TLS 证书而设计。它支持<strong>泛域名证书（Wildcard Certificate）</strong>，这意味着一个证书可以保护一个域名及其所有子域名（如 <code>*.example.com</code>），非常适合拥有多个子域名的场景。</p>
+<p><strong>主要特性与优势：</strong></p>
+<ul>
+<li><strong>完全免费与自动化</strong>：依托 Let’s Encrypt 和 ZeroSSL 等服务，提供免费的泛域名证书，并自动化申请和续期流程。</li>
+<li><strong>强大的兼容性</strong>：支持众多的 DNS 提供商 API，<strong>通过阿里云 DNS API 可以实现自动化的 DNS 验证</strong>，无需手动操作。</li>
+<li><strong>非侵入式安装</strong>：安装简单，所有文件通常位于 <code>~/.acme.sh/</code> 目录下，不会影响系统其他部分。</li>
+<li><strong>自动续期与维护</strong>：自动创建定时任务（cron job）来检查并续期即将过期的证书（Let’s Encrypt 证书有效期通常为 90 天），确保网站持续加密。</li>
+</ul>
+<p><strong>GitHub 地址：</strong> <a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh">https://github.com/acmesh-official/acme.sh</a><br>
+<strong>中文文档：</strong> <a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E">https://github.com/acmesh-official/acme.sh/wiki/说明</a></p>
+<hr>
+<p><a id="install-acme"></a></p>
+<h2 id="📦-安装-acme-sh">📦 安装 <a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a></h2>
+<h3 id="1-自动安装脚本">1. 自动安装脚本</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 curl 安装</span></span><br><span class="line">curl https://get.acme.sh | sh -s email=your_email@example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 wget 安装</span></span><br><span class="line">wget -O - https://get.acme.sh | sh -s email=your_email@example.com</span><br><span class="line"><span class="comment"># 📦 自动下载并安装到 ~/.acme.sh/ 目录</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>💡 将 <code>your_email@example.com</code> 替换为你自己的邮箱地址，该邮箱用于接收证书相关的通知。</p>
+</blockquote>
+<h3 id="2-加载环境变量">2. 加载环境变量</h3>
+<p>安装完成后，<a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 会自动添加到系统环境变量中，并且会创建一个定时任务来自动续签证书。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新加载 bash 配置（或重新打开终端）</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line">acme.sh --version</span><br><span class="line"><span class="comment"># ✅ 应该显示版本信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-创建符号链接（可选）">3. 创建符号链接（可选）</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建全局访问链接</span></span><br><span class="line"><span class="built_in">ln</span> -s ~/.acme.sh/acme.sh /usr/local/bin/acme.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 现在可以直接使用</span></span><br><span class="line">acme.sh --version</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="aliyun-dns-config"></a></p>
+<h2 id="🔑-配置阿里云-DNS-API">🔑 配置阿里云 DNS API</h2>
+<p>使用 DNS API 方式是申请泛域名证书（<code>*.example.com</code>）的<strong>推荐方式</strong>，因为它可以实现全自动验证和续期。</p>
+<h3 id="1-获取阿里云-API-密钥">1. 获取阿里云 API 密钥</h3>
+<ol>
+<li><strong>登录<a target="_blank" rel="noopener" href="https://ram.console.aliyun.com/users">阿里云控制台</a></strong> → <strong>RAM 访问控制</strong>。</li>
+<li><strong>创建用户</strong>：建议创建一个专用于 API 调用的子用户（不推荐使用主账户），并勾选&quot;OpenAPI 调用访问&quot;。</li>
+<li><strong>添加权限</strong>：为该子用户添加 <strong><code>AliyunDNSFullAccess</code></strong>（管理云解析（DNS）的权限）策略。</li>
+<li><strong>保存 AccessKey</strong>：创建成功后，复制并妥善保存 <strong>AccessKey ID</strong> 和 <strong>AccessKey Secret</strong>。</li>
+</ol>
+<h3 id="2-设置环境变量">2. 设置环境变量</h3>
+<p>将获取到的 API 密钥设置为环境变量，供 <code>acme.sh</code> 使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置阿里云 API 密钥 (当前Shell会话有效)</span></span><br><span class="line"><span class="built_in">export</span> Ali_Key=<span class="string">&quot;你的阿里云AccessKey ID&quot;</span></span><br><span class="line"><span class="built_in">export</span> Ali_Secret=<span class="string">&quot;你的阿里云AccessKey Secret&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久保存到 acme.sh 的账户配置文件中 (推荐方式)</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;SAVED_Ali_Key=&#x27;你的阿里云AccessKey ID&#x27;&quot;</span> &gt;&gt; ~/.acme.sh/account.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;SAVED_Ali_Secret=&#x27;你的阿里云AccessKey Secret&#x27;&quot;</span> &gt;&gt; ~/.acme.sh/account.conf</span><br><span class="line"><span class="comment"># 🔒 设置配置文件权限</span></span><br><span class="line"><span class="built_in">chmod</span> 600 ~/.acme.sh/account.conf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>⚠️ 重要安全提示：</strong></p>
+<ul>
+<li>避免在命令行中直接使用 <code>export</code> 后接明文密钥，以免被 shell 历史记录记录。</li>
+<li>强烈建议使用 <code>echo</code> 追加到 <code>account.conf</code> 文件的方式，<a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 会自动读取其中的 <code>SAVED_Ali_Key</code> 和 <code>SAVED_Ali_Secret</code> 变量。</li>
+<li>确保 <code>~/.acme.sh/account.conf</code> 的文件权限设置正确，防止未授权访问。</li>
+</ul>
+</blockquote>
+<hr>
+<p><a id="issue-certificate"></a></p>
+<h2 id="🖋️-申请泛域名证书">🖋️ 申请泛域名证书</h2>
+<h3 id="1-申请证书命令">1. 申请证书命令</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本命令 - 申请泛域名证书</span></span><br><span class="line">acme.sh --issue --dns dns_ali \</span><br><span class="line">  -d <span class="string">&#x27;*.example.com&#x27;</span> \</span><br><span class="line">  -d <span class="string">&#x27;example.com&#x27;</span></span><br><span class="line"><span class="comment"># 🎯 参数说明:</span></span><br><span class="line"><span class="comment"># --dns dns_ali: 使用阿里云 DNS API 进行验证</span></span><br><span class="line"><span class="comment"># -d &#x27;*.example.com&#x27;: 通配符域名，保护所有子域名</span></span><br><span class="line"><span class="comment"># -d &#x27;example.com&#x27;: 同时申请根域名证书（可选，但建议）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 明确指定使用 Let&#x27;s Encrypt（acme.sh 默认可能是 ZeroSSL）</span></span><br><span class="line">acme.sh --issue --dns dns_ali \</span><br><span class="line">  -d <span class="string">&#x27;*.example.com&#x27;</span> \</span><br><span class="line">  -d <span class="string">&#x27;example.com&#x27;</span> \</span><br><span class="line">  --server letsencrypt</span><br></pre></td></tr></table></figure>
+<h3 id="2-测试模式（首次建议）">2. 测试模式（首次建议）</h3>
+<p>Let’s Encrypt 生产环境有<strong>速率限制</strong>，初次调试建议先用测试环境（<code>--staging</code>）避免触发限制。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 Let&#x27;s Encrypt 的测试环境（Staging）</span></span><br><span class="line">acme.sh --issue --dns dns_ali \</span><br><span class="line">  -d <span class="string">&#x27;*.example.com&#x27;</span> \</span><br><span class="line">  -d <span class="string">&#x27;example.com&#x27;</span> \</span><br><span class="line">  --server letsencrypt \</span><br><span class="line">  --staging \</span><br><span class="line">  --debug</span><br></pre></td></tr></table></figure>
+<p>测试成功，确认无误后，移除 <code>--staging</code> 和 <code>--debug</code> 参数，再次运行命令以申请正式证书。</p>
+<h3 id="3-证书申请过程">3. 证书申请过程</h3>
+<p>执行命令后，<a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 会：</p>
+<ol>
+<li>根据你的域名（如 <code>example.com</code>）自动在阿里云 DNS 中添加一条用于验证的 TXT 记录（记录名通常为 <code>_acme-challenge.example.com</code>）。</li>
+<li>等待 DNS 记录 propagate（通常需要几秒到几分钟）。</li>
+<li>向 CA 机构（如 Let’s Encrypt）完成域名所有权验证。</li>
+<li>验证成功后，<strong>自动删除</strong>刚才添加的 TXT 记录（保持 DNS 清洁）。</li>
+<li>最终下载并保存泛域名证书到 <code>~/.acme.sh/*.example.com/</code> 目录下。</li>
+</ol>
+<hr>
+<p><a id="install-certificate"></a></p>
+<h2 id="📁-安装与部署证书">📁 安装与部署证书</h2>
+<p>证书申请成功后，默认保存在 <code>~/.acme.sh/</code> 目录下，但<strong>不建议</strong>直接让 Web 服务器（如 Nginx）使用该目录下的证书文件，因为该目录结构是 <a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 内部管理的，且续期后证书文件会更新。你应该使用 <code>--install-cert</code> 命令将证书文件<strong>复制</strong>到指定位置。</p>
+<h3 id="1-Nginx-证书安装">1. Nginx 证书安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建证书存放目录 (按需修改路径)</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/nginx/ssl/example.com/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装证书到指定位置</span></span><br><span class="line">acme.sh --install-cert -d <span class="string">&#x27;example.com&#x27;</span> \</span><br><span class="line">  --key-file /etc/nginx/ssl/example.com/private.key \</span><br><span class="line">  --fullchain-file /etc/nginx/ssl/example.com/fullchain.cer \</span><br><span class="line">  --reloadcmd <span class="string">&quot;sudo systemctl reload nginx&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><code>--reloadcmd</code> 参数非常重要</strong>：它指定了证书<strong>自动续期后</strong>需要执行的命令，通常是重载 Web 服务器以使新证书生效。请确保此命令正确无误。</p>
+</blockquote>
+<h3 id="2-Apache-证书安装">2. Apache 证书安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建证书目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/apache2/ssl/example.com/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装证书</span></span><br><span class="line">acme.sh --install-cert -d <span class="string">&#x27;example.com&#x27;</span> \</span><br><span class="line">  --key-file /etc/apache2/ssl/example.com/private.key \</span><br><span class="line">  --fullchain-file /etc/apache2/ssl/example.com/fullchain.cer \</span><br><span class="line">  --reloadcmd <span class="string">&quot;sudo systemctl reload apache2&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-通用证书安装（仅复制）">3. 通用证书安装（仅复制）</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果你在其他地方管理重载逻辑，可以只复制证书文件</span></span><br><span class="line">acme.sh --install-cert -d <span class="string">&#x27;example.com&#x27;</span> \</span><br><span class="line">  --cert-file /path/to/cert.pem \</span><br><span class="line">  --key-file /path/to/private.key \</span><br><span class="line">  --fullchain-file /path/to/fullchain.pem</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="nginx-config"></a></p>
+<h2 id="⚙️-Nginx-配置示例">⚙️ Nginx 配置示例</h2>
+<h3 id="1-SSL-服务器配置片段">1. SSL 服务器配置片段</h3>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/nginx/snippets/ssl_example.com.conf</span></span><br><span class="line"><span class="comment"># SSL 证书路径（指向 --install-cert 安装的位置）</span></span><br><span class="line"><span class="attribute">ssl_certificate</span> /etc/nginx/ssl/example.com/fullchain.cer;</span><br><span class="line"><span class="attribute">ssl_certificate_key</span> /etc/nginx/ssl/example.com/private.key;</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSL 协议和加密套件优化（增强安全性）</span></span><br><span class="line"><span class="attribute">ssl_protocols</span> TLSv1.<span class="number">2</span> TLSv1.<span class="number">3</span>;</span><br><span class="line"><span class="attribute">ssl_ciphers</span> ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;</span><br><span class="line"><span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">off</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用 SSL session 缓存，提升性能</span></span><br><span class="line"><span class="attribute">ssl_session_cache</span> shared:SSL:<span class="number">10m</span>;</span><br><span class="line"><span class="attribute">ssl_session_timeout</span> <span class="number">10m</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="2-HTTPS-服务器块示例">2. HTTPS 服务器块示例</h3>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/nginx/conf.d/example.com_ssl.conf</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span> ssl http2;</span><br><span class="line">    <span class="attribute">server_name</span> example.com <span class="regexp">*.example.com</span>; <span class="comment"># 泛域名匹配</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 引入 SSL 配置片段</span></span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/snippets/ssl_example.com.conf;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">root</span> /var/www/html;</span><br><span class="line">    <span class="attribute">index</span> index.html index.htm;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他特定配置...</span></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ =<span class="number">404</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-HTTP-重定向到-HTTPS">3. HTTP 重定向到 HTTPS</h3>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/nginx/conf.d/example.com_redirect.conf</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> example.com <span class="regexp">*.example.com</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 强制重定向所有 HTTP 请求到 HTTPS</span></span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> https://<span class="variable">$host</span><span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-测试并应用配置">4. 测试并应用配置</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试 Nginx 配置语法是否正确</span></span><br><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果测试成功，重新加载 Nginx 配置（无需完全重启）</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl reload nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 Nginx 状态</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status nginx</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="auto-renewal"></a></p>
+<h2 id="🔄-自动续期管理">🔄 自动续期管理</h2>
+<p><a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 的核心优势之一是其<strong>全自动续期</strong>能力。</p>
+<h3 id="1-自动续期原理">1. 自动续期原理</h3>
+<ul>
+<li>安装时，<a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 会自动为你创建一个 <strong>cron 定时任务</strong>。</li>
+<li>该任务<strong>每天凌晨</strong>自动运行，检查所有已颁发证书的有效期。</li>
+<li>如果证书距离过期小于 <strong>30 天</strong>，则会自动执行续期操作。</li>
+<li>续期成功后，会执行你之前通过 <code>--install-cert</code> 设置的 <code>--reloadcmd</code> 命令（如 <code>systemctl reload nginx</code>），使新证书立即生效。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看现有的 cron 任务（通常可以看到 acme.sh 的任务）</span></span><br><span class="line">crontab -l</span><br><span class="line"><span class="comment"># 示例输出：0 0 * * * &quot;/root/.acme.sh&quot;/acme.sh --cron --home &quot;/root/.acme.sh&quot; &gt; /dev/null</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-手动续期命令">2. 手动续期命令</h3>
+<p>虽然通常不需要，但你可以手动强制续期：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 手动强制续期特定证书</span></span><br><span class="line">acme.sh --renew -d <span class="string">&#x27;example.com&#x27;</span> --force</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用调试模式查看续期详情</span></span><br><span class="line">acme.sh --renew -d <span class="string">&#x27;example.com&#x27;</span> --force --debug</span><br></pre></td></tr></table></figure>
+<h3 id="3-检查证书状态">3. 检查证书状态</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 acme.sh 管理的所有证书列表</span></span><br><span class="line">acme.sh --list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定证书的详细信息</span></span><br><span class="line">acme.sh --info -d <span class="string">&#x27;example.com&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 OpenSSL 检查证书文件的详细信息和过期时间</span></span><br><span class="line">openssl x509 -<span class="keyword">in</span> /etc/nginx/ssl/example.com/fullchain.cer -noout -dates</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="🐛-故障排除">🐛 故障排除</h2>
+<h3 id="1-常见错误与解决">1. 常见错误与解决</h3>
+<ul>
+<li>
+<p><strong>DNS API 验证失败</strong>：</p>
+<ul>
+<li><strong>症状</strong>：执行 <code>--issue</code> 命令时超时或报错。</li>
+<li><strong>排查</strong>：确保阿里云 RAM 用户的 <code>AliyunDNSFullAccess</code> 权限已正确附加；仔细检查 <code>Ali_Key</code> 和 <code>Ali_Secret</code> 是否填写正确，并无多余空格。</li>
+<li><strong>命令</strong>：<code>acme.sh --issue --dns dns_ali -d '*.example.com' --debug 2</code> （开启调试模式查看详细输出）。</li>
+</ul>
+</li>
+<li>
+<p><strong>证书已过期未自动续期</strong>：</p>
+<ul>
+<li><strong>排查</strong>：运行 <code>crontab -l</code> 检查定时任务是否存在；检查 <code>~/.acme.sh/account.conf</code> 中的 API 密钥配置是否仍然有效。</li>
+<li><strong>命令</strong>：手动执行 <code>acme.sh --cron</code> 检查自动续期过程。</li>
+</ul>
+</li>
+<li>
+<p><strong>Nginx 重载失败</strong>：</p>
+<ul>
+<li><strong>排查</strong>：检查 <code>--reloadcmd</code> 中的命令是否正确（例如，是否需要 <code>sudo</code>）；使用 <code>nginx -t</code> 检查 Nginx 配置语法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-日志文件">2. 日志文件</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 的详细运行日志通常位于：<code>~/.acme.sh/acme.sh.log</code>。</li>
+<li>使用 <code>tail -f ~/.acme.sh/acme.sh.log</code> 可以实时查看日志，方便调试。</li>
+</ul>
+<hr>
+<p><a id="multi-domain"></a></p>
+<h2 id="📊-多域名管理">📊 多域名管理</h2>
+<h3 id="1-申请多个泛域名证书">1. 申请多个泛域名证书</h3>
+<p>如果你有多个主域名，需要为每个域名分别申请证书：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为 example.com 申请</span></span><br><span class="line">acme.sh --issue --dns dns_ali -d <span class="string">&#x27;*.example.com&#x27;</span> -d <span class="string">&#x27;example.com&#x27;</span></span><br><span class="line"><span class="comment"># 为 example.net 申请</span></span><br><span class="line">acme.sh --issue --dns dns_ali -d <span class="string">&#x27;*.example.net&#x27;</span> -d <span class="string">&#x27;example.net&#x27;</span></span><br><span class="line"><span class="comment"># 为 example.org 申请</span></span><br><span class="line">acme.sh --issue --dns dns_ali -d <span class="string">&#x27;*.example.org&#x27;</span> -d <span class="string">&#x27;example.org&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-证书管理命令">2. 证书管理命令</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 acme.sh 管理的所有证书</span></span><br><span class="line">acme.sh --list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除某个域名的证书（从 acme.sh 管理中移除，不会删除文件）</span></span><br><span class="line">acme.sh --remove -d <span class="string">&#x27;example.com&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销证书（在证书泄露等情况下使用）</span></span><br><span class="line">acme.sh --revoke -d <span class="string">&#x27;example.com&#x27;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="security"></a></p>
+<h2 id="🔒-安全最佳实践">🔒 安全最佳实践</h2>
+<ol>
+<li>
+<p><strong>API 密钥安全</strong>：</p>
+<ul>
+<li>始终使用 <strong>RAM 子账户</strong>，并遵循<strong>最小权限原则</strong>，只授予 <code>AliyunDNSFullAccess</code> 权限，而非主账户 AK。</li>
+<li>将密钥保存在 <code>~/.acme.sh/account.conf</code> 中，并使用 <code>chmod 600 ~/.acme.sh/account.conf</code> 设置严格的文件权限。</li>
+</ul>
+</li>
+<li>
+<p><strong>证书文件权限</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置严格的证书文件权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 644 /etc/nginx/ssl/example.com/fullchain.cer   <span class="comment"># 证书链可读</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 600 /etc/nginx/ssl/example.com/private.key     <span class="comment"># 私钥仅 root 可读</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> root:root /etc/nginx/ssl/example.com/*         <span class="comment"># 所有者设为 root</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>定期备份</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份证书文件和 acme.sh 配置</span></span><br><span class="line">tar -czf /backup/ssl-certs-$(<span class="built_in">date</span> +%Y%m%d).tar.gz /etc/nginx/ssl/</span><br><span class="line">tar -czf /backup/acme-config-$(<span class="built_in">date</span> +%Y%m%d).tar.gz ~/.acme.sh/</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p><a id="uninstall"></a></p>
+<h2 id="🗑️-卸载与清理">🗑️ 卸载与清理</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 优雅地卸载 acme.sh（会清理 cron 任务等）</span></span><br><span class="line">acme.sh --uninstall</span><br><span class="line"></span><br><span class="line"><span class="comment"># 强制删除整个 acme.sh 目录（如果 --uninstall 不成功）</span></span><br><span class="line"><span class="built_in">rm</span> -rf ~/.acme.sh</span><br></pre></td></tr></table></figure>
+<p>卸载前，请确保你已经备份了重要的证书文件，或者已经将证书部署到了安全的地方。</p>
+<hr>
+<p><a id="advanced-usage"></a></p>
+<h2 id="💡-高级用法">💡 高级用法</h2>
+<h3 id="1-ECC-证书（推荐）">1. ECC 证书（推荐）</h3>
+<p>ECC（椭圆曲线密码学）证书比 RSA 证书<strong>更安全、更快速</strong>，且密钥长度更短。现代浏览器均支持 ECC。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 申请 ECC 椭圆曲线证书</span></span><br><span class="line">acme.sh --issue --dns dns_ali -d <span class="string">&#x27;*.example.com&#x27;</span> --keylength ec-256</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 ECC 证书 (注意使用 --ecc 参数)</span></span><br><span class="line">acme.sh --install-cert -d <span class="string">&#x27;example.com&#x27;</span> --ecc \</span><br><span class="line">  --key-file /etc/nginx/ssl/example.com/ecc.key \</span><br><span class="line">  --fullchain-file /etc/nginx/ssl/example.com/ecc.cer \</span><br><span class="line">  --reloadcmd <span class="string">&quot;systemctl reload nginx&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在 Nginx 配置中，将 <code>ssl_certificate</code> 和 <code>ssl_certificate_key</code> 指向对应的 ECC 文件即可。</p>
+<h3 id="2-更换默认-CA">2. 更换默认 CA</h3>
+<p><a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 默认可能使用 ZeroSSL，你可以切换回 Let’s Encrypt：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置默认 CA 为 Let&#x27;s Encrypt</span></span><br><span class="line">acme.sh --set-default-ca --server letsencrypt</span><br></pre></td></tr></table></figure>
+<h3 id="3-证书自动部署到远程服务器">3. 证书自动部署到远程服务器</h3>
+<p>如果你有多台服务器，可以在续期后自动将证书部署到远程机器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --deploy -d <span class="string">&#x27;example.com&#x27;</span> --deploy-hook ssh \</span><br><span class="line">  --deploy-srv <span class="string">&quot;user@server1:/path/to/ssl&quot;</span> \</span><br><span class="line">  --deploy-srv <span class="string">&quot;user@server2:/path/to/ssl&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="summary"></a></p>
+<h2 id="🎯-总结与提示">🎯 总结与提示</h2>
+<p>通过本指南，你应该已经成功使用 <code>acme.sh</code> 和阿里云 DNS API 申请并部署了免费的泛域名 SSL 证书。<strong>自动化是 <a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 的核心价值</strong>，一旦正确设置，证书将在后台静默更新，你几乎无需再手动干预。</p>
+<p><strong>核心要点回顾：</strong></p>
+<ul>
+<li><strong>使用 DNS API</strong> 是实现泛域名证书自动化的关键。</li>
+<li><strong>安全地管理</strong> 你的阿里云 API 密钥（RAM 子账户 + <code>account.conf</code>）。</li>
+<li><strong><code>--install-cert</code></strong> 命令比直接使用 <code>~/.acme.sh/</code> 目录下的证书更可靠。</li>
+<li><strong><code>--reloadcmd</code></strong> 参数必须正确设置，以确保续期后服务能加载新证书。</li>
+<li>定期执行 <strong><code>acme.sh --list</code></strong> 或检查日志，确认自动续期工作正常。</li>
+</ul>
+<blockquote>
+<p><strong>💡 提示</strong>: 泛域名证书（<code>*.example.com</code>）<strong>不能</strong>保护二级以上的子域名。例如，它能保护 <code>blog.example.com</code> 和 <code>api.example.com</code>，但不能保护 <code>dev.api.example.com</code>。如果需要保护多级子域名，需要单独为 <code>api.example.com</code> 再申请一个泛域名证书 <code>*api.example.com</code> 或具体域名证书。</p>
+</blockquote>
+<p>如果遇到问题，请首先查阅 <code>~/.acme.sh/acme.sh.log</code> 日志文件，或者开启 <code>--debug</code> 模式运行命令。<a target="_blank" rel="noopener" href="http://acme.sh">acme.sh</a> 的 <a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh/wiki">GitHub Wiki</a> 也是非常宝贵的资源。</p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>使用 acme.sh 和阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://www.meimolihan.eu.org/posts/b7d4082a.html">https://www.meimolihan.eu.org/posts/b7d4082a.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>凡凡小站</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2025-09-12</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2025-09-12</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ssl/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>ssl</a><a class="post-meta__tags" href="/tags/acme/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>acme</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.meimolihan.eu.org/hexo/img/wx.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/wx.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.meimolihan.eu.org/hexo/img/zfb.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/zfb.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/6275a274.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?6997" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Markdown 警告框与颜色代码大全 🎨</div></div></a></div><div class="next-post pull-right"><a href="/posts/ab535996.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?2067" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Proxmox VE Windows 虚拟机 VirtIO 驱动配置 🚀</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/bedb63ca.html" title="acme.sh + Caddy 完全指南 🚀"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?2754" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="title">acme.sh + Caddy 完全指南 🚀</div></div></a></div><div><a href="/posts/910173e.html" title="acme.sh + Cloudflare SSL 证书管理 🔐"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?5739" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="title">acme.sh + Cloudflare SSL 证书管理 🔐</div></div></a></div><div><a href="/posts/f6062c3d.html" title="acme.sh + Nginx 自动化 SSL 证书与高性能 Web 服务 🚀"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?5855" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="title">acme.sh + Nginx 自动化 SSL 证书与高性能 Web 服务 🚀</div></div></a></div><div><a href="/posts/249f7cf.html" title="Docker 部署 AllinSSL SSL证书管理工具 🔐"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?6315" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="title">Docker 部署 AllinSSL SSL证书管理工具 🔐</div></div></a></div><div><a href="/posts/d688a297.html" title="Certbot SSL 证书管理 &amp; Cloudflare API 验证 🔐"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?3050" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="title">Certbot SSL 证书管理 &amp; Cloudflare API 验证 🔐</div></div></a></div><div><a href="/posts/650f1ddb.html" title="Certbot SSL 证书管理 &amp; DNS验证 🔐"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?2974" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-12</div><div class="title">Certbot SSL 证书管理 &amp; DNS验证 🔐</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">使用 acme.sh 和 阿里云 DNS 申请与管理免费泛域名 SSL 证书指南 🔐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E7%9B%AE%E5%BD%95"><span class="toc-text">📋 目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%B0-%E7%AE%80%E4%BB%8B%E4%B8%8E%E7%89%B9%E7%82%B9"><span class="toc-text">🌰 简介与特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E5%AE%89%E8%A3%85-acme-sh"><span class="toc-text">📦 安装 acme.sh</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC"><span class="toc-text">1. 自动安装脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8A%A0%E8%BD%BD%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2. 加载环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">3. 创建符号链接（可选）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%91-%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91-DNS-API"><span class="toc-text">🔑 配置阿里云 DNS API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%8E%B7%E5%8F%96%E9%98%BF%E9%87%8C%E4%BA%91-API-%E5%AF%86%E9%92%A5"><span class="toc-text">1. 获取阿里云 API 密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2. 设置环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%96%8B%EF%B8%8F-%E7%94%B3%E8%AF%B7%E6%B3%9B%E5%9F%9F%E5%90%8D%E8%AF%81%E4%B9%A6"><span class="toc-text">🖋️ 申请泛域名证书</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%B3%E8%AF%B7%E8%AF%81%E4%B9%A6%E5%91%BD%E4%BB%A4"><span class="toc-text">1. 申请证书命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%A6%96%E6%AC%A1%E5%BB%BA%E8%AE%AE%EF%BC%89"><span class="toc-text">2. 测试模式（首次建议）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E8%BF%87%E7%A8%8B"><span class="toc-text">3. 证书申请过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2%E8%AF%81%E4%B9%A6"><span class="toc-text">📁 安装与部署证书</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Nginx-%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85"><span class="toc-text">1. Nginx 证书安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Apache-%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85"><span class="toc-text">2. Apache 证书安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%80%9A%E7%94%A8%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%85%E5%A4%8D%E5%88%B6%EF%BC%89"><span class="toc-text">3. 通用证书安装（仅复制）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-Nginx-%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B"><span class="toc-text">⚙️ Nginx 配置示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-SSL-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E7%89%87%E6%AE%B5"><span class="toc-text">1. SSL 服务器配置片段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-HTTPS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9D%97%E7%A4%BA%E4%BE%8B"><span class="toc-text">2. HTTPS 服务器块示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-HTTP-%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0-HTTPS"><span class="toc-text">3. HTTP 重定向到 HTTPS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B5%8B%E8%AF%95%E5%B9%B6%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">4. 测试并应用配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F%E7%AE%A1%E7%90%86"><span class="toc-text">🔄 自动续期管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F%E5%8E%9F%E7%90%86"><span class="toc-text">1. 自动续期原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%8B%E5%8A%A8%E7%BB%AD%E6%9C%9F%E5%91%BD%E4%BB%A4"><span class="toc-text">2. 手动续期命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A3%80%E6%9F%A5%E8%AF%81%E4%B9%A6%E7%8A%B6%E6%80%81"><span class="toc-text">3. 检查证书状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%9B-%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">🐛 故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E4%B8%8E%E8%A7%A3%E5%86%B3"><span class="toc-text">1. 常见错误与解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="toc-text">2. 日志文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E5%A4%9A%E5%9F%9F%E5%90%8D%E7%AE%A1%E7%90%86"><span class="toc-text">📊 多域名管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%B3%E8%AF%B7%E5%A4%9A%E4%B8%AA%E6%B3%9B%E5%9F%9F%E5%90%8D%E8%AF%81%E4%B9%A6"><span class="toc-text">1. 申请多个泛域名证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">2. 证书管理命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%92-%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">🔒 安全最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%97%91%EF%B8%8F-%E5%8D%B8%E8%BD%BD%E4%B8%8E%E6%B8%85%E7%90%86"><span class="toc-text">🗑️ 卸载与清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95"><span class="toc-text">💡 高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ECC-%E8%AF%81%E4%B9%A6%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">1. ECC 证书（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9B%B4%E6%8D%A2%E9%BB%98%E8%AE%A4-CA"><span class="toc-text">2. 更换默认 CA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%81%E4%B9%A6%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">3. 证书自动部署到远程服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E6%80%BB%E7%BB%93%E4%B8%8E%E6%8F%90%E7%A4%BA"><span class="toc-text">🎯 总结与提示</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright"><span><b>&copy;2025</b></span><span><b>&nbsp;&nbsp;By 凡凡小站</b></span></div><div id="workboard"></div><p id="ghbdages"></p><div id="footer-animal"><div class="animal-wall"></div><img class="animal" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/color.avif" alt="动物" onerror="this.onerror=null;this.src='/img/404.jpg'"/></div></div><!--#footer-wrap--><!--  #ft--><!--    .ft-item-1--><!--      .t-top--><!--        .t-t-l--><!--          p.ft-t.t-l-t 格言🧬--><!--          .bg-ad--><!--            div--><!--              | 再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨--><!--            .btn-xz-box--><!--              a.btn-xz(href='https://stellarium.org/') 点击开启星辰之旅--><!--        .t-t-r--><!--          p.ft-t.t-l-t 猜你想看💡--><!--          ul.ft-links--><!--            li--><!--              a(href='/posts/eec9786.html') 魔改指南--><!--              a(href='/box/nav/') 网址导航--><!--            li--><!--              a(href='/social/link/') 我的朋友--><!--              a(href='/comments/') 留点什么--><!--            li--><!--              a(href='/personal/about/') 关于作者--><!--              a(href='/archives/') 文章归档--><!--            li--><!--              a(href='/categories/') 文章分类--><!--              a(href='/tags/') 文章标签--><!--            li--><!--              a(href='/box/Gallery/') 我的画廊--><!--              a(href='/personal/bb/') 我的唠叨--><!--            li--><!--              a(href='/site/time/') 建设进程--><!--              a(href='/site/census/') 网站统计--><!--    .ft-item-2--><!--      p.ft-t 推荐友链⌛--><!--      .ft-img-group--><!--        .img-group-item--><!--          a(href='https://www.fomal.cc/' title='Fomalhaut🥝')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/60e5d4e39da7c077.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!----><!--  if theme.footer.owner.enable--><!--    - var now = new Date()--><!--    - var nowYear = now.getFullYear()--><!--    //- if theme.footer.owner.since && theme.footer.owner.since != nowYear--><!--    //-   .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By ${config.author}`--><!--    //- else--><!--    //-   .copyright!= `&copy;${nowYear} By ${config.author}`--><!--    //- 新加的--><!--    if theme.footer.owner.since && theme.footer.owner.since != nowYear--><!--      .copyright--><!--        span!= `<b>&copy;${theme.footer.owner.since}-${nowYear}</b>`--><!--        span!= `<b>&nbsp;&nbsp;By ${config.author}</b>`--><!--    else--><!--      .copyright--><!--        span!= `<b>&copy;${nowYear}</b>`--><!--        span!= `<b>&nbsp;&nbsp;By ${config.author}</b>`--><!--    //- 到这里--><!--  if theme.footer.copyright--><!--    .framework-info--><!--      span= _p('footer.framework') + ' '--><!--      a(href='https://hexo.io')= 'Hexo'--><!--      span.footer-separator |--><!--      span= _p('footer.theme') + ' '--><!--      a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'--><!--  if theme.footer.custom_text--><!--    .footer_custom_text!=`${theme.footer.custom_text}`--><!--  #workboard--><!--  p#ghbdages--><!--    a.github-badge(target='_blank' href="https://hexo.io/" style='margin-inline:5px' title="博客框架为Hexo_v6.3.0")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://butterfly.js.org/" style='margin-inline:5px' title="主题版本Butterfly_v4.3.1")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://vercel.com/" style='margin-inline:5px' title="本站采用多线部署，主线路托管于Vercel")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Hosted-Vercel-brightgreen.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://user.51.la/" style='margin-inline:5px' title="本站数据分析得益于51la技术支持")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Analytics-51la-3db1eb.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://icp.gov.moe/?keyword=20226665" style='margin-inline:5px' title="本站已加入萌ICP豪华套餐，萌ICP备20226665号")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/萌ICP备-20226665-fe1384.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://bitiful.dogecast.com/buckets" style='margin-inline:5px' title="本网站经Service Worker分流至缤纷云对象存储")--><!--      img(src=" https://sourcebucket.s3.ladydaily.com/badge/Bucket-缤纷云-9c62da.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://www.netdun.net/" style='margin-inline:5px' title="本站使用网盾星球提供CDN加速与防护")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/CDN-网盾星球-fff2cc.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://github.com/" style='margin-inline:5px' title="本网站源码由Github提供存储仓库")--><!--      img(src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt='')--><!----><!--    //- a.github-badge(target='_blank' href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style='margin-inline:5px' title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可")--><!--    //-   img(src="https://sourcebucket.s3.ladydaily.com/badge/Copyright-BY--NC--SA--4.svg" alt='')--></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><span id="percent">0<span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script src="/js/instantpage.min.js"></script><script src="/js/vue.min.js" defer></script><script src="/js/index.js" defer></script><script src="/js/clipboard.min.js" defer></script><script src="/js/sweetalert2.all.js" defer></script><script src="/js/pace.min.js" defer></script><script src="/js/winbox.bundle.min.js" defer></script><script src="/js/font_3586335_hsivh70x0fm.js" defer></script><script src="/js/font_3636804_gr02jmjr3y9.js" defer></script><script src="/js/font_3612150_kfv55xn3u2g.js" defer></script><script src="//at.alicdn.com/t/c/font_4857814_plnjyguk7t.js" defer></script><script src="https://open.lightxi.com/unpkg/chinese-lunar@0.1.4/lib/chinese-lunar.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.js"></script><script data-pjax src="/js/rightmenu.js" defer></script><script src="/js/typed.min.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><script src="/js/welcome.js"></script><script src="/js/日历卡片.js"></script><script defer src="/js/今日诗词.js"></script><script defer src="/js/lazyload.min.js"></script><script src="/js/jquery.fancybox.min.js"></script><script src="/js/Gold-ingot.js"></script><script src="/js/APlayer.min.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/fireworks.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show","#web_bg",".js-pjax","#bibi","body > title","#app","#tag-echarts","#posts-echart","#categories-echarts"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Linux/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍥 Linux (125)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Windows/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">👩‍💻 Windows (35)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Proxmox-VE/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">📢 Proxmox VE (42)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Docker/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🐳 Docker (95)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><a class="magnet_link_more"  href="https://www.meimolihan.eu.org/categories/" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(50% - 5px);background: #f2f2f2;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: #b30070}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?9932" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-12</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt="">十六进制颜色代码大全 🎨</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?6974" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-12</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt="">随机壁纸 API 合集 🖼️</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tk-row');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tk-comments-container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-post');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('relatedPosts-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('local-search-box--input');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('welcome-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info__name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info__description');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-info-social-icons');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 320px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/site/census/'|| '/site/census/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("/api?null",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'null')
+    }
+  </script><!-- hexo injector body_end end --></body></html>
