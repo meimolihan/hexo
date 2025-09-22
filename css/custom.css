@@ -5326,4 +5326,8 @@ summary,
   border-radius: 20px; /* 边框圆角 */
   background-color: var(--theme-color); /* 背景接入主题颜色 */
 }
+/* 侧边栏 小站资讯 字体接入主题色 */
+.webinfo .webinfo-item .item-count {
+  color: var(--theme-color) !important;
+}
 /**************** 以上是 来自 mobufan 的修改内容 ****************/
