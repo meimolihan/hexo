@@ -3483,7 +3483,7 @@ progress::-webkit-progress-value {
    APlayer 全局主体
    ========================== */
 .aplayer {
-  background: #fff;                                    /* 整体白色背景 */
+  background: var(--trans-light) !important;                      /* 接入主题色 */
   font-family: Arial, Helvetica, sans-serif;         /* 英文字体优先 */
   margin: 5px;                                         /* 与其他元素留出 5px 间隙 */
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),           /* 阴影：更贴近 Material Design */
@@ -3937,11 +3937,18 @@ progress::-webkit-progress-value {
   display: none; width: 3px; height: 22px;
   position: absolute; left: 0; top: 5px; cursor: pointer;
 }
-.aplayer .aplayer-list ol li .aplayer-list-index {       /* 歌曲序号 */
-  color: #666; margin-right: 12px; cursor: pointer;
+/* 歌曲序号 */
+.aplayer .aplayer-list ol li .aplayer-list-index {
+  color: var(--theme-color) !important; /* 歌曲序号 接入主题色*/
+  margin-right: 18px !important; /* 歌曲序号与歌曲名称间隔距离调整*/
 }
-.aplayer .aplayer-list ol li .aplayer-list-author {      /* 右侧作者 */
-  color: #666; float: right; cursor: pointer;
+/* 右侧作者 */
+.aplayer .aplayer-list ol li .aplayer-list-author {
+  color: var(--theme-color) !important; /* 右侧作者 接入主题色*/
+}
+/* 左侧歌曲名称 */
+.aplayer-list-title {
+  color: var(--theme-color) !important; /* 左侧歌曲名称 接入主题色*/
 }
 
 /* 悬停与激活状态优化 */
@@ -4019,7 +4026,7 @@ progress::-webkit-progress-value {
    ========================== */
 /* 最外层包裹：暗黑模式背景、字体、圆角、阴影与白天版保持一致，仅替换色系 */
 [data-theme="dark"] .aplayer {
-  background: rgba(66,66,66,.8);          /* 半透明深灰背景，兼容毛玻璃效果 */
+  background: var(--trans-dark) !important;          /* 接入主题色 */
   font-family: Arial,Helvetica,sans-serif;
   margin: 5px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 1px 5px 0 rgba(0,0,0,.1);
@@ -4571,6 +4578,18 @@ to { -webkit-transform: rotate(1turn); transform: rotate(1turn) }
 /*********** 以上是 APlayer 播放器**********/
 
 /**************** 来自 mobufan 的修改内容 ****************/
+/* 首页卡片引导箭头背景 接入主题颜色*/
+.fas.fa-angle-down.scroll-down-effects {
+  color: var(--theme-color) !important;
+}
+/* 导航引导栏箭头 接入主题颜色*/
+.fas.fa-chevron-down {
+  color: var(--theme-color) !important;
+}
+/* 首页文章标题鼠标悬停 接入主题颜色*/
+.article-title-link:hover {
+  color: var(--theme-color) !important;
+}
 /* 隐藏脚页下面元素 */
 #ghbdages {
   display: none;
@@ -4578,6 +4597,10 @@ to { -webkit-transform: rotate(1turn); transform: rotate(1turn) }
 /* 代码框 */
 .highlight {
   border-radius: 15px!important;
+}
+/* 主题控制面板 外挂标签圆角 */
+#article-container .folding-tag {
+  border-radius: 15px;
 }
 /* 隐藏首页分类卡片 */
 /*#catalog_magnet, .recent-post-item #catalog_magnet {*/
@@ -5113,13 +5136,6 @@ blockquote {
 /*    padding-left: 0; !* 移除之前的偏移 *!*/
 /*    max-width: 980px;*/
 /*    margin: 0 auto;*/
-/*}*/
-/*!* 首页卡片引导箭头背景 接入主题颜色*!*/
-/*.recent-post-item .recent-post-content.right .article-content {*/
-/*    background-color: var(--theme-color);*/
-/*}*/
-/*.recent-post-item .recent-post-content.left .article-content {*/
-/*    background-color: var(--theme-color);*/
 /*}*/
 
 /********** 鼠标悬停时边框阴影效果 **********/
