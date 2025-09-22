@@ -3074,7 +3074,8 @@ hr:before {
 }
 div#poem_sentence {
   text-align: center;
-  font-family: serif,cursive;
+  /*font-family: serif,cursive;*/ 默认字体
+  font-family: var(--global-font) ; /* 引入字体 */
   line-height: 1.9;
   margin-bottom: 0.66rem; /* 诗词与作者 间距调整 */
   padding: 1rem;
