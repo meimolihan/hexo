@@ -4543,80 +4543,31 @@ progress::-webkit-progress-value {
    动画定义（与白天版完全一致，无需改动）
    ========================== */
 [data-theme="dark"] @-webkit-keyframes aplayer-roll {
-                      0% { left: 0 }
-                      to { left: -100% }
-                    }
+0% { left: 0 }
+to { left: -100% }
+}
 [data-theme="dark"] @keyframes aplayer-roll {
-                      0% { left: 0 }
-                      to { left: -100% }
-                    }
+0% { left: 0 }
+to { left: -100% }
+}
 [data-theme="dark"] @-webkit-keyframes rotate {
-                      0% { -webkit-transform: rotate(0); transform: rotate(0) }
-                      to { -webkit-transform: rotate(1turn); transform: rotate(1turn) }
-                    }
+0% { -webkit-transform: rotate(0); transform: rotate(0) }
+to { -webkit-transform: rotate(1turn); transform: rotate(1turn) }
+}
 [data-theme="dark"] @keyframes rotate {
-                      0% { -webkit-transform: rotate(0); transform: rotate(0) }
-                      to { -webkit-transform: rotate(1turn); transform: rotate(1turn) }
-                    }
+0% { -webkit-transform: rotate(0); transform: rotate(0) }
+to { -webkit-transform: rotate(1turn); transform: rotate(1turn) }
+}
 
-/******* 移动端 样式调整 ******/
-@media (max-width: 768px) {
-  /* 固定模式下限制宽度 */
-  .aplayer.aplayer-fixed {
-    max-width: 70% !important;
-    left: 0;
-    right: 0;
-  }
-
-  /* APlayer 音乐标签伸缩 */
-  .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-    left: -66px !important;
-    /* 默认情况下缩进左侧 66px，只留一点箭头部分 */
-  }
-
-  .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-    left: 0 !important;
-    /* 鼠标悬停是左侧缩进归零，完全显示按钮 */
-  }
-
-  /* 在非常小的屏幕上进一步调整 */
-  @media (max-width: 320px) {
-    .aplayer {
-      max-width: 92% !important;
-    }
-
-    .aplayer .aplayer-info .aplayer-music {
-      height: 16px !important;
-    }
-
-    .aplayer .aplayer-info .aplayer-music .aplayer-title {
-      font-size: 13px !important;
-    }
-
-    .aplayer .aplayer-info .aplayer-music .aplayer-author {
-      font-size: 11px !important;
-    }
-
-    .aplayer .aplayer-info .aplayer-controller .aplayer-time {
-      font-size: 10px !important;
-    }
-  }
-
-  /* 固定模式下的调整 */
-  .aplayer.aplayer-fixed .aplayer-body {
-    max-width: 100% !important;
-  }
-  /******* 以上是 移动端 样式调整 ******/
-  /*强制隐藏歌词-需要歌词释放此项*/
-  .aplayer-lrc {
-    display: none !important;
-  }
-  /* 调整aplayer高度 */
-  #aplayer {
-    position: fixed;
-    bottom: 40px; /* 距离底部的高度 */
-  }
-  /*********** 以上是 APlayer 播放器**********/
+/*强制隐藏歌词-需要歌词释放此项*/
+.aplayer-lrc {
+  display: none !important;
+}
+/* 调整aplayer高度 */
+#aplayer {
+  position: fixed;
+  bottom: 40px; /* 距离底部的高度 */
+}
 /*********** 以上是 APlayer 播放器**********/
 
 /**************** 来自 mobufan 的修改内容 ****************/
