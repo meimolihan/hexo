@@ -1,0 +1,1094 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Git SSH 密钥自动配置脚本使用指南 🚀 | 凡凡小站</title><meta name="keywords" content="git,ssh,脚本,github,gitee"><meta name="author" content="凡凡小站"><meta name="copyright" content="凡凡小站"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Git SSH 密钥自动配置脚本使用指南 🚀   目录导航 📚  ✨ 简介 🌟 功能特点 📋 一、使用方法  🐱 1. Gitee SSH 配置流程 🐱 2. GitHub SSH 配置流程   🔍 二、脚本详解 ⚙️ 三、配置说明 🛠️ 四、故障排除    简介 ✨ 本仓库提供两个高效自动化脚本，专门用于快速配置 Gitee 和 GitHub 的 SSH 密钥连接。这些脚本采用全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git SSH 密钥自动配置脚本使用指南 🚀">
+<meta property="og:url" content="https://www.meimolihan.eu.org/posts/a2524a66.html">
+<meta property="og:site_name" content="凡凡小站">
+<meta property="og:description" content="Git SSH 密钥自动配置脚本使用指南 🚀   目录导航 📚  ✨ 简介 🌟 功能特点 📋 一、使用方法  🐱 1. Gitee SSH 配置流程 🐱 2. GitHub SSH 配置流程   🔍 二、脚本详解 ⚙️ 三、配置说明 🛠️ 四、故障排除    简介 ✨ 本仓库提供两个高效自动化脚本，专门用于快速配置 Gitee 和 GitHub 的 SSH 密钥连接。这些脚本采用全">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mobufan.eu.org:666/pc?8122">
+<meta property="article:published_time" content="2025-09-25T06:20:52.000Z">
+<meta property="article:modified_time" content="2025-09-25T06:20:52.000Z">
+<meta property="article:author" content="凡凡小站">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="脚本">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="gitee">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mobufan.eu.org:666/pc?8122"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.meimolihan.eu.org/posts/a2524a66"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"已经过了","messageNext":"天自上次更新，文章内容可能已过时。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git SSH 密钥自动配置脚本使用指南 🚀',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-25 14:20:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/element-ui@2.15.6/packages/theme-chalk/lib/index.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/test.css"><link rel="stylesheet" href="/css/jquery.fancybox.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.css"><link rel="stylesheet" href="/css/fa-solid-900.woff2"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- 添加音频播放器代码--><!--link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css')--><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><!--script(src='https://cdn.meimolihan.eu.org/APlayer/APlayer.min.js')--><div id="aplayer"></div><script>const home = 'https://music.meimolihan.eu.org/';
+const songs = [
+   '蜉蝣志-石岩',
+   '来生别再相遇-海来阿木',
+   '香水-谢霆锋',
+   '忘川彼岸-零一九零贰',
+   '背着风流泪-文夫',
+   '苟活-周文凯',
+   '我爱他-丁当',
+   '苟活之重生-周文凯',
+   '最好的安排-曲婉婷',
+   '望故乡-文夫',
+   '骗子-文夫',
+   '最后一次的温柔-田园',
+   '我把往事化如烟-侯泽润',
+   '亲爱的你啊-任素汐',
+   '单身万岁-演员雪姐',
+   '借口-侯泽润',
+   '一句先苦后甜-侯泽润',
+   '你怎么舍得我难过-正在进行石女士',
+   '九万字-张靓颖、摩登兄弟刘宇宁',
+   '老男孩-筷子兄弟', 
+   '雨蝶-李翊君', 
+  'JarOfLove-曲婉婷', 
+  '我的歌声里-曲婉婷', 
+  '跳楼机-张靓颖.王以太', 
+  '浪子的心情-十二大美女', 
+  '空荡的酒杯(天籁版)-洋澜一', 
+  '谢谢你的爱1999-谢霆锋', 
+  '月亮照山川-窝窝', 
+  '离别开出花-就是南方凯', 
+  '爱是你我-刀郎、云朵', 
+  '你在他乡还好吗-大双二双',
+  '执子之手-宝石Gem',
+  '这些年在忙什么-田园',
+  '平凡日子里的挣扎-小璐',
+  '无爱情歌-王娜',
+  '人间疾苦-马健涛',
+  '大风吹倒梧桐树-侯泽润、田园',
+  '跳楼机-en',
+  '一路生花-温奕心',
+  '碎银几两-轩东',
+  '此生无憾-金钰儿',
+  '搀扶-马健涛',
+  '敬往事一杯-侯泽润',
+  '人间一路-青木时光',
+  '别怕我伤心-张信哲',
+  '大东北我的家乡-何玉',
+  '陪我过个冬-燃',
+  '我期待的不是雪-张妙格',
+  '苦命的人-刘阳阳',
+  '爱情恰恰-十二大美女',
+  '不要慌，太阳下山有月光-张含韵',
+  '往事只能回味-周虹',
+  '花妖-刀郎',
+  '一身傲骨不低头-侯泽润',
+  '罗刹海市-刀郎',
+  '怀念战友-刀郎',
+  '西海情歌-刀郎',
+  '我的春风何时来-李贺',
+  '爱我还是他-刘大拿',
+  '爱你十分泪七分-裘海正',
+  '大不了-花姐',
+  '白鸽乌鸦相爱的戏码-艾辰',
+  '爱意藏风里-何雨溪',
+  '忠孝东路走九遍-动力火车',
+  '这一路风太大-原来是夏夏',
+  '天高任鸟飞-侯泽润',
+  '月光凉.落满窗-泡芙芙Scarlett',
+  '败-侯泽润',
+  '一万个理由-郑源',
+  '一亿个伤心-蒙面哥',
+  '一无所有的年纪-侯泽润',
+  '万有引力-汪苏泷',
+  '人间半途-刘阳阳',
+  '人间烟火-程响',
+  '伤心剖半-邓典',
+  '伤心太平洋-任贤齐',
+  '你别慌余生还长-任夏',
+  '假如我不再善良-郑畅业',
+  '冲动的惩罚-刀郎',
+  '凡夫俗子-范茹',
+  '别说我的眼泪你无所谓-东来东往',
+  '可能-程响',
+  '听-张杰',
+  '喀什噶尔胡杨-刀郎',
+  '因为爱所以爱-谢霆锋',
+  '土坡上的狗尾草-卢润泽',
+  '多想做个哑巴-侯泽润',
+  '失恋阵线联盟-草蜢',
+  '妈妈我想回家-曾抖抖',
+  '小模样-张冬玲',
+  '年少的你啊-浩然H.R',
+  '归途的光-诺爷Plus',
+  '心态才是你风水-艺凌',
+  '我也不想活得太累-郑畅业',
+  '我真怕自己哪天倒下-张良',
+  '手心里的温柔-刀郎',
+  '换个方向风景会更好看-杨一琪',
+  '放手也是一种成全-郑畅业',
+  '星星点灯-大波浪',
+  '星河万里-Rom邢锐',
+  '有点甜-汪苏泷.BY2',
+  '海边探戈-王鹤棣',
+  '火力全开-王力宏',
+  '生活没有说明书-洛什么洛',
+  '破碎的梦-陈柏曦',
+  '秋风经过-任夏',
+  '第51次原谅-刘艺雯',
+  '老人与海-汪苏泷.王心凌',
+  '胡广生-任素汐',
+  '苹果香-狼戈',
+  '西楼儿女-岳云鹏',
+  '谁明浪子心-王杰',
+  '路灯下点烟时没有打火机-王永清',
+  '过了河就拆桥-成学迅',
+  '野狼disco-宝石Gem',
+  '除了生死都是擦伤-侯泽润',
+];
+let audios = [];
+// 遍历歌曲列表
+songs.forEach((item) => {
+  const songInfo = item.split('-');
+  audios.push({
+    name: songInfo[0],
+    artist: songInfo[1],
+    url: home + item + '/song.mp3',
+    cover: home + item + '/cover.jpg',
+    lrc: home + item + '/lyric.lrc'
+  });
+});
+
+const ap = new APlayer({
+  container: document.getElementById('aplayer'),
+  fixed: true,
+  lrcType: 3,
+  audio: audios
+});</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="凡凡小站" type="application/atom+xml">
+</head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/muzimi.png" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">334</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-shouye2"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shouye2"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei2">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bianzu41">                   </use></svg><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">凡凡小站</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-shouye2"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shouye2"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian">                   </use></svg><span> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenlei2">                   </use></svg><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guidang">                   </use></svg><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-shejiao"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-haoyoulianjie">                   </use></svg><span> 友链</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bianzu41">                   </use></svg><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><i class="fa-fw icon-guanyu1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-guanyu1"></use></svg><span> 关于</span></a></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-sousuojituanshangpin"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian4"></use></svg></a><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="浅色和深色模式转换" id="nightmode-button"><svg class="faa-tada" style="height:25px;width:25px;fill:currentColor;position:relative;top:7px" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">       </use></svg></a><div id="toggle-menu"><a><!--i.fas.fa-bars.fa-fw--><a class="site-page faa-parent animated-hover" title="菜单"><svg class="faa-tada caidan" style="height:18px;width:18px;fill:currentColor;position:relative;top:7px"><use id="modeicon" xlink:href="#icon-caidan11"></use></svg></a></a></div></div></div></nav><div id="post-info"><h1 class="post-title">Git SSH 密钥自动配置脚本使用指南 🚀</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2025-09-25T06:20:52.000Z" title="发表于 2025-09-25 14:20:52">2025-09-25</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-25T06:20:52.000Z" title="更新于 2025-09-25 14:20:52">2025-09-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/">默认分类</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">2122</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>Git SSH 密钥自动配置脚本使用指南 🚀</h1>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.meimolihan.eu.org/img/git-ssh-01.webp" alt=""></p>
+<hr>
+<h2 id="目录导航-📚">目录导航 📚</h2>
+<ul>
+<li><a href="#introduction">✨ 简介</a></li>
+<li><a href="#features">🌟 功能特点</a></li>
+<li><a href="#usage">📋 一、使用方法</a>
+<ul>
+<li><a href="#gitee-usage">🐱 1. Gitee SSH 配置流程</a></li>
+<li><a href="#github-usage">🐱 2. GitHub SSH 配置流程</a></li>
+</ul>
+</li>
+<li><a href="#script-details">🔍 二、脚本详解</a></li>
+<li><a href="#configuration">⚙️ 三、配置说明</a></li>
+<li><a href="#troubleshooting">🛠️ 四、故障排除</a></li>
+</ul>
+<hr>
+<p><a id="introduction"></a></p>
+<h2 id="简介-✨">简介 ✨</h2>
+<p>本仓库提供两个<strong>高效自动化脚本</strong>，专门用于快速配置 Gitee 和 GitHub 的 SSH 密钥连接。这些脚本采用<strong>全自动智能化流程</strong>，用户只需进行简单交互即可完成从 Git 环境检测到 SSH 连接测试的完整配置流程。</p>
+<h3 id="🎯-解决痛点">🎯 解决痛点</h3>
+<ul>
+<li><strong>传统配置复杂</strong>：手动配置 SSH 密钥需要多个步骤，容易出错</li>
+<li><strong>平台差异处理</strong>：不同代码托管平台（Gitee/GitHub）配置要求不同</li>
+<li><strong>系统兼容性</strong>：不同操作系统和发行版的环境差异</li>
+</ul>
+<h3 id="📊-核心价值">📊 核心价值</h3>
+<p>通过自动化脚本，将原本需要 10-15 分钟的手动配置过程缩短至 <strong>2-3 分钟</strong>，大幅提升开发环境 setup 效率！</p>
+<hr>
+<p><a id="features"></a></p>
+<h2 id="功能特点-🌟">功能特点 🌟</h2>
+<h3 id="🔧-全自动化体验">🔧 全自动化体验</h3>
+<ul>
+<li><strong>智能环境检测</strong>：自动识别系统类型和包管理器</li>
+<li><strong>一键式安装</strong>：从 Git 安装到 SSH 配置全程自动化</li>
+<li><strong>交互式引导</strong>：关键步骤等待用户确认，避免误操作</li>
+</ul>
+<h3 id="🌍-多平台兼容">🌍 多平台兼容</h3>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>支持情况</th>
+<th>特色功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Linux</strong></td>
+<td>✅ 全面支持</td>
+<td>自动识别发行版（Debian/Ubuntu/CentOS/RHEL/openSUSE）</td>
+</tr>
+<tr>
+<td><strong>macOS</strong></td>
+<td>✅ 完美运行</td>
+<td>原生终端支持，Homebrew 环境兼容</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td>✅ Git Bash</td>
+<td>完整的 Linux-like 环境体验</td>
+</tr>
+</tbody>
+</table>
+<h3 id="🛡️-安全可靠">🛡️ 安全可靠</h3>
+<ul>
+<li><strong>强加密标准</strong>：使用 4096 位 RSA 加密算法</li>
+<li><strong>密钥隔离</strong>：为每个平台生成独立的密钥对</li>
+<li><strong>权限控制</strong>：自动设置正确的文件权限（700/600）</li>
+</ul>
+<h3 id="💡-用户友好设计">💡 用户友好设计</h3>
+<ul>
+<li><strong>彩色终端输出</strong>：不同信息级别使用不同颜色标识</li>
+<li><strong>进度提示</strong>：清晰的步骤编号和状态反馈</li>
+<li><strong>错误处理</strong>：完善的异常捕获和友好错误提示</li>
+</ul>
+<hr>
+<p><a id="usage"></a></p>
+<h2 id="一、使用方法-📋">一、使用方法 📋</h2>
+<p><a id="gitee-usage"></a></p>
+<h3 id="1-🐱-Gitee-SSH-配置流程">1. 🐱 Gitee SSH 配置流程</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Vercel 仓库</span></span><br><span class="line">bash &lt;(curl -sL script.meimolihan.eu.org/sh/git-ssh/gitee-ssh-init.sh)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Gitee 仓库</span></span><br><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/script/raw/master/sh/git-ssh/gitee-ssh-init.sh)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.meimolihan.eu.org/screenshot/gitee-git-ssh-001.webp" alt="Gitee-ssh"></p>
+<p><a id="github-usage"></a></p>
+<h3 id="2-🐱-GitHub-SSH-配置流程">2. 🐱 GitHub SSH 配置流程</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Vercel 仓库</span></span><br><span class="line">bash &lt;(curl -sL script.meimolihan.eu.org/sh/git-ssh/github-ssh-init.sh)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Gitee 仓库</span></span><br><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/script/raw/master/sh/git-ssh/github-ssh-init.sh)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.meimolihan.eu.org/screenshot/github-git-ssh-001.webp" alt="GitHub-ssh"></p>
+<h3 id="🔄-详细执行流程">🔄 详细执行流程</h3>
+<h4 id="步骤-1-环境检测与准备-🛠️">步骤 1: 环境检测与准备 🛠️</h4>
+<ul>
+<li>✅ 检测系统类型和包管理器</li>
+<li>✅ 自动安装 Git（如未安装）</li>
+<li>✅ 验证 Git 版本兼容性</li>
+</ul>
+<h4 id="步骤-2-Git-全局配置-⚙️">步骤 2: Git 全局配置 ⚙️</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自动设置的用户配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;您的用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;您的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="步骤-3-SSH-密钥生成-🔑">步骤 3: SSH 密钥生成 🔑</h4>
+<ul>
+<li>✅ 生成 4096 位 RSA 密钥对</li>
+<li>✅ 使用邮箱作为密钥注释标识</li>
+<li>✅ 密钥文件自动命名和存储</li>
+</ul>
+<h4 id="步骤-4-公钥添加指导-👨‍💻">步骤 4: 公钥添加指导 👨‍💻</h4>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">==================================================</span><br><span class="line">您的 SSH 公钥如下（请完整复制）：</span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2E... meimolihan@gmail.com</span><br><span class="line">==================================================</span><br><span class="line">请打开 Gitee 添加页面：https://gitee.com/profile/sshkeys</span><br></pre></td></tr></table></figure>
+<h4 id="步骤-5-自动配置写入-📝">步骤 5: 自动配置写入 📝</h4>
+<ul>
+<li>✅ 创建 ~/.ssh/config 文件</li>
+<li>✅ 添加平台特定的 SSH 配置</li>
+<li>✅ 更新 known_hosts 文件</li>
+</ul>
+<h4 id="步骤-6-连接测试验证-✅">步骤 6: 连接测试验证 ✅</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试 Gitee 连接</span></span><br><span class="line">ssh -T git@gitee.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试 GitHub 连接  </span></span><br><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<h3 id="⏱️-时间预估">⏱️ 时间预估</h3>
+<ul>
+<li><strong>首次运行</strong>：约 2-3 分钟（包含用户交互时间）</li>
+<li><strong>后续运行</strong>：约 30 秒（复用现有配置）</li>
+</ul>
+<hr>
+<p><a id="script-details"></a></p>
+<h2 id="二、脚本详解-🔍">二、脚本详解 🔍</h2>
+<h3 id="🏗️-架构设计">🏗️ 架构设计</h3>
+<h4 id="模块化函数设计">模块化函数设计</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 主要功能模块</span></span><br><span class="line">install_git_if_needed()    <span class="comment"># 环境检测与安装</span></span><br><span class="line">step_git_config()         <span class="comment"># Git 配置设置</span></span><br><span class="line">step_gen_key()           <span class="comment"># 密钥生成管理</span></span><br><span class="line">step_show_pub_and_wait() <span class="comment"># 用户交互引导</span></span><br><span class="line">step_ssh_config()        <span class="comment"># SSH 配置写入</span></span><br><span class="line">step_known_hosts()       <span class="comment"># 主机密钥管理</span></span><br><span class="line">step_test()              <span class="comment"># 连接测试验证</span></span><br></pre></td></tr></table></figure>
+<h4 id="错误处理机制">错误处理机制</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -euo pipefail  <span class="comment"># 严格错误处理模式</span></span><br><span class="line"><span class="comment"># -e: 命令失败立即退出</span></span><br><span class="line"><span class="comment"># -u: 使用未定义变量时报错</span></span><br><span class="line"><span class="comment"># -o pipefail: 管道命令失败整体失败</span></span><br></pre></td></tr></table></figure>
+<h3 id="🔄-智能适配逻辑">🔄 智能适配逻辑</h3>
+<h4 id="多系统包管理器检测">多系统包管理器检测</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">install_git_if_needed</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> [ -f /etc/debian_version ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># Debian/Ubuntu 系统</span></span><br><span class="line">        <span class="built_in">sudo</span> apt-get update -qq &amp;&amp; <span class="built_in">sudo</span> apt-get install -y git</span><br><span class="line">    <span class="keyword">elif</span> [ -f /etc/redhat-release ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># CentOS/RHEL 系统</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">command</span> -v dnf &amp;&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">sudo</span> dnf -y install git  <span class="comment"># 新版本使用 dnf</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">sudo</span> yum -y install git  <span class="comment"># 老版本使用 yum</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">elif</span> [ -f /etc/SuSE-release ] || [ -f /etc/SUSE-brand ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># openSUSE 系统</span></span><br><span class="line">        <span class="built_in">sudo</span> zypper -n install git</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        log_error <span class="string">&quot;未识别的 Linux 发行版&quot;</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="📊-平台特性对比">📊 平台特性对比</h3>
+<table>
+<thead>
+<tr>
+<th>功能特性</th>
+<th>Gitee 脚本</th>
+<th>GitHub 脚本</th>
+<th>差异说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>连接端口</strong></td>
+<td>标准 22 端口</td>
+<td>22 + 443 端口</td>
+<td>GitHub 支持 HTTPS 端口备用</td>
+</tr>
+<tr>
+<td><strong>主机验证</strong></td>
+<td><a target="_blank" rel="noopener" href="http://gitee.com">gitee.com</a></td>
+<td><a target="_blank" rel="noopener" href="http://ssh.github.com">ssh.github.com</a></td>
+<td>GitHub 使用专用 SSH 端点</td>
+</tr>
+<tr>
+<td><strong>欢迎消息</strong></td>
+<td>Gitee 个性化欢迎语</td>
+<td>GitHub 官方欢迎信息</td>
+<td>平台特定的连接成功提示</td>
+</tr>
+<tr>
+<td><strong>配置优化</strong></td>
+<td>标准 SSH 配置</td>
+<td>多端口备用配置</td>
+<td>GitHub 针对网络环境的优化</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a id="configuration"></a></p>
+<h2 id="三、配置说明-⚙️">三、配置说明 ⚙️</h2>
+<h3 id="🎛️-自定义变量调整">🎛️ 自定义变量调整</h3>
+<h4 id="基础身份配置">基础身份配置</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 📍 在脚本开头修改这些变量即可个性化配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Gitee 专用配置</span></span><br><span class="line">GITEE_USER=<span class="string">&quot;meimolihan&quot;</span>                    <span class="comment"># 您的 Gitee 用户名</span></span><br><span class="line">GITEE_EMAIL=<span class="string">&quot;meimolihan@gmail.com&quot;</span>         <span class="comment"># 您的 Gitee 验证邮箱</span></span><br><span class="line">KEY_COMMENT=<span class="string">&quot;<span class="variable">$GITEE_EMAIL</span>&quot;</span>                 <span class="comment"># 密钥注释（建议使用邮箱）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># GitHub 专用配置  </span></span><br><span class="line">GITHUB_USER=<span class="string">&quot;meimolihan&quot;</span>                   <span class="comment"># 您的 GitHub 用户名</span></span><br><span class="line">GITHUB_EMAIL=<span class="string">&quot;meimolihan@gmail.com&quot;</span>        <span class="comment"># 您的 GitHub 验证邮箱</span></span><br><span class="line">KEY_COMMENT=<span class="string">&quot;<span class="variable">$GITHUB_EMAIL</span>&quot;</span>                <span class="comment"># 密钥注释标识</span></span><br></pre></td></tr></table></figure>
+<h4 id="文件路径配置">文件路径配置</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 🔐 密钥文件存储路径（一般无需修改）</span></span><br><span class="line">KEY_FILE=<span class="string">&quot;<span class="variable">$HOME</span>/.ssh/id_rsa_gitee&quot;</span>         <span class="comment"># Gitee 密钥路径</span></span><br><span class="line">KEY_FILE=<span class="string">&quot;<span class="variable">$HOME</span>/.ssh/id_rsa_github&quot;</span>        <span class="comment"># GitHub 密钥路径</span></span><br></pre></td></tr></table></figure>
+<h3 id="📁-生成的文件结构">📁 生成的文件结构</h3>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~<span class="regexp">/.ssh/</span></span><br><span class="line">├── 🗝️ id_rsa_gitee          <span class="comment"># Gitee 私钥（权限 600）</span></span><br><span class="line">├── 🔓 id_rsa_gitee.pub      <span class="comment"># Gitee 公钥（权限 644）</span></span><br><span class="line">├── 🗝️ id_rsa_github         <span class="comment"># GitHub 私钥（权限 600）</span></span><br><span class="line">├── 🔓 id_rsa_github.pub     <span class="comment"># GitHub 公钥（权限 644）</span></span><br><span class="line">├── ⚙️ config               <span class="comment"># SSH 主配置文件（权限 600）</span></span><br><span class="line">└── 🌐 known_hosts          <span class="comment"># 可信主机列表（权限 644）</span></span><br></pre></td></tr></table></figure>
+<h3 id="🔧-SSH-配置详解">🔧 SSH 配置详解</h3>
+<h4 id="优化后的-config-文件">优化后的 config 文件</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Gitee 配置段</span></span><br><span class="line">Host gitee.com</span><br><span class="line">    User git</span><br><span class="line">    Hostname gitee.com</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_gitee    <span class="comment"># 指定专用密钥</span></span><br><span class="line">    IdentitiesOnly <span class="built_in">yes</span>                 <span class="comment"># 只使用指定密钥</span></span><br><span class="line">    PreferredAuthentications publickey <span class="comment"># 优先公钥认证</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># GitHub 配置段（包含端口备用）</span></span><br><span class="line">Host github.com</span><br><span class="line">    User git</span><br><span class="line">    Hostname ssh.github.com            <span class="comment"># GitHub SSH 专用端点</span></span><br><span class="line">    Port 443                          <span class="comment"># HTTPS 备用端口</span></span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_github</span><br><span class="line">    IdentitiesOnly <span class="built_in">yes</span></span><br><span class="line">    PreferredAuthentications publickey</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a id="troubleshooting"></a></p>
+<h2 id="四、故障排除-🛠️">四、故障排除 🛠️</h2>
+<h3 id="🔍-常见问题速查表">🔍 常见问题速查表</h3>
+<table>
+<thead>
+<tr>
+<th>问题现象</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>❌ 脚本执行权限错误</strong></td>
+<td>文件未设置执行权限</td>
+<td><code>chmod +x script-name.sh</code></td>
+</tr>
+<tr>
+<td><strong>❌ Git 安装失败</strong></td>
+<td>网络问题或镜像源错误</td>
+<td>检查网络连接，更换镜像源</td>
+</tr>
+<tr>
+<td><strong>❌ 密钥生成失败</strong></td>
+<td>.ssh 目录权限问题</td>
+<td><code>chmod 700 ~/.ssh</code></td>
+</tr>
+<tr>
+<td><strong>❌ SSH 连接超时</strong></td>
+<td>防火墙或网络限制</td>
+<td>检查 22/443 端口是否开放</td>
+</tr>
+<tr>
+<td><strong>❌ 认证被拒绝</strong></td>
+<td>公钥未正确添加</td>
+<td>重新复制完整公钥到平台</td>
+</tr>
+</tbody>
+</table>
+<h3 id="🐛-详细排错指南">🐛 详细排错指南</h3>
+<h4 id="1-权限问题修复-🔐">1. 权限问题修复 🔐</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完整的权限修复命令序列</span></span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh                          <span class="comment"># SSH 目录权限</span></span><br><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/config                   <span class="comment"># 配置文件权限</span></span><br><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/id_rsa_*                 <span class="comment"># 所有私钥文件权限</span></span><br><span class="line"><span class="built_in">chmod</span> 644 ~/.ssh/*.pub ~/.ssh/known_hosts <span class="comment"># 公钥和已知主机文件权限</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-连接测试与诊断-🌐">2. 连接测试与诊断 🌐</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细连接测试（显示调试信息）</span></span><br><span class="line">ssh -T -v git@gitee.com    <span class="comment"># 测试 Gitee 连接并显示详细日志</span></span><br><span class="line">ssh -T -v git@github.com   <span class="comment"># 测试 GitHub 连接并显示详细日志</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置验证命令</span></span><br><span class="line">ssh -G gitee.com          <span class="comment"># 显示最终使用的 SSH 配置</span></span><br><span class="line">ssh-keygen -l -f ~/.ssh/id_rsa_gitee  <span class="comment"># 验证密钥指纹</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-脚本调试技巧-🔧">3. 脚本调试技巧 🔧</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法检查</span></span><br><span class="line">bash -n gitee-ssh-init.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 详细执行跟踪</span></span><br><span class="line">bash -x gitee-ssh-init.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出重定向（用于日志分析）</span></span><br><span class="line">./gitee-ssh-init.sh &gt; setup.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<h3 id="💡-高级技巧">💡 高级技巧</h3>
+<h4 id="多平台密钥管理">多平台密钥管理</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有密钥的指纹信息</span></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> ~/.ssh/id_rsa_*; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [[ -f <span class="string">&quot;<span class="variable">$key</span>&quot;</span> &amp;&amp; ! <span class="string">&quot;<span class="variable">$key</span>&quot;</span> == *.pub ]]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;密钥: <span class="subst">$(basename $key)</span>&quot;</span></span><br><span class="line">        ssh-keygen -l -f <span class="string">&quot;<span class="variable">$key</span>&quot;</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置备份与恢复">配置备份与恢复</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份 SSH 配置</span></span><br><span class="line"><span class="built_in">cp</span> -r ~/.ssh ~/.ssh_backup_$(<span class="built_in">date</span> +%Y%m%d)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复 SSH 配置（谨慎操作）</span></span><br><span class="line"><span class="comment"># cp -r ~/.ssh_backup_20241201/* ~/.ssh/</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="🎯-最佳实践建议">🎯 最佳实践建议</h2>
+<h3 id="✅-安全建议">✅ 安全建议</h3>
+<ol>
+<li><strong>定期更换密钥</strong>：建议每 6-12 个月更换一次 SSH 密钥</li>
+<li><strong>使用强密码</strong>：虽然脚本生成无密码密钥，但生产环境建议设置密钥密码</li>
+<li><strong>多因素认证</strong>：在平台端启用 2FA 增强安全性</li>
+</ol>
+<h3 id="✅-维护建议">✅ 维护建议</h3>
+<ol>
+<li><strong>版本控制</strong>：将自定义配置的脚本版本进行 git 管理</li>
+<li><strong>文档更新</strong>：随着平台政策变化及时更新脚本和文档</li>
+<li><strong>测试验证</strong>：在重要变更前在测试环境验证脚本功能</li>
+</ol>
+<hr>
+<p><strong>📅 最后更新</strong>: 2024年1月<br>
+<strong>👨‍💻 作者</strong>: meimolihan<br>
+<strong>📧 联系方式</strong>: <a href="mailto:meimolihan@gmail.com">meimolihan@gmail.com</a><br>
+<strong>🐛 问题反馈</strong>: 欢迎提交 Issue 和 Pull Request 改进脚本功能</p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>Git SSH 密钥自动配置脚本使用指南 🚀</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://www.meimolihan.eu.org/posts/a2524a66.html">https://www.meimolihan.eu.org/posts/a2524a66.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>凡凡小站</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2025-09-25</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2025-09-25</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>git</a><a class="post-meta__tags" href="/tags/ssh/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>ssh</a><a class="post-meta__tags" href="/tags/%E8%84%9A%E6%9C%AC/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>脚本</a><a class="post-meta__tags" href="/tags/github/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>github</a><a class="post-meta__tags" href="/tags/gitee/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>gitee</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.meimolihan.eu.org/hexo/img/wx.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/wx.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.meimolihan.eu.org/hexo/img/zfb.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/zfb.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/14386528.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?5444" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker 部署 Windows 11 🖥️</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/be9e1f94.html" title="Git 新仓库初始化脚本 📁"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?9190" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Git 新仓库初始化脚本 📁</div></div></a></div><div><a href="/posts/6af4fcf5.html" title="Git 连接配置脚本 SSH 与 HTTPS 轻松切换 🔄"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?7559" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Git 连接配置脚本 SSH 与 HTTPS 轻松切换 🔄</div></div></a></div><div><a href="/posts/8a51c9b0.html" title="GitHub &amp; Gitee SSH 密钥配置指南  🔑"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?5992" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">GitHub &amp; Gitee SSH 密钥配置指南  🔑</div></div></a></div><div><a href="/posts/2d5537c5.html" title="Git SSH 连接密钥配置指南 🔑"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?3953" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Git SSH 连接密钥配置指南 🔑</div></div></a></div><div><a href="/posts/b077cdbd.html" title="Git 自动化拉取更新脚本 🐙"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?4144" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Git 自动化拉取更新脚本 🐙</div></div></a></div><div><a href="/posts/c8d4d91e.html" title="Linux SSH 服务一键配置脚本使用指南 🚀"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?46" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">Linux SSH 服务一键配置脚本使用指南 🚀</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Git SSH 密钥自动配置脚本使用指南 🚀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%88%AA-%F0%9F%93%9A"><span class="toc-text">目录导航 📚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-%E2%9C%A8"><span class="toc-text">简介 ✨</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E8%A7%A3%E5%86%B3%E7%97%9B%E7%82%B9"><span class="toc-text">🎯 解决痛点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8A-%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC"><span class="toc-text">📊 核心价值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E7%89%B9%E7%82%B9-%F0%9F%8C%9F"><span class="toc-text">功能特点 🌟</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%A7-%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96%E4%BD%93%E9%AA%8C"><span class="toc-text">🔧 全自动化体验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%8D-%E5%A4%9A%E5%B9%B3%E5%8F%B0%E5%85%BC%E5%AE%B9"><span class="toc-text">🌍 多平台兼容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9B%A1%EF%B8%8F-%E5%AE%89%E5%85%A8%E5%8F%AF%E9%9D%A0"><span class="toc-text">🛡️ 安全可靠</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A1-%E7%94%A8%E6%88%B7%E5%8F%8B%E5%A5%BD%E8%AE%BE%E8%AE%A1"><span class="toc-text">💡 用户友好设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-%F0%9F%93%8B"><span class="toc-text">一、使用方法 📋</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%F0%9F%90%B1-Gitee-SSH-%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B"><span class="toc-text">1. 🐱 Gitee SSH 配置流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%F0%9F%90%B1-GitHub-SSH-%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B"><span class="toc-text">2. 🐱 GitHub SSH 配置流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E8%AF%A6%E7%BB%86%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-text">🔄 详细执行流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1-%E7%8E%AF%E5%A2%83%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%87%86%E5%A4%87-%F0%9F%9B%A0%EF%B8%8F"><span class="toc-text">步骤 1: 环境检测与准备 🛠️</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2-Git-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE-%E2%9A%99%EF%B8%8F"><span class="toc-text">步骤 2: Git 全局配置 ⚙️</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3-SSH-%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90-%F0%9F%94%91"><span class="toc-text">步骤 3: SSH 密钥生成 🔑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4-%E5%85%AC%E9%92%A5%E6%B7%BB%E5%8A%A0%E6%8C%87%E5%AF%BC-%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB"><span class="toc-text">步骤 4: 公钥添加指导 👨‍💻</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5-%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%86%99%E5%85%A5-%F0%9F%93%9D"><span class="toc-text">步骤 5: 自动配置写入 📝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-6-%E8%BF%9E%E6%8E%A5%E6%B5%8B%E8%AF%95%E9%AA%8C%E8%AF%81-%E2%9C%85"><span class="toc-text">步骤 6: 连接测试验证 ✅</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%8F%B1%EF%B8%8F-%E6%97%B6%E9%97%B4%E9%A2%84%E4%BC%B0"><span class="toc-text">⏱️ 时间预估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%84%9A%E6%9C%AC%E8%AF%A6%E8%A7%A3-%F0%9F%94%8D"><span class="toc-text">二、脚本详解 🔍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8F%97%EF%B8%8F-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-text">🏗️ 架构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="toc-text">模块化函数设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-text">错误处理机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E6%99%BA%E8%83%BD%E9%80%82%E9%85%8D%E9%80%BB%E8%BE%91"><span class="toc-text">🔄 智能适配逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%B3%BB%E7%BB%9F%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E6%A3%80%E6%B5%8B"><span class="toc-text">多系统包管理器检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8A-%E5%B9%B3%E5%8F%B0%E7%89%B9%E6%80%A7%E5%AF%B9%E6%AF%94"><span class="toc-text">📊 平台特性对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E-%E2%9A%99%EF%B8%8F"><span class="toc-text">三、配置说明 ⚙️</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%9B%EF%B8%8F-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F%E8%B0%83%E6%95%B4"><span class="toc-text">🎛️ 自定义变量调整</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%BA%AB%E4%BB%BD%E9%85%8D%E7%BD%AE"><span class="toc-text">基础身份配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE"><span class="toc-text">文件路径配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%81-%E7%94%9F%E6%88%90%E7%9A%84%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-text">📁 生成的文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%A7-SSH-%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3"><span class="toc-text">🔧 SSH 配置详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%90%8E%E7%9A%84-config-%E6%96%87%E4%BB%B6"><span class="toc-text">优化后的 config 文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4-%F0%9F%9B%A0%EF%B8%8F"><span class="toc-text">四、故障排除 🛠️</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">🔍 常见问题速查表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%90%9B-%E8%AF%A6%E7%BB%86%E6%8E%92%E9%94%99%E6%8C%87%E5%8D%97"><span class="toc-text">🐛 详细排错指南</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D-%F0%9F%94%90"><span class="toc-text">1. 权限问题修复 🔐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%BF%9E%E6%8E%A5%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%AF%8A%E6%96%AD-%F0%9F%8C%90"><span class="toc-text">2. 连接测试与诊断 🌐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%84%9A%E6%9C%AC%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-%F0%9F%94%A7"><span class="toc-text">3. 脚本调试技巧 🔧</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A1-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7"><span class="toc-text">💡 高级技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%B9%B3%E5%8F%B0%E5%AF%86%E9%92%A5%E7%AE%A1%E7%90%86"><span class="toc-text">多平台密钥管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-text">配置备份与恢复</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E5%BB%BA%E8%AE%AE"><span class="toc-text">🎯 最佳实践建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%85-%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%AE"><span class="toc-text">✅ 安全建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%85-%E7%BB%B4%E6%8A%A4%E5%BB%BA%E8%AE%AE"><span class="toc-text">✅ 维护建议</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright"><span><b>&copy;2025</b></span><span><b>&nbsp;&nbsp;By 凡凡小站</b></span></div><div id="workboard"></div><p id="ghbdages"></p><div id="footer-animal"><div class="animal-wall"></div><img class="animal" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.meimolihan.eu.org/hexo/img/color.avif" alt="动物" onerror="this.onerror=null;this.src='/img/404.jpg'"/></div></div><!--#footer-wrap--><!--  #ft--><!--    .ft-item-1--><!--      .t-top--><!--        .t-t-l--><!--          p.ft-t.t-l-t 格言🧬--><!--          .bg-ad--><!--            div--><!--              | 再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨--><!--            .btn-xz-box--><!--              a.btn-xz(href='https://stellarium.org/') 点击开启星辰之旅--><!--        .t-t-r--><!--          p.ft-t.t-l-t 猜你想看💡--><!--          ul.ft-links--><!--            li--><!--              a(href='/posts/eec9786.html') 魔改指南--><!--              a(href='/box/nav/') 网址导航--><!--            li--><!--              a(href='/social/link/') 我的朋友--><!--              a(href='/comments/') 留点什么--><!--            li--><!--              a(href='/personal/about/') 关于作者--><!--              a(href='/archives/') 文章归档--><!--            li--><!--              a(href='/categories/') 文章分类--><!--              a(href='/tags/') 文章标签--><!--            li--><!--              a(href='/box/Gallery/') 我的画廊--><!--              a(href='/personal/bb/') 我的唠叨--><!--            li--><!--              a(href='/site/time/') 建设进程--><!--              a(href='/site/census/') 网站统计--><!--    .ft-item-2--><!--      p.ft-t 推荐友链⌛--><!--      .ft-img-group--><!--        .img-group-item--><!--          a(href='https://www.fomal.cc/' title='Fomalhaut🥝')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/60e5d4e39da7c077.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!--        .img-group-item--><!--          a(href='javascript:void(0)' title='广告位招租')--><!--            img(src='https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp' alt='')--><!----><!--  if theme.footer.owner.enable--><!--    - var now = new Date()--><!--    - var nowYear = now.getFullYear()--><!--    //- if theme.footer.owner.since && theme.footer.owner.since != nowYear--><!--    //-   .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By ${config.author}`--><!--    //- else--><!--    //-   .copyright!= `&copy;${nowYear} By ${config.author}`--><!--    //- 新加的--><!--    if theme.footer.owner.since && theme.footer.owner.since != nowYear--><!--      .copyright--><!--        span!= `<b>&copy;${theme.footer.owner.since}-${nowYear}</b>`--><!--        span!= `<b>&nbsp;&nbsp;By ${config.author}</b>`--><!--    else--><!--      .copyright--><!--        span!= `<b>&copy;${nowYear}</b>`--><!--        span!= `<b>&nbsp;&nbsp;By ${config.author}</b>`--><!--    //- 到这里--><!--  if theme.footer.copyright--><!--    .framework-info--><!--      span= _p('footer.framework') + ' '--><!--      a(href='https://hexo.io')= 'Hexo'--><!--      span.footer-separator |--><!--      span= _p('footer.theme') + ' '--><!--      a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'--><!--  if theme.footer.custom_text--><!--    .footer_custom_text!=`${theme.footer.custom_text}`--><!--  #workboard--><!--  p#ghbdages--><!--    a.github-badge(target='_blank' href="https://hexo.io/" style='margin-inline:5px' title="博客框架为Hexo_v6.3.0")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://butterfly.js.org/" style='margin-inline:5px' title="主题版本Butterfly_v4.3.1")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://vercel.com/" style='margin-inline:5px' title="本站采用多线部署，主线路托管于Vercel")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Hosted-Vercel-brightgreen.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://user.51.la/" style='margin-inline:5px' title="本站数据分析得益于51la技术支持")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/Analytics-51la-3db1eb.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://icp.gov.moe/?keyword=20226665" style='margin-inline:5px' title="本站已加入萌ICP豪华套餐，萌ICP备20226665号")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/萌ICP备-20226665-fe1384.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://bitiful.dogecast.com/buckets" style='margin-inline:5px' title="本网站经Service Worker分流至缤纷云对象存储")--><!--      img(src=" https://sourcebucket.s3.ladydaily.com/badge/Bucket-缤纷云-9c62da.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://www.netdun.net/" style='margin-inline:5px' title="本站使用网盾星球提供CDN加速与防护")--><!--      img(src="https://sourcebucket.s3.ladydaily.com/badge/CDN-网盾星球-fff2cc.svg" alt='')--><!----><!--    a.github-badge(target='_blank' href="https://github.com/" style='margin-inline:5px' title="本网站源码由Github提供存储仓库")--><!--      img(src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt='')--><!----><!--    //- a.github-badge(target='_blank' href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style='margin-inline:5px' title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可")--><!--    //-   img(src="https://sourcebucket.s3.ladydaily.com/badge/Copyright-BY--NC--SA--4.svg" alt='')--></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><span id="percent">0<span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.meimolihan.eu.org/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/js/jquery.min.js"></script><script src="/js/instantpage.min.js"></script><script src="/js/vue.min.js" defer></script><script src="/js/index.js" defer></script><script src="/js/clipboard.min.js" defer></script><script src="/js/sweetalert2.all.js" defer></script><script src="/js/pace.min.js" defer></script><script src="/js/winbox.bundle.min.js" defer></script><script src="//at.alicdn.com/t/c/font_4857814_h9gcyrsl1ek.js" defer></script><script src="https://open.lightxi.com/unpkg/chinese-lunar@0.1.4/lib/chinese-lunar.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.js"></script><script data-pjax src="/js/rightmenu.js" defer></script><script src="/js/typed.min.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><script src="/js/welcome.js"></script><script src="/js/日历卡片.js"></script><script defer src="/js/今日诗词.js"></script><script defer src="/js/lazyload.min.js"></script><script src="/js/jquery.fancybox.min.js"></script><script src="/js/Gold-ingot.js"></script><script src="/js/APlayer.min.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/fireworks.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show","#web_bg",".js-pjax","#bibi","body > title","#app","#tag-echarts","#posts-echart","#categories-echarts"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Linux/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍥 Linux (126)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Windows/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">👩‍💻 Windows (35)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Proxmox-VE/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">📢 Proxmox VE (42)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://www.meimolihan.eu.org/categories/Docker/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🐳 Docker (96)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><a class="magnet_link_more"  href="https://www.meimolihan.eu.org/categories/" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(50% - 5px);background: #f2f2f2;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: #b30070}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/155e792c.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?5459" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-15</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/155e792c.html&quot;);" href="javascript:void(0);" alt="">Linux 子目录分离备份与解压自动化脚本 📂</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/155e792c.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/53235b92.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?4143" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-15</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/53235b92.html&quot;);" href="javascript:void(0);" alt="">Linux 完整目录备份与解压自动化脚本📂</a><div class="blog-slider__text">本文详细介绍通用自动备份脚本的功能、使用方法及恢复指南，帮助您轻松管理重要数据的安全。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/53235b92.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/771f472a.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?9347" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-22</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/771f472a.html&quot;);" href="javascript:void(0);" alt="">Hexo + Fomalhaut 主题修改与优化指南 📝</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/771f472a.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?875" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-12</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt="">十六进制颜色代码大全 🎨</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/4b894824.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mobufan.eu.org:666/pc?3569" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-09-12</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt="">随机壁纸 API 合集 🖼️</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/eea6b749.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('nav-site-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page social-icon search');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('sun_moon faa-parent animated-hover');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-page');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-title');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-firstline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('meta-secondline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag-cloud-list text-center');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('category-lists');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-category-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('webinfo-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__fadeInRightBig');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('highlight');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('folding-tag');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-head');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('comment-wrap');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tk-row');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tk-comments-container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('tag_share');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination-post');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('relatedPosts-list');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container post-content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('search-nav');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('local-search-box--input');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInLeft');
+    arr[i].setAttribute('data-wow-duration', '900ms');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('custom-hr');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('boardsign');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('announcement_content');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('welcome-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-tag-cloud');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('aside-list-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info__name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info__description');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-data');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('author-info-name');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-info-social-icons');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-item toc-level-2');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('item-headline');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('toc-link');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__backInRight');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('post-copyright');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 320px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/site/census/'|| '/site/census/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("/api?null",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'null')
+    }
+  </script><!-- hexo injector body_end end --></body></html>
