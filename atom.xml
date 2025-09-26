@@ -6,7 +6,7 @@
   <link href="https://www.meimolihan.eu.org/atom.xml" rel="self"/>
   
   <link href="https://www.meimolihan.eu.org/"/>
-  <updated>2025-09-25T08:13:48.000Z</updated>
+  <updated>2025-09-26T01:35:30.000Z</updated>
   <id>https://www.meimolihan.eu.org/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows 系统激活指南 ✨</title>
+    <link href="https://www.meimolihan.eu.org/posts/8e8c4482.html"/>
+    <id>https://www.meimolihan.eu.org/posts/8e8c4482.html</id>
+    <published>2025-09-26T01:35:30.000Z</published>
+    <updated>2025-09-26T01:35:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1>Windows 系统激活指南 ✨</h1><p><img src="https://file.meimolihan.eu.org/img/win-activate-01.webp" alt=""></p><hr><h2 id="📋-导航目录">📋 导航目录</h2><ul><li><a href="#system-activation-overview">📚 系统激活概述</a><ul><li><a href="#method-one-scripts">🔧 方法一：Microsoft Activation Scripts自动激活</a></li><li><a href="#method-two-kms">💻 方法二：KMS服务器手动激活</a></li></ul></li><li><a href="#activation-verification">🔍 激活状态查询与验证</a></li><li><a href="#precautions">⚠️ 注意事项与风险提示</a></li></ul><hr><p><a id="system-activation-overview"></a></p><h2 id="📚-系统激活概述">📚 系统激活概述</h2><p>Windows系统激活是验证操作系统合法性的必要步骤，确保用户能够享受完整的功能和安全更新。未激活的系统会面临功能限制和水印提示，影响正常使用体验。</p><p><strong>主要激活方式：</strong></p><ul><li>🔑 <strong>数字许可证激活</strong> - 绑定硬件ID的永久激活</li><li>🌐 <strong>KMS激活</strong> - 通过密钥管理服务的批量激活</li><li>📞 <strong>电话激活</strong> - 离线情况下的备用方案</li></ul><p><a id="method-one-scripts"></a></p><h2 id="🔧-方法一：Microsoft-Activation-Scripts自动激活">🔧 方法一：Microsoft Activation Scripts自动激活</h2><h3 id="项目介绍">项目介绍</h3><p>Microsoft Activation Scripts (MAS) 是一个开源项目，提供简单可靠的Windows和Office激活解决方案，支持多种激活方式。</p><p><strong>主要特点：</strong></p><ul><li>✅ <strong>完全免费</strong> - 无需付费购买激活工具</li><li>🔒 <strong>安全可靠</strong> - 开源代码透明，无恶意软件</li><li>🚀 <strong>一键操作</strong> - 简化复杂的激活流程</li><li>📱 <strong>多版本支持</strong> - 兼容Windows 7-11及各版本Office</li></ul><h3 id="使用步骤">使用步骤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 执行激活命令（需要管理员权限）</span></span><br><span class="line">irm https://get.activated.win | iex</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 验证激活状态</span></span><br><span class="line">slmgr.vbs -xpr</span><br></pre></td></tr></table></figure><p><strong>执行流程说明：</strong></p><ol><li>以管理员身份打开PowerShell</li><li>输入激活命令后按Enter</li><li>脚本自动检测系统并选择最优激活方案</li><li>等待激活完成提示</li></ol><p><a id="method-two-kms"></a></p><h2 id="💻-方法二：KMS服务器手动激活">💻 方法二：KMS服务器手动激活</h2><h3 id="KMS激活原理">KMS激活原理</h3><p>KMS（Key Management Service）是微软官方提供的批量激活服务，通过连接特定的KMS服务器实现180天周期的激活。</p><h3 id="详细操作步骤">详细操作步骤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一步：安装产品密钥</span></span><br><span class="line">slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二步：设置KMS服务器地址</span></span><br><span class="line">slmgr /skms kms.03k.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第三步：执行激活</span></span><br><span class="line">slmgr /ato</span><br></pre></td></tr></table></figure><p><strong>密钥说明：</strong></p><ul><li>🏢 <strong>企业版密钥</strong>：W269N-WFGWX-YVC9B-4J6C9-T83GX</li><li>🔄 <strong>定期续期</strong>：需每180天重新连接KMS服务器</li><li>🌍 <strong>服务器选择</strong>：可使用多个公共KMS服务器备用</li></ul><p><a id="activation-verification"></a></p><h2 id="🔍-激活状态查询与验证">🔍 激活状态查询与验证</h2><h3 id="激活状态检查命令">激活状态检查命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看详细激活信息</span></span><br><span class="line">slmgr -dlv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查激活剩余时间</span></span><br><span class="line">slmgr.vbs -xpr</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看安装的产品密钥</span></span><br><span class="line">slmgr -dli</span><br></pre></td></tr></table></figure><h3 id="验证指标说明">验证指标说明</h3><ul><li>✅ <strong>许可证状态</strong>：显示&quot;已授权&quot;或&quot;Licensed&quot;</li><li>📅 <strong>到期时间</strong>：KMS激活显示剩余天数</li><li>🔢 <strong>密钥类型</strong>：区分零售版、批量版等</li><li>🌐 <strong>激活方式</strong>：数字许可、KMS、MAK等</li></ul><p><a id="precautions"></a></p><h2 id="⚠️-注意事项与风险提示">⚠️ 注意事项与风险提示</h2><h3 id="安全建议">安全建议</h3><ol><li>🔐 <strong>权限管理</strong>：始终以管理员身份运行激活命令</li><li>📁 <strong>备份数据</strong>：激活前重要数据备份</li><li>🔄 <strong>系统还原点</strong>：创建系统还原点以防万一</li><li>🌐 <strong>网络环境</strong>：确保稳定的网络连接</li></ol><h3 id="常见问题处理">常见问题处理</h3><ul><li>❌ <strong>激活失败</strong>：检查网络连接和防火墙设置</li><li>⚠️ <strong>安全软件拦截</strong>：暂时关闭杀毒软件</li><li>🔄 <strong>命令无效</strong>：确认PowerShell版本兼容性</li><li>📛 <strong>密钥无效</strong>：尝试更换其他可用密钥</li></ul><h3 id="法律风险提示">法律风险提示</h3><blockquote><p>⚖️ <strong>重要声明</strong>：请确保在合法授权的系统上使用激活工具，遵守当地法律法规和微软软件许可条款。本指南仅提供技术参考，不鼓励盗版行为。</p></blockquote><hr><p><strong>📞 技术支持</strong>：如遇激活问题，建议查阅项目官方文档或相关技术论坛获取最新解决方案。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;Windows 系统激活指南 ✨&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://file.meimolihan.eu.org/img/win-activate-01.webp&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;📋-导航目录&quot;&gt;📋 导航目录&lt;/h</summary>
+      
+    
+    
+    
+    <category term="Windows" scheme="https://www.meimolihan.eu.org/categories/Windows/"/>
+    
+    
+    <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 系统初始化配置完全指南 🚀</title>
@@ -39,9 +66,9 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
@@ -130,9 +157,9 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
@@ -230,9 +257,9 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
     <category term="同步&amp;备份" scheme="https://www.meimolihan.eu.org/tags/%E5%90%8C%E6%AD%A5-%E5%A4%87%E4%BB%BD/"/>
     
@@ -517,30 +544,6 @@
     
     
     <category term="compose" scheme="https://www.meimolihan.eu.org/tags/compose/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>零成本网站加速 Cloudflare 缓存从入门到精通 ✨</title>
-    <link href="https://www.meimolihan.eu.org/posts/13e0677.html"/>
-    <id>https://www.meimolihan.eu.org/posts/13e0677.html</id>
-    <published>2025-09-13T01:37:35.000Z</published>
-    <updated>2025-09-13T01:37:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>零成本网站加速 Cloudflare 缓存从入门到精通 ✨</h1><p><img src="https://file.meimolihan.eu.org/img/cloudflare-cache-rules-01.webp" alt=""></p><blockquote><p>难道除了加钱升级服务器，就没有别的办法了吗？<br>当然有！🚀</p></blockquote><p>今天，我将手把手带你利用强大的 Cloudflare，零成本地为你的网站“续命”，让低配服务器也能拥有闪电般的响应速度。我们将从一个最简单的“暴力”缓存方法开始，一步步带你踩坑、填坑，最终实现一套既能极致加速，又能保证内容实时更新的完美缓存策略。</p><ul><li><strong>原作者 ：<a href="https://joeyblog.net/">Joey Blog</a></strong></li></ul><hr><h2 id="📚-文章导航目录">📚 文章导航目录</h2><ul><li><a href="#problem-showcase">🔥 问题复现：我的小破站快“炸”了</a></li><li><a href="#aggressive-caching">⚡ 暴力缓存：一分钟，起死回生！</a></li><li><a href="#pitfall-one">⚠️ 踩坑一：警告！你的后台在“裸奔”！</a></li><li><a href="#advanced-rules">🔧 规则进阶：学会“区别对待”</a></li><li><a href="#pitfall-two">🔄 踩坑二：我发了新文章，为什么没人看得到？</a></li><li><a href="#ultimate-solution">🤖 终极方案：用 API 和插件实现“自动刷新”</a></li><li><a href="#miracle">🎉 见证奇迹：速度与更新兼得</a></li><li><a href="#conclusion">📌 总结</a></li></ul><hr><p><a id="problem-showcase"></a></p><h2 id="🔥-问题复现：我的小破站快“炸”了">🔥 问题复现：我的小破站快“炸”了</h2><p>为了让效果更具戏剧性，我特意准备了一台低配的谷歌云服务器，并将我的博客部署了上去。在没有任何优化的情况下，我们来看看它的表现。</p><p>随便打开一篇文章，加载速度肉眼可见的慢。</p><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-001.webp" alt=""></p><p>这时，我们再用工具模拟一个简单的并发访问，服务器后台的 CPU 瞬间就“拉满”了，网站直接崩溃，无法访问。</p><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-002.webp" alt=""></p><p>这就是我们即将要解决的典型场景。</p><hr><p><a id="aggressive-caching"></a></p><h2 id="⚡-暴力缓存：一分钟，起死回生！">⚡ 暴力缓存：一分钟，起死回生！</h2><p>现在，让我们请出今天的主角——<strong>Cloudflare</strong>。我们将使用它最强大的功能之一：<strong>缓存规则（Cache Rules）</strong>。</p><h3 id="🔧-功能特点：">🔧 功能特点：</h3><ul><li><strong>全球边缘节点</strong>：Cloudflare 拥有遍布全球的服务器，可缓存内容并就近分发给用户。</li><li><strong>零成本加速</strong>：免费套餐即可享受强大的缓存功能，减轻源服务器压力。</li><li><strong>简单易用</strong>：通过可视化界面配置规则，无需代码基础。</li></ul><h3 id="📝-操作步骤：">📝 操作步骤：</h3><ol><li>登录你的 Cloudflare 账户，选择你的域名，进入<strong>缓存（Caching）</strong> → <strong>缓存规则（Cache Rules）</strong>。</li><li>点击<strong>创建规则（Create rule）</strong>。</li><li>规则名称随便填，例如“缓存所有”。</li><li>在“When incoming requests match…”部分，直接使用 Cloudflare 提供的模板，选择<strong>缓存所有内容（Cache everything）</strong>。这个模板会自动帮你填充好所有动态、静态内容的匹配规则。</li></ol><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-003.webp" alt=""><br><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-004.webp" alt=""></p><p>好了，部署完成。现在我们再来访问网站试试？<br>奇迹发生了！网站秒开，页面切换如丝般顺滑。我们再看一眼服务器后台，CPU 占用率几乎为零，完全在“摸鱼”😴。</p><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-005.webp" alt=""></p><p>原理很简单：Cloudflare 遍布全球的边缘节点已经将你的整个网站内容缓存了下来，所有用户的访问请求都由离他们最近的 Cloudflare 节点直接响应，根本不会再“打扰”你那台远在美国的低配源服务器了。</p><hr><p><a id="pitfall-one"></a></p><h2 id="⚠️-踩坑一：警告！你的后台在“裸奔”！">⚠️ 踩坑一：警告！你的后台在“裸奔”！</h2><p>正当你为这惊人的效果沾沾自喜时，一个巨大的安全漏洞已经悄然出现。</p><p>我们打开一个浏览器的“无痕模式”（确保没有任何登录信息），然后尝试访问 WordPress 的后台地址，例如 <code>https://你的域名.com/wp-admin/</code>。</p><p>按常理，它应该会跳转到登录页面。但现在……</p><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-006.webp" alt=""></p><p>是的，你没看错。由于我们“暴力”地缓存了一切，连需要登录才能访问的后台管理页面，也被 Cloudflare 当成静态页面缓存起来，并毫无保留地展示给了所有访客。这是一个灾难性的安全问题！</p><hr><p><a id="advanced-rules"></a></p><h2 id="🔧-规则进阶：学会“区别对待”">🔧 规则进阶：学会“区别对待”</h2><p>问题的原因在于我们的缓存规则过于“一刀切”。现在，我们要教会 Cloudflare “区别对待”，告诉它哪些内容绝对不能缓存。</p><p>我们需要创建一条新的、更高优先级的规则来“跳过”缓存。</p><h3 id="📝-操作步骤：-2">📝 操作步骤：</h3><ol><li>再次回到<strong>缓存规则（Cache Rules）</strong> 页面，点击<strong>创建规则（Create rule）</strong>。</li><li>将这条新规则拖动到我们刚才创建的“缓存所有”规则的上方，确保它的优先级更高。</li><li>规则名称设为“跳过后台和登录用户”。</li><li>在“When incoming requests match…”部分，我们需要手动编辑表达式，使用 OR 逻辑组合两个条件：<ul><li>条件一：<code>(http.request.uri.path contains &quot;/wp-admin/&quot;)</code> —— 当 URL 路径包含后台地址时。</li><li>条件二：<code>(http.cookie contains &quot;wp&quot;)</code> —— 当请求的 Cookie 中包含 WordPress 登录凭证时。</li></ul></li></ol><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-007.webp" alt=""></p><ol start="5"><li>在“Then…”部分，将缓存资格（Cache eligibility）选择为<strong>绕过缓存（Bypass cache）</strong>。</li><li>部署规则。</li></ol><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-008.webp" alt=""></p><p>现在，后台裸奔的问题解决了。未登录用户访问后台会正确跳转到登录页，而已登录的用户则因为 Cookie 匹配成功，也不会被缓存，可以正常进行管理操作。</p><hr><p><a id="pitfall-two"></a></p><h2 id="🔄-踩坑二：我发了新文章，为什么没人看得到？">🔄 踩坑二：我发了新文章，为什么没人看得到？</h2><p>安全问题解决了，但新的问题又来了。</p><p>你在后台兴致勃勃地发布了一篇新文章，但在首页上，它却迟迟不出现。无论你怎么刷新，甚至“清空缓存并强制刷新”，新文章就是不见踪影。</p><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-009.webp" alt=""></p><p>原因也很简单：对于未登录的访客，Cloudflare 依然在忠实地执行我们第一条“缓存所有”的规则——从它的边缘节点返回那个被缓存了“一年”的旧首页。它并不知道你的源服务器上内容已经更新了。</p><hr><p><a id="ultimate-solution"></a></p><h2 id="🤖-终极方案：用-API-和插件实现“自动刷新”">🤖 终极方案：用 API 和插件实现“自动刷新”</h2><p>要解决这个问题，我们需要一种方法：在内容更新时，主动通知 Cloudflare “你该清理一下这个页面的缓存了”。这就要用到 Cloudflare 强大的 <strong>API</strong>。</p><p>手动去 API 刷新显然不现实。因此，我特意为大家准备了一个自研的 WordPress 插件，它能完美地自动化这个过程。</p><h3 id="🔧-插件功能特点：">🔧 插件功能特点：</h3><ul><li><strong>自动触发</strong>：文章发布/更新时自动清理相关缓存。</li><li><strong>精准清理</strong>：可清理文章页、首页、分类页等多类页面。</li><li><strong>简单配置</strong>：只需填写邮箱、API 密钥和域名。</li></ul><h3 id="📝-配置方法：">📝 配置方法：</h3><ol><li>安装并启用插件后，进入<strong>设置 → CF Purge Cache</strong>。</li><li>你需要填写三项信息：<ul><li><strong>Cloudflare Email</strong>：你的登录邮箱。</li><li><strong>Cloudflare Global API Key</strong>：你的全局 API 密钥。</li><li><strong>Zone</strong>：选择需要操作的域名。</li></ul></li></ol><p>全局 API 密钥可以在 Cloudflare 仪表盘的<strong>我的个人资料 → API令牌</strong>中找到。</p><p><img src="https://file.meimolihan.eu.org/screenshot/cache-rules-010.webp" alt=""></p><hr><p><a id="miracle"></a></p><h2 id="🎉-见证奇迹：速度与更新兼得">🎉 见证奇迹：速度与更新兼得</h2><p>配置好插件后，我们来见证最终的完美效果。</p><p>我们再次编辑刚才发布的文章，随便修改点内容，然后点击“更新”。</p><p>现在，我们再打开一个无痕窗口访问首页，新文章赫然在列，并且整个网站的访问速度依然是秒开！</p><p>至此，我们成功地实现了我们的终极目标：</p><ul><li>🚀 <strong>极致的性能</strong>：99% 的访问压力都由 Cloudflare 承担，你的源服务器轻松无比。</li><li>🔄 <strong>智能的更新</strong>：内容一经修改，缓存自动刷新，访客永远能看到最新的内容。</li><li>💰 <strong>零成本</strong>：这一切都基于 Cloudflare 的免费套餐。</li></ul><hr><p><a id="conclusion"></a></p><h2 id="📌-总结">📌 总结</h2><p>从一个濒临崩溃的慢速网站，到一个兼具极致性能和动态更新的流畅站点，我们通过几条简单的 Cloudflare 规则和一个小插件就完成了蜕变。这套方法尤其适合个人博客、中小型企业网站等预算有限但对性能有追求的场景。</p><p>希望这篇从入门到填坑的终极指南能对你有所帮助。去试试吧，让你的网站也飞起来！</p><hr><p><a href="https://github.com/byJoey/cfc/tree/v0.0.1">📥 插件下载地址</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;零成本网站加速 Cloudflare 缓存从入门到精通 ✨&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;https://file.meimolihan.eu.org/img/cloudflare-cache-rules-01.webp&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;blockquo</summary>
-      
-    
-    
-    
-    <category term="默认分类" scheme="https://www.meimolihan.eu.org/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
-    
     
   </entry>
   
