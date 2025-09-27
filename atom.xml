@@ -93,9 +93,9 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
@@ -122,11 +122,11 @@
     <category term="默认分类" scheme="https://www.meimolihan.eu.org/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="git" scheme="https://www.meimolihan.eu.org/tags/git/"/>
     
     <category term="ssh" scheme="https://www.meimolihan.eu.org/tags/ssh/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
     <category term="github" scheme="https://www.meimolihan.eu.org/tags/github/"/>
     
@@ -184,9 +184,9 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
@@ -258,7 +258,7 @@
     
     
     
-    <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
+    <category term="默认分类" scheme="https://www.meimolihan.eu.org/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
     <category term="hugo" scheme="https://www.meimolihan.eu.org/tags/hugo/"/>
@@ -284,11 +284,11 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
     
     <category term="同步&amp;备份" scheme="https://www.meimolihan.eu.org/tags/%E5%90%8C%E6%AD%A5-%E5%A4%87%E4%BB%BD/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
@@ -309,9 +309,9 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="同步&amp;备份" scheme="https://www.meimolihan.eu.org/tags/%E5%90%8C%E6%AD%A5-%E5%A4%87%E4%BB%BD/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
@@ -338,9 +338,9 @@
     <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
     
     
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
-    
     <category term="同步&amp;备份" scheme="https://www.meimolihan.eu.org/tags/%E5%90%8C%E6%AD%A5-%E5%A4%87%E4%BB%BD/"/>
+    
+    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
