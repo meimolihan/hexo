@@ -9830,7 +9830,7 @@ hr:before {
 }
 
 /* 6. 灯笼文字内容 – 右侧 */
-.d-box .d1::after { content: '兔年大吉'; } /* 【小灯笼】 */
+.d-box .d1::after { content: '大吉大利'; } /* 【小灯笼】 */
 .d-box .d2::after { content: '福星高照'; } /* 【大灯笼】 */
 
 /* 7. 灯笼文字内容 – 左侧 */
