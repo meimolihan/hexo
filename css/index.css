@@ -9786,66 +9786,58 @@ hr:before {
     max-height: 75vh !important;
   }
 }
-/* 灯笼 Start */
+/* =========================
+   灯笼效果 – 逐行中文注释
+   ========================= */
 
+/* 1. 全局盒模型重置 */
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; /* 【宽度/高度包含 border 与 padding】 */
 }
 
-
-/* 移动端显示/隐藏 /none/block，可自定义显示一个 */
-
+/* 2. 移动端适配：970px 以下生效 */
 @media screen and (max-width: 970px) {
     .d-box1 {
-        display: none;
+        display: none; /* 【左侧灯笼隐藏】 */
     }
     .dengl .d-box {
-        right: 0px;
-        top: -40px;
-        /* 自定义灯笼大小 */
-        transform: scale(0.4);
+        right: 0;      /* 【贴右】 */
+        top: -40px;    /* 【上移 40px，避免遮挡导航】 */
+        transform: scale(0.4); /* 【整体缩小到 40%】 */
     }
 }
 
+/* 3. 外层固定容器 */
 .dengl {
     position: fixed;
-    z-index: 9;
+    z-index: 9; /* 【保证在最上层】 */
 }
 
-
-/* .d-box,.d-box1{
-    z-index: 9;
-  } */
-
+/* 4. 右侧灯笼定位 */
 .d-box {
     position: fixed;
-    /* 自定义灯笼的位置 */
-    right: 85px;
-    top: 0;
-    /* 自定义灯笼大小 */
-    transform: scale(0.8);
+    right: 85px;  /* 【距右 85px，可自行微调】 */
+    top: 0;       /* 【贴顶】 */
+    transform: scale(0.8); /* 【默认 80% 大小】 */
 }
 
+/* 5. 左侧灯笼定位 */
 .d-box1 {
     position: fixed;
-    /* 自定义灯笼的位置 */
-    left: 0;
-    top: 0;
-    /* 自定义灯笼大小 */
+    left: 0;      /* 【贴左】 */
+    top: 0;       /* 【贴顶】 */
     transform: scale(0.8);
 }
 
+/* 6. 灯笼文字内容 – 右侧 */
+.d-box .d1::after { content: '兔年大吉'; } /* 【小灯笼】 */
+.d-box .d2::after { content: '福星高照'; } /* 【大灯笼】 */
 
-/* 修改灯笼的字体 */
+/* 7. 灯笼文字内容 – 左侧 */
+.d-box1 .d1::after { content: '心想事成'; } /* 【小灯笼】 */
+.d-box1 .d2::after { content: '鸿运当头'; } /* 【大灯笼】 */
 
-.d-box .d1::after {
-    content: '大吉大利';
-}
-
-.d-box1 .d1::after {
-    content: '心想事成';
-}
-
+/* 8. 左侧灯笼专属配色（去阴影） */
 .d-box1 .d1,
 .d-box1 .d2,
 .d-box1 .d1::after,
@@ -9854,119 +9846,116 @@ hr:before {
 .d-box1 .d2::before,
 .d-box1 .d2 ul li span,
 .d-box1 .d1 ul li span {
+    background-color: #f01f1a;            /* 【主体红】 */
+    border: 5px solid #5c1713;            /* 【深红边框】 */
+    /* box-shadow 被注释掉，左侧无发光 */
+}
+
+/* 9. 右侧灯笼配色（带红光阴影） */
+.d1, .d2,
+.d1::after, .d1::before,
+.d2::after, .d2::before,
+.d2 ul li span, .d1 ul li span {
     background-color: #f01f1a;
     border: 5px solid #5c1713;
-    /* 自定义灯笼的阴影 */
-    /* box-shadow: 0 5px 61px rgba(255, 240, 29, 0.88); */
+    box-shadow: 0 5px 61px #ff1d1d; /* 【红光外发光】 */
 }
 
-.d1,
-.d2,
-.d1::after,
-.d1::before,
-.d2::after,
-.d2::before,
-.d2 ul li span,
-.d1 ul li span {
-    background-color: #f01f1a;
-    border: 5px solid #5c1713;
-    /* 自定义灯笼的阴影 */
-    box-shadow: 0 5px 61px #ff1d1d;
-}
-
-.d1::after,
-.d1::before {
-    height: 82px;
-    position: absolute;
-    top: 0;
-    content: '';
-    font-size: 17px;
-}
-
-.d1,
-.d2 {
-    position: relative;
-    animation: swing 4s linear infinite;
-    transform-origin: top center;
-}
-
+/* 10. 小灯笼 – 主体椭圆 */
 .d1 {
-    width: 160px;
-    top: 100px;
-    height: 90px;
-    right: 0;
-    border-radius: 80px/49px;
+    width: 160px;               /* 【宽】 */
+    height: 90px;               /* 【高】 */
+    top: 100px;                 /* 【距顶部 100px】 */
+    right: 0;                   /* 【贴右】 */
+    border-radius: 80px / 49px; /* 【x/y 半径，形成椭圆】 */
+    position: relative;
+    animation: swing 4s linear infinite; /* 【左右摆动】 */
+    transform-origin: top center;        /* 【摆动锚点：顶部中心】 */
 }
 
+/* 11. 小灯笼 – 内层白框 */
 .d1::before {
-    top: -5px;
+    position: absolute;
+    content: '';
+    top: -5px;                   /* 【上移 5px，形成内嵌】 */
     right: 7px;
     width: 123px;
-    border-radius: 62px/52px;
+    height: 82px;
+    border-radius: 62px / 52px;
 }
 
+/* 12. 小灯笼 – 文字区 */
 .d1::after {
-    text-align: center;
-    line-height: 90px;
-    color: #ffe31d;
-    font-weight: 600;
+    position: absolute;
+    content: '兔年大吉';          /* 【JS 可动态替换】 */
     top: -5px;
     right: 35px;
     width: 69px;
-    border-radius: 41px/49px;
+    height: 82px;
+    line-height: 90px;           /* 【垂直居中】 */
+    text-align: center;
+    color: #ffe31d;              /* 【金黄字】 */
+    font-weight: 600;
+    border-radius: 41px / 49px;
 }
 
-.d1 span {
+/* 13. 小灯笼 – 顶部/底部黄盖 */
+.d1 span:nth-child(1) {
     position: absolute;
-    top: 84px;
+    top: 84px;                   /* 【底部盖】 */
     left: 49px;
     width: 50px;
     height: 16px;
-    z-index: 2;
-    border-radius: 0 0 10px 10px;
-    background-color: #ffe31d;
+    background: #ffe31d;
     border: 5px solid #5c1713;
+    border-radius: 0 0 10px 10px;
+    z-index: 2;
 }
-
 .d1 span:nth-child(2) {
-    top: -17px;
+    top: -17px;                  /* 【顶部盖】 */
     border-radius: 10px 10px 0 0;
 }
 
+/* 14. 小灯笼 – 小吊环 */
 .d1 p {
     position: absolute;
     top: -31px;
     left: 13px;
     width: 16px;
     height: 13px;
-    border-radius: 25px;
     border: 5px solid #5c1713;
     border-bottom: 0;
+    border-radius: 25px;
 }
 
+/* 15. 小灯笼 – 飘带容器 */
 .d1 ul {
     position: relative;
     top: 80px;
     left: 13px;
     width: 54px;
     display: flex;
+    justify-content: space-between;
 }
 
+/* 16. 小灯笼 – 飘带细线 */
 .d1 li {
-    flex: 1;
     list-style: none;
+    flex: 1;
     height: 24px;
-    margin: 0px 2.5px;
+    margin: 0 2.5px;
     width: 5px;
-    border-radius: 5px;
     border-right: 3.5px solid #5c1713;
+    border-radius: 5px;
 }
 
+/* 17. 小灯笼 – 中间长飘带 */
 .d1 ul li:nth-child(3) {
-    content: '';
-    height: 50px;
+    height: 50px;                /* 【更长】 */
+    position: relative;
 }
 
+/* 18. 小灯笼 – 长飘带末端金珠 */
 .d1 ul li:nth-child(3)::before {
     content: '';
     position: absolute;
@@ -9974,11 +9963,12 @@ hr:before {
     left: 54px;
     width: 5px;
     height: 5px;
-    border-radius: 5px 5px 10px 10px;
-    background-color: #ffe31d;
+    background: #ffe31d;
     border: 5px solid #5c1713;
+    border-radius: 5px 5px 10px 10px;
 }
 
+/* 19. 小灯笼 – 长飘带中段圆环 */
 .d1 ul li span {
     position: absolute;
     top: 20px;
@@ -9988,70 +9978,90 @@ hr:before {
     border-radius: 14px;
 }
 
-.d2::after,
-.d2::before {
-    position: absolute;
-    height: 128px;
-    top: -3px;
-    content: '';
-}
-
+/* 20. 大灯笼 – 主体（更大） */
 .d2 {
     width: 199px;
     height: 128px;
-    top: -61px;
+    top: -61px;                  /* 【叠在上灯笼右下】 */
     right: -122px;
-    border-radius: 98px/70px;
+    border-radius: 98px / 70px;
+    position: relative;
+    animation: swing 4s linear infinite;
+    transform-origin: top center;
 }
 
+/* 21. 大灯笼 – 内层白框 */
 .d2::before {
+    position: absolute;
+    content: '';
     top: -8px;
     right: 18px;
     width: 143px;
-    border-radius: 69px/67px;
+    height: 128px;
+    border-radius: 69px / 67px;
 }
 
-
-/* 自定义背景图片 */
-
+/* 22. 大灯笼 – 文字区 */
 .d2::after {
+    /* ===== 以下全部原有属性，一字不动 ===== */
+    position: absolute;
+    top: -5px;
+    right: 35px;
+    width: 69px;
+    height: 82px;
+    line-height: 90px;
+    text-align: center;
+    color: #ffe31d;
+    font-weight: 600;
+    border-radius: 41px / 49px;
+
+    /* ===== 只加这一行 ===== */
+    padding-top: 15px;     /* 文字整体下移 10px */
+    box-sizing: border-box; /* 防止 82px 被撑大 */
+}
+
+/* 23. 大灯笼 – 背景图（兔子剪影） */
+.d2::after {
+    content: '';
+    position: absolute;
     top: -8px;
     right: 51px;
     width: 75px;
-    border-radius: 57px/89px;
-    background: url(https://lskypro.acozycotage.net/LightPicture/2023/01/344a784cc876953a.webp) no-repeat;
-    background-position: center;
+    height: 128px;
+    border-radius: 57px / 89px;
+    background: url(https://lskypro.acozycotage.net/LightPicture/2023/01/344a784cc876953a.webp) no-repeat center;
     background-size: 105px auto;
 }
 
-.d2 span {
+/* 24. 大灯笼 – 顶部/底部黄盖 */
+.d2 span:nth-child(1) {
     position: absolute;
     top: 123px;
     left: 68px;
     width: 55px;
     height: 14px;
-    z-index: 2;
-    border-radius: 0 0 10px 10px;
-    background-color: #ffe31d;
+    background: #ffe31d;
     border: 5px solid #5c1713;
+    border-radius: 0 0 10px 10px;
 }
-
 .d2 span:nth-child(2) {
     top: -16px;
     border-radius: 10px 10px 0 0;
 }
 
+/* 25. 大灯笼 – 小吊环 */
 .d2 p {
     position: absolute;
     top: -32px;
     left: 13px;
     width: 19px;
     height: 13px;
-    border-radius: 25px;
     border: 5px solid #5c1713;
     border-bottom: 0;
+    border-radius: 25px;
 }
 
+/* 26. 大灯笼 – 飘带容器 */
 .d2 ul {
     position: relative;
     top: 121px;
@@ -10060,21 +10070,24 @@ hr:before {
     display: flex;
 }
 
+/* 27. 大灯笼 – 飘带细线 */
 .d2 li {
-    flex: 1;
     list-style: none;
+    flex: 1;
     height: 24px;
-    margin: 0px 3px;
+    margin: 0 3px;
     width: 4px;
-    border-radius: 7px;
     border-right: 3px solid #5c1713;
+    border-radius: 7px;
 }
 
+/* 28. 大灯笼 – 中间长飘带 */
 .d2 ul li:nth-child(3) {
-    content: '';
     height: 60px;
+    position: relative;
 }
 
+/* 29. 大灯笼 – 长飘带末端金珠 */
 .d2 ul li:nth-child(3)::before {
     content: '';
     position: absolute;
@@ -10082,11 +10095,12 @@ hr:before {
     left: 53px;
     width: 9px;
     height: 6px;
-    border-radius: 5px 5px 10px 10px;
-    background-color: #ffe31d;
+    background: #ffe31d;
     border: 5px solid #5c1713;
+    border-radius: 5px 5px 10px 10px;
 }
 
+/* 3. 大灯笼 – 长飘带中段圆环 */
 .d2 ul li span {
     position: absolute;
     top: 21px;
@@ -10096,22 +10110,15 @@ hr:before {
     border-radius: 20px;
 }
 
+/* 31. 左右摆动关键帧 */
 @keyframes swing {
-    0% {
-        transform: rotate(0);
-    }
-    25% {
-        transform: rotate(-13deg);
-    }
-    50% {
-        transform: rotate(0);
-    }
-    75% {
-        transform: rotate(13deg);
-    }
-    100% {
-        transform: rotate(0);
-    }
+    0%   { transform: rotate(0); }
+    25%  { transform: rotate(-13deg); } /* 【向左 13°】 */
+    50%  { transform: rotate(0); }
+    75%  { transform: rotate(13deg); }  /* 【向右 13°】 */
+    100% { transform: rotate(0); }
 }
 
-/* 灯笼 END */
+/* =========================
+   灯笼效果 – 注释结束
+   ========================= */
