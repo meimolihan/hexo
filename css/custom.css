@@ -5308,9 +5308,11 @@ summary {
   background: var(--theme-color) !important;
 } */
 
-summary {
-  background: var(--theme-color) !important;
-} 
+/* 控制台文字接入主题色  */
+.folding-tag,
+.folding-tag * {          /* * 代表内部所有子元素一次性继承 */
+    color: var(--theme-color) !important;
+}
 
 .highlight pre,
 .highlight td,
