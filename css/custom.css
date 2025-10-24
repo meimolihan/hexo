@@ -389,6 +389,11 @@ div#archive {
   border: 0.5px solid #404040;
 }
 
+/* 长代码小箭头接入主题色*/
+.code-expand-btn .fas.fa-angle-double-down {
+  color: var(--theme-color) !important;
+}
+
 /* 鼠标样式 */
 #cursor {
   position: fixed;
