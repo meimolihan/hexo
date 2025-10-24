@@ -5302,10 +5302,12 @@ summary {
 [data-theme="dark"] #post .post-content .folding-tag .content {
   background: var(--trans-dark);
 }
-summary,
+
+/ * summary,
 .highlight-tools {
   background: var(--theme-color) !important;
-}
+} */
+
 .highlight pre,
 .highlight td,
 .highlight tr,
