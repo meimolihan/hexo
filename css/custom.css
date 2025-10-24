@@ -5308,6 +5308,10 @@ summary {
   background: var(--theme-color) !important;
 } */
 
+summary {
+  background: var(--theme-color) !important;
+} 
+
 .highlight pre,
 .highlight td,
 .highlight tr,
