@@ -15,7 +15,7 @@ function isHomePage() {
     ipFetched = true;
 
     try {
-        const res = await fetch('https://api.nsmao.net/api/ip/query?key=2GmYt00SUwYiAI9zIbTdP8hZ0J');
+        const res = await fetch('https://api.nsmao.net/api/ipip/query?key=2GmYt00SUwYiAI9zIbTdP8hZ0J');
         if (!res.ok) throw new Error('Network response was not ok');
         ipLocation = await res.json();
     } catch (e) {
