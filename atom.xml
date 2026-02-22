@@ -6,7 +6,7 @@
   <link href="https://www.meimolihan.eu.org/atom.xml" rel="self"/>
   
   <link href="https://www.meimolihan.eu.org/"/>
-  <updated>2025-12-04T00:58:02.000Z</updated>
+  <updated>2026-02-22T00:28:39.000Z</updated>
   <id>https://www.meimolihan.eu.org/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>windows镜像esd转iso</title>
+    <link href="https://www.meimolihan.eu.org/posts/94805ca9.html"/>
+    <id>https://www.meimolihan.eu.org/posts/94805ca9.html</id>
+    <published>2026-02-22T00:28:39.000Z</published>
+    <updated>2026-02-22T00:28:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://file.meimolihan.eu.org/img/esd2iso.webp" alt=""></p><h1>windows镜像esd转iso</h1><h2 id="背景">背景</h2><p>经常在三方网站（比如：<a href="https://www.xiuxitong.com/">修系统</a>、<a href="https://www.pc528.net/">不忘初心系统</a>）下载到精简系统，但是这些系统的格式不仅仅是iso，还有可能是esd。<br>虽然两者几乎等价，但是有些平台 比如虚拟机、mac转换助理不能识别esd格式的镜像。</p><h2 id="windows端">windows端</h2><h3 id="准备工作">准备工作</h3><p>首先要先<a href="https://115cdn.com/s/swha4qr33ki?password=j3c2">下载</a>所需的ISO外壳和Ultraiso软碟通软件。</p><p>把你要安装的ESD系统改名，比如<code>xxxx.esd</code>改为<code>install.esd</code>。</p><h3 id="正式开始">正式开始</h3><p>先打开Ultraiso软件，把<code>不忘初心系统ISO外壳.iso</code>托到Ultraiso软件里面。<br><img src="https://file.meimolihan.eu.org/screenshot/esd2iso-001.webp" alt=""></p><p>拖放完成后，在Ultraiso软碟通软件里面双击打开ISO。<br><img src="https://file.meimolihan.eu.org/screenshot/esd2iso-002.webp" alt=""></p><p>进入<code>\sources</code>这个文件夹，把刚才重命名后的<code>install.esd</code>拖入内。<br><img src="https://file.meimolihan.eu.org/screenshot/esd2iso-003.webp" alt=""></p><p>然后保存或者另存为新的ISO都行，这样ESD转ISO就完成了，用这个保存后的<code>不忘初心系统ISO外壳.iso</code>安装系统就可以了。<br><img src="https://file.meimolihan.eu.org/screenshot/esd2iso-004.webp" alt=""></p><h2 id="mac端">mac端</h2><p>mac端可以使用<a href="https://115cdn.com/s/swhaywl33ki?password=e5f4">anytoiso</a>（支持中文）这款工具，来编辑、提取和打包iso。<br>但是亲测修改的windows11安装不上虚拟机。<br><img src="https://file.meimolihan.eu.org/screenshot/esd2iso-005.webp" alt=""></p><p>又试了一个软件 <a href="https://www.uubyte.com/">uubyte</a>，看起来跟软碟通差距不多，但是收费的无法验证能力！</p><p>又实验了一款软件 <a href="https://www.poweriso.com/download-poweriso-command-line-utility-for-osx.htm">poweriso</a>，支持mac和win平台，只不过在mac下没有界面需要<a href="https://www.poweriso.com/tutorials/poweriso-for-osx-command-line-utility-usage.htm">用命令行</a>来使用！</p><p>提取镜像</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poweriso extract ./win11.iso / -od temp  #将win11.iso镜像的内容提取到temp目录中</span><br></pre></td></tr></table></figure><p>创建镜像</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poweriso create -o test.iso -add temp /  #将temp目录打包为iso镜像</span><br></pre></td></tr></table></figure><h2 id="总结">总结</h2><p>不知是出于什么原因，貌似只有在windows下的软碟通可以做到无损的编辑iso，所以推荐使用这种办法</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://file.meimolihan.eu.org/img/esd2iso.webp&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1&gt;windows镜像esd转iso&lt;/h1&gt;
+&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;经常在三方网站（比如：&lt;a hre</summary>
+      
+    
+    
+    
+    <category term="Windows" scheme="https://www.meimolihan.eu.org/categories/Windows/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>脚本传参详解：打造高效智能的Bash脚本工具 📚</title>
@@ -524,35 +549,6 @@
     
     
     <category term="compose" scheme="https://www.meimolihan.eu.org/tags/compose/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 开机检查脚本安装工具 🚀</title>
-    <link href="https://www.meimolihan.eu.org/posts/e6ceddf0.html"/>
-    <id>https://www.meimolihan.eu.org/posts/e6ceddf0.html</id>
-    <published>2025-09-22T13:27:43.000Z</published>
-    <updated>2025-09-22T13:27:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>Linux 开机检查脚本安装工具 🚀</h1><p><img src="https://file.meimolihan.eu.org/img/linux-check-01.webp" alt=""></p><blockquote><p>这是一个用于自动下载和安装 Linux 系统检查脚本的 Bash 工具。它会从 Gitee 代码仓库下载 <code>linux-check.sh</code> 脚本，并创建便捷的执行方式。</p></blockquote><hr><h2 id="📚-导航目录">📚 导航目录</h2><ul><li><a href="#main-features">✨ 主要功能</a></li><li><a href="#%EF%B8%8Fsupported-systems">🖥️ 支持的系统</a></li><li><a href="#usage-methods">🎯 使用方法</a></li><li><a href="#post-installation-usage">💡 安装后的使用方式</a></li><li><a href="#file-locations">📂 文件位置</a></li><li><a href="#%EF%B8%8Funinstall-method">🗑️ 卸载方法</a></li><li><a href="#security-tips">🔒 安全提示</a></li></ul><hr><p><a id="main-features"></a></p><h2 id="✨-主要功能">✨ 主要功能</h2><ol><li><strong>📥 智能下载管理</strong>: 自动从 Gitee 仓库下载最新的 <code>linux-check.sh</code> 脚本，支持网络重试机制</li><li><strong>📁 系统级安装</strong>: 将脚本安全安装到 <code>/etc/profile.d/</code> 系统目录，确保全局可用</li><li><strong>🔗 便捷快捷方式</strong>: 创建统一的快捷命令 <code>m</code>，简化日常使用体验</li><li><strong>⚙️ 自动化配置</strong>: 自动设置正确的文件权限（755），确保脚本可执行</li><li><strong>🚀 一键执行</strong>: 安装完成后可选择立即运行检查脚本，所见即所得</li><li><strong>🔄 更新支持</strong>: 内置版本检查机制，便于后续更新维护</li></ol><hr><p><a id="supported-systems"></a></p><h2 id="🖥️-支持的系统">🖥️ 支持的系统</h2><p>目前已在以下主流 Linux 发行版上全面测试通过：</p><h3 id="🔧-服务器环境">🔧 服务器环境</h3><ul><li><strong>🐧 Debian</strong> - 稳定可靠的服务器发行版，完美兼容 9.x 及以上版本</li><li><strong>🛡️ PVE (Proxmox VE)</strong> - 专业的虚拟化环境，针对虚拟化特性优化</li><li><strong>🌱 Ubuntu</strong> - 流行的服务器和桌面系统，支持 LTS 版本</li></ul><h3 id="💻-特定系统">💻 特定系统</h3><ul><li><strong>🎯 FNOS</strong> - 特定定制系统，针对定制化环境适配</li><li><strong>🔒 CentOS</strong> - 企业级发行版（7.x 及以上版本）</li><li><strong>📦 Alpine</strong> - 轻量级容器友好系统</li><li><strong>🏪 iStoreOS</strong> - 智能路由操作系统，基于 OpenWRT 深度定制，完美适配家庭和小型企业网络环境</li></ul><hr><p><a id="usage-methods"></a></p><h2 id="🎯-使用方法">🎯 使用方法</h2><p>最简单的安装方式，一键完成所有配置：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL gitee.com/meimolihan/script/raw/master/sh/install/check.sh)</span><br></pre></td></tr></table></figure><p><img src="https://file.meimolihan.eu.org/screenshot/linux-check-001.webp" alt="Linux"></p><p><img src="https://file.meimolihan.eu.org/screenshot/linux-check-002.webp" alt="iStoreOS"></p><p><strong>执行流程说明：</strong></p><ol><li>🌐 自动检测网络连接状态</li><li>📥 从 Gitee 仓库下载最新版检查脚本</li><li>🔒 验证脚本完整性</li><li>📁 安装到系统目录</li><li>🔗 创建快捷方式</li><li>🚀 可选立即执行检查</li></ol><p><a id="post-installation-usage"></a></p><h2 id="💡-安装后的使用方式">💡 安装后的使用方式</h2><p>安装完成后，系统将提供多种便捷的使用方式：</p><h3 id="📝-快捷键运行">📝 快捷键运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m</span><br></pre></td></tr></table></figure><h3 id="🕒-定时任务集成">🕒 定时任务集成</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加到 crontab 定期检查</span></span><br><span class="line">0 2 * * * /usr/local/bin/m --silent &gt; /var/log/system-check.log</span><br></pre></td></tr></table></figure><p><a id="file-locations"></a></p><h2 id="📂-文件位置">📂 文件位置</h2><h3 id="🗂️-核心文件">🗂️ 核心文件</h3><ul><li><p><strong>📄 主脚本文件</strong>: <code>/etc/profile.d/linux-check.sh</code></p><ul><li>系统级安装，所有用户可访问</li><li>随系统启动自动加载环境</li></ul></li><li><p><strong>🔗 快捷命令</strong>: <code>/usr/local/bin/m</code></p><ul><li>全局快捷方式，任意目录直接执行</li><li>符号链接，确保与主脚本同步更新</li></ul></li></ul><h3 id="📊-日志与数据">📊 日志与数据</h3><ul><li><strong>📋 检查报告</strong>: 运行时生成临时报告文件</li><li><strong>🔧 配置文件</strong>: 支持自定义检查项配置（如有）</li></ul><p><a id="uninstall-method"></a></p><h2 id="🗑️-卸载方法">🗑️ 卸载方法</h2><h3 id="🔄-完整卸载">🔄 完整卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除安装的文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -f /etc/profile.d/linux-check.sh /usr/local/bin/m</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证卸载结果</span></span><br><span class="line"><span class="built_in">which</span> m &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;卸载失败&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;卸载成功&quot;</span></span><br></pre></td></tr></table></figure><h3 id="🧹-清理相关文件">🧹 清理相关文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理可能生成的日志文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -f /tmp/linux-check-*.<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查并清理残留配置</span></span><br><span class="line"><span class="built_in">ls</span> -la /etc/profile.d/ | grep linux-check</span><br></pre></td></tr></table></figure><p><a id="security-tips"></a></p><h2 id="🔒-安全提示">🔒 安全提示</h2><h3 id="🔍-安全建议">🔍 安全建议</h3><ol><li><p><strong>源码审查</strong>: 建议在安装前检查脚本内容</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入 q 退出</span></span><br><span class="line">curl -sL gitee.com/meimolihan/script/raw/master/sh/check.sh | less</span><br></pre></td></tr></table></figure></li><li><p><strong>环境隔离</strong>: 在生产环境使用前，先在测试环境验证</p></li><li><p><strong>权限最小化</strong>: 使用最小必要权限原则运行脚本</p></li></ol><h3 id="🛡️-安全特性">🛡️ 安全特性</h3><ul><li><strong>🔒 安全下载</strong>: 通过 HTTPS 加密下载，防止中间人攻击</li><li><strong>📜 权限控制</strong>: 严格的文件权限设置（755）</li><li><strong>🔍 透明操作</strong>: 所有操作均有明确提示，无静默执行</li></ul><h3 id="🚨-风险提示">🚨 风险提示</h3><ul><li>请勿在高度敏感的环境中直接运行未知脚本</li><li>建议根据实际需求定制检查内容</li><li>定期更新以获取安全补丁和新功能</li></ul><hr><p><strong>🎉 享受便捷的 Linux 系统检查体验！如有问题，欢迎反馈和改进建议！</strong></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;Linux 开机检查脚本安装工具 🚀&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;https://file.meimolihan.eu.org/img/linux-check-01.webp&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;这是一个用于自动下载和安装 </summary>
-      
-    
-    
-    
-    <category term="Linux" scheme="https://www.meimolihan.eu.org/categories/Linux/"/>
-    
-    
-    <category term="我的" scheme="https://www.meimolihan.eu.org/tags/%E6%88%91%E7%9A%84/"/>
-    
-    <category term="脚本" scheme="https://www.meimolihan.eu.org/tags/%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
