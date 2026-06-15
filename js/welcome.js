@@ -1,26 +1,42 @@
-/* 欢迎语模块 - 2025-06-25 修复版 */
-/* 全局变量，避免暂时性死区 */
-var ipLocation = null;          // 置空标记“尚未拿到”
-var ipFetched  = false;         // 防止 PJAX 重复请求
+/* 欢迎语模块 - 最终修复版 */
+var ipLocation = null;
+var ipFetched  = false;
 
-/* ---------- 工具 ---------- */
 function isHomePage() {
     return window.location.pathname === '/' ||
         window.location.pathname === '/index.html';
 }
 
-/* ---------- IP 获取 ---------- */
 (async function fetchIpOnce() {
-    if (ipFetched) return;      // 已经请求过就退出
+    if (ipFetched) return;
     ipFetched = true;
 
     try {
-        const res = await fetch('https://api.nsmao.net/api/ipip/query?key=2GmYt00SUwYiAI9zIbTdP8hZ0J');
-        if (!res.ok) throw new Error('Network response was not ok');
-        ipLocation = await res.json();
+        const res = await fetch('https://ipapi.co/json/');
+        const json = await res.json();
+        // 英文国家名转中文
+        const countryMap = {
+            'China': '中国', 'Japan': '日本', 'United States': '美国',
+            'South Korea': '韩国', 'Germany': '德国', 'France': '法国',
+            'United Kingdom': '英国', 'Russia': '俄罗斯', 'India': '印度',
+            'Australia': '澳大利亚', 'Canada': '加拿大', 'Brazil': '巴西',
+            'Taiwan': '台湾', 'Hong Kong': '香港', 'Singapore': '新加坡',
+            'Netherlands': '荷兰', 'Italy': '意大利', 'Spain': '西班牙'
+        };
+        ipLocation = {
+            ip: json.ip || '未知',
+            data: {
+                country: countryMap[json.country_name] || json.country_name || '未知',
+                prov: json.region || '未知',
+                city: json.city || '未知',
+                district: json.city || '未知',
+                lng: parseFloat(json.longitude) || 0,
+                lat: parseFloat(json.latitude) || 0
+            }
+        };
+        console.log("IP定位数据：", ipLocation);
     } catch (e) {
         console.warn('IP 接口失败，使用降级', e);
-        /* 降级数据，保证后续代码不崩 */
         ipLocation = {
             ip: '未知',
             data: {
@@ -34,13 +50,11 @@ function isHomePage() {
         };
     }
 
-    /* 拿到数据后再渲染 */
     if (isHomePage()) showWelcome();
 })();
 
-/* ---------- 欢迎弹窗 ---------- */
 function showWelcome() {
-    if (!ipLocation || !ipLocation.data) return;   // 二次保护
+    if (!ipLocation || !ipLocation.data) return;
 
     const dist = getDistance(116.680584, 35.649829,
         ipLocation.data.lng,
@@ -49,18 +63,14 @@ function showWelcome() {
     let ip   = ipLocation.ip || '未知';
     let posdesc;
 
-    /* IPv6 简化显示 */
     if (ip.includes(':')) ip = '<br>好复杂，咱看不懂~(ipv6)';
 
-    /* ====== 以下国家/省市判断保持你原来逻辑 ====== */
     switch (ipLocation.data.country) {
         case '日本': posdesc = 'よろしく，一起去看樱花吗'; break;
         case '美国': posdesc = 'Let us live in peace!'; break;
-        /* ...... 其余省略，与你原文件相同 ...... */
         default: posdesc = '带我去你的城市逛逛吧！'; break;
     }
 
-    /* 时段欢迎语 */
     const hour = new Date().getHours();
     let timeChange =
         hour < 5  ? '<span>🛏️ 夜深了，早点休息 🌃</span>'
@@ -78,11 +88,13 @@ ${timeChange}
 <b style="font-size:15px;color:var(--theme-color)">${posdesc}</b>`;
 
     const welcomeBox = document.getElementById('welcome-info');
-    if (welcomeBox) welcomeBox.innerHTML = html;
-    else console.log('[welcome] 未找到 #welcome-info 元素');
+    if (welcomeBox) {
+        welcomeBox.innerHTML = html;
+    } else {
+        console.log('[welcome] 未找到 #welcome-info 元素');
+    }
 }
 
-/* ---------- 球面距离计算 ---------- */
 function getDistance(e1, n1, e2, n2) {
     const R = 6371;
     const { sin, cos, asin, PI, hypot } = Math;
@@ -101,7 +113,6 @@ function getDistance(e1, n1, e2, n2) {
     return Math.round(asin(c / 2) * 2 * R);
 }
 
-/* ---------- PJAX 支持 ---------- */
 document.addEventListener('pjax:complete', () => {
     if (isHomePage() && ipLocation) showWelcome();
 });
