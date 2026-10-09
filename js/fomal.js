@@ -3022,7 +3022,8 @@ function initItem() {
   localStorage.setItem("aside", "1");
   localStorage.setItem("asidePos", "1");
   localStorage.setItem("nav", "1");
-  localStorage.setItem("lantern", "1");
+  // 灯笼默认关闭：与 applyLantern() 的首次访问默认值保持一致（见下方 6.5 节注释）
+  localStorage.setItem("lantern", "0");
   localStorage.setItem("music", "1");
   localStorage.setItem("bgFilterOn", "1");
   localStorage.setItem("bgFilterVal", "blur(0px) saturate(108%) contrast(105%)");
@@ -3285,9 +3286,11 @@ function setAsidePos() {
    position: fixed（见 themes/butterfly/source/css/_custom/lantern.css）。
    这里不改它的display，而是往 <html> 上挂一个「反向」类，
    由CSS 去display:none —— 这样万一以后还要在别处引用 .dengl，
-   不会因为这里 inline 写死而互相干扰。 */
+   不会因为这里 inline 写死而互相干扰。
+   2026-10-09：默认改为关闭（"0"），新访客第一次打开网站不显示灯笼，
+   需要时自己在「美化设置」面板里打开，打开后会被记进 localStorage。 */
 if (localStorage.getItem("lantern") == undefined) {
-  localStorage.setItem("lantern", "1");
+  localStorage.setItem("lantern", "0");
 }
 applyLantern();
 function applyLantern() {
@@ -3802,7 +3805,7 @@ function createWinbox() {
 </div>
 
 <div class="content" style="display:flex">
-  <label class="opt"><span class="content-text" style="font-weight:bold"> 灯笼挂件 (默认显示) </span><input type="checkbox" id="lanternSet" onclick="setLantern()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 灯笼挂件 (默认关闭) </span><input type="checkbox" id="lanternSet" onclick="setLantern()"></label>
   <label class="opt"><span class="content-text" style="font-weight:bold"> 音乐播放 (默认显示) </span><input type="checkbox" id="musicSet" onclick="setMusic()"></label>
 </div>
 
@@ -4025,7 +4028,7 @@ function reset() {
   var asidePosSet = document.getElementById("asidePosSet");
   if (asidePosSet) asidePosSet.checked = true;
   var lanternSet = document.getElementById("lanternSet");
-  if (lanternSet) lanternSet.checked = true;
+  if (lanternSet) lanternSet.checked = false;
   var musicSet = document.getElementById("musicSet");
   if (musicSet) musicSet.checked = true;
   var bgFilterSet = document.getElementById("bgFilterSet");

@@ -81,10 +81,12 @@
   tag("rightSide", ":root{--rightside-display: " + (def(ls("rs"), "block") === "none" ? "none" : "block") + "}");
 
   // 6.5) 灯笼挂件 / 音乐播放（2026-10-09 新增）。
-  // 和fomal.js 的 applyLantern()/applyMusic() 一致：默认显示，关掉才加反向类。
+  // 和fomal.js 的 applyLantern()/applyMusic() 一致：靠反向类控制显示。
   // 这里必须在 head 阶段就挂上 —— 否则关掉的状态要等 fomal.js（defer）执行完才生效，
   // 页面会先闪一下挂件再消失。
-  if (def(ls("lantern"), "1") !== "1") d.classList.add("meihua-no-lantern");
+  // 2026-10-09：灯笼默认改为关闭（默认值为 "0"），新访客首次访问不再显示灯笼；
+  // 默认值必须和 fomal.js 里 applyLantern()/initItem() 的写法保持一致，否则会闪一下。
+  if (def(ls("lantern"), "0") !== "1") d.classList.add("meihua-no-lantern");
   if (def(ls("music"), "1") !== "1") d.classList.add("meihua-no-music");
 
   if (def(ls("nav"), "1") === "0") {
