@@ -1,3 +1,15 @@
+/* ============================================================================
+   2026-10-09 修复：整体包进 IIFE
+   本脚本在 _config.butterfly.yml 里带 data-pjax 标记，pjax 切换页面后会被
+   二次执行。原文件顶层有 let kk / rmWidth / rmHeight，第二次执行时在同一
+   全局作用域重复 let 声明，直接抛
+       Uncaught SyntaxError: Identifier 'kk' has already been declared
+   整个脚本中断 → 右键菜单在 pjax 之后彻底失效。
+   包进 IIFE 后这些变量变为函数作用域，每次执行互不干扰，功能完全不变。
+   同时把 jQuery 事件绑定改成 .off(ns).on(ns) 幂等形式，避免 pjax 后
+   同一元素被叠加绑定 N 次（点一次「后退」会连退 N 页）。
+   ============================================================================ */
+(function () {
 let kk = {};
 
 kk.showRightMenu = function(isTrue, x=0, y=0){
@@ -35,9 +47,9 @@ function RemoveRightMenu(){
     $('#rightmenu-mask').attr('style','display: none');
 }
 
-$('#menu-backward').on('click',function(){window.history.back();});
-$('#menu-forward').on('click',function(){window.history.forward();});
-$('#menu-refresh').on('click',function(){window.location.reload();});
+$('#menu-backward').off('click.rm').on('click.rm',function(){window.history.back();});
+$('#menu-forward').off('click.rm').on('click.rm',function(){window.history.forward();});
+$('#menu-refresh').off('click.rm').on('click.rm',function(){window.location.reload();});
 
 kk.switchDarkMode = function(){
     RemoveRightMenu();
@@ -57,12 +69,12 @@ kk.switchDarkMode = function(){
     window.DISQUS && document.getElementById('disqus_thread').children.length && setTimeout(() => window.disqusReset(), 200)
 };
 
-$('#menu-darkmode').on('click',kk.switchDarkMode);
+$('#menu-darkmode').off('click.rm').on('click.rm',kk.switchDarkMode);
 
-$('#menu-home').on('click',function(){window.location.href = window.location.origin;});
+$('#menu-home').off('click.rm').on('click.rm',function(){window.location.href = window.location.origin;});
 
 // 简体繁体切换
-$('#menu-translate').on('click',function(){
+$('#menu-translate').off('click.rm').on('click.rm',function(){
     RemoveRightMenu();
     translateInitialization();
 });
@@ -163,4 +175,5 @@ document.addEventListener('DOMContentLoaded', function () {
     translateInitialization()
     document.addEventListener('pjax:complete', translateInitialization)
   })
+})();
   

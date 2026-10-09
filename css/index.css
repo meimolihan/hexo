@@ -6717,9 +6717,17 @@ blockquote.pullquote.right {
   font-display: swap;
 }
 
+/* 【2026-10-09 修正】原 src 是
+   https://data-static.netdun.net/Fomalhaut/fonts/HYTangMeiRen55W.woff2
+   该域名整站拒连（curl 返回 000），浏览器报 ERR_CONNECTION_CLOSED。
+   汉仪唐美人属商业字体，公开 CDN 无合法源，本机也没装，
+   所以改成纯 local()：系统没装时这条 @font-face 直接判定不可用，
+   沿 font-family 栈回退到系统中文字体，不再报错、不再等网络超时。
+   （不能用「同名 @font-face 追加覆盖」的办法 —— 同 family 的多条
+     @font-face 是并列叠加的，原来的失效 src 仍会被请求。） */
 @font-face {
   font-family: HYTMR;
-  src: url(https://data-static.netdun.net/Fomalhaut/fonts/HYTangMeiRen55W.woff2);
+  src: local("HYTangMeiRen55W"), local("汉仪唐美人简");
   font-display: swap;
 }
 
@@ -6736,9 +6744,15 @@ blockquote.pullquote.right {
   font-display: swap;
 }
 
+/* 【2026-10-09 修正】原 src 是
+   https://data-static.netdun.net/Fomalhaut/fonts/Consolas.woff2，同样已挂。
+   Consolas 是微软商业字体，npm 上没有合法分发包，但它本来就是
+   Windows 自带字体（已核实 C:\Windows\Fonts\consola.ttf 存在），
+   所以直接用 local() 引用系统字体即可，不必再走网络。
+   本机没装时沿栈回退到 Menlo / 等宽字体，效果等同。 */
 @font-face {
   font-family: Consolas_1;
-  src: url(https://data-static.netdun.net/Fomalhaut/fonts/Consolas.woff2);
+  src: local("Consolas"), local("Consolas Regular");
   font-display: swap;
 }
 
@@ -9352,7 +9366,10 @@ figure.highlight pre .deletion {
   padding: 1rem;
   position: relative;
   border-radius: 12px;
-  background-image: url(https://tuchuang.voooe.cn/images/2023/01/02/tunian.webp);
+  /* 【2026-10-09】原兔年背景图 https://tuchuang.voooe.cn/.../tunian.webp 已 404
+     （图床整站失效）。加载失败时本就没有背景图，故移除该声明 —— 视觉与现状一致，
+     且省掉一次 404 请求。拿到新图后取消下一行注释即可恢复。 */
+  /* background-image: url(https://<你的图床>/tunian.webp); */
   background-size: cover;
   background-position: center;
 }
@@ -9412,8 +9429,11 @@ figure.highlight pre .deletion {
 }
 
 /* 信息卡片彩带 */
+/* 【2026-10-09】原彩带图 https://tuchuang.voooe.cn/.../snow.gif 已 404
+   （图床整站失效）。加载失败时本就没有背景图，故移除该声明 —— 视觉与现状一致，
+   且省掉一次 404 请求。拿到新图后取消下一行注释即可恢复。 */
 .author_top:hover {
-  background: url(https://tuchuang.voooe.cn/images/2023/01/02/snow.gif);
+  /* background: url(https://<你的图床>/snow.gif); */
   background-size: cover;
 }
 
