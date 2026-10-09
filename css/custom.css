@@ -119,9 +119,17 @@ svg.faa-tada.caidan {
   font-display: swap;
 }
 
+/* 【2026-10-09 修正】原src 是
+   https://data-static.netdun.net/Fomalhaut/fonts/HYTangMeiRen55W.woff2
+   该域名整站拒连（curl 000），浏览器报 ERR_CONNECTION_CLOSED。
+   汉仪唐美人属商业字体，公开 CDN 无合法源，本机也没装，
+   所以改成纯local()：系统没装时这条 @font-face 直接判定不可用，
+   沿 font-family 栈回退到系统中文字体，至少不再报错、不再等网络超时。
+   （不能用「同名 @font-face 追加覆盖」的办法 —— 同 family 的多条
+     @font-face 是并列叠加的，原来的失效 src 仍会被请求。） */
 @font-face {
   font-family: HYTMR;
-  src: url(https://data-static.netdun.net/Fomalhaut/fonts/HYTangMeiRen55W.woff2);
+  src: local("HYTangMeiRen55W"), local("汉仪唐美人简");
   font-display: swap;
 }
 
@@ -138,9 +146,15 @@ svg.faa-tada.caidan {
   font-display: swap;
 }
 
+/* 【2026-10-09 修正】原 src 是
+   https://data-static.netdun.net/Fomalhaut/fonts/Consolas.woff2，同样已挂。
+   Consolas 是微软商业字体，npm 上没有合法分发包，但它本来就是
+   Windows 自带字体（已核实 C:\Windows\Fonts\consola.ttf 存在），
+   所以直接用 local() 引用系统字体即可，不必再走网络。
+   本机没装时沿栈回退到 Menlo / 等宽字体，效果等同。 */
 @font-face {
   font-family: Consolas_1;
-  src: url(https://data-static.netdun.net/Fomalhaut/fonts/Consolas.woff2);
+  src: local("Consolas"), local("Consolas Regular");
   font-display: swap;
 }
 
@@ -5344,3 +5358,568 @@ summary {
   color: var(--theme-color) !important;
 }
 /**************** 以上是 来自 mobufan 的修改内容 ****************/
+
+/* ============================================================================
+ * 【美化面板 v2 优化】2026-10-09
+ * --------------------------------------------------------------------------
+ * 对应 source/js/fomal.js 的「美化模块」，配合本次新增的三块能力落地：
+ *   1. 背景滤镜（模糊 / 饱和度 / 对比度）—— 消费 --bg-filter 变量；
+ *   2. 代码块字体 —— 消费 --code-font 变量；
+ *   3. 侧栏显隐 / 侧栏位置 / 顶栏常驻 —— 消费 .hide-aside / .meihua-aside-* /
+ *      .meihua-nav-fixed 三个类名（均由 fomal.js 或 beauty-boot.js 挂到 <html> 上）。
+ * 以及面板自身的排版改进：开关行用 .opt 包裹、滤镜参数用 .bgp 包裹、
+ * 主题色行用 .colorRow、手机端重排。
+ *
+ * 【为什么全部堆在文件末尾】
+ *   本文件是 append-only 的（改样式只追加、不动原规则，理由见文首约定）。
+ *   这一段必须排在 .bgbox(1121) / .swf(1385) / 颜色单选(1399) / 开关按钮(1688) /
+ *   .range(1813) 之后，同权重时才能压得住它们。
+ * ------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+ * 1. 背景滤镜
+ * ------------------------------------------------------------------------- */
+/* 只作用在背景层，不影响卡片和文字 —— 否则文字会跟着一起糊掉。
+   #web_bg 是主题用来铺背景的元素（layout/includes/layout.pug），
+   它上面本来有一条 imgblur 入场动画（blur 5px → 0），
+   这里用 animation-fill-mode 让动画结束后交还给 --bg-filter 接管。 */
+#web_bg {
+  filter: var(--bg-filter, none);
+}
+/* 移动端背景元素同样要接滤镜，否则手机端调了没反应 */
+@media screen and (max-width: 900px) {
+  #web_bg {
+    filter: var(--bg-filter, none);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. 代码块字体
+ * ------------------------------------------------------------------------- */
+/* 主题的代码字体是 Stylus 编译期写死的（var.styl:$code-font-family），
+   运行时改不了。这里用 custom.css 后置覆盖，把 --code-font 顶到栈首。
+   主题那条规则带 !important，所以这里也必须带，且要更具体
+   （#article-container 是主题选择器的祖先，提高权重压过它）。 */
+#article-container pre,
+#article-container code,
+.highlight pre,
+.highlight code,
+.highlight .gutter .line {
+  font-family: var(--code-font, JetBrainsMono), var(--global-font), "Microsoft YaHei", Menlo, "PingFang SC", "Microsoft JhengHei", sans-serif !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. 顶栏常驻
+ * ------------------------------------------------------------------------- */
+/* 主题原生行为（head.styl + main.js:285-310）：
+     · 滚过 56px 给 #page-header 加 .nav-fixed，此时 #nav 是 `top: -60px` 的收起态；
+     · 继续下滑 → 移除 .nav-visible（顶栏缩上去藏起来）；
+     · 向上滑 → 加回 .nav-visible（顶栏滑回来）。
+   也就是「滚动时自动隐藏、向上滑时出现」。
+
+   这里的 .meihua-nav-fixed 由美化模块 / beauty-boot.js 主动挂上，
+   作用是让顶栏从一开始就吸顶（不用等滚过阈值）。
+
+   【2026-10-09 两次修正】
+   ① 最初写成 .meihua-nav-fixed #nav { position: fixed; top: 0 }，
+      把 #nav 单独抽离出文档流 → 正文从它底下穿过、压住页面标题。
+      改法：不让 #nav 脱离流，改让 #page-header 整体 position: sticky。
+   ② sticky 之后我又顺手加了 #nav { transform: translateY(0) !important } 想「压掉
+      主题那个 top:-60px 的收起态」，结果**连主题的自动隐藏动画一起压掉了** ——
+      .nav-visible 的 translate3d(0,100%,0) 正是靠 #nav 的 transform 实现的，
+      钉死成 0 就等于永远显示。用户反馈「滑动页面不自动隐藏」就是这里。
+
+   所以现在只保留 sticky（那部分是修压内容的），
+   transform/top 一律不碰，让主题原生动画自己跑。 */
+.meihua-nav-fixed #page-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 91;
+}
+/* sticky 生效后，主题 .nav-fixed > #nav { top: -60px } 那个收起态会让顶栏
+   露出 60px 缺口。这里只把「收起位移」拉回 0，
+   但**必须保留 transform 的可动画性** —— 不能用 !important 钉死，
+   否则又会盖掉 .nav-visible 的显隐动画。
+   写成非 important，靠下面的 translateY(0) 让它平时就停在显示位。 */
+.meihua-nav-fixed #nav {
+  top: 0 !important;
+  translate: 0 0 !important;   /* translate 属性与 transform 相互独立，互不干扰 */
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. 侧栏显隐
+ * ------------------------------------------------------------------------- */
+/* 主开关走主题自带的 html.hide-aside（aside.styl 里已有
+   `html.hide-aside .layout > .aside-content { display: none }`），
+   这里只补一条兜底：万一主题那段被覆盖了，变量这条路也能生效。 */
+:root {
+  --aside-content-display: block;
+}
+#aside-content.aside-content {
+  display: var(--aside-content-display);
+}
+/* 隐藏后正文居中，避免左边留一块空白 */
+html.hide-aside #content-inner.layout {
+  justify-content: center;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. 侧栏位置（左 / 右）
+ * ------------------------------------------------------------------------- */
+/* 主题的 aside.position 是编译期 hexo-config，生成成固定的 CSS order，
+   运行时切不了。这里改用 CSS 变量控制 order，把决定权交给 fomal.js 写的
+   --first-child-order / --aside-order。
+   只在 >=900px 生效：窄屏本来就是上下堆叠，order 无意义。 */
+@media screen and (min-width: 901px) {
+  #content-inner.layout > div:first-child {
+    order: var(--first-child-order, 0);
+  }
+  #content-inner.layout > .aside-content {
+    order: var(--aside-order, 1);
+    padding-left: var(--aside-padding-left, 15px);
+    padding-right: var(--aside-padding-right, 0px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * 6. 美化面板：新增的包裹层 + 主题色化按钮
+ * ------------------------------------------------------------------------- */
+/* 开关行里的一段「文字 + 开关」。原先两者是 .content 的直接子元素，
+   窄屏换行时会被拆散（文字留一行、开关掉下一行），包一层就不会分家了 */
+.settings .content > .opt {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+.settings .content > .opt > .content-text {
+  padding-left: 10px;
+}
+/* 并排的第二列留出更大间距（原先是写在 HTML 上的 padding-left:20px） */
+.settings .content > .opt + .opt > .content-text {
+  padding-left: 20px;
+}
+
+/* 背景滤镜参数：模糊半径 / 饱和度 / 对比度各自成组，数字框与它的单位不再被拆行 */
+.settings .bgparams {
+  align-items: center;
+  gap: 6px 10px;
+}
+.settings .bgp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.settings .bgp-v {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.settings .bgp-v input {
+  width: 62px;
+}
+/* 保存按钮：原来这几个属性写在 HTML 的 inline style 上 */
+.settings .bgp-save {
+  background: var(--theme-color);
+  width: 48px;
+  border-radius: 6px;
+  color: white;
+  line-height: 1.2;
+  height: 28px;
+  margin-top: 2px;
+}
+.winbox_btn {
+  cursor: pointer;
+  border: none;
+}
+.winbox_btn:hover {
+  opacity: 0.85;
+}
+
+/* 「切换背景」按钮：原来写成 🌈切换背景🌈 —— 两边各一个彩虹，
+   窄屏时会把文字挤成两行（另一个彩虹单独掉到第二行）。彩虹已删。 */
+.settings .picbtn {
+  background: var(--theme-color);
+  width: 35%;
+  padding: 5px 0 7px 0;
+  border-radius: 30px;
+  color: white;
+  line-height: 2;
+}
+
+/* 主题色选择行：桌面一行铺开，手机端换成网格均分。
+   两圈之间的空隙只是排版空白：不能被当成可选文本，否则点一下就会在那里
+   落下一个编辑光标（会闪的那道竖杠），而这一行本来没有任何可选的文字。 */
+.settings .colorRow {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 12px;
+  -webkit-user-select: none;
+  user-select: none;
+  caret-color: transparent;
+}
+
+/* 恢复默认设置按钮：原来是写死在 inline style 里的 #fc354c→#0abfbc 红青渐变，
+   现在跟随主题色。第一行是给不支持 color-mix() 的老浏览器回退的纯主题色。 */
+#reset_btn {
+  display: block;
+  width: 40%;
+  padding: 15px 0;
+  border-radius: 30px;
+  color: white;
+  font-size: 1.1em;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  background: var(--theme-color);
+  background: linear-gradient(to right, color-mix(in srgb, var(--theme-color) 55%, #ffffff), var(--theme-color));
+}
+#reset_btn i {
+  animation: fa-spin 8s linear infinite;
+}
+
+/* 面板打开时给右侧部件让位，免得盖住小窗（iPhone 窄屏尤其明显）。
+   这里不用 body:has(#meihuaBox:not(.hide)) —— :has() 在旧内核上整条失效，
+   而让位只是个锦上添花的细节，不值得为它牺牲兼容性。
+   改由 fomal.js 的 toggleWinbox() 往 body 上挂 .meihua-panel-open。 */
+body.meihua-panel-open #rightside {
+  transform: translateX(-120px);
+}
+
+@media screen and (max-width: 768px) {
+  /* 开关行：一段独占一整行，文字在左、开关贴右，叠几行也是齐的 */
+  .settings .content > .opt {
+    flex: 1 1 100%;
+    justify-content: space-between;
+    min-height: 38px;
+  }
+  /* 两列都从 10px 起，免得读完一行又缩进 10px */
+  .settings .content > .opt > .content-text,
+  .settings .content > .opt + .opt > .content-text {
+    padding-left: 10px;
+  }
+
+  /* 「模糊半径: 0px | 饱和度: 108% | 对比度: 105%」这行摘要：360px 窄屏下 1em 会正好在
+     「对比度:」和红色数值之间断成两行，缩一档让它留住一行 */
+  #bgFilterShow {
+    font-size: 0.9em;
+  }
+
+  /* 背景滤镜参数：一行一项，标签在左、数字框+单位在右，保存按钮独占一行铺满 */
+  .settings .bgparams {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .settings .bgp {
+    justify-content: space-between;
+  }
+  .settings .bgp-v input {
+    width: 84px;
+  }
+  .settings .bgp-save {
+    width: 100%;
+    height: 32px;
+  }
+
+  /* 主题色圈：等宽网格均分，而不是 wrap 后半行孤零零挂一个 */
+  .settings .colorRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22px, 1fr));
+    gap: 10px 6px;
+    padding-left: 12px;
+  }
+  .settings .colorRow input[name="colors"] {
+    margin-right: 0;
+    margin-left: 6px;
+  }
+
+  /* 字体按钮：窄屏下 4 列网格，比 wrap 后最后一个孤零零挂一边整齐 */
+  #swfs,
+  #swfs_code {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+  .swf {
+    margin: 4px 2px;
+    text-align: center;
+    font-size: 17px;
+    padding: 8px 4px;
+  }
+
+  /* 「恢复默认设置」按钮固定占满宽度，窄屏下 40% 太窄握不住 */
+  #reset_btn {
+    width: 70%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * 7. #web_bg 入场动画与 --bg-filter 的冲突修正
+ * ------------------------------------------------------------------------- */
+/* 上面的 #web_bg { filter: var(--bg-filter) } 会被这条入场动画整段盖掉：
+   主题给 #web_bg 挂了 imgblur（blur 5px → 0，1s），
+   动画期间 filter 由关键帧控制，动画结束后又回到 none（默认 fill-mode），
+   于是「刷新后滤镜短暂失效」—— 所以要把动画改成只动 opacity，
+   让 filter 全程交给 --bg-filter。 */
+@keyframes meihua-bg-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes meihua-bg-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#web_bg {
+  animation: meihua-bg-in 0.6s 1 ease-in-out !important;
+  -webkit-animation: meihua-bg-in 0.6s 1 ease-in-out !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 8. 面板内几个只有结构、没有样式的类
+ * ------------------------------------------------------------------------- */
+/* .bgp-k 是参数名（模糊半径），.bgp-u 是单位（px / %）。
+   原先单位跟数字框同字号，参数一多就分不清哪个是值哪个是单位 —— 这里区分开。 */
+.settings .bgp-k {
+  color: var(--font-color);
+  opacity: 0.85;
+}
+.settings .bgp-u {
+  opacity: 0.6;
+  font-size: 0.9em;
+}
+/* 透明度滑块上方的标题行：数字用强调色，标签保持常规 */
+.settings .transValue {
+  margin-bottom: -6px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 9. 字体选中高亮（配合 markFontBorder 切类）
+ * ------------------------------------------------------------------------- */
+/* 原来 JS 是往 .swf 上写内联 border / background-color / box-shadow，
+   但 .swf 自己那条 `background-color: white` 在样式表里，
+   内联要压住它得处处 !important，散在 JS 里很难维护。
+   改成 JS 只切 .swf-cur 类，视觉全部收在这一段：
+     · 描边用主题色，一眼看出选了哪个；
+     · 底色用 color-mix 掺白 35% —— 11 种主题色实测最低对比度 6.95:1，
+       深色文字(#303030)都能保持可读；
+     · 外圈再补一道同色柔光，暗色面板里也和未选中项拉得开。
+   color-mix 的第一行是不支持它的老浏览器的回退（纯白底 + 主题色描边）。 */
+.swf.swf-cur {
+  border: 2px solid var(--theme-color);
+  background-color: #ffffff;
+  background-color: color-mix(in srgb, var(--theme-color) 35%, #ffffff);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-color) 38%, transparent);
+}
+/* 未选中项给一条中性描边，和选中项的粗描边形成对比 */
+.swf {
+  border: 2px solid var(--border-color);
+}
+
+/* ============================================================================
+ * 恢复顶栏「滚动自动隐藏」2026-10-12
+ * --------------------------------------------------------------------------
+ * 【症状】页面下滑时顶栏不自动隐藏，一直钉在顶部。
+ *
+ * 【根因】custom.css:1319 有一组项目自带的「顶栏常驻」规则：
+ *     .nav-fixed #nav { transform: translateY(58px) !important;   ×5 个厂商前缀
+ *     #nav            { transition: none !important; }             ×5 个厂商前缀
+ * 而主题的自动隐藏动画（head.styl:148）恰恰是靠 #nav 的 transform 实现的：
+ *     #page-header.nav-visible #nav { transform: translate3d(0, 100%, 0) }
+ * transform 被 !important 钉死，再叠加 transition: none，
+ * 于是 .nav-visible 的显隐动画彻底失效 —— 顶栏永远缩不回去。
+ *
+ * 【做法】按 append-only 约定不改原规则，只在文件末尾把压制抵消掉。
+ * transform 只放开到 none（不能写死值，否则会连隐藏效果一起打掉），
+ * transition 显式写成主题原来的两档时长。
+ * ------------------------------------------------------------------------- */
+
+/* 解除 !important 对 transform 的压制。
+   放开成 revert：主题在 .nav-visible 时给 translate3d(0,100%,0)（缩下去藏起），
+   平时没有 transform。这个值只能靠 revert，不能写死 ——
+   写 transform: none 会把 .nav-visible 的隐藏效果一起打掉。 */
+.nav-fixed #nav,
+#page-header.nav-fixed #nav {
+  transform: revert !important;
+  -webkit-transform: revert !important;
+  -moz-transform: revert !important;
+  -ms-transform: revert !important;
+  -o-transform: revert !important;
+}
+
+/* transition 显式还原成主题的参数（head.styl:137 的 .nav-fixed 档）。
+   之前试过用 revert，但它回退到的是「被压制之前的级联结果」，
+   也就是 none —— 恰好还是那个值，等于没解除。所以这里必须写显式值。 */
+#nav,
+#page-header #nav {
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out !important;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in-out !important;
+  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in-out !important;
+  -ms-transition: -ms-transform 0.2s ease-in-out, opacity 0.2s ease-in-out !important;
+  -o-transition: -o-transform 0.2s ease-in-out, opacity 0.2s ease-in-out !important;
+}
+
+/* .nav-visible 那一档主题给的是 all .5s（head.styl:150），
+   滑动中慢慢滑回来。上一条 .2s 太快，这里在 .nav-visible 状态下补回来。 */
+#page-header.nav-visible #nav {
+  transition: all 0.5s !important;
+  -webkit-transition: all 0.5s !important;
+  -moz-transition: all 0.5s !important;
+  -ms-transition: all 0.5s !important;
+  -o-transition: all 0.5s !important;
+}
+
+/* 解除上午那处 sticky 干预 —— 顶栏显隐完全交回主题自己管。
+   （sticky 是为了修「顶栏压住页面标题」，但它和主题的 fixed + top:-60px
+     机制冲突：sticky 让 header 占着文档流高度，主题改top 就没意义了。
+     改回 relative 后，#nav 由主题的 fixed 定位接管，隐藏时才不会有残留空隙。） */
+.meihua-nav-fixed #page-header {
+  position: relative !important;
+  top: auto !important;
+}
+
+.meihua-nav-fixed #nav {
+  top: revert !important;
+  translate: revert !important;
+}
+/* ============================================================================
+ * 灯笼挂件 / 音乐播放器 开关（2026-10-09）
+ * --------------------------------------------------------------------------
+ * 对应美化面板里的两个新开关（fomal.js 的 setLantern / setMusic）。
+ * JS 只负责往 <html> 上挂 meihua-no-lantern / meihua-no-music 两个类，
+ * 隐藏动作全在这里完成 —— 这样 Pjax 切换时不需要重新操作 DOM，
+ * 也避免直接写元素的 inline style 与主题自身的样式打架。
+ *
+ * 两者都是 position: fixed 的浮层，直接 display:none 即可，
+ * 不需要动它们的内部结构（灯笼是 .dengl 及其子元素，播放器是 .aplayer 自身）。
+ * ========================================================================== */
+
+/* 灯笼挂件：主题 lantern.pug 渲染的 .dengl。
+   ⚠ 必须同时隐藏 .d-box / .d-box1，不能只隐藏父容器 .dengl ——
+   .dengl 自己只是 position:fixed 的空壳（见 lantern.css:22），
+   真正画灯笼的是它的两个子元素 .d-box / .d-box1，各自 position:fixed。
+   固定定位的元素会脱离父容器继续渲染，所以只给 .dengl 加 display:none 没用
+   （2026-10-09 实测踩过：类挂上了，灯笼却还在）。 */
+.meihua-no-lantern .dengl,
+.meihua-no-lantern .dengl .d-box,
+.meihua-no-lantern .dengl .d-box1 {
+  display: none !important;
+}
+
+/* 音乐播放器：MetingJS 运行时创建的 .aplayer（APlayer.min.js + Meting.min.js）。
+   只隐藏不销毁 —— APlayer 实例持有 audio 元素与事件绑定，
+   调 destroy() 会丢播放状态；display:none 则不影响，下次显示立刻能用。 */
+.meihua-no-music .aplayer {
+  display: none !important;
+}
+
+/* 补充：移动端 aplayer 可能挂在别的容器下（APlayer 会在 body 上加
+   .aplayer-fixed 类），这里一并兜住，避免个别页面漏掉。
+   .aplayer-narrow 是收起态的小播放器，同样属于「音乐播放器」的一部分。 */
+.meihua-no-music .aplayer-fixed,
+.meihua-no-music .aplayer-narrow,
+.meihua-no-music .aplayer-withlist {
+  display: none !important;
+}
+
+/* ============================================================================
+ * 美化面板折叠块（folding-tag）配色微调2026-10-09
+ * ---------------------------------------------------------------------------
+ * 【背景】
+ * 面板「四、背景设置」里有 8 处折叠块，标签形如
+ *   「花括号+百分号 folding cyan, 查看随机二次元背景 花括号+百分号」
+ *由已安装的 hexo-butterfly-tag-plugins-plus 插件渲染成
+ *   <details class="folding-tag" cyan><summary>…</summary><div class="content">…
+ * （插件自带 folding.styl，CSS 从 npm.elemecdn.com 加载，实测 200 正常。）
+ *
+ * 【为什么要微调】
+ * 插件自带的配色是写死的：cyan 对应 #1BCDFC 的浅青底 + 同色边框。
+ * 这个颜色在本站的青绿主题（默认 rgb(57,197,187)）旁边显得偏冷、偏浅，
+ * 而且标题字号偏小，在窄面板里不够醒目。这里只覆盖颜色与排版，
+ * 折叠交互仍由插件的 details 原生实现负责。
+ *
+ * 【踩坑警告—— 请勿在本注释里直接写 folding标签的起始标记】
+ * custom.css 会被 Hexo 的 Nunjucks 渲染器当模板处理。
+ * 注释里若出现字面的标签起始标记，Nunjucks 会把它当自己的块标签解析，
+ * 整段注释会被替换成 details/summary HTML 塞进 CSS 产物，
+ * 导致 CSS 尾部出现结构性乱码（2026-10-09 实际发生过，已修复）。
+ * 需要写到那个标记时，一律用「花括号+百分号」的文字描述代替。
+ *
+ * 【实现方式】
+ * 按append-only 约定只追加、不改插件或主题的原规则。
+ * ========================================================================== */
+
+/* 折叠块本体：底色改为跟随站点卡片色，插件写死的 #fff 会和面板割裂 */
+.settings details.folding-tag {
+  background: var(--card-bg, rgba(255, 255, 255, 0.04));
+  border-radius: 8px;
+  margin: 6px 0;
+  font-size: 1em;
+  transition: border-color 0.28s ease;
+}
+
+/* 未展开时的边框：主题色的淡描边，比插件的 #f6f6f6 在深色下更清晰 */
+.settings details.folding-tag:not([open]) {
+  border-color: color-mix(in srgb, var(--theme-color) 45%, transparent);
+}
+
+/* 标题栏：主题色浅底 + 主题色文字 */
+.settings details.folding-tag > summary {
+  background: color-mix(in srgb, var(--theme-color) 16%, transparent);
+  color: var(--theme-color);
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 1.6;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+/* 插件用summary::after 的 '+' / '-' 表示展开状态，这里换成更明确的箭头，
+   并靠 :hover 显形，避免和标题文字挤在一起。 */
+.settings details.folding-tag > summary::after {
+  content: "▸";
+  right: 14px;
+  font-size: 0.9em;
+  opacity: 0.65;
+  transition: transform 0.28s ease;
+}
+.settings details.folding-tag[open] > summary::after {
+  content: "▾";
+  opacity: 0.9;
+}
+
+/* 展开态：标题栏与内容之间留一条分隔线，内容区给点内边距 */
+.settings details.folding-tag[open] > summary {
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-color) 30%, transparent);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.settings details.folding-tag[open] > div.content {
+  background: transparent;
+  color: inherit;
+  padding: 12px 14px;
+  /* 插件默认 margin: 0 -16px 会在窄面板里顶到边框，这里收回来 */
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .settings details.folding-tag > summary {
+    padding: 14px 12px;
+    font-size: 1em;
+  }
+  .settings details.folding-tag[open] > div.content {
+    padding: 10px 12px;
+  }
+}

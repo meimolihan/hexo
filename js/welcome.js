@@ -2,6 +2,15 @@
 var ipLocation = null;
 var ipFetched  = false;
 
+/* IP 定位接口。
+   【2026-10-09 换掉 ipapi.co】原接口 https://ipapi.co/json/ 现在会返回
+   429 Too Many Requests，而且它不返回 Access-Control-Allow-Origin 响应头，
+   于是浏览器同时报 CORS + 429，控制台两条错误，但拿不到任何数据。
+   换成 ipwho.is：实测 200，且明确带 `Access-Control-Allow-Origin: *`，
+   连续调用不触发限流。字段名与原来基本一致（country / region / city /
+   latitude / longitude），下面的映射只需小改。 */
+var IP_API = 'https://ipwho.is/';
+
 function isHomePage() {
     return window.location.pathname === '/' ||
         window.location.pathname === '/index.html';
@@ -12,7 +21,8 @@ function isHomePage() {
     ipFetched = true;
 
     try {
-        const res = await fetch('https://ipapi.co/json/');
+        const res = await fetch(IP_API);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         const json = await res.json();
         // 英文国家名转中文
         const countryMap = {
@@ -20,13 +30,15 @@ function isHomePage() {
             'South Korea': '韩国', 'Germany': '德国', 'France': '法国',
             'United Kingdom': '英国', 'Russia': '俄罗斯', 'India': '印度',
             'Australia': '澳大利亚', 'Canada': '加拿大', 'Brazil': '巴西',
-            'Taiwan': '台湾', 'Hong Kong': '香港', 'Singapore': '新加坡',
+            'Taiwan': '中国台湾', 'Hong Kong': '中国香港', 'Singapore': '新加坡',
             'Netherlands': '荷兰', 'Italy': '意大利', 'Spain': '西班牙'
         };
+        // ipwho.is 成功时 success===true；失败时返回 200 + success:false + message
+        if (json.success === false) throw new Error(json.message || '接口返回失败');
         ipLocation = {
             ip: json.ip || '未知',
             data: {
-                country: countryMap[json.country_name] || json.country_name || '未知',
+                country: countryMap[json.country] || json.country || '未知',
                 prov: json.region || '未知',
                 city: json.city || '未知',
                 district: json.city || '未知',

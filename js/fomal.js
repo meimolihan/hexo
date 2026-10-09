@@ -2819,199 +2819,387 @@ setInterval(() => {
 
 
 /* fps检测 start */
-if (window.localStorage.getItem("fpson") == undefined || window.localStorage.getItem("fpson") == "1") {
-  var rAF = function () {
-    return (
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      function (callback) {
-        window.setTimeout(callback, 1000 / 60);
-      }
-    );
-  }();
-  var frame = 0;
-  var allFrameCount = 0;
-  var lastTime = Date.now();
-  var lastFameTime = Date.now();
+/* 2026-10-09 重构：原来是 IIFE 一开就跑一条常驻 requestAnimationFrame 循环，
+   面板里把「帧率监测」关掉只能靠 setTimeout(reload,600) 整页刷新才生效 ——
+   采样循环其实关不掉，白白占着一条 rAF。改成 startFps()/stopFps() 可显式启停：
+   开关关掉立刻停止采样，不用刷新页面；localStorage 只记录用户偏好。 */
+var fpsRunning = false;   // 采样循环是否在跑（幂等开关的依据）
+var fpsStop = false;      // 协作式停止标记：下一帧检查到就退出循环
+var fpsFrame = 0;         // 当前统计窗口内累计的帧数
+var fpsLastTime = 0;      // 当前统计窗口的起点
+var fpsLastFrameTime = 0; // 上一帧的时刻
+
+function startFps() {
+  if (fpsRunning) return;
+  fpsRunning = true;
+  fpsStop = false;
+  fpsFrame = 0;
+  fpsLastTime = Date.now();
+  fpsLastFrameTime = Date.now();
+  var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
+    function (cb) { return window.setTimeout(cb, 1000 / 60); };
   var loop = function () {
+    if (fpsStop) { fpsRunning = false; return; }
     var now = Date.now();
-    var fs = (now - lastFameTime);
-    var fps = Math.round(1000 / fs);
-
-    lastFameTime = now;
-    // 不置 0，在动画的开头及结尾记录此值的差值算出 FPS
-    allFrameCount++;
-    frame++;
-
-    if (now > 1000 + lastTime) {
-      var fps = Math.round((frame * 1000) / (now - lastTime));
-      if (fps <= 5) {
-        var kd = `<span style="color:#bd0000">卡成ppt🤢</span>`
-      } else if (fps <= 15) {
-        var kd = `<span style="color:red">电竞级帧率😖</span>`
-      } else if (fps <= 25) {
-        var kd = `<span style="color:orange">有点难受😨</span>`
-      } else if (fps < 35) {
-        var kd = `<span style="color:#9338e6">不太流畅🙄</span>`
-      } else if (fps <= 45) {
-        var kd = `<span style="color:#08b7e4">还不错哦😁</span>`
-      } else {
-        var kd = `<span style="color:#39c5bb">十分流畅🤣</span>`
+    fpsLastFrameTime = now;
+    fpsFrame++;
+    // 每满 1 秒结算一次：出 FPS 数值 + 一句体感描述
+    if (now > 1000 + fpsLastTime) {
+      var fps = Math.round((fpsFrame * 1000) / (now - fpsLastTime));
+      var panel = document.getElementById("fps");
+      if (panel) {
+        var kd;
+        if (fps <= 5) kd = `<span style="color:#bd0000">卡成ppt🤢</span>`;
+        else if (fps <= 15) kd = `<span style="color:red">电竞级帧率😖</span>`;
+        else if (fps <= 25) kd = `<span style="color:orange">有点难受😨</span>`;
+        else if (fps < 35) kd = `<span style="color:#9338e6">不太流畅🙄</span>`;
+        else if (fps <= 45) kd = `<span style="color:#08b7e4">还不错哦😁</span>`;
+        else kd = `<span style="color:#39c5bb">十分流畅🤣</span>`;
+        panel.innerHTML = `FPS:${fps} ${kd}`;
       }
-      document.getElementById("fps").innerHTML = `FPS:${fps} ${kd}`;
-      frame = 0;
-      lastTime = now;
-    };
-
+      fpsFrame = 0;
+      fpsLastTime = now;
+    }
     rAF(loop);
-  }
+  };
+  rAF(loop);
+}
 
-  loop();
+function stopFps() {
+  fpsStop = true;   // 标记后由循环自身收尾退出，不直接丢引用
+  fpsRunning = false;
+}
+
+// 初始化：按用户偏好决定是否采样。默认开。
+if (window.localStorage.getItem("fpson") == undefined) {
+  window.localStorage.setItem("fpson", "1");
+}
+var fpsPanelInit = document.getElementById("fps");
+if (window.localStorage.getItem("fpson") == "1") {
+  startFps();
+  if (fpsPanelInit) fpsPanelInit.style.display = "block";
 } else {
-  document.getElementById("fps").style = "display:none!important"
+  stopFps();
+  if (fpsPanelInit) fpsPanelInit.style.display = "none";
 }
 /* fps检测 end */
 
 //----------------------------------------------------------------
 
-/* 美化模块 start */
+/* ============================================================================
+ * 美化模块 —— 站点设置面板 / Winbox
+ * ----------------------------------------------------------------------------
+ * 【本文件目录】顶层声明速查（行号会随后续编辑漂移，找不到就 Ctrl+F 搜函数名）
+ *    60   FONT_LIST / FONT_DEFAULT
+ *    61   CODE_FONT_LIST / CODE_FONT_DEFAULT
+ *    78   fomalNotify()
+ *    105  initItem()
+ *    139  setFont(n)
+ *    164  setCodeFont(n)
+ *    173  setFontBorder() / setCodeFontBorder() / markFontBorder()
+ *    200  setColor(c)
+ *    232  setUniverse() / setUniverse2(c)
+ *    250  setSnow()
+ *    272  setNav() / addNavClass()
+ *    306  reload()
+ *    315  toggleRightside()
+ *    340  setAside()
+ *    364  setAsidePos()
+ *    388  curTransNum / curTransMini / setTrans()
+ *    405  rangeValueFromX / fireRangeInput / setRangeByX
+ *    460  bindRangeJump / initRangeJump
+ *    477  isValidBgVal(s)
+ *    488  bgValToUrl(s)
+ *    496  initBg()
+ *    508  resetBg_()
+ *    521  changeBg(s)
+ *    544  setBg(s)
+ *    557  getPicture() / getPicture_()
+ *    578  checkImgExists(imgurl)
+ *    590  setLight() / changeLight(flag)
+ *    615  saveBgFilter()
+ *    655  setBgFilter()
+ *    668  createWinbox()
+ *    690  resetBg()
+ *    700  reset()
+ *    760  winboxNeedSize()
+ *    800  winResize()
+ *    815  toggleWinbox()
+ * ========================================================================== */
+
+/* ------------------------------ 美化模块 ------------------------------ */
+
+/* 兼容旧键名：老版本把模糊半径存在 blurRad、把「模糊开关」存成 0/1（数字），
+   新版统一成 bgFilterVal / bgFilterOn（字符串）。这里做一次性迁移。
+   【执行顺序很关键】必须排在下面 reset_5 分支的 initItem() 之前 ——
+   initItem() 会把 bgFilterVal / bgFilterOn 直接写成默认值，
+   一旦它先跑，本函数里的「目标键已存在就不迁移」判断会把老用户的
+   模糊半径整个吞掉（老值 blurRad 被删掉，滤镜参数退回默认）。 */
+(function migrateLegacyKeys() {
+  var legacyBlur = localStorage.getItem("blurRad");
+  var legacyOn = localStorage.getItem("blur");
+  if (legacyBlur == undefined && legacyOn == undefined) return;   // 新用户或已迁移过
+  if (localStorage.getItem("bgFilterVal") == undefined) {
+    var b = legacyBlur == undefined ? 0 : legacyBlur;
+    localStorage.setItem("bgFilterVal", `blur(${b}px) saturate(120%) contrast(105%)`);
+  }
+  if (localStorage.getItem("bgFilterOn") == undefined) {
+    localStorage.setItem("bgFilterOn", legacyOn == "0" || legacyOn == 0 ? "0" : "1");
+  }
+  localStorage.removeItem("blurRad");
+  localStorage.removeItem("blur");
+})();
 
 // 更新版本需要每个用户都恢复一次默认设置
-if (localStorage.getItem("reset_4") == undefined) {
-  localStorage.setItem("reset_4", "1");
+// 版本号从 reset_4 升到 reset_5：本次新增了背景滤镜、代码块字体、侧栏/顶栏开关，
+// 老用户的 localStorage 里没有这些键，面板打开会是一片空白默认值。
+if (localStorage.getItem("reset_5") == undefined) {
+  localStorage.setItem("reset_5", "1");
   // 清空之前的标记值
-  for (var i = 1; i <= 3; i++) {
+  for (var i = 1; i <= 4; i++) {
     localStorage.removeItem("reset_" + i);
   }
-  clearItem();
+  initItem();
   setTimeout(function () {
-    new Vue({
-      data: function () {
-        this.$notify({
-          title: "提示🍒",
-          message: " (｡･∀･)ﾉﾞ由于网站部分设置项更新，当前已为您重置所有设置，祝您愉快！",
-          position: 'top-left',
-          offset: 50,
-          showClose: true,
-          type: "success",
-          duration: 8000
-        });
-      }
-    })
+    fomalNotify({
+      title: "提示🍒",
+      message: " (｡･∀･)ﾉﾞ美化设置面板已升级（新增背景滤镜 / 代码块字体 / 侧栏与顶栏开关），当前已为您重置所有设置，祝您愉快！",
+      position: 'top-left',
+      offset: 50,
+      showClose: true,
+      type: "success",
+      duration: 8000
+    });
   }, 1500);
 }
 
-// 清除localStorage配置项
-function clearItem() {
-  localStorage.removeItem('blogbg');
-  localStorage.removeItem('universe');
-  localStorage.removeItem('blur');
-  localStorage.removeItem('fpson');
-  localStorage.removeItem('transNum');
-  localStorage.removeItem('blurRad');
-  localStorage.removeItem('font');
-  localStorage.removeItem('themeColor');
-  localStorage.removeItem('rs');
-  localStorage.removeItem('mouse');
-  localStorage.removeItem('light');
-  localStorage.removeItem('snow');
+/* ===== 字体清单 =====
+   family 名与 source/css/custom.css 的 @font-face、面板按钮 id（swf_ / swfc_ + family）
+   严格一一对应。改字体名要三处一起改。
+   常规字体直接当 --global-font 用；代码块字体当 --code-font 用
+   （样式表里pre/code 写的是 var(--code-font, JetBrainsMono)）。
+
+   【2026-10-09 默认字体改为 YSHST（面板上标着「优设好身体」）】
+   ⚠ 名字对不上：YSHST 这个 @font-face 的 src 实际指向 ZhuZiAWan.woff2，
+     用 fontTools 读出该文件真实字体名是「FZSJ-ZHUZAYTE」（方正字迹竹叶体），
+     并非真正的「优设好身体」。真正的优设好身体只由字由客户端授权分发，
+     公开 CDN 上没有可用源。这里先按面板上显示的名字设默认，
+     若要换成真字体，需自备字体文件并改 custom.css 里 YSHST 那条的 src。 */
+var FONT_LIST = ["ZhuZiAWan", "HYTMR", "LXGW", "TTQHB", "YSHST", "MiSans", "default"];
+var FONT_DEFAULT = "YSHST";
+var CODE_FONT_LIST = ["JetBrainsMono", "FiraCode", "SourceCodePro"];
+var CODE_FONT_DEFAULT = "JetBrainsMono";
+
+// 共享通知：原来每条提示都 new Vue({...}) 建一个新实例，十来处重复。
+// 这里只建一次 Vue 壳（不挂载到页面，纯粹借用 Element 的 $notify），
+// 后续全部复用，行为与原来一致但省掉反复实例化。
+var notifyVue = null;
+function fomalNotify(opts) {
+  if (!notifyVue) {
+    if (typeof Vue === "undefined") {
+      // Element 还没就绪时静默降级，避免整段脚本因一条提示崩掉
+      console.warn("[美化] Vue 尚未加载，通知已跳过：", opts && opts.message);
+      return;
+    }
+    notifyVue = new Vue({ data: function () { } });
+  }
+  notifyVue.$notify(opts);
+}
+
+// 恢复 localStorage 默认配置项（同时也是 reset() 唯一的数据来源）
+function initItem() {
+  localStorage.setItem("blogbg", "default");
+  localStorage.setItem("universe", "block");
+  localStorage.setItem("fpson", "1");
+  localStorage.setItem("transNum", 92);
+  localStorage.setItem("font", FONT_DEFAULT);
+  localStorage.setItem("codeFont", CODE_FONT_DEFAULT);
+  localStorage.setItem("themeColor", "green");
+  localStorage.setItem("rs", "block");
+  localStorage.setItem("mouse", "on");
+  localStorage.setItem("light", "true");
+  localStorage.setItem("snow", "none");
+  localStorage.setItem("aside", "1");
+  localStorage.setItem("asidePos", "1");
+  localStorage.setItem("nav", "1");
+  localStorage.setItem("lantern", "1");
+  localStorage.setItem("music", "1");
+  localStorage.setItem("bgFilterOn", "1");
+  localStorage.setItem("bgFilterVal", "blur(0px) saturate(108%) contrast(105%)");
 }
 
 
-// 设置字体
-if (localStorage.getItem("font") == undefined) {
-  localStorage.setItem("font", "YSHST"); // 默认字体：YSHST
+/* ===== 设置字体 ===== */
+// 用白名单校验而不是只判断 undefined：旧版面板留下的已下架字体（MiSans / YSHST）或
+// 其它脏值会被清掉，回落到默认值，保证打开面板时永远有一项是高亮的。
+if (FONT_LIST.indexOf(localStorage.getItem("font")) < 0) {
+  localStorage.setItem("font", FONT_DEFAULT);
 }
 setFont(localStorage.getItem("font"));
 function setFont(n) {
-  localStorage.setItem("font", n)
+  localStorage.setItem("font", n);
   if (n == "default") {
-    document.documentElement.style.setProperty('--global-font', '-apple-system');
-    document.body.style.fontFamily = "-apple-system, Consolas_1, BlinkMacSystemFont, 'Segoe UI' , 'Helvetica Neue' , Lato, Roboto, 'PingFang SC' , 'Microsoft JhengHei' , 'Microsoft YaHei' , sans-serif";
+    // 系统默认 = 完整系统字体栈。原来这里只给 --global-font 写 '-apple-system'，
+    // 而 Windows 不认这个关键字，于是只声明 var(--global-font) 的元素
+    // （左上角站点名 / 首页大标题 / 副标题）会直接掉到「浏览器默认字体」。
+    // 完整栈里 -apple-system / BlinkMacSystemFont 在 Windows 上被跳过，
+    // 自动落到 Segoe UI（中文落微软雅黑系）；不要把等宽字体混进正文栈。
+    var sysFontStack = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif";
+    document.documentElement.style.setProperty('--global-font', sysFontStack);
+    document.body.style.fontFamily = sysFontStack;
   }
   else {
     document.documentElement.style.setProperty('--global-font', n);
     document.body.style.fontFamily = "var(--global-font),-apple-system, IBM Plex Mono ,monosapce,'微软雅黑', sans-serif";
   }
-  try { setFontBorder(); } catch (err) { };
+  try { setFontBorder(); } catch (err) { }
 }
 
-// 设置字体选择框边界
+/* ===== 设置代码块字体 ===== */
+// 只改 --code-font 变量（样式表里 pre/code 写的是 var(--code-font, JetBrainsMono)）
+if (CODE_FONT_LIST.indexOf(localStorage.getItem("codeFont")) < 0) {
+  localStorage.setItem("codeFont", CODE_FONT_DEFAULT);
+}
+setCodeFont(localStorage.getItem("codeFont"));
+function setCodeFont(n) {
+  localStorage.setItem("codeFont", n);
+  document.documentElement.style.setProperty('--code-font', n);
+  try { setCodeFontBorder(); } catch (err) { }
+}
+
+/* ===== 字体选中高亮 ===== */
+// 常规 / 代码两组共用一套逻辑，prefix 区分：常规 = swf_ + family，代码 = swfc_ + family
 function setFontBorder() {
-  var curFont = localStorage.getItem("font");
-  var swfId = "swf_" + curFont;
-  document.getElementById(swfId).style.border = "2px solid var(--theme-color)";
+  markFontBorder("swf_", localStorage.getItem("font"));
+}
+function setCodeFontBorder() {
+  markFontBorder("swfc_", localStorage.getItem("codeFont"));
+}
+function markFontBorder(prefix, curKey) {
+  var cur = document.getElementById(prefix + curKey);
+  // 面板还没打开时找不到节点，直接返回（原来这里会抛错，靠 setFont 外层的 try 兜住）
+  if (!cur) return;
+  /* 高亮走 CSS 类（.swf-cur，见 source/css/custom.css 末尾），不写内联样式。
+     原因：.swf 自己那条 `background-color: white` 在样式表里，
+     而面板还套着 #article-container 的 a:not(...) 规则，
+     内联样式要靠 !important 才稳得住，写在 HTML 里既难维护又容易漏。
+     改用类之后：JS 只负责切类，视觉全在样式表里一处改得动。 */
   Array.prototype.forEach.call(document.getElementsByClassName("swf"), function (ee) {
-    if (ee.id != swfId) ee.style.border = "2px solid var(--border-color)";
+    ee.classList.toggle("swf-cur", ee.id === prefix + curKey);
   });
 }
 
 
-// 设置主题色
+/* ===== 设置主题色 ===== */
 if (localStorage.getItem("themeColor") == undefined) {
   localStorage.setItem("themeColor", "green");
 }
 setColor(localStorage.getItem("themeColor"));
 function setColor(c) {
-  document.getElementById("themeColor").innerText = `:root{--theme-color:` + map.get(c) + ` !important}`;
+  var el = document.getElementById("themeColor");
+  var rgb = map.get(c);
+  // 脏值（老版本留下的已下架色名）直接回落到默认，避免把 undefined 写进 CSS
+  if (!rgb) {
+    c = "green";
+    rgb = map.get(c);
+    localStorage.setItem("themeColor", c);
+  }
+  if (el) el.innerText = `:root{--theme-color:` + rgb + ` !important}`;
   localStorage.setItem("themeColor", c);
-  // 刷新鼠标颜色
-  CURSOR.refresh();
+  /* 只有主题色变化才刷新鼠标颜色：Cursor.refresh 会重新生成样式，
+     每次进面板都无条件调用一次纯属浪费。 */
+  if (window.__cursorColor !== c) {
+    window.__cursorColor = c;
+    if (window.CURSOR) CURSOR.refresh();
+  }
   // 设置一个带有透明度的主题色，用于菜单栏的悬浮颜色
-  var theme_color = map.get(c);
-  var trans_theme_color = "rgba" + theme_color.substring(3, theme_color.length - 1) + ", 0.7)";
-  var high_trans_color = "rgba" + theme_color.substring(3, theme_color.length - 1) + ", 0.5)";
+  var trans_theme_color = "rgba" + rgb.substring(3, rgb.length - 1) + ", 0.7)";
+  var high_trans_color = "rgba" + rgb.substring(3, rgb.length - 1) + ", 0.5)";
+  var hh_trans_color = "rgba" + rgb.substring(3, rgb.length - 1) + ", 0.1)";
   document.documentElement.style.setProperty("--text-bg-hover", trans_theme_color);
   document.documentElement.style.setProperty("--high-trans-color", high_trans_color);
+  document.documentElement.style.setProperty("--hh-trans-color", hh_trans_color);
 }
 
 
-// 星空背景开关
-// 默认开为：block，默认关为：none
+/* ===== 星空背景开关 ===== */
 if (localStorage.getItem("universe") == undefined) {
   localStorage.setItem("universe", "block");
 }
 setUniverse2(localStorage.getItem("universe"));
 function setUniverse2(c) {
-  document.getElementById("universe").style.display = c;
+  var el = document.getElementById("universe");
+  if (el) el.style.display = c;
   localStorage.setItem("universe", c);
 }
 function setUniverse() {
-  if (document.getElementById("universeSet").checked) {
-    setUniverse2("block");
-  } else {
-    setUniverse2("none");
-  }
+  var t = document.getElementById("universeSet");
+  if (t) setUniverse2(t.checked ? "block" : "none");
 }
 
-// 雪花开关
-// 默认开为：block，默认关为：none
+/* ===== 雪花开关 ===== */
 if (localStorage.getItem("snow") == undefined) {
-  localStorage.setItem("snow", "block");
+  localStorage.setItem("snow", "none");
 }
-document.getElementById("snow").style.display = localStorage.getItem("snow");
+setSnow2(localStorage.getItem("snow"));
+function setSnow2(c) {
+  var el = document.getElementById("snow");
+  if (el) el.style.display = c;
+  localStorage.setItem("snow", c);
+}
 function setSnow() {
-  if (document.getElementById("snowSet").checked) {
-    document.getElementById("snow").style.display = "block";
-    localStorage.setItem("snow", "block");
-  } else {
-    document.getElementById("snow").style.display = "none";
-    localStorage.setItem("snow", "none");
+  var t = document.getElementById("snowSet");
+  if (t) setSnow2(t.checked ? "block" : "none");
+}
+
+/* ===== 顶栏常驻开关 =====
+   butterfly 主题的 #page-header 由 main.js 在滚动到阈值时加 .nav-fixed（滚上去才吸顶）。
+   这里做成两态：
+     nav = "1"  → 常驻吸顶：给 <html> 挂 .meihua-nav-fixed，不再依赖滚动位置
+     nav = "0"  → 随滚动：还原成主题原生行为（滚上去才吸顶）
+   --nav-fixed-display / --nav-visible-display 供样式表微调细节。
+
+   【类名必须挂在 documentElement 上，不能挂 #page-header】
+     · 和首屏预置脚本 beauty-boot.js 保持一致（它只有 <html> 可用）；
+     · Pjax 整页替换 body 时挂在 body 内的节点会被丢掉，挂在 <html> 上不会。
+   两处若挂在不同元素上，关掉开关时首屏挂的那个类永远清不掉，
+   「顶栏常驻」就变成关不掉的死开关。 */
+if (localStorage.getItem("nav") == undefined) {
+  localStorage.setItem("nav", "1");
+}
+function applyNav() {
+  var d = document.documentElement;
+  var styleEl = document.getElementById("nav-display");
+  var fixed = localStorage.getItem("nav") == "1";
+  d.classList.toggle("meihua-nav-fixed", fixed);
+  if (styleEl) {
+    styleEl.innerText = fixed
+      ? `:root{--nav-fixed-display:inline-flex;--nav-visible-display:none;}`
+      : `:root{--nav-fixed-display:none;--nav-visible-display:inline-flex;}`;
   }
 }
-
-
-// 帧率监测开关
-if (localStorage.getItem("fpson") == undefined) {
-  localStorage.setItem("fpson", "1"); // 1默认开，0默认关
+applyNav();
+document.addEventListener('pjax:complete', applyNav);
+document.addEventListener('DOMContentLoaded', applyNav);
+function setNav() {
+  var t = document.getElementById("navSet");
+  if (!t) return;
+  localStorage.setItem("nav", t.checked ? "1" : "0");
+  applyNav();
 }
+
+/* ===== 帧率监测开关 ===== */
+// 2026-10-09：改成真正启停采样循环，关掉不再整页 reload。
+// 切��节点暂时缺失也不能阻止取消采样和保存偏好。
 function fpssw() {
-  if (document.getElementById("fpson").checked) {
-    localStorage.setItem("fpson", "1");
-  } else {
-    localStorage.setItem("fpson", "0");
-  }
-  setTimeout(reload, 600);
+  var toggle = document.getElementById("fpson");
+  if (!toggle) return;
+  var enabled = toggle.checked;
+  localStorage.setItem("fpson", enabled ? "1" : "0");
+  if (enabled) startFps();
+  else stopFps();
+  var panel = document.getElementById("fps");
+  if (panel) panel.style.display = enabled ? "block" : "none";
 }
 
 // 刷新窗口
@@ -3019,179 +3207,344 @@ function reload() {
   window.location.reload();
 }
 
-// 侧边栏开关
+/* ===== 侧边部件开关 ===== */
 if (localStorage.getItem("rs") == undefined) {
   localStorage.setItem("rs", "block");
 }
-if (localStorage.getItem("rs") == "block") {
-  document.getElementById("rightSide").innerText = `:root{--rightside-display: block}`;
-} else {
-  document.getElementById("rightSide").innerText = `:root{--rightside-display: none}`;
-}
-function toggleRightside() {
-  // 先设置localStorage变量
-  if (document.getElementById("rightSideSet").checked) {
-    localStorage.setItem("rs", "block");
-    document.getElementById("rightSide").innerText = `:root{--rightside-display: block}`;
-  } else {
-    localStorage.setItem("rs", "none");
-    document.getElementById("rightSide").innerText = `:root{--rightside-display: none}`;
+applyRightside();
+function applyRightside() {
+  var el = document.getElementById("rightSide");
+  if (el) {
+    el.innerText = localStorage.getItem("rs") == "block"
+      ? `:root{--rightside-display: block}`
+      : `:root{--rightside-display: none}`;
   }
 }
+function toggleRightside() {
+  var t = document.getElementById("rightSideSet");
+  if (!t) return;
+  localStorage.setItem("rs", t.checked ? "block" : "none");
+  applyRightside();
+}
+
+/* ===== 侧栏显隐 =====
+   butterfly 用 html.hide-aside 类控制（aside.styl 里 html.hide-aside .layout > .aside-content
+   是 display:none），所以这里走类名而不是自定义 CSS 变量。 */
+if (localStorage.getItem("aside") == undefined) {
+  localStorage.setItem("aside", "1");
+}
+applyAside();
+function applyAside() {
+  var show = localStorage.getItem("aside") == "1";
+  var d = document.documentElement;
+  if (show) d.classList.remove("hide-aside");
+  else d.classList.add("hide-aside");
+  var el = document.getElementById("aside-show");
+  if (el) {
+    el.innerText = show
+      ? `:root{--aside-content-display: block;}`
+      : `:root{--aside-content-display: none;}`;
+  }
+}
+function setAside() {
+  var t = document.getElementById("asideSet");
+  if (!t) return;
+  localStorage.setItem("aside", t.checked ? "1" : "0");
+  applyAside();
+}
+
+/* ===== 侧栏位置（左 / 右）=====
+   butterfly 的 aside.position 是编译期 hexo-config，生成的是 CSS order。
+   运行时切换用 CSS 变量把顺序交给样式表（见 custom.css 末尾的 .meihua-aside-*）。
+   移动端（<=900px）本来就是上下堆叠，不受顺序影响，所以只在宽屏生效。 */
+if (localStorage.getItem("asidePos") == undefined) {
+  localStorage.setItem("asidePos", "1");
+}
+applyAsidePos();
+function applyAsidePos() {
+  var right = localStorage.getItem("asidePos") == "1";
+  var d = document.documentElement;
+  d.classList.toggle("meihua-aside-left", !right);
+  d.classList.toggle("meihua-aside-right", right);
+  var el = document.getElementById("aside-pos");
+  if (el) {
+    el.innerText = right
+      ? `:root{--first-child-order: 0;--aside-order: 1;--aside-padding-left: 15px;--aside-padding-right: 0px;}`
+      : `:root{--first-child-order: 1;--aside-order: 0;--aside-padding-left: 0px;--aside-padding-right: 15px;}`;
+  }
+}
+function setAsidePos() {
+  var t = document.getElementById("asidePosSet");
+  if (!t) return;
+  localStorage.setItem("asidePos", t.checked ? "1" : "0");
+  applyAsidePos();
+}
+
+/* ===== 灯笼挂件开关（左右两侧的.dengl）=====
+   灯笼是主题的 lantern.pug 渲染的，容器 class="dengl"，
+   position: fixed（见 themes/butterfly/source/css/_custom/lantern.css）。
+   这里不改它的display，而是往 <html> 上挂一个「反向」类，
+   由CSS 去display:none —— 这样万一以后还要在别处引用 .dengl，
+   不会因为这里 inline 写死而互相干扰。 */
+if (localStorage.getItem("lantern") == undefined) {
+  localStorage.setItem("lantern", "1");
+}
+applyLantern();
+function applyLantern() {
+  var d = document.documentElement;
+  d.classList.toggle("meihua-no-lantern", localStorage.getItem("lantern") != "1");
+}
+document.addEventListener('pjax:complete', applyLantern);
+document.addEventListener('DOMContentLoaded', applyLantern);
+function setLantern() {
+  var t = document.getElementById("lanternSet");
+  if (!t) return;
+  localStorage.setItem("lantern", t.checked ? "1" : "0");
+  applyLantern();
+}
+
+/* ===== 音乐播放开关（左下角 aplayer）=====
+   播放器由 additional-js.pug 引入 aplayer.pug + MetingJS 运行时创建，
+   实际元素 class="aplayer aplayer-fixed ..."，position: fixed，挂在 <body> 下。
+   同样用 <html> 上的类控制显示，不去碰播放器实例 —— APlayer 有自己的
+   生命周期（audio 元素、事件绑定），直接 display:none 元素没问题，
+   但 destroy() 之类的操作会破坏播放状态，只做视觉开关最安全。 */
+if (localStorage.getItem("music") == undefined) {
+  localStorage.setItem("music", "1");
+}
+applyMusic();
+function applyMusic() {
+  var d = document.documentElement;
+  d.classList.toggle("meihua-no-music", localStorage.getItem("music") != "1");
+}
+document.addEventListener('pjax:complete', applyMusic);
+document.addEventListener('DOMContentLoaded', applyMusic);
+function setMusic() {
+  var t = document.getElementById("musicSet");
+  if (!t) return;
+  localStorage.setItem("music", t.checked ? "1" : "0");
+  applyMusic();
+}
 
 
-// 透明度调节滑块
+/* ===== 卡片透明度滑块 ===== */
 if (localStorage.getItem("transNum") == undefined) {
-  localStorage.setItem("transNum", 58); // 默认值
+  localStorage.setItem("transNum", 92);
 }
 var curTransNum = localStorage.getItem("transNum");
 var curTransMini = curTransNum * 0.95;
-document.getElementById("transPercent").innerText = `:root{--trans-light: rgba(253, 253, 253, ${curTransNum}%) !important; --trans-dark: rgba(25, 25, 25, ${curTransNum}%) !important} `;
+applyTrans(curTransNum);
+function applyTrans(v) {
+  var el = document.getElementById("transPercent");
+  if (el) {
+    el.innerText = `:root{--trans-light: rgba(253, 253, 253, ${v}%) !important; --trans-dark: rgba(25, 25, 25, ${v}%) !important} `;
+  }
+}
 function setTrans() {
   var elem = document.getElementById("transSet");
+  if (!elem) return;
   var newTransNum = elem.value;
   var target = document.querySelector('.transValue');
-  target.innerHTML = "透明度 (0%-100%): " + newTransNum + "%";
+  if (target) {
+    target.innerHTML = `卡片透明度 (0%-100%): <span style="color:#eb5353">` + newTransNum + `%</span>`;
+  }
   localStorage.setItem("transNum", newTransNum);
   curTransMini = newTransNum * 0.95;
   curTransNum = newTransNum;  // 更新当前透明度
-  document.querySelector('#rang_trans').style.width = curTransMini + "%";
-  document.getElementById("transPercent").innerText = `:root{--trans-light: rgba(253, 253, 253, ${newTransNum}%) !important; --trans-dark: rgba(25, 25, 25, ${newTransNum}%) !important} `;
+  var bar = document.querySelector('#rang_trans');
+  if (bar) bar.style.width = curTransMini + "%";
+  applyTrans(newTransNum);
 };
 
 
-// 模糊度调节滑块
-if (localStorage.getItem("blurRad") == undefined) {
-  localStorage.setItem("blurRad", 5); // 默认值
-}
-var curBlur = localStorage.getItem("blurRad"); // 当前模糊半径
-var miniBlur = curBlur * 0.95;
-document.getElementById("blurNum").innerText = `:root{--blur-num: blur(${curBlur}px) saturate(120%) !important`;
-function setBlurNum() {
-  var elem = document.getElementById("blurSet");
-  var newBlur = elem.value;
-  var target = document.querySelector('.blurValue');
-  target.innerHTML = "模糊半径 (开启模糊生效 0px-100px): " + newBlur + "px";
-  localStorage.setItem("blurRad", newBlur);
-  curBlur = newBlur;
-  miniBlur = curBlur * 0.95;
-  // var max = elem.getAttribute("max");
-  document.querySelector('#rang_blur').style.width = miniBlur + "%";
-  document.getElementById("blurNum").innerText = `:root{--blur-num: blur(${curBlur}px) saturate(120%) !important`;
-};
+/* ===== 滑条增强：拖动或者点击进度条任意位置都能跳转 =====
+   进度条（.rang_width）是绝对定位盖在轨道上的，不加这段的话左半边点不动。 */
+var curJumpRange = null;      // 当前正在拖动/点击的滑条
+var rangeJumpReady = false;   // 全局的移动、松手监听是否已注册
 
+// 把屏幕横坐标换算成滑条该取的值（扣掉滑块自身宽度，两端才准）
+function rangeValueFromX(rangeEl, clientX) {
+  var rect = rangeEl.getBoundingClientRect();
+  var min = parseFloat(rangeEl.min);
+  var max = parseFloat(rangeEl.max);
+  var step = parseFloat(rangeEl.step);
+  if (isNaN(min)) min = 0;
+  if (isNaN(max)) max = 100;
+  if (isNaN(step) || step <= 0) step = 1;
+  if (!rect.width) return isNaN(parseFloat(rangeEl.value)) ? min : parseFloat(rangeEl.value);
+  var thumb = 15;                          // 与 CSS 里 ::-webkit-slider-thumb 的宽度保持一致
+  var usable = rect.width - thumb;         // 滑块圆心能走的总距离
+  if (usable <= 0) usable = rect.width;
+  var ratio = (clientX - rect.left - thumb / 2) / usable;
+  ratio = ratio < 0 ? 0 : (ratio > 1 ? 1 : ratio);
+  var val = min + ratio * (max - min);
+  val = Math.round(val / step) * step;     // 按 step 取整，和原生拖动保持一致
+  val = Math.min(max, Math.max(min, val));
+  return Math.round(val * 1000) / 1000;    // 去掉浮点误差尾巴
+}
 
-// 模糊效果开关
-if (localStorage.getItem("blur") == undefined) {
-  localStorage.setItem("blur", 1); // 1默认开，0默认关
+// 直接改 value 不会触发 oninput，这里手动补一次 input 事件，复用原有的 setTrans()
+function fireRangeInput(rangeEl) {
+  var evt;
+  try {
+    evt = new Event("input", { bubbles: true });
+  } catch (err) {
+    evt = document.createEvent("Event");
+    evt.initEvent("input", true, true);
+  }
+  rangeEl.dispatchEvent(evt);
 }
-if (localStorage.getItem("blur") == 0) {
-  document.getElementById("settingStyle").innerText = `:root{--backdrop-filter: none}`;
-} else {
-  document.getElementById("settingStyle").innerText = `:root{--backdrop-filter: var(--blur-num)}`;
+
+// 按坐标更新滑条的值
+function setRangeByX(rangeEl, clientX) {
+  var val = rangeValueFromX(rangeEl, clientX);
+  if (parseFloat(rangeEl.value) === val) return;
+  rangeEl.value = val;
+  fireRangeInput(rangeEl);
 }
-function setBlur() {
-  if (document.getElementById("blur").checked) {
-    localStorage.setItem("blur", 1);
-    document.getElementById("settingStyle").innerText = `:root{--backdrop-filter: var(--blur-num)}`;
+
+// 绑定：按下即跳到该位置，按住拖动则一路跟随（含轨道左右的空白区域）
+function bindRangeJump(rangeEl) {
+  if (!rangeEl || rangeEl.rangeJumpBound) return;
+  rangeEl.rangeJumpBound = true;
+  var box = rangeEl.parentNode || rangeEl;
+  var start = function (clientX) { curJumpRange = rangeEl; setRangeByX(rangeEl, clientX); };
+  if (window.PointerEvent) {
+    box.addEventListener("pointerdown", function (e) {
+      if (e.button && e.button !== 0) return;   // 只响应左键
+      start(e.clientX);
+    });
   } else {
-    localStorage.setItem("blur", 0);
-    document.getElementById("settingStyle").innerText = `:root{--backdrop-filter: none}`;
+    box.addEventListener("mousedown", function (e) {
+      if (e.button) return;
+      start(e.clientX);
+    });
+    box.addEventListener("touchstart", function (e) {
+      if (e.touches && e.touches[0]) start(e.touches[0].clientX);
+    }, { passive: true });
   }
 }
 
-// 更换背景(原来Leonus的代码)
-// 存数据
-// name：命名 data：数据
-// function saveData(name, data) {
-//   localStorage.setItem(name, JSON.stringify({ time: Date.now(), data: data }));
-// }
-// 取数据
-// name：命名 time：过期时长,单位分钟,如传入30,即加载数据时如果超出30分钟返回0,否则返回数据
-// function loadData(name, time) {
-//   let d = JSON.parse(localStorage.getItem(name));
-//   // 过期或有错误返回 0 否则返回数据
-//   if (d) {
-//     let t = Date.now() - d.time;
-//     if (t < time * 60 * 1000 && t > -1) return d.data;
-//   }
-//   return 0;
-// }
-// 上面两个函数如果你有其他需要存取数据的功能，也可以直接使用
-// 读取背景
-// try {
-//   let data = loadData("blogbg", 1440);
-//   if (data) changeBg(data, 1);
-//   else localStorage.removeItem("blogbg");
-// } catch (error) {
-//   localStorage.removeItem("blogbg");
-// }
-// 切换背景函数
-// 此处的flag是为了每次读取时都重新存储一次,导致过期时间不稳定
-// 如果flag为0则存储,即设置背景. 为1则不存储,即每次加载自动读取背景.
-// function changeBg(s, flag) {
-//   let bg = document.getElementById("web_bg");
-//   if (s.charAt(0) == "#") {
-//     bg.style.backgroundColor = s;
-//     bg.style.backgroundImage = "none";
-//   } else {
-//     bg.style.backgroundImage = s
-//   };
-//   if (!flag) {
-//     saveData("blogbg", s);
-//   }
-// }
+// 全局监听只注册一次，避免反复开关小窗时重复绑定
+function initRangeJump() {
+  if (rangeJumpReady) return;
+  rangeJumpReady = true;
+  var move = function (clientX) { if (curJumpRange) setRangeByX(curJumpRange, clientX); };
+  var end = function () { curJumpRange = null; };
+  if (window.PointerEvent) {
+    document.addEventListener("pointermove", function (e) { move(e.clientX); });
+    document.addEventListener("pointerup", end);
+    document.addEventListener("pointercancel", end);
+  } else {
+    document.addEventListener("mousemove", function (e) { move(e.clientX); });
+    document.addEventListener("mouseup", end);
+    document.addEventListener("touchmove", function (e) {
+      if (e.touches && e.touches[0]) move(e.touches[0].clientX);
+    }, { passive: true });
+    document.addEventListener("touchend", end);
+    document.addEventListener("touchcancel", end);
+  }
+}
+/* 滑条增强 end */
 
-// 切换自定义颜色
-var defineColor = localStorage.getItem("blogbg") && localStorage.getItem("blogbg").charAt(0) == '#' ? localStorage.getItem("blogbg") : '#F4D88A';
+
+/* ===== 背景值处理 ===== */
+// 判断背景值是否合法（default / #颜色 / url(...) / 渐变 / http(s) 链接）
+function isValidBgVal(s) {
+  if (s == undefined || s == null) return false;
+  s = String(s).trim();
+  if (s == "" || s == "undefined" || s == "null") return false;
+  if (s.charAt(0) == "#") return true;
+  if (s.indexOf("url(") == 0) return true;
+  if (s.indexOf("linear-gradient") == 0 || s.indexOf("radial-gradient") == 0) return true;
+  if (s.indexOf("http://") == 0 || s.indexOf("https://") == 0) return true;
+  return false;
+}
+// 从背景值里取出图片直链，取不到返回空串
+function bgValToUrl(s) {
+  if (!isValidBgVal(s)) return "";
+  s = String(s).trim();
+  var m = s.match(/^url\((["']?)(.*?)\1\)$/);
+  if (m) s = m[2];
+  return /^https?:\/\//.test(s) ? s.trim() : "";
+}
+// 自定义颜色框当前值
+var defineColor = (localStorage.getItem("blogbg") || "").charAt(0) == '#'
+  ? localStorage.getItem("blogbg") : '#F4D88A';
 function changeBgColor() {
-  changeBg(document.querySelector("#define_colors").value);
+  var el = document.querySelector("#define_colors");
+  if (el) changeBg(el.value);
 }
 
-// 必应每日壁纸API
-let bingDayBg = screen.width <= 768 ? "url(https://bingw.jasonzeng.dev)" : "url(https://bingw.jasonzeng.dev)";
-// 必应历史壁纸API
-let bingHistoryBg = screen.width <= 768 ? "url(https://api.timelessq.com/bing/random)" : "url(https://api.timelessq.com/bing/random)";
-// EEE.DOG
-let EEEDog = "url(https://acg.suyanw.cn/beauty)";
-// 随机美图cdn.seovx.com
-let seovx = "url(https://cdn.seovx.com/?mom=302)";
-// picsum随机
-let picsum = "url(https://picsum.photos/1920/1080.webp)";
-// 小歪二次元
-// let waiDongman = "url(https://api.ixiaowai.cn/api/api.php)";
-//  小歪高清壁纸
-let waiBizhi = "url(http://api.btstu.cn/sjbz/?lx=meizi)";
-// 博天随机
-let btstu = "url(http://api.btstu.cn/sjbz/?lx=suiji)";
-// tuapi 动漫
-// let tuapi = "url(https://tuapi.eees.cc/api.php?category=dongman)";
-// unsplash随机 https://source.unsplash.com/random/1920x1080/daily (weekly)
-let unsplash = "url(https://api.zylearning.top/api/wallpaper?lx=mnmt)";
-
-
-// 更换背景(自己的代码)
-// --default-bg: 电脑 日间壁纸，--darkmode-bg: 电脑 夜间壁纸，--mobileday-bg: 手机 日间壁纸，--mobilenight-bg: 手机 夜间壁纸
-if (localStorage.getItem("blogbg") != undefined) {
-  setBg(localStorage.getItem("blogbg"));
-} else {
-  document.getElementById("defineBg").innerText = `:root{
-    --default-bg: url(https://file.meimolihan.eu.org/hexo/default-bg.png);
-    --darkmode-bg: url(https://file.meimolihan.eu.org/hexo/darkmode-bg.webp);
-    --mobileday-bg: url(https://file.meimolihan.eu.org/hexo/mobileday-bg.png);
-    --mobilenight-bg: url(https://file.meimolihan.eu.org/hexo/mobilenight-bg.webp);
+// 默认背景（恢复默认设置时用）
+var DEFAULT_BG = `:root{
+    --default-bg: url(https://picsum.photos/id/1015/1920/1080);
+    --darkmode-bg:url(https://picsum.photos/id/1044/1920/1080);
+    --mobileday-bg: url(https://picsum.photos/id/1018/1920/1080);
+    --mobilenight-bg: url(https://picsum.photos/id/1039/1920/1080);
   }`;
+
+// 初始化背景：读 localStorage，历史遗留的非法值（例如误写成的 "deafult"）自动纠正为默认
+(function initBg() {
+  var el = document.getElementById("defineBg");
+  if (!el) return;
+  var saved = localStorage.getItem("blogbg");
+  if (saved != undefined && saved != "default" && !isValidBgVal(saved)) {
+    saved = "default";
+    localStorage.setItem("blogbg", "default");
+  }
+  if (saved == undefined || saved == "default") {
+    resetBg_();
+    if (localStorage.getItem("blogbg") == undefined) localStorage.setItem("blogbg", "default");
+    return;
+  }
+  setBg(saved);
+  // 自定义背景图取不到（死链 / 被墙）时自动回退默认背景
+  var bgUrl = bgValToUrl(saved);
+  if (!bgUrl) return;
+  checkImgExists(bgUrl).catch(function () {
+    localStorage.setItem("blogbg", "default");
+    resetBg_();
+  });
+})();
+
+// 写入默认背景
+function resetBg_() {
+  var el = document.getElementById("defineBg");
+  if (!el) return;
+  el.innerText = DEFAULT_BG;
 }
-// 切换背景主函数
+
+// 切换背景主函数：图片类背景先探测可用性，避免选到已失效的壁纸源导致背景空白
 function changeBg(s) {
   // 自定义颜色框
   defineColor = s.charAt(0) == "#" ? s : '#F4D88A';
+  var bgUrl = bgValToUrl(s);
+  if (bgUrl) {
+    checkImgExists(bgUrl).then(function () {
+      setBg(s);
+      localStorage.setItem("blogbg", s);
+    }).catch(function () {
+      fomalNotify({
+        title: "这个壁纸源失效了🥲",
+        message: "该背景图链接无法加载，已保持当前背景。换一个试试吧～",
+        position: 'top-left',
+        offset: 50,
+        showClose: true,
+        type: "warning",
+        duration: 5000
+      });
+    });
+    return;
+  }
   setBg(s);
   localStorage.setItem("blogbg", s);
 }
 // 设置背景属性
 function setBg(s) {
-  document.getElementById("defineBg").innerText = `:root{
+  var el = document.getElementById("defineBg");
+  if (!el) return;
+  el.innerText = `:root{
     --default-bg: ${s};
     --darkmode-bg: ${s};
     --mobileday-bg: ${s};
@@ -3199,80 +3552,63 @@ function setBg(s) {
   }`;
 }
 
-// 切换链接对应的背景(加入了链接检验与防抖)
+// 切换链接对应的背景（加入链接检验与防抖）
 function getPicture() {
   debounce(getPicture_, 300);
 }
-
 function getPicture_() {
-  checkImgExists(document.getElementById("pic-link").value).then(() => {
-    // 有效的图片链接
-    var link = "url(" + document.getElementById("pic-link").value + ")";
-    changeBg(link);
-    // 提示切换成功
-    new Vue({
-      data: function () {
-        this.$notify({
-          title: "可以啦🍨",
-          message: "切换自定义背景成功！",
-          position: 'top-left',
-          offset: 50,
-          showClose: true,
-          type: "success",
-          duration: 5000
-        });
-      }
-    })
+  var input = document.getElementById("pic-link");
+  if (!input) return;
+  checkImgExists(input.value).then(() => {
+    changeBg("url(" + input.value + ")");
+    fomalNotify({
+      title: "可以啦🍨",
+      message: "切换自定义背景成功！",
+      position: 'top-left',
+      offset: 50,
+      showClose: true,
+      type: "success",
+      duration: 5000
+    });
   }).catch(() => {
-    // 无效的图片链接，提示无效
-    new Vue({
-      data: function () {
-        this.$notify({
-          title: "链接不对🤣",
-          message: "请输入有效的图片链接！",
-          position: 'top-left',
-          offset: 50,
-          showClose: true,
-          type: "warning",
-          duration: 5000
-        });
-      }
-    })
-  })
+    fomalNotify({
+      title: "链接不对🤣",
+      message: "请输入有效的图片链接！",
+      position: 'top-left',
+      offset: 50,
+      showClose: true,
+      type: "warning",
+      duration: 5000
+    });
+  });
 }
 // 判断图片链接是否可用
 function checkImgExists(imgurl) {
   return new Promise(function (resolve, reject) {
     var ImgObj = new Image();
     ImgObj.src = imgurl;
-    ImgObj.onload = function (res) {
-      resolve(res);
-    }
-    ImgObj.onerror = function (err) {
-      reject(err);
-    }
-  })
+    ImgObj.onload = function (res) { resolve(res); };
+    ImgObj.onerror = function (err) { reject(err); };
+  });
 }
 
-// 黑夜霓虹灯开关
+
+/* ===== 黑夜霓虹灯开关 ===== */
 if (localStorage.getItem("light") == undefined) {
   localStorage.setItem("light", "true");
 }
-// 这里要适配Pjax
+// 这里要适配 Pjax
 document.addEventListener('pjax:complete', function () {
-  changeLight(localStorage.getItem("light") == "true" ? true : false)
+  changeLight(localStorage.getItem("light") == "true" ? true : false);
 });
 document.addEventListener('DOMContentLoaded', function () {
-  changeLight(localStorage.getItem("light") == "true" ? true : false)
+  changeLight(localStorage.getItem("light") == "true" ? true : false);
 });
 function setLight() {
-  if (document.getElementById("lightSet").checked) {
-    changeLight(true);
-    localStorage.setItem("light", "true");
-  } else {
-    changeLight(false);
-    localStorage.setItem("light", "false");
-  }
+  var t = document.getElementById("lightSet");
+  if (!t) return;
+  changeLight(t.checked);
+  localStorage.setItem("light", t.checked ? "true" : "false");
 }
 // 更换霓虹灯状态
 function changeLight(flag) {
@@ -3284,33 +3620,112 @@ function changeLight(flag) {
     document.getElementById("site-subtitle").style.animation = flag ? "light_10px 10s linear infinite" : "none";
   if (document.getElementById("post-info"))
     document.getElementById("post-info").style.animation = flag ? "light_5px 10s linear infinite" : "none";
-  document.getElementById("menu_shadow").innerText = flag ? `:root{--menu-shadow: 0 0 1px var(--theme-color);}` : `:root{--menu-shadow: none;}`;
+  var el = document.getElementById("menu_shadow");
+  if (el) {
+    el.innerText = flag ? `:root{--menu-shadow: 0 0 1px var(--theme-color);}` : `:root{--menu-shadow: none;}`;
+  }
 }
 
-// 解决开启Pjax的问题
-// function whenDOMReady() {
-//   try {
-//     let data = loadData('blogbg', 1440)
-//     if (data) changeBg_noWindow(data, 0)
-//     else localStorage.removeItem('blogbg');
-//   } catch (error) { localStorage.removeItem('blogbg'); }
-// }
-// whenDOMReady()
-// document.addEventListener("pjax:success", whenDOMReady)
 
-// 无弹窗提醒更换背景
-// function changeBg_noWindow(s, flag) {
-//   let bg = document.getElementById("web_bg");
-//   if (s.charAt(0) == "#") {
-//     bg.style.backgroundColor = s;
-//     bg.style.backgroundImage = "none";
-//   } else bg.style.backgroundImage = s;
-//   if (!flag) {
-//     saveData("blogbg", s);
-//   }
-// }
+/* ===== 背景滤镜（模糊 / 饱和度 / 对比度）===== */
+var blurRadius, saturate, contrast;
+(function initBgFilter() {
+  if (localStorage.getItem("bgFilterVal") == undefined) {
+    localStorage.setItem("bgFilterVal", "blur(0px) saturate(108%) contrast(105%)");
+  }
+  if (localStorage.getItem("bgFilterOn") == undefined) {
+    localStorage.setItem("bgFilterOn", "1");
+  }
+  // 从已存的 filter 串里拆回三个数值，面板打开时直接填进输入框
+  var strs = String(localStorage.getItem("bgFilterVal")).split(/\s+/);
+  blurRadius = (strs[0] || "").replace(/^blur\(/, "").replace(/px\)$/, "") || 0;
+  saturate = (strs[1] || "").replace(/^saturate\(/, "").replace(/%\)$/, "") || 108;
+  contrast = (strs[2] || "").replace(/^contrast\(/, "").replace(/%\)$/, "") || 105;
+})();
 
-// 创建窗口
+function applyBgFilter() {
+  var el = document.getElementById("bgFilterParam");
+  if (!el) return;
+  el.innerText = localStorage.getItem("bgFilterOn") == "1"
+    ? `:root{--bg-filter:` + localStorage.getItem("bgFilterVal") + `;}`
+    : `:root{--bg-filter:none;}`;
+}
+applyBgFilter();
+
+function updateBgFilterShow() {
+  var el = document.getElementById("bgFilterShow");
+  if (!el) return;
+  el.innerHTML = `模糊半径: <span style="color:#eb5353">` + blurRadius + `px</span> | 饱和度: <span style="color:#eb5353">` +
+    saturate + `%</span> | 对比度: <span style="color:#eb5353">` + contrast + `%</span>`;
+}
+updateBgFilterShow();
+
+function saveBgFilter() {
+  var blurEl = document.getElementById("blurRad");
+  var satEl = document.getElementById("saturation");
+  var conEl = document.getElementById("contrast");
+  if (!blurEl || !satEl || !conEl) return;
+  var b = Number(blurEl.value), s = Number(satEl.value), c = Number(conEl.value);
+  if (isNaN(b) || isNaN(s) || isNaN(c) || b < 0 || b > 300 || s < 0 || s > 200 || c < 0 || c > 200) {
+    fomalNotify({
+      title: "警告💊",
+      message: "背景滤镜参数不在合理范围内！（模糊 0-300px，饱和度 / 对比度 0-200%）",
+      position: 'top-left',
+      offset: 50,
+      showClose: true,
+      type: "warning",
+      duration: 5000
+    });
+    return;
+  }
+  localStorage.setItem("bgFilterVal", `blur(${b}px) saturate(${s}%) contrast(${c}%)`);
+  blurRadius = b; saturate = s; contrast = c;
+  applyBgFilter();
+  updateBgFilterShow();
+  fomalNotify({
+    title: "提示🍄",
+    message: "设置背景滤镜参数成功！",
+    position: 'top-left',
+    offset: 50,
+    showClose: true,
+    type: "success",
+    duration: 5000
+  });
+}
+
+// 背景滤镜开关
+function setBgFilter() {
+  var t = document.getElementById("bgFilterSet");
+  if (!t) return;
+  localStorage.setItem("bgFilterOn", t.checked ? "1" : "0");
+  applyBgFilter();
+}
+
+
+/* ===== 壁纸 API =====
+   2026-10-09 逐个 curl 实测（HTTP 状态 + 字节数 + Content-Type）后重写：
+     · bingw.jasonzeng.dev 仍可用，但换成 bing.biturl.top（带 mkt=zh-CN，国内直连更快）
+     · acg.suyanw.cn 全站已挂（连接被拒），换成 moe.jitsu.top / t.mwm.moe
+     · cdn.seovx.com 连接被拒，换成 www.dmoe.cc
+     · api.zylearning.top 返回 200 但 Content-Type 是 text/html 且 0 字节（空图），换掉
+     · api.btstu.cn 只有 http，HTTPS 站会被浏览器按混合内容拦掉，换成 https 同站仍不通，改用 t.mwm.moe */
+let bingDayBg = "url(https://bing.biturl.top/?resolution=1920&format=image&index=0&mkt=zh-CN)";
+let bingHistoryBg = "url(https://bing.biturl.top/?resolution=1920&format=image&index=random&mkt=zh-CN)";
+// 随机二次元横屏
+let EEEDog = "url(https://moe.jitsu.top/api?sort=pc)";
+// 随机萌图
+let seovx = "url(https://www.dmoe.cc/random.php)";
+// picsum 随机
+let picsum = "url(https://picsum.photos/id/1043/1920/1080.webp)";
+// 高清二次元横屏
+let waiBizhi = "url(https://t.mwm.moe/pc)";
+// 手机竖屏二次元
+let btstu = "url(https://t.mwm.moe/mp)";
+// 横屏二次元
+let unsplash = "url(https://www.dmoe.cc/random.php)";
+
+
+/* ===== 面板窗口 ===== */
 var winbox = "";
 
 function createWinbox() {
@@ -3324,7 +3739,6 @@ function createWinbox() {
     y: "center",
     minwidth: "300px",
     height: "60%",
-    // "#76c8f1"
     background: 'var(--theme-color)',
     onmaximize: () => {
       div.innerHTML = `<style>body::-webkit-scrollbar {display: none;} div#meihuaBox {width: 100% !important;}</style>`;
@@ -3336,77 +3750,103 @@ function createWinbox() {
   winResize();
   window.addEventListener("resize", winResize);
 
-  // 每一类我放了一个演示，直接往下复制粘贴 a标签 就可以，需要注意的是 函数里面的链接 冒号前面需要添加反斜杠\进行转义
+  /* 面板 HTML。改这里的约定（样式全在 source/css/custom.css 末尾「美化面板」一节）：
+   *  · 每段「文字 + 开关」用 <label class="opt"> 包住 —— 点文字也能切开关，窄屏换行时开关不会跟自己的文字分家；
+   *  · 背景滤镜三个参数各自用 <label class="bgp"> 包住，数字框与单位不会被拆到两行；
+   *  · 主题色那一行是 .colorRow：桌面一行铺开，手机端换成等宽网格。 */
   winbox.body.innerHTML = `
 <div class="settings" style="display: block;">
 <div id="article-container" style="padding:12px;">
 <br>
-<center><p><button onclick="reset()" style="background:linear-gradient(to right, #fc354c, #0abfbc);display:block;width:40%;padding:15px 0;border-radius:30px;color:white;font-size:1.1em;"><i class="fa-solid fa-arrows-rotate"></i>&nbsp;恢复默认设置</button></p></center>
+<center><p><button id="reset_btn" type="button" onclick="debounce(reset, 300)" title="点击此按钮恢复美化模块默认设置"><i class="fa-solid fa-arrows-rotate"></i>&nbsp;恢复默认设置</button></p></center>
 
 <h2>一、显示偏好</h2>
 
-<div class="transValue" style="font-weight:bold;padding-left:10px">透明度 (0%-100%): ${curTransNum}%</div>
+<div class="transValue" id="transVal" style="font-weight:bold;padding-left:10px">卡片透明度 (0%-100%): <span style="color:#eb5353">${curTransNum}%</span></div>
 <div class="range">
   <input id="transSet" type="range" min="0" max="100" step="1" value=${curTransNum} oninput="setTrans()">
   <p class="rang_width" id="rang_trans" style="width:${curTransMini}%"></p>
 </div>
 
-<div class="blurValue" style="font-weight:bold;padding-left:10px">模糊半径 (开启模糊生效 0px-100px): ${curBlur} px</div>
-<div class="range">
-  <input id="blurSet" type="range" min="0" max="100" step="1" value="${curBlur}" oninput="setBlurNum()">
-  <p class="rang_width" id="rang_blur" style="width:${miniBlur}%"></p>
-</div>
-
-
-<div class="content" style="display:flex">
-  <div class="content-text" style="font-weight:bold; padding-left:10px"> 星空特效 (夜间模式) </div><input type="checkbox" id="universeSet" onclick="setUniverse()">
-  <div class="content-text" style="font-weight:bold; padding-left:20px"> 霓虹灯 (夜间模式) </div><input type="checkbox" id="lightSet" onclick="setLight()">
-</div>
-
-<div class="content" style="display:flex">
-  <div class="content-text" style="font-weight:bold; padding-left:10px"> 模糊效果 (消耗性能) </div><input type="checkbox" id="blur" onclick="setBlur()">
-  <div class="content-text" style="font-weight:bold; padding-left:20px"> 侧边栏 (默认开) </div><input type="checkbox" id="rightSideSet" onclick="toggleRightside()">
+<div style="padding-bottom:15px">
+  <div class="content" style="display:flex">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 背景滤镜 </span><input type="checkbox" id="bgFilterSet" onclick="setBgFilter()"></label>
+  <div class="bgFilterValue" id="bgFilterShow" style="font-weight:bold;padding-left:10px">模糊半径: <span style="color:#eb5353">${blurRadius}px</span> | 饱和度: <span style="color:#eb5353">${saturate}%</span> | 对比度: <span style="color:#eb5353">${contrast}%</span></div>
+  </div>
+  <div class="content bgparams" style="display:flex;font-weight:bold;padding-left:10px">
+  <label class="bgp"><span class="bgp-k">模糊半径</span><span class="bgp-v"><input type="number" id="blurRad" placeholder="0" min="0" max="300" step="1" title="背景模糊半径:0-300px"><span class="bgp-u">px</span></span></label>
+  <label class="bgp"><span class="bgp-k">饱和度</span><span class="bgp-v"><input type="number" id="saturation" placeholder="108" min="0" max="200" step="1" title="背景饱和度:0-200%"><span class="bgp-u">%</span></span></label>
+  <label class="bgp"><span class="bgp-k">对比度</span><span class="bgp-v"><input type="number" id="contrast" placeholder="105" min="0" max="200" step="1" title="背景对比度:0-200%"><span class="bgp-u">%</span></span></label>
+  <button class="winbox_btn bgp-save" type="button" onclick="debounce(saveBgFilter,300)" title="点击保存背景滤镜参数">保存</button>
+  </div>
 </div>
 
 <div class="content" style="display:flex">
-  <div class="content-text" style="font-weight:bold; padding-left:10px"> 帧率监测 (刷新生效) </div><input type="checkbox" id="fpson" onclick="fpssw()">
-  <div class="content-text" style="font-weight:bold; padding-left:10px"> 雪花特效 (白天模式) </div><input type="checkbox" id="snowSet" onclick="setSnow()">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 星空特效 (夜间模式) </span><input type="checkbox" id="universeSet" onclick="setUniverse()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 霓虹灯 (夜间模式) </span><input type="checkbox" id="lightSet" onclick="setLight()"></label>
 </div>
 
-<h2>二、字体设置</h2>
+<div class="content" style="display:flex">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 雪花特效 (白天模式) </span><input type="checkbox" id="snowSet" onclick="setSnow()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 帧率监测 (默认开启) </span><input type="checkbox" id="fpson" onclick="fpssw()"></label>
+</div>
+
+<div class="content" style="display:flex">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 右侧部件 (默认开启) </span><input type="checkbox" id="rightSideSet" onclick="toggleRightside()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 顶栏常驻 (默认开启) </span><input type="checkbox" id="navSet" onclick="setNav()"></label>
+</div>
+
+<div class="content" style="display:flex">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 侧栏显隐 (默认显示) </span><input type="checkbox" id="asideSet" onclick="setAside()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 侧栏位置 (默认右边) </span><input type="checkbox" id="asidePosSet" onclick="setAsidePos()"></label>
+</div>
+
+<div class="content" style="display:flex">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 灯笼挂件 (默认显示) </span><input type="checkbox" id="lanternSet" onclick="setLantern()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 音乐播放 (默认显示) </span><input type="checkbox" id="musicSet" onclick="setMusic()"></label>
+</div>
+
+<h2>二、主题色设置</h2>
+<div class="content colorRow">
+  <input type="radio" id="red" name="colors" value=" " onclick="setColor('red')">
+  <input type="radio" id="orange" name="colors" value=" " onclick="setColor('orange')">
+  <input type="radio" id="yellow" name="colors" value=" " onclick="setColor('yellow')">
+  <input type="radio" id="green" name="colors" value=" " onclick="setColor('green')">
+  <input type="radio" id="blue" name="colors" value=" " onclick="setColor('blue')">
+  <input type="radio" id="heoblue" name="colors" value=" " onclick="setColor('heoblue')">
+  <input type="radio" id="darkblue" name="colors" value=" " onclick="setColor('darkblue')">
+  <input type="radio" id="purple" name="colors" value=" " onclick="setColor('purple')">
+  <input type="radio" id="pink" name="colors" value=" " onclick="setColor('pink')">
+  <input type="radio" id="black" name="colors" value=" " onclick="setColor('black')">
+</div>
+
+<h2>三、字体设置</h2>
 <!--<div class="note warning modern"><p>非商免字体未经授权只能个人使用。本站为完全非商业、非盈利性质的网站，平时用于个人学习交流，如有侵权请联系站长删除，谢谢！ —— 致版权方</p>
 </div>-->
+<h3>1. 常规字体（没选过时默认：优设好身体）</h3>
 <p id="swfs">
-<a class="swf" id="swf_ZhuZiAWan" href="javascript:;" rel="noopener external nofollow" style="font-family:'ZhuZiAWan'!important;color:black" onclick="setFont('ZhuZiAWan')">杨任东竹石体</a>
-<a class="swf" id="swf_HYTMR" href="javascript:;" rel="noopener external nofollow" style="font-family:'HYTMR'!important;color:black" onclick="setFont('HYTMR')">汉仪唐美人</a>
-<a class="swf" id="swf_LXGW" href="javascript:;" rel="noopener external nofollow" style="font-family:'LXGW'!important;color:black" onclick="setFont('LXGW')">小石头</a>
-<a class="swf" id="swf_TTQHB" href="javascript:;" rel="noopener external nofollow" style="font-family:'TTQHB'!important;color:black" onclick="setFont('TTQHB')">甜甜圈海报</a>
-<a class="swf" id="swf_YSHST" href="javascript:;" rel="noopener external nofollow" style="font-family:'YSHST'!important;color:black" onclick="setFont('YSHST')">优设好身体</a>
-<a class="swf" id="swf_MiSans" href="javascript:;" rel="noopener external nofollow" style="font-family:'MiSans'!important;color:black" onclick="setFont('MiSans')">珠海体</a>
-<a class="swf" id="swf_default" href="javascript:;" rel="noopener external nofollow" style="font-family:-apple-system, IBM Plex Mono ,monosapce,'微软雅黑', sans-serif;!important;color:black" onclick="setFont('default')">系统默认</a>
+<a class="swf" id="swf_ZhuZiAWan" href="javascript:;" rel="noopener external nofollow" style="font-family:'ZhuZiAWan'!important;color:#303030" onclick="setFont('ZhuZiAWan')">杨任东竹石体</a>
+<a class="swf" id="swf_HYTMR" href="javascript:;" rel="noopener external nofollow" style="font-family:'HYTMR'!important;color:#303030" onclick="setFont('HYTMR')">汉仪唐美人</a>
+<a class="swf" id="swf_LXGW" href="javascript:;" rel="noopener external nofollow" style="font-family:'LXGW'!important;color:#303030" onclick="setFont('LXGW')">小石头</a>
+<a class="swf" id="swf_TTQHB" href="javascript:;" rel="noopener external nofollow" style="font-family:'TTQHB'!important;color:#303030" onclick="setFont('TTQHB')">甜甜圈海报</a>
+<a class="swf" id="swf_YSHST" href="javascript:;" rel="noopener external nofollow" style="font-family:'YSHST'!important;color:#303030" onclick="setFont('YSHST')">优设好身体</a>
+<a class="swf" id="swf_MiSans" href="javascript:;" rel="noopener external nofollow" style="font-family:'MiSans'!important;color:#303030" onclick="setFont('MiSans')">珠海体</a>
+<a class="swf" id="swf_default" href="javascript:;" rel="noopener external nofollow" style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;color:#303030" onclick="setFont('default')">系统默认</a>
 </p>
 
-<h2>三、主题色设置</h2>
-<div class="content" style="display:flex"><input type="radio" id="red" name="colors" value=" "
-        onclick="setColor('red')"><input type="radio" id="orange" name="colors" value=" "
-        onclick="setColor('orange')"><input type="radio" id="yellow" name="colors" value=" "
-        onclick="setColor('yellow')"><input type="radio" id="green" name="colors" value=" "
-        onclick="setColor('green')"><input type="radio" id="blue" name="colors" value=" "
-        onclick="setColor('blue')"><input type="radio" id="heoblue" name="colors" value=" "
-        onclick="setColor('heoblue')"><input type="radio" id="darkblue" name="colors" value=" "
-        onclick="setColor('darkblue')"><input type="radio" id="purple" name="colors" value=" "
-        onclick="setColor('purple')"><input type="radio" id="pink" name="colors" value=" "
-        onclick="setColor('pink')" checked="checked"><input type="radio" id="black" name="colors" value=" "
-        onclick="setColor('black')"><input type="radio" id="blackgray" name="colors" value=" "
-        onclick="setColor('blackgray')"></div>
+<h3>2. 代码块字体（没选过时默认：JetBrains Mono）</h3>
+<p id="swfs_code">
+<a class="swf" id="swfc_JetBrainsMono" href="javascript:;" rel="noopener external nofollow" style="font-family:'JetBrainsMono'!important;color:#303030" onclick="setCodeFont('JetBrainsMono')">JetBrains Mono</a>
+<a class="swf" id="swfc_FiraCode" href="javascript:;" rel="noopener external nofollow" style="font-family:'FiraCode'!important;color:#303030" onclick="setCodeFont('FiraCode')">Fira Code</a>
+<a class="swf" id="swfc_SourceCodePro" href="javascript:;" rel="noopener external nofollow" style="font-family:'SourceCodePro'!important;color:#303030" onclick="setCodeFont('SourceCodePro')">Source Code Pro</a>
+</p>
 
 <h2>四、背景设置</h2>
-<center><button onclick="resetBg()" style="background:var(--theme-color);display:block;width:35%;padding:15px 0;border-radius:30px;color:white;"><i class="fa-solid fa-arrows-rotate"></i>&nbsp;恢复默认背景</button></center>
 
 <h3>1. 随机二次元</h3>
 <details class="folding-tag" cyan><summary> 查看随机二次元背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/Anime)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/Anime)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.luvying.com/acgimg)" class="imgbox" onclick="changeBg('url(https://api.luvying.com/acgimg)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.alcy.cc/ycy)" class="imgbox" onclick="changeBg('url(https://t.alcy.cc/ycy)')"></a><!--<a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.alcy.cc/moez)" class="imgbox" onclick="changeBg('url(https://t.alcy.cc/moez)')"></a>--><!--<a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.paugram.com/wallpaper/?source=sm)" class="imgbox" onclick="changeBg('url(https://api.paugram.com/wallpaper/?source=sm)')"></a>--><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.alcy.cc/pc)" class="imgbox" onclick="changeBg('url(https://t.alcy.cc/pc)')"></a><!--<a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.paugram.com/wallpaper/)" class="imgbox" onclick="changeBg('url(https://api.paugram.com/wallpaper/)')"></a>--><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.alcy.cc/ysz)" class="imgbox" onclick="changeBg('url(https://t.alcy.cc/ysz)')"></a></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://moe.jitsu.top/api?sort=pc)" class="imgbox" onclick="changeBg('url(https://moe.jitsu.top/api?sort=pc)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.mwm.moe/pc)" class="imgbox" onclick="changeBg('url(https://t.mwm.moe/pc)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.mwm.moe/mp)" class="imgbox" onclick="changeBg('url(https://t.mwm.moe/mp)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://www.dmoe.cc/random.php)" class="imgbox" onclick="changeBg('url(https://www.dmoe.cc/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1043/1920/1080.webp)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1043/1920/1080.webp)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1048/1920/1080.webp)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1048/1920/1080.webp)')"></a></div>
               </div>
             </details>
 
@@ -3414,21 +3854,21 @@ function createWinbox() {
 <h3>2. 随机风景</h3>
 <details class="folding-tag" cyan><summary> 查看随机风景背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/landscape)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/landscape)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/gqbz/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/gqbz/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/scenery/random.php)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/scenery/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://t.alcy.cc/fj)" class="imgbox" onclick="changeBg('url(https://t.alcy.cc/fj)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=fj)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=fj)')"></a></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1015/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1015/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1016/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1016/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1018/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1018/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1036/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1036/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1039/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1039/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1041/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1041/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1044/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1044/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1010/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1010/1920/1080)')"></a></div>
               </div>
             </details>
 
 <h3>3. 萌宠</h3>
 <details class="folding-tag" cyan><summary> 查看萌宠背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://acg.suyanw.cn/cutepet)" class="imgbox" onclick="changeBg('url(https://acg.suyanw.cn/cutepet)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://api.zylearning.top/api/wallpaper?lx=dw)" class="imgbox" onclick="changeBg('url(https://api.zylearning.top/api/wallpaper?lx=dw)')"></a></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1060/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1060/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://www.dmoe.cc/random.php)" class="imgbox" onclick="changeBg('url(https://www.dmoe.cc/random.php)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://moe.jitsu.top/api?sort=pc)" class="imgbox" onclick="changeBg('url(https://moe.jitsu.top/api?sort=pc)')"></a></div>
               </div>
             </details>
 
 <h3>4. 渐变色</h3>
 <details class="folding-tag" cyan><summary> 查看渐变色背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to right, #544a7d, #ffd452)" onclick="changeBg('linear-gradient(to right, #544a7d, #ffd452)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to bottom, #7f7fd5, #86a8e7, #91eae4)" onclick="changeBg('linear-gradient(to bottom, #7f7fd5, #86a8e7, #91eae4)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to left, #654ea3, #eaafc8)" onclick="changeBg('linear-gradient(to left, #654ea3, #eaafc8)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #feac5e, #c779d0, #4bc0c8)" onclick="changeBg('linear-gradient(to top, #feac5e, #c779d0, #4bc0c8)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #d3959b, #bfe6ba)" onclick="changeBg('linear-gradient(to top, #d3959b, #bfe6ba)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #8360c3, #2ebf91)" onclick="changeBg('linear-gradient(to top, #8360c3, #2ebf91)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #108dc7, #ef8e38)" onclick="changeBg('linear-gradient(to top, #108dc7, #ef8e38)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #355c7d, #6c5b7b, #c06c84)" onclick="changeBg('linear-gradient(to top, #355c7d, #6c5b7b, #c06c84)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to right, #6b8c58, #243b55)" onclick="changeBg('linear-gradient(to right, #141e30, #243b55)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to left, #ff8008, #ff1064)" onclick="changeBg('linear-gradient(to left, #ff8008, #ff1064)')"></a></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to right, #544a7d, #ffd452)" onclick="changeBg('linear-gradient(to right, #544a7d, #ffd452)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to bottom, #7f7fd5, #86a8e7, #91eae4)" onclick="changeBg('linear-gradient(to bottom, #7f7fd5, #86a8e7, #91eae4)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to left, #654ea3, #eaafc8)" onclick="changeBg('linear-gradient(to left, #654ea3, #eaafc8)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #feac5e, #c779d0, #4bc0c8)" onclick="changeBg('linear-gradient(to top, #feac5e, #c779d0, #4bc0c8)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #d3959b, #bfe6ba)" onclick="changeBg('linear-gradient(to top, #d3959b, #bfe6ba)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #8360c3, #2ebf91)" onclick="changeBg('linear-gradient(to top, #8360c3, #2ebf91)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #108dc7, #ef8e38)" onclick="changeBg('linear-gradient(to top, #108dc7, #ef8e38)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to top, #355c7d, #6c5b7b, #c06c84)" onclick="changeBg('linear-gradient(to top, #355c7d, #6c5b7b, #c06c84)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to right, #141e30, #243b55)" onclick="changeBg('linear-gradient(to right, #141e30, #243b55)')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: linear-gradient(to left, #ff8008, #ff1064)" onclick="changeBg('linear-gradient(to left, #ff8008, #ff1064)')"></a></div>
               </div>
             </details>
 
@@ -3436,7 +3876,7 @@ function createWinbox() {
 <h3>5. 纯色</h3>
 <details class="folding-tag" cyan><summary> 查看纯色背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #2c3e50" onclick="changeBg('#2c3e50')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #1a237e" onclick="changeBg('#1a237e')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #004d40" onclick="changeBg('#004d40')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #ecb1b1" onclick="changeBg('#ecb1b1')"></a> <a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #d3ebac" onclick="changeBg('#d3ebac')"></a> <a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #ace9ce" onclick="changeBg('#ace9ce')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #c1ebea" onclick="changeBg('#c1ebea')"></a> <a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #dee7f1" onclick="changeBg('#dee7f1')"></a> <a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #e9e3f2" onclick="changeBg('#e9e3f2')"></a> <!--<a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #f7eff5" onclick="changeBg('#f7eff5')"></a>  --><input type="color" id="define_colors" href="javascript:;" rel="noopener external nofollow" class="box" autocomplete="on" value="${defineColor}" oninput="changeBgColor()"></input></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #2c3e50" onclick="changeBg('#2c3e50')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #1a237e" onclick="changeBg('#1a237e')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #004d40" onclick="changeBg('#004d40')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #ecb1b1" onclick="changeBg('#ecb1b1')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #d3ebac" onclick="changeBg('#d3ebac')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #ace9ce" onclick="changeBg('#ace9ce')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #c1ebea" onclick="changeBg('#c1ebea')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #dee7f1" onclick="changeBg('#dee7f1')"></a><a href="javascript:;" rel="noopener external nofollow" class="box" style="background: #e9e3f2" onclick="changeBg('#e9e3f2')"></a><input type="color" id="define_colors" href="javascript:;" rel="noopener external nofollow" class="box" autocomplete="on" value="${defineColor}" oninput="changeBgColor()"></input></div>
               </div>
             </details>
 
@@ -3461,7 +3901,7 @@ function createWinbox() {
 <h3>8. 自定义背景</h3>
 <details class="folding-tag" cyan><summary> 设置自定义背景 </summary>
               <div class='content'>
-              <p><center><input type="text" id="pic-link" size="70%" maxlength="1000" placeholder="请输入有效的图片链接，如 https://source.fomal.cc/img/home_bg.webp"></center></p><p><center><button type="button" onclick="getPicture()" style="background:var(--theme-color);width:35%;padding: 5px 0px 7px 0px;border-radius:30px;color:white;line-height:2;">🌈切换背景🌈</button></center></p>
+              <p><center><input type="text" id="pic-link" size="70%" maxlength="1000" placeholder="请输入有效的图片链接，如 https://picsum.photos/id/1015/1920/1080"></center></p><p><center><button class="winbox_btn picbtn" type="button" onclick="getPicture()" title="用上面填写的图片链接切换网站背景">切换背景</button></center></p>
               </div>
             </details>
 
@@ -3475,51 +3915,190 @@ function createWinbox() {
 
 `;
 
-  // 打开小窗时候初始化
-  $("#" + localStorage.getItem("themeColor")).attr("checked", true);
-  if (localStorage.getItem("blur") == 1) {
-    document.getElementById("blur").checked = true;
-  } else {
-    document.getElementById("blur").checked = false;
-  }
-  if (localStorage.getItem("universe") == "block") {
-    document.getElementById("universeSet").checked = true;
-  } else if (localStorage.getItem("universe") == "none") {
-    document.getElementById("universeSet").checked = false;
-  }
-  if (localStorage.getItem("fpson") == "1") {
-    document.getElementById("fpson").checked = true;
-  } else {
-    document.getElementById("fpson").checked = false;
-  }
-  if (localStorage.getItem("rs") == "block") {
-    document.getElementById("rightSideSet").checked = true;
-  } else if (localStorage.getItem("rs") == "none") {
-    document.getElementById("rightSideSet").checked = false;
-  }
-  if (localStorage.getItem("light") == "true") {
-    document.getElementById("lightSet").checked = true;
-  } else {
-    document.getElementById("lightSet").checked = false;
-  }
+  // 打开面板时按 localStorage 回填所有控件
+  var tcRadio = document.getElementById(localStorage.getItem("themeColor"));
+  if (tcRadio) tcRadio.checked = true;
+  var bgFilterOn = document.getElementById("bgFilterSet");
+  if (bgFilterOn) bgFilterOn.checked = (localStorage.getItem("bgFilterOn") == "1");
+  var blurRad = document.getElementById("blurRad");
+  if (blurRad) blurRad.value = blurRadius;
+  var satEl = document.getElementById("saturation");
+  if (satEl) satEl.value = saturate;
+  var conEl = document.getElementById("contrast");
+  if (conEl) conEl.value = contrast;
+
+  var universeSet = document.getElementById("universeSet");
+  if (universeSet) universeSet.checked = (localStorage.getItem("universe") == "block");
+  var fpsonEl = document.getElementById("fpson");
+  if (fpsonEl) fpsonEl.checked = (localStorage.getItem("fpson") == "1");
+  var rightSideSet = document.getElementById("rightSideSet");
+  if (rightSideSet) rightSideSet.checked = (localStorage.getItem("rs") == "block");
+  var lightSet = document.getElementById("lightSet");
+  if (lightSet) lightSet.checked = (localStorage.getItem("light") == "true");
+  var snowSet = document.getElementById("snowSet");
+  if (snowSet) snowSet.checked = (localStorage.getItem("snow") == "block");
+  var navSet = document.getElementById("navSet");
+  if (navSet) navSet.checked = (localStorage.getItem("nav") == "1");
+  var asideSet = document.getElementById("asideSet");
+  if (asideSet) asideSet.checked = (localStorage.getItem("aside") == "1");
+  var asidePosSet = document.getElementById("asidePosSet");
+  if (asidePosSet) asidePosSet.checked = (localStorage.getItem("asidePos") == "1");
+  var lanternSet = document.getElementById("lanternSet");
+  if (lanternSet) lanternSet.checked = (localStorage.getItem("lantern") == "1");
+  var musicSet = document.getElementById("musicSet");
+  if (musicSet) musicSet.checked = (localStorage.getItem("music") == "1");
   setFontBorder();
-  if (localStorage.getItem("snow") == "block") {
-    document.getElementById("snowSet").checked = true;
-  } else if (localStorage.getItem("snow") == "none") {
-    document.getElementById("snowSet").checked = false;
-  }
+  setCodeFontBorder();
 }
 
-// 恢复默认背景
+// 恢复默认背景（不刷新页面）
 function resetBg() {
-  localStorage.removeItem('blogbg');
-  reload();
+  localStorage.setItem("blogbg", "default");
+  resetBg_();
+  fomalNotify({
+    title: "提示🌰",
+    message: "当前已经恢复为默认背景！",
+    position: 'top-left',
+    offset: 50,
+    showClose: true,
+    type: "success",
+    duration: 5000
+  });
 }
 
-// 恢复默认设置并刷新页面
+// 恢复默认设置（不刷新页面，全部就地生效）
 function reset() {
-  clearItem();
-  reload();
+  initItem();
+
+  setFont(FONT_DEFAULT);
+  setCodeFont(CODE_FONT_DEFAULT);
+  setColor("green");
+
+  setUniverse2("block");
+  setSnow2("none");
+  applyAside();
+  applyAsidePos();
+  applyLantern();
+  applyMusic();
+  // initItem() 已把 localStorage 的 nav 写回 "1"，直接重算生效即可。
+  // 注意不能走 setNav()：它是无参函数、只读面板上的 checkbox，
+  // 面板关着时 getElementById 返回 null 会直接 return（这里就不会生效了）。
+  applyNav();
+
+  applyRightside();
+  changeLight(true);
+
+  // 帧率：默认恢复为开，并且真正把被停掉的采样循环重新启动
+  startFps();
+  var fpsPanel = document.getElementById("fps");
+  if (fpsPanel) fpsPanel.style.display = "block";
+
+  curTransNum = 92;
+  curTransMini = curTransNum * 0.95;
+  applyTrans(curTransNum);
+
+  resetBg_();
+
+  // 背景滤镜：恢复默认参数并立即生效
+  localStorage.setItem("bgFilterOn", "1");
+  blurRadius = 0; saturate = 108; contrast = 105;
+  applyBgFilter();
+  updateBgFilterShow();
+
+  // 同步面板上的所有控件
+  var green = document.getElementById("green");
+  if (green) green.checked = true;
+  var universeSet = document.getElementById("universeSet");
+  if (universeSet) universeSet.checked = true;
+  var fpsonEl = document.getElementById("fpson");
+  if (fpsonEl) fpsonEl.checked = true;
+  var rightSideSet = document.getElementById("rightSideSet");
+  if (rightSideSet) rightSideSet.checked = true;
+  var lightSet = document.getElementById("lightSet");
+  if (lightSet) lightSet.checked = true;
+  var snowSet = document.getElementById("snowSet");
+  if (snowSet) snowSet.checked = false;
+  var navSet = document.getElementById("navSet");
+  if (navSet) navSet.checked = true;
+  var asideSet = document.getElementById("asideSet");
+  if (asideSet) asideSet.checked = true;
+  var asidePosSet = document.getElementById("asidePosSet");
+  if (asidePosSet) asidePosSet.checked = true;
+  var lanternSet = document.getElementById("lanternSet");
+  if (lanternSet) lanternSet.checked = true;
+  var musicSet = document.getElementById("musicSet");
+  if (musicSet) musicSet.checked = true;
+  var bgFilterSet = document.getElementById("bgFilterSet");
+  if (bgFilterSet) bgFilterSet.checked = true;
+  var blurRad = document.getElementById("blurRad");
+  if (blurRad) blurRad.value = 0;
+  var satEl = document.getElementById("saturation");
+  if (satEl) satEl.value = 108;
+  var conEl = document.getElementById("contrast");
+  if (conEl) conEl.value = 105;
+
+  var transVal = document.getElementById("transVal");
+  if (transVal) {
+    transVal.innerHTML = `卡片透明度 (0%-100%): <span style="color:#eb5353">` + curTransNum + `%</span>`;
+  }
+  var transSet = document.getElementById("transSet");
+  if (transSet) transSet.value = `${curTransNum}`;
+  var rangTrans = document.getElementById("rang_trans");
+  if (rangTrans) rangTrans.style.width = `${curTransMini}%`;
+
+  fomalNotify({
+    title: "提示🍅",
+    message: "当前已经恢复为默认设置！",
+    position: 'top-left',
+    offset: 50,
+    showClose: true,
+    type: "success",
+    duration: 5000
+  });
+}
+
+/* 量一次「内容真正需要多大的面板」：
+   宽度刚好放下「三、字体设置」常规字体那一行的按钮（最后一个不换行就说明宽度够了），
+   高度刚好完整显示第一节「一、显示偏好」——比这更大只会弹出一块又宽又空的大板子 */
+function winboxNeedSize() {
+  var fallback = { w: 780, h: 540 };
+  var box = document.getElementById("meihuaBox");
+  var ac = box ? box.querySelector("#article-container") : null;
+  if (!ac) return fallback;
+  try {
+    var pr = box.getBoundingClientRect();
+    var acr = ac.getBoundingClientRect();
+    var cs = getComputedStyle(ac);
+    var padL = parseFloat(cs.paddingLeft) || 0;
+    var padR = parseFloat(cs.paddingRight) || 0;
+    var padB = parseFloat(cs.paddingBottom) || 0;
+    var chromeW = pr.width - acr.width; // 面板边框 + body 内边距占掉的宽度
+    // ① 宽度：字体设置第一行要能排下前 5 个按钮
+    var swfs = ac.querySelectorAll("#swfs > .swf");
+    var n = Math.min(swfs.length, 5);
+    var rowW = 0;
+    for (var i = 0; i < n; i++) {
+      var scs = getComputedStyle(swfs[i]);
+      rowW += swfs[i].offsetWidth + (parseFloat(scs.marginLeft) || 0) + (parseFloat(scs.marginRight) || 0);
+    }
+    var indent = n ? swfs[0].getBoundingClientRect().left - acr.left - padL : 0;
+    var lastMr = n ? (parseFloat(getComputedStyle(swfs[n - 1]).marginRight) || 0) : 0;
+    var needW = Math.ceil(indent + rowW - lastMr + padL + padR + chromeW) + 10;
+    // ② 高度：第一节最后一行开关（侧栏位置）完整可见即可
+    var needH = fallback.h;
+    var lastTog = ac.querySelector("#asidePosSet");
+    if (lastTog) {
+      var lr = lastTog.getBoundingClientRect();
+      var rowR = lastTog.parentElement.getBoundingClientRect();
+      needH = Math.ceil(Math.max(lr.bottom, rowR.bottom) - pr.top + padB) + 6;
+    }
+    return {
+      w: Math.max(620, Math.min(needW, Math.round(document.documentElement.clientWidth * 0.95))),
+      h: Math.max(420, Math.min(needH, Math.round(document.documentElement.clientHeight * 0.92)))
+    };
+  } catch (err) {
+    return fallback;
+  }
 }
 
 // 适应窗口大小
@@ -3529,20 +4108,38 @@ function winResize() {
     if (offsetWid <= 768) {
       winbox.resize(offsetWid * 0.95 + "px", "90%").move("center", "center");
     } else {
-      winbox.resize(offsetWid * 0.6 + "px", "70%").move("center", "center");
+      // 桌面端：宽度刚好放下字体设置第一行、高度刚好显示完第一节，不再按百分比撑满
+      var first = winboxNeedSize();
+      winbox.resize(first.w + "px", first.h + "px");
+      var final = winboxNeedSize(); // 宽度定下来后，行是否折行才是最终布局，再量一次高度
+      winbox.resize(final.w + "px", final.h + "px").move("center", "center");
     }
   } catch (err) {
-    // console.log("Pjax毒瘤抽风运行winResize方法🙄🙄🙄");
+    // WinBox 在 Pjax 切换过程中可能还没挂载，这里静默跳过
   }
 }
 
 // 切换状态，窗口已创建则控制窗口显示和隐藏，没窗口则创建窗口
 function toggleWinbox() {
-  if (document.querySelector("#meihuaBox")) {
+  var box = document.querySelector("#meihuaBox");
+  if (box) {
     winbox.toggleClass("hide");
+    // 面板收起时给右侧部件让回去（配合 custom.css 里的 body.meihua-panel-open #rightside）
+    document.body.classList.toggle("meihua-panel-open", !box.classList.contains("hide"));
   } else {
     createWinbox();
+    winResize(); // 面板内容写完了，按内容再量一次尺寸
+    document.body.classList.add("meihua-panel-open");
   };
 }
+// 面板被用户直接点右上角 × 关掉时，WinBox 会移除节点，这里同步清掉让位标记
+document.addEventListener('DOMContentLoaded', function () {
+  document.body.addEventListener('click', function (e) {
+    // .wb-close 是 WinBox 的关闭按钮
+    if (e.target && e.target.classList && e.target.classList.contains('wb-close')) {
+      document.body.classList.remove('meihua-panel-open');
+    }
+  });
+});
 
 /* 美化模块 end */
