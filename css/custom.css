@@ -2646,8 +2646,9 @@ span.card-clock-weather {
 #footer-wrap a {
   border-radius: 30px;
 }
+/* 2026-10-10：去掉页脚内容区四周内边距（主题默认 40px 20px，此处曾改为 20px 20px） */
 #footer-wrap {
-  padding: 20px 20px;
+  padding: 0;
 }
 @media (hover: hover) {
 
