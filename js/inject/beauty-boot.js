@@ -89,6 +89,13 @@
   if (def(ls("lantern"), "0") !== "1") d.classList.add("meihua-no-lantern");
   if (def(ls("music"), "1") !== "1") d.classList.add("meihua-no-music");
 
+  // 6.6) 挂绳猫咪 / 页脚宠物（2026-10-10 新增）。
+  // 同样必须在 head 阶段挂反向类：挂绳猫咪是 nekoScroll 用 inline style 显示的，
+  // 等 fomal.js（defer）跑完再挂会先闪一下猫咪。默认值为 neko="0"（关）、pet="1"（开），
+  // 必须和 fomal.js 的 applyNeko()/applyPet()/initItem() 完全一致。
+  if (def(ls("neko"), "0") !== "1") d.classList.add("meihua-no-neko");
+  if (def(ls("pet"), "1") !== "1") d.classList.add("meihua-no-pet");
+
   if (def(ls("nav"), "1") === "0") {
     tag("nav-display", ":root{--nav-fixed-display:none;--nav-visible-display:inline-flex;}");
   } else {

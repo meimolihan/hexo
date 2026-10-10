@@ -9682,6 +9682,27 @@ hr:before {
 }
 
 
+/* ============================================================================
+ * 挂绳猫咪 / 页脚宠物 开关（2026-10-10）
+ * --------------------------------------------------------------------------
+ * 对应美化面板里的两个新开关（fomal.js 的 setNeko / setPet）。
+ * JS 只往 <html> 上挂 meihua-no-neko / meihua-no-pet，隐藏动作在 CSS 里完成。
+ * （站点侧 source/css/custom.css 里有一份同样的规则，两份保持同步。）
+ * ========================================================================== */
+
+/* 挂绳猫咪：绳子 #myscoll + 猫咪 .neko。
+   ⚠ .neko 必须 !important —— nekoScroll 滚动时用 inline style 设 display:block，
+   普通 CSS 压不住 inline style。绳子一并隐藏，否则会剩一根悬空的绳子。 */
+.meihua-no-neko #myscoll,
+.meihua-no-neko .neko {
+  display: none !important;
+}
+
+/* 页脚宠物：footer.pug 渲染的 #footer-animal */
+.meihua-no-pet #footer-animal {
+  display: none !important;
+}
+
 .search-dialog {
   position: fixed;
   top: 10%;

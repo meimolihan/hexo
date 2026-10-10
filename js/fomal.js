@@ -3025,6 +3025,9 @@ function initItem() {
   // 灯笼默认关闭：与 applyLantern() 的首次访问默认值保持一致（见下方 6.5 节注释）
   localStorage.setItem("lantern", "0");
   localStorage.setItem("music", "1");
+  // 挂绳猫咪默认关闭、页脚宠物默认显示：与 applyNeko()/applyPet() 的首次访问默认值一致
+  localStorage.setItem("neko", "0");
+  localStorage.setItem("pet", "1");
   localStorage.setItem("bgFilterOn", "1");
   localStorage.setItem("bgFilterVal", "blur(0px) saturate(108%) contrast(105%)");
 }
@@ -3327,6 +3330,49 @@ function setMusic() {
   if (!t) return;
   localStorage.setItem("music", t.checked ? "1" : "0");
   applyMusic();
+}
+
+/* ===== 挂绳猫咪开关（右上角绳子 #myscoll + 猫咪 .neko）=====
+   挂件来自 fomal.js 里的 nekoScroll：滚动时绳子随之变长、猫咪跟着往下走，
+   点击绳子或猫咪都会 btf.scrollToDest(0, 500) 返回顶部。
+   2026-10-10：默认改为关闭（"0"）。
+   注意 .neko 的显隐是 nekoScroll 用 inline style（display:block）控制的，
+   所以 CSS 里必须用 !important 才压得住，不能只写 display:none。 */
+if (localStorage.getItem("neko") == undefined) {
+  localStorage.setItem("neko", "0");
+}
+applyNeko();
+function applyNeko() {
+  var d = document.documentElement;
+  d.classList.toggle("meihua-no-neko", localStorage.getItem("neko") != "1");
+}
+document.addEventListener('pjax:complete', applyNeko);
+document.addEventListener('DOMContentLoaded', applyNeko);
+function setNeko() {
+  var t = document.getElementById("nekoSet");
+  if (!t) return;
+  localStorage.setItem("neko", t.checked ? "1" : "0");
+  applyNeko();
+}
+
+/* ===== 页脚宠物开关（页脚底部的小动物 #footer-animal）=====
+   元素是 themes/butterfly/layout/includes/footer.pug 里渲染的
+   #footer-animal（.animal-wall 墙 + img.animal 小动物），默认显示（"1"）。 */
+if (localStorage.getItem("pet") == undefined) {
+  localStorage.setItem("pet", "1");
+}
+applyPet();
+function applyPet() {
+  var d = document.documentElement;
+  d.classList.toggle("meihua-no-pet", localStorage.getItem("pet") != "1");
+}
+document.addEventListener('pjax:complete', applyPet);
+document.addEventListener('DOMContentLoaded', applyPet);
+function setPet() {
+  var t = document.getElementById("petSet");
+  if (!t) return;
+  localStorage.setItem("pet", t.checked ? "1" : "0");
+  applyPet();
 }
 
 
@@ -3786,7 +3832,7 @@ function createWinbox() {
 
 <div class="content" style="display:flex">
   <label class="opt"><span class="content-text" style="font-weight:bold"> 星空特效 (夜间模式) </span><input type="checkbox" id="universeSet" onclick="setUniverse()"></label>
-  <label class="opt"><span class="content-text" style="font-weight:bold"> 霓虹灯 (夜间模式) </span><input type="checkbox" id="lightSet" onclick="setLight()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 霓 虹 灯 (夜间模式) </span><input type="checkbox" id="lightSet" onclick="setLight()"></label>
 </div>
 
 <div class="content" style="display:flex">
@@ -3807,6 +3853,11 @@ function createWinbox() {
 <div class="content" style="display:flex">
   <label class="opt"><span class="content-text" style="font-weight:bold"> 灯笼挂件 (默认关闭) </span><input type="checkbox" id="lanternSet" onclick="setLantern()"></label>
   <label class="opt"><span class="content-text" style="font-weight:bold"> 音乐播放 (默认显示) </span><input type="checkbox" id="musicSet" onclick="setMusic()"></label>
+</div>
+
+<div class="content" style="display:flex">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 挂绳猫咪 (默认关闭) </span><input type="checkbox" id="nekoSet" onclick="setNeko()"></label>
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 页脚宠物 (默认显示) </span><input type="checkbox" id="petSet" onclick="setPet()"></label>
 </div>
 
 <h2>二、主题色设置</h2>
@@ -3950,6 +4001,10 @@ function createWinbox() {
   if (lanternSet) lanternSet.checked = (localStorage.getItem("lantern") == "1");
   var musicSet = document.getElementById("musicSet");
   if (musicSet) musicSet.checked = (localStorage.getItem("music") == "1");
+  var nekoSet = document.getElementById("nekoSet");
+  if (nekoSet) nekoSet.checked = (localStorage.getItem("neko") == "1");
+  var petSet = document.getElementById("petSet");
+  if (petSet) petSet.checked = (localStorage.getItem("pet") == "1");
   setFontBorder();
   setCodeFontBorder();
 }
@@ -4031,6 +4086,10 @@ function reset() {
   if (lanternSet) lanternSet.checked = false;
   var musicSet = document.getElementById("musicSet");
   if (musicSet) musicSet.checked = true;
+  var nekoSet = document.getElementById("nekoSet");
+  if (nekoSet) nekoSet.checked = false;
+  var petSet = document.getElementById("petSet");
+  if (petSet) petSet.checked = true;
   var bgFilterSet = document.getElementById("bgFilterSet");
   if (bgFilterSet) bgFilterSet.checked = true;
   var blurRad = document.getElementById("blurRad");
