@@ -1380,9 +1380,9 @@
       
         <tags>
             
-            <tag> debian </tag>
-            
             <tag> 换国内源 </tag>
+            
+            <tag> debian </tag>
             
         </tags>
       
@@ -1836,9 +1836,9 @@
       
         <tags>
             
-            <tag> debian </tag>
-            
             <tag> istoreos </tag>
+            
+            <tag> debian </tag>
             
             <tag> ubuntu </tag>
             
@@ -2996,9 +2996,9 @@
       
         <tags>
             
-            <tag> compose </tag>
-            
             <tag> ubuntu </tag>
+            
+            <tag> compose </tag>
             
         </tags>
       
@@ -5094,9 +5094,9 @@
       
         <tags>
             
-            <tag> 我的 </tag>
-            
             <tag> samba </tag>
+            
+            <tag> 我的 </tag>
             
             <tag> 脚本 </tag>
             
@@ -5772,9 +5772,9 @@
       
         <tags>
             
-            <tag> nfs </tag>
-            
             <tag> ubuntu </tag>
+            
+            <tag> nfs </tag>
             
         </tags>
       
@@ -6776,13 +6776,13 @@
       
         <tags>
             
-            <tag> debian </tag>
-            
             <tag> fnos </tag>
             
-            <tag> ssh </tag>
+            <tag> debian </tag>
             
             <tag> ubuntu </tag>
+            
+            <tag> ssh </tag>
             
         </tags>
       
@@ -7246,9 +7246,9 @@
       
         <tags>
             
-            <tag> compose </tag>
-            
             <tag> nfs </tag>
+            
+            <tag> compose </tag>
             
         </tags>
       
@@ -7273,11 +7273,11 @@
       
         <tags>
             
-            <tag> compose </tag>
+            <tag> centos </tag>
             
             <tag> nfs </tag>
             
-            <tag> centos </tag>
+            <tag> compose </tag>
             
         </tags>
       
@@ -7801,11 +7801,11 @@
       
         <tags>
             
-            <tag> ssh </tag>
-            
             <tag> samba </tag>
             
             <tag> centos </tag>
+            
+            <tag> ssh </tag>
             
         </tags>
       
@@ -8192,9 +8192,9 @@
       
         <tags>
             
-            <tag> debian </tag>
-            
             <tag> samba </tag>
+            
+            <tag> debian </tag>
             
             <tag> ubuntu </tag>
             
