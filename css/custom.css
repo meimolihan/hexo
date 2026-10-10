@@ -6363,3 +6363,32 @@ canvas#snow {
 .perf-hidden #heartbeat {
   animation-play-state: paused;
 }
+
+/* ============================================================================
+   3D 场景壁纸（2026-10-10）
+   source/js/inject/scene-bg.js 在桌面端往 body 末尾插入 #scene3d-bg（一个全屏 iframe，
+   跑 orbital-station「星港轨道」的 Three.js 场景）。
+   层级：主题 #web_bg 是 z-index:-999，这里取 -998 —— 盖住静态壁纸、仍在所有内容之下。
+   ============================================================================ */
+#scene3d-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -998;
+  overflow: hidden;
+  pointer-events: none; /* 全屏铺在底层，绝不能吃掉页面点击 */
+  background: #000;     /* 场景包自身底色也是 #000，避免加载前闪白 */
+}
+#scene3d-bg iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+}
+/* 开关关闭 / 手机端：scene-bg.js 会直接把容器移除，这条只作为首屏兜底 */
+.meihua-no-scene3d #scene3d-bg {
+  display: none !important;
+}

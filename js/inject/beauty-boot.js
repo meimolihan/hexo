@@ -96,6 +96,12 @@
   if (def(ls("neko"), "0") !== "1") d.classList.add("meihua-no-neko");
   if (def(ls("pet"), "1") !== "1") d.classList.add("meihua-no-pet");
 
+  // 6.7) 3D 场景壁纸（2026-10-10 新增）。默认 scene3d="1"（开）。
+  // 真正的 iframe 由 /js/inject/scene-bg.js 在 window.load 之后才创建（4MB，不能抢首屏带宽），
+  // 所以这里只负责 head 阶段先把反向类挂上，避免首屏兜底规则失效。
+  // 默认值必须和 fomal.js 的 applyScene3d()/initItem() 保持一致。
+  if (def(ls("scene3d"), "1") !== "1") d.classList.add("meihua-no-scene3d");
+
   if (def(ls("nav"), "1") === "0") {
     tag("nav-display", ":root{--nav-fixed-display:none;--nav-visible-display:inline-flex;}");
   } else {

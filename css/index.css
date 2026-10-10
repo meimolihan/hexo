@@ -9703,6 +9703,35 @@ hr:before {
   display: none !important;
 }
 
+/* ============================================================================
+   3D 场景壁纸（2026-10-10）
+   source/js/inject/scene-bg.js 在桌面端往 body 末尾插入 #scene3d-bg（一个全屏 iframe，
+   跑 orbital-station「星港轨道」的 Three.js 场景）。
+   层级：主题 #web_bg 是 z-index:-999，这里取 -998 —— 盖住静态壁纸、仍在所有内容之下。
+   （与站点侧 source/css/custom.css 保持同步）
+   ============================================================================ */
+#scene3d-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -998;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+#scene3d-bg iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+}
+.meihua-no-scene3d #scene3d-bg {
+  display: none !important;
+}
+
 .search-dialog {
   position: fixed;
   top: 10%;

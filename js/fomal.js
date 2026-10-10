@@ -3028,6 +3028,8 @@ function initItem() {
   // 挂绳猫咪默认关闭、页脚宠物默认显示：与 applyNeko()/applyPet() 的首次访问默认值一致
   localStorage.setItem("neko", "0");
   localStorage.setItem("pet", "1");
+  // 3D 场景壁纸默认开启（仅桌面端生效，手机端由 scene-bg.js 的 800px 断点拦掉）
+  localStorage.setItem("scene3d", "1");
   localStorage.setItem("bgFilterOn", "1");
   localStorage.setItem("bgFilterVal", "blur(0px) saturate(108%) contrast(105%)");
 }
@@ -3382,6 +3384,34 @@ function setPet() {
   if (!t) return;
   localStorage.setItem("pet", t.checked ? "1" : "0");
   applyPet();
+}
+
+
+/* ===== 3D 场景壁纸开关（#scene3d-bg）=====
+   真正的 DOM（全屏 iframe）由 source/js/inject/scene-bg.js 负责创建/销毁 ——
+   它在 inject.bottom 且不带 data-pjax，只跑一次，容器挂在 body 上，
+   翻页不会重新加载 4MB 的场景。这里只负责写 localStorage + 同步 <html> 上的类，
+   并回调 scene-bg.js 暴露的 window.__scene3dSync() 让它立刻增删容器。
+   默认开启（"1"）；手机端由 scene-bg.js 的 800px 断点自己拦掉，与开关无关。 */
+if (localStorage.getItem("scene3d") == undefined) {
+  localStorage.setItem("scene3d", "1");
+}
+applyScene3d();
+function applyScene3d() {
+  var d = document.documentElement;
+  d.classList.toggle("meihua-no-scene3d", localStorage.getItem("scene3d") != "1");
+  // scene-bg.js 可能还没执行完（它在 bottom 前段），做一次存在性判断
+  if (typeof window.__scene3dSync === "function") {
+    try { window.__scene3dSync(); } catch (err) { }
+  }
+}
+document.addEventListener('pjax:complete', applyScene3d);
+document.addEventListener('DOMContentLoaded', applyScene3d);
+function setScene3d() {
+  var t = document.getElementById("scene3dSet");
+  if (!t) return;
+  localStorage.setItem("scene3d", t.checked ? "1" : "0");
+  applyScene3d();
 }
 
 
@@ -3869,6 +3899,10 @@ function createWinbox() {
   <label class="opt"><span class="content-text" style="font-weight:bold"> 页脚宠物 (默认显示) </span><input type="checkbox" id="petSet" onclick="setPet()"></label>
 </div>
 
+<div class="content" style="display:flex">
+  <label class="opt"><span class="content-text" style="font-weight:bold"> 3D 壁纸 (默认开启) </span><input type="checkbox" id="scene3dSet" onclick="setScene3d()"></label>
+</div>
+
 <h2>二、主题色设置</h2>
 <div class="content colorRow">
   <input type="radio" id="red" name="colors" value=" " onclick="setColor('red')">
@@ -4014,6 +4048,8 @@ function createWinbox() {
   if (nekoSet) nekoSet.checked = (localStorage.getItem("neko") == "1");
   var petSet = document.getElementById("petSet");
   if (petSet) petSet.checked = (localStorage.getItem("pet") == "1");
+  var scene3dSet = document.getElementById("scene3dSet");
+  if (scene3dSet) scene3dSet.checked = (localStorage.getItem("scene3d") == "1");
   setFontBorder();
   setCodeFontBorder();
 }
@@ -4099,6 +4135,8 @@ function reset() {
   if (nekoSet) nekoSet.checked = false;
   var petSet = document.getElementById("petSet");
   if (petSet) petSet.checked = true;
+  var scene3dSet = document.getElementById("scene3dSet");
+  if (scene3dSet) scene3dSet.checked = true;
   var bgFilterSet = document.getElementById("bgFilterSet");
   if (bgFilterSet) bgFilterSet.checked = true;
   var blurRad = document.getElementById("blurRad");
