@@ -32,7 +32,7 @@
     tag("defineBg", ":root{--default-bg:" + bg + SAME + bg + ";--mobileday-bg:" + bg + ";--mobilenight-bg:" + bg + ";}");
   } else {
     tag("defineBg", ":root{--default-bg: url(https://picsum.photos/id/1015/1920/1080);" +
-      "--darkmode-bg:url(https://picsum.photos/id/1044/1920/1080);" +
+      "--darkmode-bg:url(https://picsum.photos/id/352/1920/1080);" +
       "--mobileday-bg: url(https://picsum.photos/id/1018/1920/1080);" +
       "--mobilenight-bg: url(https://picsum.photos/id/1039/1920/1080);}");
   }

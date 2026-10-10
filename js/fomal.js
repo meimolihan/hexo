@@ -3088,7 +3088,16 @@ function markFontBorder(prefix, curKey) {
      而面板还套着 #article-container 的 a:not(...) 规则，
      内联样式要靠 !important 才稳得住，写在 HTML 里既难维护又容易漏。
      改用类之后：JS 只负责切类，视觉全在样式表里一处改得动。 */
+  /* ⚠ 2026-10-10 修 bug：常规字体和代码块字体两组共用同一个 class="swf"，
+     而这里原来是遍历【全部】.swf 做 toggle —— 于是后调用的那组会把先调用那组的
+     高亮整组清掉。打开面板时是 setFontBorder() → setCodeFontBorder() 的顺序，
+     结果「优设好身体」（默认字体）永远不显示选中，只有代码块的 JetBrains Mono 亮着。
+     改成只处理 id 以本组 prefix 开头的元素：
+       · prefix "swf_"  只命中 swf_xxx（swfc_xxx 第 4 位是 c，不会被误伤）
+       · prefix "swfc_" 只命中 swfc_xxx
+     两组互不干扰，可以同时各高亮一个。 */
   Array.prototype.forEach.call(document.getElementsByClassName("swf"), function (ee) {
+    if (!ee.id || ee.id.indexOf(prefix) !== 0) return;
     ee.classList.toggle("swf-cur", ee.id === prefix + curKey);
   });
 }
@@ -3528,7 +3537,7 @@ function changeBgColor() {
 // 默认背景（恢复默认设置时用）
 var DEFAULT_BG = `:root{
     --default-bg: url(https://picsum.photos/id/1015/1920/1080);
-    --darkmode-bg:url(https://picsum.photos/id/1044/1920/1080);
+    --darkmode-bg:url(https://picsum.photos/id/352/1920/1080);
     --mobileday-bg: url(https://picsum.photos/id/1018/1920/1080);
     --mobilenight-bg: url(https://picsum.photos/id/1039/1920/1080);
   }`;
@@ -3908,7 +3917,7 @@ function createWinbox() {
 <h3>2. 随机风景</h3>
 <details class="folding-tag" cyan><summary> 查看随机风景背景 </summary>
               <div class='content'>
-              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1015/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1015/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1016/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1016/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1018/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1018/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1036/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1036/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1039/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1039/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1041/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1041/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1044/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1044/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1010/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1010/1920/1080)')"></a></div>
+              <div class="bgbox"><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1015/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1015/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1016/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1016/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1018/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1018/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1036/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1036/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1039/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1039/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1041/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1041/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/352/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/352/1920/1080)')"></a><a href="javascript:;" rel="noopener external nofollow" style="background-image:url(https://picsum.photos/id/1010/1920/1080)" class="imgbox" onclick="changeBg('url(https://picsum.photos/id/1010/1920/1080)')"></a></div>
               </div>
             </details>
 
