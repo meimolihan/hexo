@@ -9720,6 +9720,17 @@ hr:before {
   overflow: hidden;
   pointer-events: none;
   background: #000;
+  /* 【2026-10-11】场景切换时 scene-bg.js 会把容器的 background-image
+     设成新场景的 poster.webp（1664×936 静态大图，各包自带）。
+     这样"旧场景淡出 → 新场景淡入"的那 160ms 空档里始终有底图，
+     不会出现黑屏 —— 切换的卡顿感大半来自这一下闪黑。 */
+  background-size: cover;
+  background-position: center;
+  /* 隔离布局与绘制：3D 画面每帧都在变，不希望浏览器每次都把下面整层
+     内容跟着重新计算布局/栅格化。
+     刻意不用 contain:strict —— 它带 size 语义（元素尺寸与内容无关），
+     对这个尺寸靠 100% 撑满的元素没必要，万一浏览器实现有差异会整块塌掉。 */
+  contain: layout paint;
 }
 #scene3d-bg iframe {
   display: block;
@@ -9727,9 +9738,101 @@ hr:before {
   height: 100%;
   border: 0;
   outline: none;
+  /* 【2026-10-11】新场景淡入。scene-bg.js 会在 load 后把 opacity 置 1。
+     这里只给 transition，具体时长由 JS 按需覆盖（reduced-motion 时为 0）。 */
+  opacity: 0;
 }
 .meihua-no-scene3d #scene3d-bg {
   display: none !important;
+}
+
+/* ============================================================================
+   3D 场景选择器（2026-10-11）
+   --------------------------------------------------------------------------
+   美化设置面板里紧跟在「3D 壁纸」开关下方的一排预览图。
+   三个按钮 = 三个 KPanel scene pack（星港轨道 / 霓虹都市 / 海天日月），
+   选中项由 JS 打 .is-active。
+   HTML 在 source/js/fomal.js 的面板字符串里；名单与 scene-bg.js 的 SCENES 一一对应。
+   ========================================================================== */
+.scene3d-picker {
+  display: block !important; /* 覆盖 .settings .content 的 display:flex，单独占一行 */
+}
+.scene3d-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+.scene3d-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px;
+  margin: 0;
+  border: 2px solid var(--border-color, #e6e6e6);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  /* 触屏热区：整块 ≥44px 高 */
+  min-height: 44px;
+  transition: border-color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+.scene3d-card__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* 三个包的 thumb.webp 都是 400×225，正好 16:9 */
+  object-fit: cover;
+  border-radius: 6px;
+  background: #000;
+  transition: transform 0.25s ease;
+}
+.scene3d-card__name {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--font-color, #333);
+  text-align: center;
+}
+.scene3d-card:hover:not(:disabled) {
+  border-color: var(--theme-color, #409eff);
+}
+.scene3d-card:hover:not(:disabled) .scene3d-card__img {
+  transform: scale(1.04);
+}
+.scene3d-card.is-active {
+  border-color: var(--theme-color, #409eff);
+  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+}
+.scene3d-card.is-active .scene3d-card__name {
+  color: var(--theme-color, #409eff);
+  font-weight: 600;
+}
+/* 焦点可见性：键盘 Tab 到这里必须有清晰的环，否则用户不知道选中的是哪张 */
+.scene3d-card:focus-visible {
+  outline: 2px solid var(--theme-color, #409eff);
+  outline-offset: 2px;
+}
+/* 「3D 壁纸」开关关掉时整排置灰且不可点 —— 场景没加载，选了也没意义 */
+.scene3d-card:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.scene3d-picker__hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--font-color, #333);
+  opacity: 0.7;
+}
+[data-theme="dark"] .scene3d-card__name,
+[data-theme="dark"] .scene3d-picker__hint {
+  color: var(--font-color, #eee);
+}
+
+@media screen and (max-width: 600px) {
+  /* 窄屏三列太挤，压成两列 */
+  .scene3d-picker__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .search-dialog {

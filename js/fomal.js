@@ -3412,7 +3412,64 @@ function setScene3d() {
   if (!t) return;
   localStorage.setItem("scene3d", t.checked ? "1" : "0");
   applyScene3d();
+  /* 开关关掉时场景选择就没有意义了，预览图整体置灰但仍可见 ——
+     这样用户知道"上面这一排是干什么用的"，重新打开开关还能直接接着选。 */
+  markScene3dCards();
 }
+
+
+/* ===== 3D 场景包切换 =====
+   真正的换场景在 scene-bg.js（window.__scene3dPick）里做 —— 它要销毁旧 iframe、
+   建新的、还要清掉该场景的机位记忆。这里只负责写 localStorage + 更新按钮高亮。 */
+function setScene3dPack(btn) {
+  if (!btn) return;
+  var id = btn.getAttribute("data-scene");
+  if (!id) return;
+  localStorage.setItem("scene3d_pack", id);
+  markScene3dCards();
+  /* scene-bg.js 在 inject.bottom 的前段、无 defer，正常早于 fomal.js 执行完；
+     万一还没跑起来（网络慢）就跳过，等它的 boot() 会自己按新值建场景。 */
+  if (typeof window.__scene3dPick === "function") {
+    try { window.__scene3dPick(id); } catch (err) { }
+  }
+}
+
+/* 鼠标悬到某张预览图上就先把它预热掉，等真正点下去时贴图已在浏览器缓存里，
+   切换会快很多。用 once 绑定 + 一个已绑标记，避免 pjax 后重复叠加。 */
+function bindScene3dWarm() {
+  var wrap = document.getElementById("scene3dPicker");
+  if (!wrap || wrap.__warmBound) return;
+  wrap.__warmBound = true;
+  wrap.addEventListener("mouseenter", function (e) {
+    var c = e.target && e.target.closest ? e.target.closest(".scene3d-card") : null;
+    if (!c) return;
+    var id = c.getAttribute("data-scene");
+    if (id && typeof window.__scene3dWarm === "function") {
+      try { window.__scene3dWarm(id); } catch (err) { }
+    }
+  }, true);
+}
+
+/* 按钮高亮 = 当前选中的场景。容错：localStorage 里存了已不存在的 id
+   （删过场景包、或从别的博客拷了脏数据）就都不高亮，靠 scene-bg.js 兜底回落默认。 */
+function markScene3dCards() {
+  var wrap = document.getElementById("scene3dPicker");
+  if (!wrap) return;
+  var cur = localStorage.getItem("scene3d_pack") || "orbital-station";
+  var on = (localStorage.getItem("scene3d") != "0");
+  var cards = wrap.querySelectorAll(".scene3d-card");
+  for (var i = 0; i < cards.length; i++) {
+    var c = cards[i];
+    var sel = (c.getAttribute("data-scene") === cur);
+    c.classList.toggle("is-active", sel && on);
+    c.setAttribute("aria-pressed", sel && on ? "true" : "false");
+    c.disabled = !on;
+  }
+}
+document.addEventListener('pjax:complete', markScene3dCards);
+document.addEventListener('pjax:complete', bindScene3dWarm);
+document.addEventListener('DOMContentLoaded', markScene3dCards);
+document.addEventListener('DOMContentLoaded', bindScene3dWarm);
 
 
 /* ===== 卡片透明度滑块 ===== */
@@ -3900,7 +3957,28 @@ function createWinbox() {
 </div>
 
 <div class="content" style="display:flex">
-  <label class="opt"><span class="content-text" style="font-weight:bold"> 3D 壁纸 (默认开启) </span><input type="checkbox" id="scene3dSet" onclick="setScene3d()"></label>
+  <label class="opt" style="width:100%"><span class="content-text" style="font-weight:bold"> 3D 壁纸 (默认开启) </span><input type="checkbox" id="scene3dSet" onclick="setScene3d()"></label>
+</div>
+
+<!-- 【2026-10-11】3D 场景选择：三个场景包（KPanel scene pack）任选其一。
+     名单和 source/js/inject/scene-bg.js 里的 SCENES 一一对应，改一边记得改另一边。
+     预览图用各包自带的 thumb.webp（400×225，8~16KB），不加载那几 MB 的场景本体。 -->
+<div class="content scene3d-picker">
+  <div class="scene3d-picker__grid" id="scene3dPicker">
+    <button type="button" class="scene3d-card" data-scene="orbital-station" onclick="setScene3dPack(this)">
+      <img class="scene3d-card__img" src="/scene/orbital-station/thumb.webp" alt="星港轨道" loading="lazy" decoding="async">
+      <span class="scene3d-card__name">星港轨道</span>
+    </button>
+    <button type="button" class="scene3d-card" data-scene="neon-city" onclick="setScene3dPack(this)">
+      <img class="scene3d-card__img" src="/scene/neon-city/thumb.webp" alt="霓虹都市" loading="lazy" decoding="async">
+      <span class="scene3d-card__name">霓虹都市</span>
+    </button>
+    <button type="button" class="scene3d-card" data-scene="sea-and-sky" onclick="setScene3dPack(this)">
+      <img class="scene3d-card__img" src="/scene/sea-and-sky/thumb.webp" alt="海天日月" loading="lazy" decoding="async">
+      <span class="scene3d-card__name">海天日月</span>
+    </button>
+  </div>
+  <p class="scene3d-picker__hint">仅桌面端生效（手机端仍用静态壁纸）；每次刷新会在同一场景内随机换一个机位。</p>
 </div>
 
 <h2>二、主题色设置</h2>
@@ -4050,6 +4128,8 @@ function createWinbox() {
   if (petSet) petSet.checked = (localStorage.getItem("pet") == "1");
   var scene3dSet = document.getElementById("scene3dSet");
   if (scene3dSet) scene3dSet.checked = (localStorage.getItem("scene3d") == "1");
+  markScene3dCards();
+  bindScene3dWarm();
   setFontBorder();
   setCodeFontBorder();
 }
@@ -4137,6 +4217,14 @@ function reset() {
   if (petSet) petSet.checked = true;
   var scene3dSet = document.getElementById("scene3dSet");
   if (scene3dSet) scene3dSet.checked = true;
+  /* 恢复默认时 3D 场景也回到出厂的「星港轨道」 */
+  localStorage.setItem("scene3d_pack", "orbital-station");
+  markScene3dCards();
+  /* __scene3dPick 内部会 sync()，它顺带把 <html> 的 meihua-no-scene3d 类也纠正了，
+     等于 applyScene3d() 该做的事已经做完，这里不用再调一次。 */
+  if (typeof window.__scene3dPick === "function") {
+    try { window.__scene3dPick("orbital-station"); } catch (err) { }
+  }
   var bgFilterSet = document.getElementById("bgFilterSet");
   if (bgFilterSet) bgFilterSet.checked = true;
   var blurRad = document.getElementById("blurRad");
